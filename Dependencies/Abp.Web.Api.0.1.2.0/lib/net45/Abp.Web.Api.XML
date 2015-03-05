@@ -1,0 +1,468 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Abp.Web.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Abp.WebApi.Authorization.AbpAuthorizeAttribute">
+            <summary>
+            This attribute is used on a method of an <see cref="T:System.Web.Http.ApiController"/>
+            to make that method usable only by authorized users.
+            TODO: This class is not implemented yet.
+            </summary>
+        </member>
+        <member name="M:Abp.WebApi.Authorization.AbpAuthorizeAttribute.#ctor(System.String[])">
+            <summary>
+            Creates a new instance of <see cref="T:Abp.WebApi.Authorization.AbpAuthorizeAttribute"/> class.
+            </summary>
+            <param name="permissions">A list of permissions to authorize</param>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.Builders.DynamicApiHelper">
+            <summary>
+            A helper class for dynamic api controllers.
+            NOTE: This class is not used.
+            </summary>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerActionBuilder`1">
+            <summary>
+            Used to build <see cref="T:Abp.WebApi.Controllers.Dynamic.DynamicApiActionInfo"/> object.
+            </summary>
+            <typeparam name="T">Type of the proxied object</typeparam>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.Builders.IApiControllerActionBuilder`1">
+            <summary>
+            This interface is used to define a dynamic api controller action.
+            </summary>
+            <typeparam name="T">Type of the proxied object</typeparam>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.IApiControllerActionBuilder`1.WithVerb(Abp.Web.HttpVerb)">
+            <summary>
+            Used to specify Http verb of the action.
+            </summary>
+            <param name="verb">Http very</param>
+            <returns>Action builder</returns>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.IApiControllerActionBuilder`1.WithActionName(System.String)">
+            <summary>
+            Used to specify name of the action.
+            </summary>
+            <param name="name">Action name</param>
+            <returns></returns>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.IApiControllerActionBuilder`1.ForMethod(System.String)">
+            <summary>
+            Used to specify another method definition.
+            </summary>
+            <param name="methodName">Name of the method in proxied type</param>
+            <returns>Action builder</returns>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.IApiControllerActionBuilder`1.DontCreateAction">
+            <summary>
+            Tells builder to not create action for this method.
+            </summary>
+            <returns>Controller builder</returns>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.IApiControllerActionBuilder`1.Build">
+            <summary>
+            Builds the controller.
+            This method must be called at last of the build operation.
+            </summary>
+        </member>
+        <member name="F:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerActionBuilder`1.DefaultVerb">
+            <summary>
+            Default HTTP verb if not set.
+            </summary>
+        </member>
+        <member name="F:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerActionBuilder`1._controllerBuilder">
+            <summary>
+            Reference to the <see cref="T:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerBuilder`1"/> which created this object.
+            </summary>
+        </member>
+        <member name="F:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerActionBuilder`1._methodInfo">
+            <summary>
+            Underlying proxying method.
+            </summary>
+        </member>
+        <member name="F:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerActionBuilder`1._verb">
+            <summary>
+            Selected Http verd.
+            </summary>
+        </member>
+        <member name="F:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerActionBuilder`1._actionName">
+            <summary>
+            Selected action name
+            </summary>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerActionBuilder`1.#ctor(Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerBuilder{`0},System.Reflection.MethodInfo)">
+            <summary>
+            Creates a new <see cref="T:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerActionBuilder`1"/> object.
+            </summary>
+            <param name="apiControllerBuilder">Reference to the <see cref="T:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerBuilder`1"/> which created this object</param>
+            <param name="methodInfo"> </param>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerActionBuilder`1.WithVerb(Abp.Web.HttpVerb)">
+            <summary>
+            Used to specify Http verb of the action.
+            </summary>
+            <param name="verb">Http very</param>
+            <returns>Action builder</returns>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerActionBuilder`1.WithActionName(System.String)">
+            <summary>
+            Used to specify name of the action.
+            </summary>
+            <param name="name">Action name</param>
+            <returns></returns>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerActionBuilder`1.ForMethod(System.String)">
+            <summary>
+            Used to specify another method definition.
+            </summary>
+            <param name="methodName">Name of the method in proxied type</param>
+            <returns>Action builder</returns>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerActionBuilder`1.DontCreateAction">
+            <summary>
+            Tells builder to not create action for this method.
+            </summary>
+            <returns>Controller builder</returns>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerActionBuilder`1.Build">
+            <summary>
+            Builds the controller.
+            This method must be called at last of the build operation.
+            </summary>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerActionBuilder`1.BuildActionInfo">
+            <summary>
+            Builds <see cref="T:Abp.WebApi.Controllers.Dynamic.DynamicApiActionInfo"/> object for this configuration.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerActionBuilder`1.DontCreate">
+            <summary>
+            A flag to set if no action will be created for this method.
+            </summary>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerBuilder`1">
+            <summary>
+            Used to build <see cref="T:Abp.WebApi.Controllers.Dynamic.DynamicApiControllerInfo"/> object.
+            </summary>
+            <typeparam name="T">The of the proxied object</typeparam>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.Builders.IApiControllerBuilder`1">
+            <summary>
+            This interface is used to define a dynamic api controller.
+            </summary>
+            <typeparam name="T">Type of the proxied object</typeparam>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.IApiControllerBuilder`1.ForMethod(System.String)">
+            <summary>
+            Used to specify a method definition.
+            </summary>
+            <param name="methodName">Name of the method in proxied type</param>
+            <returns>Action builder</returns>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.IApiControllerBuilder`1.Build">
+            <summary>
+            Builds the controller.
+            This method must be called at last of the build operation.
+            </summary>
+        </member>
+        <member name="F:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerBuilder`1._controllerName">
+            <summary>
+            Name of the controller.
+            </summary>
+        </member>
+        <member name="F:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerBuilder`1._actionBuilders">
+            <summary>
+            List of all action builders for this controller.
+            </summary>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerBuilder`1.#ctor(System.String)">
+            <summary>
+            Creates a new instance of ApiControllerInfoBuilder.
+            </summary>
+            <param name="controllerName">Name of the controller</param>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerBuilder`1.ForMethod(System.String)">
+            <summary>
+            Used to specify a method definition.
+            </summary>
+            <param name="methodName">Name of the method in proxied type</param>
+            <returns>Action builder</returns>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.ApiControllerBuilder`1.Build">
+            <summary>
+            Builds the controller.
+            This method must be called at last of the build operation.
+            </summary>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.Scripting.Localization.ILocalizationScriptManager">
+            <summary>
+            Define interface to get localization javascript.
+            </summary>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Scripting.Localization.ILocalizationScriptManager.GetLocalizationScript">
+            <summary>
+            Gets Javascript that contains all localization informations in current culture.
+            </summary>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Scripting.Localization.ILocalizationScriptManager.GetLocalizationScript(System.Globalization.CultureInfo)">
+            <summary>
+            Gets Javascript that contains all localization informations in given culture.
+            </summary>
+            <param name="cultureInfo">Culture to get script</param>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.Scripting.Localization.LocalizationScriptManager">
+            <summary>
+            This class is used to build and cache localization script.
+            </summary>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.DynamicApiActionInfo">
+            <summary>
+            Used to store an action information of a dynamic ApiController.
+            </summary>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.DynamicApiActionInfo.#ctor(System.String,Abp.Web.HttpVerb,System.Reflection.MethodInfo)">
+            <summary>
+            Createa a new <see cref="T:Abp.WebApi.Controllers.Dynamic.DynamicApiActionInfo"/> object.
+            </summary>
+            <param name="actionName">Name of the action in the controller</param>
+            <param name="verb">The HTTP verb that is used to call this action</param>
+            <param name="method">The method which will be invoked when this action is called</param>
+        </member>
+        <member name="P:Abp.WebApi.Controllers.Dynamic.DynamicApiActionInfo.ActionName">
+            <summary>
+            Name of the action in the controller.
+            </summary>
+        </member>
+        <member name="P:Abp.WebApi.Controllers.Dynamic.DynamicApiActionInfo.Method">
+            <summary>
+            The method which will be invoked when this action is called.
+            </summary>
+        </member>
+        <member name="P:Abp.WebApi.Controllers.Dynamic.DynamicApiActionInfo.Verb">
+            <summary>
+            The HTTP verb that is used to call this action.
+            </summary>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.Scripting.LocalizationController">
+            <summary>
+            Used to get localization javascript from clients.
+            </summary>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.AbpApiController">
+            <summary>
+            Base class for all ApiControllers in web applications those use Abp system.
+            </summary>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.AbpApiController.L(System.String)">
+            <summary>
+            Gets localized string for given key name and current language.
+            </summary>
+            <param name="name">Key name</param>
+            <returns>Localized string</returns>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.AbpApiController.L(System.String,System.Globalization.CultureInfo)">
+            <summary>
+            Gets localized string for given key name and specified culture information.
+            </summary>
+            <param name="name">Key name</param>
+            <param name="culture">culture information</param>
+            <returns>Localized string</returns>
+        </member>
+        <member name="P:Abp.WebApi.Controllers.AbpApiController.LocalizationSourceName">
+            <summary>
+            Gets/sets name of the localization source that is used in this controller.
+            It's used in <see cref="M:Abp.WebApi.Controllers.AbpApiController.L(System.String)"/> and <see cref="M:Abp.WebApi.Controllers.AbpApiController.L(System.String,System.Globalization.CultureInfo)"/> methods.
+            </summary>
+        </member>
+        <member name="P:Abp.WebApi.Controllers.AbpApiController.Logger">
+            <summary>
+            Reference to the logger to write logs.
+            </summary>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.Formatters.PlainTextFormatter">
+            <summary>
+            This class is used to return plain text reponse from <see cref="T:System.Web.Http.ApiController"/>s.
+            </summary>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Formatters.PlainTextFormatter.#ctor">
+            <summary>
+            Creates a new <see cref="T:Abp.WebApi.Controllers.Dynamic.Formatters.PlainTextFormatter"/> object.
+            </summary>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.Scripting.ServiceProxiesController">
+            <summary>
+            This class is used to create proxies to call dynamic api methods from Javascript clients.
+            </summary>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Scripting.ServiceProxiesController.Get(System.String)">
+            <summary>
+            Gets javascript proxy for given service name.
+            </summary>
+            <param name="name">Name of the service</param>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Filters.AbpExceptionFilterAttribute">
+            <summary>
+            Used to handle exceptions on web api controllers.
+            </summary>
+        </member>
+        <member name="T:Abp.WebApi.Startup.AbpWebApiModule">
+            <summary>
+            This module provides Abp features for ASP.NET Web API.
+            </summary>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.Selectors.AbpApiControllerActionSelector">
+            <summary>
+            This class overrides ApiControllerActionSelector to select actions of dynamic ApiControllers.
+            </summary>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Selectors.AbpApiControllerActionSelector.SelectAction(System.Web.Http.Controllers.HttpControllerContext)">
+            <summary>
+            This class is called by Web API system to select action method from given controller.
+            </summary>
+            <param name="controllerContext">Controller context</param>
+            <returns>Action to be used</returns>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.DynamicApiController`1">
+            <summary>
+            This class is used as base class for all dynamically created ApiControllers.  
+            </summary>
+            <typeparam name="T">Type of the proxied object</typeparam>
+            <remarks>
+            A dynamic ApiController is used to transparently expose an object (Generally an Application Service class)
+            to remote clients.
+            </remarks>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.Interceptors.AbpDynamicApiControllerInterceptor`1">
+            <summary>
+            Interceptor dynamic controllers.
+            It handles method calls to dynmaic generated Api controoler and 
+            calls underlying proxied object.
+            </summary>
+            <typeparam name="T">Type of the proxied object</typeparam>
+        </member>
+        <member name="F:Abp.WebApi.Controllers.Dynamic.Interceptors.AbpDynamicApiControllerInterceptor`1._proxiedObject">
+            <summary>
+            Real object instance to call it's methods when dynamic controller's methods are called.
+            </summary>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Interceptors.AbpDynamicApiControllerInterceptor`1.#ctor(`0)">
+            <summary>
+            Creates a new AbpDynamicApiControllerInterceptor object.
+            </summary>
+            <param name="proxiedObject">Real object instance to call it's methods when dynamic controller's methods are called</param>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Interceptors.AbpDynamicApiControllerInterceptor`1.Intercept(Castle.DynamicProxy.IInvocation)">
+            <summary>
+            Intercepts method calls of dynamic api controller
+            </summary>
+            <param name="invocation">Method invocation informations</param>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.Selectors.AbpHttpControllerSelector">
+            <summary>
+            This class is used to extend default controller selector to add dynamic api controller creation feature of Abp.
+            It checks if requested controller is a dynamic api controller, if it is,
+            returns <see cref="T:System.Web.Http.Controllers.HttpControllerDescriptor"/> to ASP.NET system.
+            </summary>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Selectors.AbpHttpControllerSelector.#ctor(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Creates a new <see cref="T:Abp.WebApi.Controllers.Dynamic.Selectors.AbpHttpControllerSelector"/> object.
+            </summary>
+            <param name="configuration">Http configuration</param>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Selectors.AbpHttpControllerSelector.SelectController(System.Net.Http.HttpRequestMessage)">
+            <summary>
+            This method is called by Web API system to select the controller for this request.
+            </summary>
+            <param name="request">Request object</param>
+            <returns>The controller to be used</returns>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.DynamicApiControllerInfo">
+            <summary>
+            Used to store a controller information.
+            </summary>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.DynamicApiControllerInfo.#ctor(System.String,System.Type,System.Type)">
+            <summary>
+            Creates a new <see cref="T:Abp.WebApi.Controllers.Dynamic.DynamicApiControllerInfo"/> instance.
+            </summary>
+            <param name="name">Name of the controller</param>
+            <param name="type">Controller type</param>
+            <param name="proxiedType">Proxied type</param>
+        </member>
+        <member name="P:Abp.WebApi.Controllers.Dynamic.DynamicApiControllerInfo.Name">
+            <summary>
+            Name of the controller.
+            </summary>
+        </member>
+        <member name="P:Abp.WebApi.Controllers.Dynamic.DynamicApiControllerInfo.Type">
+            <summary>
+            Controller type.
+            </summary>
+        </member>
+        <member name="P:Abp.WebApi.Controllers.Dynamic.DynamicApiControllerInfo.ProxiedType">
+            <summary>
+            Dyanmic proxied type.
+            </summary>
+        </member>
+        <member name="P:Abp.WebApi.Controllers.Dynamic.DynamicApiControllerInfo.Actions">
+            <summary>
+            All actions of the controller.
+            </summary>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.DynamicApiControllerManager">
+            <summary>
+            This class is used to store dynamic controller informations.
+            </summary>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.DynamicApiControllerManager.Register(Abp.WebApi.Controllers.Dynamic.DynamicApiControllerInfo)">
+            <summary>
+            Registers given controller info to be found later.
+            </summary>
+            <param name="controllerInfo">Controller info</param>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.DynamicApiControllerManager.Find(System.String)">
+            <summary>
+            Searches and returns a dynamic api controller for given name.
+            </summary>
+            <param name="controllerName">Name of the controller</param>
+            <returns>Controller info</returns>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.Builders.DyanmicApiControllerBuilder">
+            <summary>
+            Used to generate dynamic api controllers for arbitrary types.
+            </summary>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.Builders.DyanmicApiControllerBuilder.For``1(System.String)">
+            <summary>
+            Generates a new dynamic api controller for given type.
+            </summary>
+            <typeparam name="T">Type of the proxied object</typeparam>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.ApiControllerConventionalRegisterer">
+            <summary>
+            Registers all Api controllers derived from <see cref="T:Abp.WebApi.Controllers.AbpApiController"/>.
+            </summary>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.AbpControllerActivator">
+            <summary>
+            This class is used to use IOC system to create api controllers.
+            It's used by ASP.NET system.
+            </summary>
+        </member>
+        <member name="T:Abp.WebApi.Controllers.Dynamic.DynamicApiRouteConfig">
+            <summary>
+            Configures routes for dynamic controllers.
+            </summary>
+        </member>
+        <member name="M:Abp.WebApi.Controllers.Dynamic.DynamicApiRouteConfig.Register">
+            <summary>
+            Registers dynamic api controllers
+            </summary>
+        </member>
+    </members>
+</doc>

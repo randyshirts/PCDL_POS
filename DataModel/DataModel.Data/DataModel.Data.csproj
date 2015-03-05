@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{308C26DC-2F9E-47E9-8A60-9D3FE132D67F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataModel.Data</RootNamespace>
+    <AssemblyName>DataModel.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Build\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Build\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Abp">
+      <HintPath>..\..\Dependencies\Abp.0.5.2.1\lib\net451\Abp.dll</HintPath>
+    </Reference>
+    <Reference Include="Abp.EntityFramework">
+      <HintPath>..\..\Dependencies\Abp.EntityFramework.0.5.2.1\lib\net451\Abp.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\Web\PcdWeb.Web\Bin\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\Dependencies\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.Logging">
+      <HintPath>..\..\Dependencies\Castle.LoggingFacility.3.3.0\lib\net45\Castle.Facilities.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\..\Dependencies\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\Dependencies\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\Dependencies\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\Dependencies\MySql.Data.6.9.5\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6">
+      <HintPath>..\..\Dependencies\MySql.Data.Entity.6.9.5\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx">
+      <HintPath>..\..\Dependencies\Nito.AsyncEx.3.0.0\lib\net45\Nito.AsyncEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Concurrent">
+      <HintPath>..\..\Dependencies\Nito.AsyncEx.3.0.0\lib\net45\Nito.AsyncEx.Concurrent.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Enlightenment">
+      <HintPath>..\..\Dependencies\Nito.AsyncEx.3.0.0\lib\net45\Nito.AsyncEx.Enlightenment.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable">
+      <HintPath>..\..\Dependencies\Microsoft.Bcl.Immutable.1.0.34\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationLayer\DTO\ConsignorDTOs.cs" />
+    <Compile Include="ApplicationLayer\DTO\ConsignorPmtDTOs.cs" />
+    <Compile Include="ApplicationLayer\DTO\ItemSaleTransactionDTOs.cs" />
+    <Compile Include="ApplicationLayer\DTO\OtherDTOs.cs" />
+    <Compile Include="ApplicationLayer\DTO\PersonDTOs.cs" />
+    <Compile Include="ApplicationLayer\DTO\StoreCreditPmtDTOs.cs" />
+    <Compile Include="ApplicationLayer\DTO\StoreCreditTransactionDTOs.cs" />
+    <Compile Include="ApplicationLayer\DTO\VideoDTOs.cs" />
+    <Compile Include="ApplicationLayer\DTO\TeachingAideDTOs.cs" />
+    <Compile Include="ApplicationLayer\DTO\GameDTOs.cs" />
+    <Compile Include="ApplicationLayer\DTO\ItemDTOs.cs" />
+    <Compile Include="ApplicationLayer\DTO\BookDTOs.cs" />
+    <Compile Include="ApplicationLayer\DTO\GenericItemDTOs.cs" />
+    <Compile Include="ApplicationLayer\Services\ConsignorPmtAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\IConsignorPmtAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\IItemSaleTransactionAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\IPersonAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\IStoreCreditPmtAppservice.cs" />
+    <Compile Include="ApplicationLayer\Services\IStoreCreditTransactionAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\ItemSaleTransactionAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\IVideoAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\PcdApplicationModule.cs" />
+    <Compile Include="ApplicationLayer\Services\PcdAppServiceBase.cs" />
+    <Compile Include="ApplicationLayer\Services\PersonAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\StoreCreditPmtAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\StoreCreditTransactionAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\TeachingAideAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\VideoAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\OtherAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\GameAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\GenericItemAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\ConsignorAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\IConsignorAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\IItemAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\IBookAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\BookAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\ItemAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\IGenericItemAppService.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\BookController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\ConsignorController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\ConsignorPmtController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\IConsignorPmtController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\IItemSaleTransactionController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\IPersonController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\IStoreCreditController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\IStoreCreditTransactionController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\ItemSaleTransactionController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\IVideoController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\PersonController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\StoreCreditPmtController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\StoreCreditTransactionController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\VideoController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\TeachingAideController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\OtherController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\GameController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\GenericItemController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\IBookController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\IConsignorController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\IGenericItemController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\IItemController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\ItemController.cs" />
+    <Compile Include="DataLayer\PcdWebDataModule.cs" />
+    <Compile Include="DataLayer\Repositories\IGenericItem.cs" />
+    <Compile Include="DataLayer\Repositories\EfRepositoryBase.cs" />
+    <Compile Include="DataLayer\Repositories\Entity.cs" />
+    <Compile Include="DataLayer\Repositories\IDbContextProvider.cs" />
+    <Compile Include="DataLayer\Repositories\IEntity.cs" />
+    <Compile Include="TransactionalLayer\MigrationsMySql\201502281954267_ChangedBookTableIndex.cs" />
+    <Compile Include="TransactionalLayer\MigrationsMySql\201502281954267_ChangedBookTableIndex.Designer.cs">
+      <DependentUpon>201502281954267_ChangedBookTableIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TransactionalLayer\Repositories\IRepository.cs" />
+    <Compile Include="DataLayer\Repositories\ISoftDelete.cs" />
+    <Compile Include="TransactionalLayer\Repositories\IGenericItemRepository.cs" />
+    <Compile Include="TransactionalLayer\Repositories\RepositoryInterfaces.cs" />
+    <Compile Include="DataLayer\Repositories\PcdRepositoryBase.cs" />
+    <Compile Include="TransactionalLayer\Repositories\RepositoryBase.cs" />
+    <Compile Include="DataLayer\Repositories\GenericItem.cs" />
+    <Compile Include="TransactionalLayer\MigrationsMySql\201502280514278_AddedTItemNames.cs" />
+    <Compile Include="TransactionalLayer\MigrationsMySql\201502280514278_AddedTItemNames.Designer.cs">
+      <DependentUpon>201502280514278_AddedTItemNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TransactionalLayer\Repositories\GenericItemRepositoryBase.cs" />
+    <Compile Include="TransactionalLayer\Repositories\StoreCreditPmtRepository.cs" />
+    <Compile Include="TransactionalLayer\Mapping\ClassPmtMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\StoreCreditPmtMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\StoreCreditTransactionMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\SpaceRentalMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\ItemSaleMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\DebitTransactionMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\ConsignorPmtMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\CreditTransactionMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\PhoneNumberMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\EmailMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\MemberMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\MailingAddressMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\VolunteerMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\ConsignorMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\PersonMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\TeachingAideMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\VideoMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\OtherMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\GameMapping.cs" />
+    <Compile Include="DataLayer\DataConfiguration.cs" />
+    <Compile Include="DataLayer\DataContext.cs" />
+    <Compile Include="TransactionalLayer\Mapping\BookMapping.cs" />
+    <Compile Include="TransactionalLayer\Mapping\ItemMapping.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataLayer\Entities\Book.cs" />
+    <Compile Include="TransactionalLayer\BusinessContext.cs" />
+    <Compile Include="DataLayer\Entities\ClassPmtTransaction.cs" />
+    <Compile Include="DataLayer\Entities\Consignor.cs" />
+    <Compile Include="DataLayer\Entities\ConsignorPmt.cs" />
+    <Compile Include="DataLayer\Entities\CreditTransaction.cs" />
+    <Compile Include="DataLayer\Entities\DebitTransaction.cs" />
+    <Compile Include="DataLayer\Entities\Email.cs" />
+    <Compile Include="DataLayer\Entities\Game.cs" />
+    <Compile Include="DataLayer\Entities\Item.cs" />
+    <Compile Include="DataLayer\Entities\ItemSaleTransaction.cs" />
+    <Compile Include="DataLayer\Entities\MailingAddress.cs" />
+    <Compile Include="DataLayer\Entities\Member.cs" />
+    <Compile Include="DataLayer\Entities\Other.cs" />
+    <Compile Include="DataLayer\Entities\Person.cs" />
+    <Compile Include="DataLayer\Entities\PhoneNumber.cs" />
+    <Compile Include="DataLayer\Entities\SpaceRentalTransaction.cs" />
+    <Compile Include="DataLayer\Entities\StoreCreditPmt.cs" />
+    <Compile Include="DataLayer\Entities\StoreCreditTransaction.cs" />
+    <Compile Include="DataLayer\Entities\TeachingAide.cs" />
+    <Compile Include="DataLayer\Entities\Video.cs" />
+    <Compile Include="DataLayer\Entities\Volunteer.cs" />
+    <Compile Include="TransactionalLayer\MigrationsMySql\201502260247160_Initial.cs" />
+    <Compile Include="TransactionalLayer\MigrationsMySql\201502260247160_Initial.Designer.cs">
+      <DependentUpon>201502260247160_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TransactionalLayer\MigrationsMySql\Configuration.cs" />
+    <Compile Include="TransactionalLayer\Repositories\BookRepository.cs" />
+    <Compile Include="TransactionalLayer\Repositories\ConsignorPmtRepository.cs" />
+    <Compile Include="TransactionalLayer\Repositories\ConsignorRepository.cs" />
+    <Compile Include="TransactionalLayer\Repositories\GameRepository.cs" />
+    <Compile Include="TransactionalLayer\Repositories\ItemRepository.cs" />
+    <Compile Include="TransactionalLayer\Repositories\ItemSaleTransactionRepository.cs" />
+    <Compile Include="TransactionalLayer\Repositories\OtherRepository.cs" />
+    <Compile Include="TransactionalLayer\Repositories\PersonRepository.cs" />
+    <Compile Include="TransactionalLayer\Repositories\StoreCreditTransactionRepository.cs" />
+    <Compile Include="TransactionalLayer\Repositories\TeachingAideRepository.cs" />
+    <Compile Include="TransactionalLayer\Repositories\Validation.cs" />
+    <Compile Include="TransactionalLayer\Repositories\VideoRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Common.csproj">
+      <Project>{d30d964b-3a26-445d-80f2-d94bd4c60f3d}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Web\PcdWeb.Core\PcdWeb.Core.csproj">
+      <Project>{17298EA0-AF73-4F30-B6F1-2066100D7D74}</Project>
+      <Name>PcdWeb.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TransactionalLayer\MigrationsMySql\201502260247160_Initial.resx">
+      <DependentUpon>201502260247160_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransactionalLayer\MigrationsMySql\201502280514278_AddedTItemNames.resx">
+      <DependentUpon>201502280514278_AddedTItemNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransactionalLayer\MigrationsMySql\201502281954267_ChangedBookTableIndex.resx">
+      <DependentUpon>201502281954267_ChangedBookTableIndex.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
