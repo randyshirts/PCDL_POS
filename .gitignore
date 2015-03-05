@@ -19,6 +19,11 @@ bld/
 # Roslyn cache directories
 *.ide/
 
+# Config Files
+*.App.config
+*.Web.config
+
+
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
@@ -187,3 +192,4 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+*.config

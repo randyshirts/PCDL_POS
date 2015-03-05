@@ -1,0 +1,314 @@
+﻿<UserControl x:Class="POS.ViewModels.ItemSale.Views.ItemSaleView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance viewModel:ItemSaleVm}"
+        xmlns:common="clr-namespace:RocketPos.Common.Helpers;assembly=RocketPos.Common"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:customData="clr-namespace:POS.Controller.Elements"
+        xmlns:viewModel="clr-namespace:POS.ViewModels.ItemSale.ViewModel"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
+        VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+
+    <!--<UserControl.InputBindings>
+        <KeyBinding Key="Multiply" Command="{Binding KeyUpCommand}"></KeyBinding>
+        <KeyBinding Key="NumPad0" Command="{Binding KeyUpCommand}"></KeyBinding>
+        <KeyBinding Key="NumPad1" Command="{Binding KeyUpCommand}"></KeyBinding>
+        <KeyBinding Key="NumPad2" Command="{Binding KeyUpCommand}"></KeyBinding>
+        <KeyBinding Key="NumPad3" Command="{Binding KeyUpCommand}"></KeyBinding>
+        <KeyBinding Key="NumPad4" Command="{Binding KeyUpCommand}"></KeyBinding>
+        <KeyBinding Key="NumPad5" Command="{Binding KeyUpCommand}"></KeyBinding>
+        <KeyBinding Key="NumPad6" Command="{Binding KeyUpCommand}"></KeyBinding>
+        <KeyBinding Key="NumPad7" Command="{Binding KeyUpCommand}"></KeyBinding>
+        <KeyBinding Key="NumPad8" Command="{Binding KeyUpCommand}"></KeyBinding>
+        <KeyBinding Key="NumPad9" Command="{Binding KeyUpCommand}"></KeyBinding>
+    </UserControl.InputBindings>-->
+    <!--<i:Interaction.Behaviors>
+        <common:KeyUpWithArgsBehavior
+                 KeyUpCommand="{Binding FilterKeyUpCommand}" />
+    </i:Interaction.Behaviors>-->
+    <UserControl.Resources>
+        <DataTemplate x:Key="AutoCompleteBoxItemTemplate">
+            <Border BorderBrush="Salmon" BorderThickness="2" CornerRadius="5">
+                <StackPanel Orientation="Horizontal">
+                    <Label  Content="{Binding BarcodeItemBc}" Width="100" FontWeight="Bold"/>
+                    <Label Content="{Binding Title}"/>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+
+    <Grid HorizontalAlignment="Stretch"
+          VerticalAlignment="Stretch">
+
+        <i:Interaction.Behaviors>
+            <common:EventToCommandBehavior Command="{Binding FilterKeyUpCommand}" Event="KeyUp" PassArguments="True" />
+            <common:EventToCommandBehavior Command="{Binding FilterKeyDownCommand}" Event="KeyDown" PassArguments="True" />
+        </i:Interaction.Behaviors>
+        <!--<i:Interaction.Triggers>
+            <i:EventTrigger EventName="KeyDown">
+                <cmd:EventToCommand Command="{Binding Source={StaticResource ItemSaleVm}, Path=KeyUpCommand}"
+                                    PassEventArgsToCommand="True"
+                                    />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>-->
+
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30*" />
+            <ColumnDefinition Width="70*" />
+        </Grid.ColumnDefinitions>-->
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        
+        <Label Content="Item Sales"
+                   FontSize="24" 
+                   HorizontalAlignment="Center"/>
+
+        <DockPanel Margin="20"  
+                   VerticalAlignment="Stretch" 
+                   HorizontalAlignment="Stretch" 
+                   Grid.Row="0">
+
+            <Label Content="Items"
+                   FontSize="18.667" 
+                   HorizontalAlignment="Left"
+                   DockPanel.Dock="Top"/>
+
+            <DataGrid ItemsSource="{Binding DataGridSaleItems, 
+                                            UpdateSourceTrigger=PropertyChanged,
+                                            Mode=TwoWay}"
+                          SelectedItem="{Binding Path=SelectedSaleItem,Converter={StaticResource selectedSaleItemConverter}}"
+                          DockPanel.Dock="Top" 
+                          AutoGenerateColumns="False"
+                          AlternatingRowBackground="CadetBlue"
+                      Name="SaleItemDataGrid">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="CellEditEnding">
+                        <command:EventToCommand PassEventArgsToCommand="True" 
+                                                Command="{Binding CellEditEndingCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <DataGrid.InputBindings>
+                    <KeyBinding Key="Delete" Command="{Binding DeleteSelectedCommand}" />
+                </DataGrid.InputBindings>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Qty"
+                            Binding="{Binding Quantity}" Width="3*"/>
+
+                    <DataGridTextColumn Header="Item"
+                            Binding="{Binding Title}" Width="15*" IsReadOnly="True"/>
+
+                    <!--<DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource ConsignorItemsVM}, 
+                                                                    Path=StatusComboValues}"
+                                            Header="Status" 
+                                            SelectedValueBinding="{Binding ItemStatus, 
+                                                                            Mode=TwoWay, 
+                                                                            UpdateSourceTrigger=PropertyChanged}"
+                                            SelectedValuePath="ValueString"
+                                            DisplayMemberPath="ValueString"
+                                            Width="4*"/>
+
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource ConsignorItemsVM}, 
+                                                                    Path=SubjectComboValues}"
+                                            Header="Subject" 
+                                            SelectedValueBinding="{Binding Subject, 
+                                                                            Mode=TwoWay, 
+                                                                            UpdateSourceTrigger=PropertyChanged}"
+                                            SelectedValuePath="ValueString"
+                                            DisplayMemberPath="ValueString"
+                                            Width="4*"/>-->
+
+                    <DataGridTextColumn Header="Unit Price"
+                                        Binding="{Binding UnitPrice, Converter={StaticResource moneyConverter}}" 
+                                        Width="4*" 
+                                        IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridCheckBoxColumn Header="Discount" Binding="{Binding IsDiscountable}" IsReadOnly="True"/>
+
+                    <DataGridTemplateColumn Header="Date Listed" Width="6*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ListedDate, Converter={StaticResource dateTimeConverter}}" 
+                                               VerticalAlignment="Center" 
+                                               HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <DatePicker x:Name="DateListedPicker" SelectedDate="{Binding ListedDate}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+
+                    <DataGridTextColumn Header="Date Discount"
+                            Binding="{Binding DateDiscount, Converter={StaticResource percentConverter}}" Width="4*" IsReadOnly="True"/>
+
+                    <DataGridTextColumn Header="Addl Discount"
+                            Binding="{Binding AddlDiscount, Converter={StaticResource percentConverter}}" Width="4*" />
+                    
+                    <DataGridTextColumn Header="Discount Total"
+                            Binding="{Binding DiscountAmount, Converter={StaticResource moneyConverter}}" Width="4*" />
+
+                    <DataGridTextColumn Header="Tax"
+                            Binding="{Binding Tax, Converter={StaticResource percentConverter}}" Width="4*" />
+
+                    <DataGridTextColumn Header="Tax Total"
+                            Binding="{Binding TaxAmount, Converter={StaticResource moneyConverter}}" Width="4*" />
+
+                    <DataGridTextColumn Header="Line Price"
+                                        Binding="{Binding LinePrice, Converter={StaticResource moneyConverter}}" 
+                                        Width="5*" 
+                                        IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+
+        <DockPanel Margin="20,0,10,10" 
+                   VerticalAlignment="Stretch" 
+                   HorizontalAlignment="Stretch"
+                   Grid.Row="1"
+                   FlowDirection="LeftToRight" DockPanel.Dock="Bottom">
+            <StackPanel DockPanel.Dock="Left"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                            Margin="0,15,0,15"
+                        >
+                <Label HorizontalAlignment="Stretch"
+                   VerticalAlignment="Stretch"
+                   Content="Enter Barcode:"/>
+
+                <!--<TextBox Text="{Binding CurrentBarcode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     FlowDirection="LeftToRight"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Stretch"
+                     MinWidth="120"
+                     MaxWidth="180"
+                     MinHeight="25"
+                     MaxHeight="35"
+                     common:FocusExtension.IsFocused="{Binding IsViewFocused}">
+                    
+                </TextBox>-->
+                <toolkit:AutoCompleteBox
+                    ItemsSource="{Binding QueryCollection}"
+                    SelectedItem="{Binding SelectedBarcodeItem, Mode=TwoWay}"                   
+                    ValueMemberBinding="{Binding BarcodeItemBc}"   
+                    ItemFilter="{Binding BarcodeFilter}"
+                    IsTextCompletionEnabled="False"
+                    FlowDirection="LeftToRight"
+                    ItemTemplate="{StaticResource AutoCompleteBoxItemTemplate}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    MinWidth="120"
+                    MaxWidth="180"
+                    MinHeight="25"
+                    MaxHeight="35">
+                    
+                </toolkit:AutoCompleteBox>
+                
+            </StackPanel>
+            <Button Command="{Binding AddItemCommand}" 
+                    DockPanel.Dock="Left"
+                    Margin="10" 
+                    MinWidth="55"
+                    MaxWidth="90"
+                    MinHeight="40"
+                    MaxHeight="80"
+                    common:FocusExtension.IsFocused="{Binding IsViewFocused}">
+                    <!--IsEnabled="{Binding IsEnabledAddItem}">-->
+                <TextBlock
+                        Text ="Add Item" TextWrapping="Wrap" TextAlignment="Center">
+                </TextBlock>
+            </Button>
+
+            <Grid DockPanel.Dock="Right" 
+                  Background="CadetBlue" 
+                  Margin="10"
+                  MinWidth="150"
+                  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70*"/>
+                    <ColumnDefinition Width="30*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" 
+                       FontWeight="ExtraBold" 
+                       FontSize="24"
+                       Content ="Total Amount:"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left">
+                </Label>
+                <TextBlock Grid.Column="1" 
+                            HorizontalAlignment="Right"        
+		                       TextAlignment="Center"
+		                       Text="{Binding TotalAmount, Converter={StaticResource moneyConverter}}"
+		                       VerticalAlignment="Center"
+                               IsEnabled="False" 
+                               FontWeight="SemiBold"
+                               Foreground="Red"
+                               FontSize="32"
+                               MinWidth="100"/>
+
+            </Grid>
+            
+            <Button Command="{Binding PmtCommand}" 
+                    DockPanel.Dock="Right"
+                    Margin="10" 
+                    MinWidth="55"
+                    MaxWidth="90"
+                    MinHeight="40"
+                    MaxHeight="80"
+                    IsEnabled="{Binding IsEnabledPmt}" HorizontalAlignment="Right">
+                <TextBlock
+                        Text ="Payment" TextWrapping="Wrap" TextAlignment="Center">
+                </TextBlock>
+            </Button>
+            <Button Command="{Binding CancelCommand}" 
+                    DockPanel.Dock="Right"
+                    Margin="10" 
+                    MinWidth="55"
+                    MaxWidth="90"
+                    MinHeight="40"
+                    MaxHeight="80"
+                    HorizontalAlignment="Right">
+                <TextBlock
+                        Text ="Cancel" TextWrapping="Wrap" TextAlignment="Center">
+                </TextBlock>
+            </Button>
+            <!--<CheckBox
+	            Content="Consignor Wants Cash Payment"
+	            HorizontalAlignment="Left"
+	            Margin="10,10,0,0"
+	            VerticalAlignment="Top"
+                IsChecked="{Binding CashIsSelected}"
+                IsEnabled="{Binding CashPayoutEnabled}"
+                DockPanel.Dock="Top"/>-->
+
+
+            
+
+
+
+        </DockPanel>
+    </Grid>
+</UserControl>

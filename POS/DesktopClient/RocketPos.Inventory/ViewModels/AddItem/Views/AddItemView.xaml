@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="Inventory.ViewModels.AddItem.Views.AddItemView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance viewModels1:AddItemVm}"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:viewModels1="clr-namespace:Inventory.ViewModels.AddItem.ViewModels"
+        xmlns:entities1="clr-namespace:DataModel.Data.DataLayer.Entities;assembly=DataModel.Data"
+        VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+    <!-- —Error Template to change the default behaviour
+    <UserControl.Resources>
+        <ControlTemplate x:Key="ErrorTemplate">
+            <DockPanel LastChildFill="True">
+                <Border BorderBrush="Red" BorderThickness="1">
+                    <AdornedElementPlaceholder />
+                </Border>
+            </DockPanel>
+        </ControlTemplate>
+    </UserControl.Resources>
+    -->
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoaded}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <DockPanel Margin="20">
+            <StackPanel DockPanel.Dock="Top">
+                <Label>Item Type</Label>
+                <ComboBox ItemsSource="{Binding ItemTypeComboValues}"
+					      DisplayMemberPath="ValueString"
+                          SelectedValuePath="ValueString"
+                          SelectedValue="{Binding ItemType,  
+                                                Mode=OneWayToSource,
+                                                ValidatesOnDataErrors=True,
+                                                UpdateSourceTrigger=PropertyChanged}">
+				</ComboBox>
+                <Label>Consignor Name</Label>
+                <ComboBox ItemsSource="{Binding ConsignorNameComboValues}"
+					      DisplayMemberPath="ValueString"
+                          SelectedValuePath="ValueString"
+                          SelectedValue="{Binding ConsignorName,  
+                                                Mode=OneWayToSource,
+                                                ValidatesOnDataErrors=True,
+                                                UpdateSourceTrigger=PropertyChanged}">
+                </ComboBox>
+                <Label>ListedPrice</Label>
+                <xctk:DoubleUpDown FormatString="C2" Increment="1.00" Minimum="{Binding MinListedPrice}" Watermark="Enter a Price" 
+                                   IsEnabled="{Binding ItemTypeIsNotNull}"
+                                   AllowSpin="True"
+                                    Value="{Binding ListedPrice, 
+                                            ValidatesOnDataErrors=True,
+                                            UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label>Subject</Label>
+                <ComboBox ItemsSource="{Binding SubjectComboValues}"
+                          IsEnabled="{Binding ItemTypeIsNotNull}"
+					      DisplayMemberPath="ValueString"
+                          SelectedValuePath="ValueString"
+                          SelectedValue="{Binding Subject, 
+                                                Mode=TwoWay, 
+                                                UpdateSourceTrigger=PropertyChanged}">
+                </ComboBox>
+
+                <Label>Status</Label>
+                <ComboBox ItemsSource="{Binding StatusComboValues}"
+                          IsEnabled="{Binding ItemTypeIsNotNull}"
+					      DisplayMemberPath="ValueString"
+                          SelectedValuePath="ValueString"
+                          SelectedValue="{Binding Status, 
+                                                    Mode=OneWayToSource,
+                                                    ValidatesOnDataErrors=True,
+                                                    UpdateSourceTrigger=PropertyChanged}">
+                </ComboBox>
+
+                <Label>Condition</Label>
+                <ComboBox ItemsSource="{Binding ConditionComboValues}"
+                          IsEnabled="{Binding ItemTypeIsNotNull}"
+					      DisplayMemberPath="ValueString"
+                          SelectedValuePath="ValueString"
+                          SelectedValue="{Binding Condition, 
+                                                    Mode=OneWayToSource, 
+                                                    ValidatesOnDataErrors=True,
+                                                    UpdateSourceTrigger=PropertyChanged}" >
+                </ComboBox>
+
+                <Label>Discount Item by Date</Label>
+                <CheckBox IsChecked ="{Binding ItemIsDiscountable}"></CheckBox>
+
+                <Label>Description</Label>
+                <TextBox Text="{Binding Description, 
+                                        UpdateSourceTrigger=PropertyChanged, 
+                                        ValidatesOnDataErrors=True}" 
+                         MinWidth="175"
+                         MinHeight="75">
+                </TextBox>
+                
+                <Button Command="{Binding AddItemCommand}">Add Item</Button>
+                
+            </StackPanel>
+            <ListBox ItemsSource="{Binding Items}" DockPanel.Dock="Top">
+                <ListBox.Resources>
+                    <DataTemplate DataType="{x:Type entities1:Item}">
+                        <TextBlock>
+                        <Run FontWeight="Bold">Successfully Added! </Run>
+                        <Run FontWeight="Bold"> Item Type:</Run>
+                        <Run Text="{Binding ItemType}"/>
+                        <Run FontWeight="Bold"> Listed Price:</Run>
+                        <Run Text="{Binding ListedPrice, StringFormat=C2}"/>
+                        <Run FontWeight="Bold"> Subject:</Run>
+                        <Run Text="{Binding Subject}"/>
+                        <Run FontWeight="Bold"> Status:</Run>
+                        <Run Text="{Binding Status}"/>
+                        <Run FontWeight="Bold"> Condition:</Run>
+                        <Run Text="{Binding Condition}"/>
+                        <Run FontWeight="Bold"> Barcode:</Run>
+                        <Run Text="{Binding Barcode}"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.Resources>
+            </ListBox>
+            
+        </DockPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,132 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+	xmlns:ic="http://schemas.microsoft.com/expression/2010/interactions"
+	xmlns:local="clr-namespace:POS"
+    xmlns:viewModel="clr-namespace:POS.ViewModels.PosMainView.ViewModel"
+    mc:Ignorable="d"
+	x:Class="POS.ViewModels.PosMainView.Views.PosMainView" 
+    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+
+    <UserControl.Resources>
+        <viewModel:PosMainViewVm x:Key="MainViewVmDataSource" />
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource MainViewVmDataSource}}">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="45*"/>
+            <ColumnDefinition Width="45*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0"
+              Grid.Row="0"
+              Grid.RowSpan="2"
+              VerticalAlignment="Stretch" 
+              HorizontalAlignment="Stretch" >
+            <StackPanel  Background="AliceBlue">
+                <Label 
+                    Content="Point of Sale" 
+                    HorizontalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold">
+                </Label>
+                <Separator/>
+                <Label 
+                    Content="Sales" 
+                    HorizontalAlignment="Center"
+                    FontSize="14"
+                    FontWeight="Medium"
+                    Foreground="Black">
+                </Label>
+                <Button Content="Items" HorizontalAlignment="Stretch" Width="Auto"
+                    Command="{Binding Path=ItemSaleButtonCommand, Mode=OneTime}"  >
+                </Button>
+                <Button Content="Online Sale" HorizontalAlignment="Stretch" Width="Auto"
+                    Command="{Binding Path=OnlineSaleButtonCommand, Mode=OneTime}"  
+                    IsEnabled="False">
+                </Button>
+                <Button Content="Class" HorizontalAlignment="Stretch" Width="Auto"
+                    Command="{Binding Path=ClassSaleButtonCommand, Mode=OneTime}"  
+                        IsEnabled="False">
+                </Button>
+                <Button Content="Rooms" HorizontalAlignment="Stretch" Width="Auto"
+                    Command="{Binding Path=RoomSaleButtonCommand, Mode=OneTime}"  
+                        IsEnabled="False">
+                </Button>
+                <Separator/>
+                <Label 
+                    Content="Payments" 
+                    HorizontalAlignment="Center"
+                    FontSize="14"
+                    FontWeight="Medium"
+                    Foreground="Black">
+                </Label>
+                <Button Name="ItemPmtButton" Content="Purchase Items" HorizontalAlignment="Stretch" Width="Auto"
+                    Command="{Binding Path=ItemPmtButtonCommand, Mode=OneTime}" 
+                        IsEnabled="False">
+                </Button>
+                <Button Name="ClassPmtButton" 
+                        HorizontalAlignment="Stretch" Width="Auto" 
+                    Command="{Binding Path=InstructorPmtButtonCommand, Mode=OneTime}"  
+                        IsEnabled="False">
+                    <TextBlock
+                        Text ="Pay Instructors" TextWrapping="Wrap" TextAlignment="Center">
+                    </TextBlock>
+                </Button>
+                <Button Name="DepositPmtButton" 
+                        HorizontalAlignment="Stretch" Width="Auto" 
+                    Command="{Binding Path=DepositPmtButtonCommand, Mode=OneTime}" 
+                        IsEnabled="False">
+                    <TextBlock
+                        Text ="Deposit Refund" TextWrapping="Wrap" TextAlignment="Center">
+                    </TextBlock>
+                </Button>
+                <Button Name="OtherPmtButton" 
+                        HorizontalAlignment="Stretch" Width="Auto" 
+                    Command="{Binding Path=OtherPmtButtonCommand, Mode=OneTime}"  
+                        IsEnabled="False">
+                    <TextBlock
+                        Text ="Other Expenses" TextWrapping="Wrap" TextAlignment="Center">
+                    </TextBlock>
+                </Button>
+
+            </StackPanel>
+        </Grid>
+        <UserControl Name="TopLeftView"
+                     Grid.Row="0" 
+                     Grid.Column="1" 
+                     Grid.ColumnSpan="{Binding Path=TopLeftColSpan}"
+                     Grid.RowSpan="{Binding Path=TopLeftRowSpan}"
+                     Content="{Binding Path=TopLeftView}"
+                     HorizontalAlignment="Stretch" 
+                     VerticalAlignment="Stretch"
+                     />
+
+        <UserControl Name="TopRightView"
+                     Grid.Row="0" 
+                     Grid.Column="2" 
+                     Grid.RowSpan="{Binding Path=TopRightRowSpan}" 
+                     Content="{Binding Path=TopRightView}"
+                     HorizontalAlignment="Stretch" 
+                     VerticalAlignment="Stretch"/>
+
+        <UserControl Name="BottomLeftView"
+                     Grid.Row="1" 
+                     Grid.Column="1" 
+                     Grid.ColumnSpan="{Binding Path=BottomLeftColSpan}"
+                     Grid.RowSpan="1"
+                     Content="{Binding Path=BottomLeftView}"
+                     HorizontalAlignment="Stretch" 
+                     VerticalAlignment="Stretch"/>
+
+
+    </Grid>
+</UserControl>

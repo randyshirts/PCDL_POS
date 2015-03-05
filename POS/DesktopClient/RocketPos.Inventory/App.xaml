@@ -1,0 +1,62 @@
+﻿<Application x:Class="Inventory.App" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             StartupUri="InvWindow.xaml" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             d1p1:Ignorable="d" 
+             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:viewModels="clr-namespace:Inventory.ViewModels.MainView.ViewModels"
+             xmlns:viewModels1="clr-namespace:Inventory.ViewModels.AddItem.ViewModels"
+             xmlns:viewModels2="clr-namespace:Inventory.ViewModels.AddEditConsignor.ViewModels"
+             xmlns:viewModels3="clr-namespace:Inventory.ViewModels.ConsignorItems.ViewModels"
+             xmlns:viewModels4="clr-namespace:Inventory.ViewModels.EditItem.ViewModels"
+             xmlns:viewModels5="clr-namespace:Inventory.ViewModels.PrintBarcodesView.ViewModels"
+             xmlns:converters="clr-namespace:RocketPos.Common.Helpers;assembly=RocketPos.Common"
+             xmlns:inventory="clr-namespace:Inventory">
+
+    <Application.Resources>
+
+
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DataTemplates.xaml" />
+                <ResourceDictionary Source="/RocketPos.Common;component/Resources/Styles.xaml"/>   
+            </ResourceDictionary.MergedDictionaries>
+            <viewModels:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
+            <viewModels1:AddItemVm x:Key="AddItemVM" />
+            <viewModels1:AddItemBarcodesVm x:Key="AddItemBarcodesVM" />
+            <viewModels1:AddBookVm x:Key="AddBookVM" />
+            <viewModels1:AddGameVm x:Key="AddGameVM" />
+            <viewModels1:AddOtherVm x:Key="AddOtherVM" />
+            <viewModels1:AddTeachingAideVm x:Key="AddTeachingAideVM" />
+            <viewModels1:AddVideoVm x:Key="AddVideoVM" />
+            <viewModels4:EditItemVm x:Key="EditItemVM" />
+            <viewModels4:BookDataGridVm x:Key="BookDataGridVM" />
+            <viewModels4:GameDataGridVm x:Key="GameDataGridVM" />
+            <viewModels4:OtherDataGridVm x:Key="OtherDataGridVM" />
+            <viewModels4:TeachingAideDataGridVm x:Key="TeachingAideDataGridVM" />
+            <viewModels4:VideoDataGridVm x:Key="VideoDataGridVM" />
+            <viewModels2:AddConsignorVm x:Key="AddConsignorVM" />
+            <viewModels3:ConsignorItemsVm x:Key="ConsignorItemsVM" />
+            <viewModels5:PrintBarcodesVm x:Key="PrintBarcodesVM" />
+            <inventory:SelectedBookItemConverter x:Key="selectedBookItemConverter" />
+            <inventory:SelectedGameItemConverter x:Key="selectedGameItemConverter" />
+            <inventory:SelectedOtherItemConverter x:Key="selectedOtherItemConverter" />
+            <inventory:SelectedTeachingAideItemConverter x:Key="selectedTeachingAideItemConverter" />
+            <inventory:SelectedVideoItemConverter x:Key="selectedVideoItemConverter" />
+            <inventory:SelectedConsignorInfoConverter x:Key="selectedConsignorConverter" />
+            <inventory:SelectedConsignorItemConverter x:Key="selectedConsignorItemConverter" />
+            <converters:SelectedBarcodeItemConverter x:Key="selectedBarcodeItemConverter" />
+            <converters:NullImageConverter x:Key="nullImageConverter"/>
+            <converters:IntConverter x:Key="intConverter"/>
+            <converters:MoneyConverter x:Key="moneyConverter"/>
+            <converters:DateTimeConverter x:Key="dateTimeConverter"/>
+            <converters:PhoneConverter x:Key="phoneConverter"/>
+        </ResourceDictionary>
+        
+        <!--      <ObjectDataProvider x:Key="odpSettings"
+                        ObjectType="{x:Type src:ConfigSettings}" /> 
+  -->
+    </Application.Resources>
+</Application>

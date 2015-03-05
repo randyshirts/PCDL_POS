@@ -1,0 +1,266 @@
+﻿<UserControl x:Class="Inventory.ViewModels.AddEditConsignor.Views.AddConsignorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance viewModels1:AddConsignorVm}"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:viewModels1="clr-namespace:Inventory.ViewModels.AddEditConsignor.ViewModels"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
+        xmlns:entities1="clr-namespace:DataModel.Data.DataLayer.Entities;assembly=DataModel.Data"
+        VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30*" />
+            <ColumnDefinition Width="70*" />
+        </Grid.ColumnDefinitions>
+        <DockPanel Margin="5" 
+                   VerticalAlignment="Stretch" 
+                   HorizontalAlignment="Stretch"
+                   Grid.Column="0">
+            <Label Content="Add Consignor" 
+                    HorizontalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="ExtraBold"
+                    DockPanel.Dock="Top"/>
+
+            <Label DockPanel.Dock="Top">First Name</Label>
+            <TextBox Text="{Binding FirstName, 
+                                        UpdateSourceTrigger=PropertyChanged, 
+                                        ValidatesOnDataErrors=True}" 
+                         MinWidth="175"
+                         DockPanel.Dock="Top">
+            </TextBox>
+
+            <Label DockPanel.Dock="Top">Last Name</Label>
+            <TextBox Text="{Binding LastName, 
+                                        UpdateSourceTrigger=PropertyChanged, 
+                                        ValidatesOnDataErrors=True}" 
+                         MinWidth="175"
+                         DockPanel.Dock="Top">
+            </TextBox>
+
+            <Label DockPanel.Dock="Top">Email Address</Label>
+            <TextBox Text="{Binding EmailAddress, 
+                                        UpdateSourceTrigger=PropertyChanged, 
+                                        ValidatesOnDataErrors=True}" 
+                         MinWidth="175"
+                         DockPanel.Dock="Top">
+            </TextBox>
+
+            <Label DockPanel.Dock="Top">Cell Phone # (Either Cell or Home Phone is Required)</Label>
+            <TextBox Text="{Binding CellPhoneNumber, 
+                                                    UpdateSourceTrigger=PropertyChanged, 
+                                                    ValidatesOnDataErrors=True}" 
+                                     MinWidth="175"
+                                     DockPanel.Dock="Top">
+            </TextBox>
+            <Label DockPanel.Dock="Top">Home Phone # (Either Cell or Home Phone is Required)</Label>
+
+            <TextBox Text="{Binding HomePhoneNumber, 
+                                        UpdateSourceTrigger=PropertyChanged, 
+                                        ValidatesOnDataErrors=True}" 
+                         MinWidth="175"
+                         DockPanel.Dock="Top">
+            </TextBox>
+
+            <Label DockPanel.Dock="Top">Alternate Phone #</Label>
+            <TextBox Text="{Binding AltPhoneNumber, 
+                                        UpdateSourceTrigger=PropertyChanged, 
+                                        ValidatesOnDataErrors=True}" 
+                         MinWidth="175"
+                         DockPanel.Dock="Top">
+            </TextBox>
+
+            <Label DockPanel.Dock="Top">Mailing Address 1</Label>
+            <TextBox Text="{Binding MailingAddress1, 
+                                        UpdateSourceTrigger=PropertyChanged, 
+                                        ValidatesOnDataErrors=True}" 
+                         MinWidth="175"
+                         DockPanel.Dock="Top">
+            </TextBox>
+
+            <Label DockPanel.Dock="Top">Mailing Address 2</Label>
+            <TextBox Text="{Binding MailingAddress2, 
+                                        UpdateSourceTrigger=PropertyChanged, 
+                                        ValidatesOnDataErrors=True}" 
+                         MinWidth="175"
+                         DockPanel.Dock="Top">
+            </TextBox>
+
+            <Label DockPanel.Dock="Top">City</Label>
+            <TextBox Text="{Binding City, 
+                                        UpdateSourceTrigger=PropertyChanged, 
+                                        ValidatesOnDataErrors=True}" 
+                         MinWidth="175"
+                         DockPanel.Dock="Top">
+            </TextBox>
+
+            <Label DockPanel.Dock="Top">State</Label>
+            <ComboBox ItemsSource="{Binding StateComboValues}"
+					      DisplayMemberPath="ValueString"
+                          SelectedValuePath="ValueString"
+                          SelectedValue="{Binding State,  
+                                                Mode=OneWayToSource,
+                                                ValidatesOnDataErrors=True,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                          DockPanel.Dock="Top">
+            </ComboBox>
+
+            <Label DockPanel.Dock="Top">Zip Code</Label>
+            <TextBox Text="{Binding ZipCode, 
+                                        UpdateSourceTrigger=PropertyChanged, 
+                                        ValidatesOnDataErrors=True}" 
+                         MinWidth="175"
+                         DockPanel.Dock="Top">
+            </TextBox>
+
+            <Button Command="{Binding AddConsignorCommand}" DockPanel.Dock="Top">Add Consignor</Button>
+
+            <ListBox ItemsSource="{Binding Consignors}" DockPanel.Dock="Top">
+                <ListBox.Resources>
+                    <DataTemplate DataType="{x:Type entities1:Consignor}">
+                        <TextBlock>
+                        <Run FontWeight="Bold">Successfully Added! </Run>
+                        <Run FontWeight="Bold">Name:</Run>
+                        <Run Text="{Binding Consignor_Person.FirstName}"/>
+                        <Run Text="{Binding Consignor_Person.LastName}"/>
+                        <Run FontWeight="Bold">Email:</Run>
+                        <Run Text="{Binding Consignor_Person.EmailAddress}"/>
+                        <Run FontWeight="Bold">Address:</Run>
+                        <Run Text="{Binding Consignor_Person.MailingAddress.MailingAddress1}"/>
+                        <Run FontWeight="Bold">Phone #:</Run>
+                        <Run Text="{Binding Consignor_Person.PhoneNumber.CellPhoneNumber}"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.Resources>
+            </ListBox>
+        </DockPanel>
+        <DockPanel Margin="20"  
+                   VerticalAlignment="Stretch" 
+                   HorizontalAlignment="Stretch" 
+                   Grid.Column="1">
+            <Label Content="Consignors"
+                   FontSize="18" 
+                   HorizontalAlignment="Center"
+                   DockPanel.Dock="Top"/>
+            <DataGrid ItemsSource="{Binding DataGridConsignors, 
+                                            UpdateSourceTrigger=PropertyChanged,
+                                            Mode=TwoWay}"
+                          SelectedItem="{Binding Path=SelectedConsignor,Converter={StaticResource selectedConsignorConverter}}"
+                          DockPanel.Dock="Bottom" 
+                          AutoGenerateColumns="False"
+                          AlternatingRowBackground="CadetBlue"
+                      Name="ConsignorDataGrid">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="CellEditEnding">
+                        <command:EventToCommand PassEventArgsToCommand="True" 
+                                                Command="{Binding CellEditEndingCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <DataGrid.InputBindings>
+                    <KeyBinding Key="Delete" Command="{Binding DeleteSelectedCommand}" />
+                </DataGrid.InputBindings>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="First Name"
+                            Binding="{Binding FirstName}" Width="5*">
+
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Last Name"
+                            Binding="{Binding LastName}" Width="5*" />
+
+                    <DataGridTemplateColumn Header="DateAdded" Width="6*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DateAdded, Converter={StaticResource dateTimeConverter}}" 
+                                               VerticalAlignment="Center" 
+                                               HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <DatePicker x:Name="DateAddedPicker" SelectedDate="{Binding DateAdded}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn Header="Email"
+                            Binding="{Binding EmailAddress}" Width="12*" />
+
+                    <DataGridTemplateColumn Header="Home Phone" Width="7*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding HomePhoneNumber, Converter={StaticResource phoneConverter}}"  
+                                           VerticalAlignment="Center" 
+                                           HorizontalAlignment="Center"
+                                            Background="Transparent"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox x:Name="HomePhoneNumberTextBox" Text="{Binding HomePhoneNumber}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+
+                    <DataGridTemplateColumn Header="Cell Phone" Width="7*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CellPhoneNumber, Converter={StaticResource phoneConverter}}"  
+                                           VerticalAlignment="Center" 
+                                           HorizontalAlignment="Center"
+                                            Background="Transparent"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox x:Name="CellPhoneNumberTextBox"  Text="{Binding CellPhoneNumber}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+
+                    <DataGridTemplateColumn Header="Alt Phone" Width="7*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding AltPhoneNumber, Converter={StaticResource phoneConverter}}"  
+                                           VerticalAlignment="Center" 
+                                           HorizontalAlignment="Center"
+                                            Background="Transparent"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox x:Name="AltPhoneNumberTextBox" Text="{Binding AltPhoneNumber}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn Header="Mailing Address 1"
+                            Binding="{Binding MailingAddress1}" Width="10*" />
+
+                    <DataGridTextColumn Header="Mailing Address 2"
+                            Binding="{Binding MailingAddress2}" Width="3*" />
+
+                    <DataGridTextColumn Header="City"
+                            Binding="{Binding City}" Width="5*" />
+
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource AddConsignorVM}, 
+                                                                    Path=StateComboValues}"
+                                            Header="State" 
+                                            SelectedValueBinding="{Binding State}"
+                                            SelectedValuePath="ValueString"
+                                            DisplayMemberPath="ValueString"
+                                            Width="4*"/>
+
+                    <DataGridTextColumn Header="ZipCode"
+                            Binding="{Binding ZipCode}" Width="4*" />
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+    </Grid>
+</UserControl>

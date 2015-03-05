@@ -1,0 +1,77 @@
+﻿<Application x:Class="RocketPos.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="Code/Views/MainWindow.xaml">
+    <Application.Resources>
+         
+    	<Color x:Key="gray-blue">#FF2C3236</Color>
+    	<Color x:Key="lightblue">#FFA7C5D6</Color>
+    	<LinearGradientBrush x:Key="grayblue2lightblueGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="{DynamicResource gray-blue}" Offset="0"/>
+    		<GradientStop Color="{DynamicResource lightblue}" Offset="1"/>
+    	</LinearGradientBrush>
+    	<Style x:Key="GothicBold16" TargetType="{x:Type TextBlock}">
+    		<Setter Property="TextWrapping" Value="NoWrap"/>
+    		<Setter Property="TextTrimming" Value="None"/>
+    	</Style>
+    	<Style x:Key="MainMenuButton" TargetType="{x:Type Button}">
+    		<Setter Property="Template">
+    			<Setter.Value>
+    				<ControlTemplate TargetType="{x:Type Button}">
+    					<Grid>
+    						<VisualStateManager.VisualStateGroups>
+    							<VisualStateGroup x:Name="CommonStates">
+    								<VisualStateGroup.Transitions>
+    									<VisualTransition From="Normal" GeneratedDuration="0:0:1" To="MouseOver">
+    										<VisualTransition.GeneratedEasingFunction>
+    											<QuarticEase EasingMode="EaseOut"/>
+    										</VisualTransition.GeneratedEasingFunction>
+    									</VisualTransition>
+    								</VisualStateGroup.Transitions>
+    								<VisualState x:Name="Normal"/>
+    								<VisualState x:Name="MouseOver">
+    									<Storyboard>
+    										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask)" Storyboard.TargetName="rectangle">
+    											<DiscreteObjectKeyFrame KeyTime="0">
+    												<DiscreteObjectKeyFrame.Value>
+    													<SolidColorBrush Color="#A5000000"/>
+    												</DiscreteObjectKeyFrame.Value>
+    											</DiscreteObjectKeyFrame>
+    										</ObjectAnimationUsingKeyFrames>
+    										<PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(LinearGradientBrush.StartPoint)" Storyboard.TargetName="rectangle">
+    											<EasingPointKeyFrame KeyTime="0" Value="0.498,1"/>
+    										</PointAnimationUsingKeyFrames>
+    										<PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(LinearGradientBrush.EndPoint)" Storyboard.TargetName="rectangle">
+    											<EasingPointKeyFrame KeyTime="0" Value="0.502,0"/>
+    										</PointAnimationUsingKeyFrames>
+    									</Storyboard>
+    								</VisualState>
+    								<VisualState x:Name="Pressed"/>
+    								<VisualState x:Name="Disabled"/>
+    							</VisualStateGroup>
+    						</VisualStateManager.VisualStateGroups>
+    						<Rectangle x:Name="rectangle" Fill="{TemplateBinding Background}" RadiusY="15.25" RadiusX="15.25" StrokeThickness="4">
+    							<Rectangle.Stroke>
+    								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+    									<GradientStop Color="{DynamicResource gray-blue}" Offset="0"/>
+    									<GradientStop Offset="1" Color="{DynamicResource lightblue}"/>
+    								</LinearGradientBrush>
+    							</Rectangle.Stroke>
+    						</Rectangle>
+    						<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="0,0,0,-20" VerticalAlignment="Bottom" 
+								TextBlock.FontFamily="MS Gothic" TextBlock.FontSize="21.333" TextBlock.FontWeight="Bold">
+    						</ContentPresenter>
+    					</Grid>
+    					<ControlTemplate.Triggers>
+    						<Trigger Property="IsFocused" Value="True"/>
+    						<Trigger Property="IsDefaulted" Value="True"/>
+    						<Trigger Property="IsMouseOver" Value="True"/>
+    						<Trigger Property="IsPressed" Value="True"/>
+    						<Trigger Property="IsEnabled" Value="False"/>
+    					</ControlTemplate.Triggers>
+    				</ControlTemplate>
+    			</Setter.Value>
+    		</Setter>
+    	</Style> 
+    </Application.Resources>
+</Application>
