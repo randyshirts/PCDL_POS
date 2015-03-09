@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Abp.Domain.Entities;
 
 
 namespace DataModel.Data.DataLayer.Repositories

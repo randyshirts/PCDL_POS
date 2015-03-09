@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using DataModel.Data.DataLayer.Repositories;
+using Newtonsoft.Json;
 
 namespace DataModel.Data.DataLayer.Entities
 {
+    [JsonObject(IsReference = true)]
     public class Consignor : Entity
     {
         #region Define Members

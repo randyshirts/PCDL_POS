@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
 using System.Linq;
-using AutoMapper;
 using DataModel.Data.ApplicationLayer.DTO;
 using DataModel.Data.TransactionalLayer.Repositories;
 
@@ -82,7 +81,7 @@ namespace DataModel.Data.ApplicationLayer.Services
         {
             var output = _itemRepository.GetAllList();
             var list = output.Select(i => (new ItemDto(i))).ToList();
-            
+
             return new GetAllItemsOutput
             {
                 Items = list

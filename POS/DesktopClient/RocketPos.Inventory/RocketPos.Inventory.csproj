@@ -38,6 +38,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Abp, Version=0.5.2.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Dependencies\Abp.0.5.2.1\lib\net451\Abp.dll</HintPath>
+    </Reference>
     <Reference Include="Aviad.WPF.Controls">
       <HintPath>..\..\..\Dependencies\Aviad.WPF.Controls.dll</HintPath>
     </Reference>

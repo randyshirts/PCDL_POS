@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Abp.Application.Services.Dto;
 using DataModel.Data.DataLayer.Entities;
+using Newtonsoft.Json;
 
 namespace DataModel.Data.ApplicationLayer.DTO
 {
     public class ItemDto : EntityDto
     {
+
         public ItemDto(Item item)
         {
             Id = item.Id;
@@ -225,6 +228,7 @@ namespace DataModel.Data.ApplicationLayer.DTO
         public int Id { get; set; }
     }
 
+    
     public class GetAllItemsOutput : IOutputDto
     {
         public IEnumerable<ItemDto> Items { get; set; } 

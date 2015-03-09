@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Abp.Domain.Entities;
 using DataModel.Data.DataLayer.Entities;
 
 namespace DataModel.Data.DataLayer.Repositories

@@ -1,11 +1,12 @@
 ﻿using System;
 using DataModel.Data.DataLayer.Repositories;
+using Newtonsoft.Json;
 
 namespace DataModel.Data.DataLayer.Entities
 {
+    [JsonObject(IsReference = true)]
     public class CreditTransaction : Entity
-    {
-
+    {       
         #region Define Members
         //Define members
         //public int Id { get; set; }

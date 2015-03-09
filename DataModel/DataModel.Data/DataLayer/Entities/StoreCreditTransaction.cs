@@ -1,7 +1,9 @@
 ﻿using DataModel.Data.DataLayer.Repositories;
+using Newtonsoft.Json;
 
 namespace DataModel.Data.DataLayer.Entities
 {
+    [JsonObject(IsReference = true)]
     public class StoreCreditTransaction : Entity
     {
 

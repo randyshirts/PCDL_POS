@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using DataModel.Data.DataLayer.Repositories;
+using Newtonsoft.Json;
 
 namespace DataModel.Data.DataLayer.Entities
 {
+    [JsonObject(IsReference = true)]
     public class Email : Entity
     {
 

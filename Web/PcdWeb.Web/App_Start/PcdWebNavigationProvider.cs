@@ -35,6 +35,13 @@ namespace PcdWeb.Web
                         url: "#login",
                         icon: "fa fa-lock"
                         )
+                ).AddItem(
+                    new MenuItemDefinition(
+                        "ViewItems",
+                        new LocalizableString("ViewItems", PcdWebConsts.WebLocalizationSourceName),
+                        url: "#viewItems",
+                        icon: "fa fa-list-ul"
+                        )
                 )
                 ;
         }

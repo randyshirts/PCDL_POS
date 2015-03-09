@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Abp.Domain.Entities;
+using Abp.Domain.Repositories;
 using DataModel.Data.DataLayer.Repositories;
 
 namespace DataModel.Data.TransactionalLayer.Repositories
 {
     /// <summary>
-    /// Base class to implement <see cref="IRepository{TEntity,TPrimaryKey}"/>.
+    /// Base class to implement <see cref="IRepository"/>.
     /// It implements some methods in most simple way.
     /// </summary>
     /// <typeparam name="TEntity">Type of the Entity for this repository</typeparam>

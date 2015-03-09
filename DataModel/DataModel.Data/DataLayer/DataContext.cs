@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using Abp.EntityFramework;
 using DataModel.Data.DataLayer.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
 using MySql.Data.Entity;
 
 namespace DataModel.Data.DataLayer
@@ -63,7 +64,11 @@ namespace DataModel.Data.DataLayer
                 dynamic configurationInstance = Activator.CreateInstance(type);
                 modelBuilder.Configurations.Add(configurationInstance);
             }
-            base.OnModelCreating(modelBuilder); 
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
+            modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
+            modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
         }
 
         

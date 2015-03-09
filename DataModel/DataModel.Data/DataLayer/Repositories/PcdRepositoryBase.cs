@@ -1,4 +1,5 @@
 ﻿using System;
+using Abp.Domain.Entities;
 using RocketPos.Data.DataLayer;
 
 namespace DataModel.Data.DataLayer.Repositories

@@ -288,7 +288,7 @@ namespace Inventory.ViewModels.EditItem.ViewModels
             while (i.MoveNext())
             {
                 //Get the book that corresponds to the current item
-                Book currentBook = books.FirstOrDefault(b => b.Id == i.Current.Id);
+                Book currentBook = books.FirstOrDefault(b => b.Id == i.Current.BookId);
                 //Create an instance of a BookItem with the current book and item info
                 var currentBookItem = new BookItem(currentBook, i.Current);
                 //Add the new instance to the collection

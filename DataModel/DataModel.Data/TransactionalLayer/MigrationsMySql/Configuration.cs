@@ -1,13 +1,11 @@
-using DataModel.Data.DataLayer;
-
-namespace RocketPos.Data.TransactionalLayer.MigrationsMySql
+namespace DataModel.Data.TransactionalLayer.MigrationsMySql
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<DataContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DataModel.Data.DataLayer.DataContext>
     {
         public Configuration()
         {
@@ -15,7 +13,7 @@ namespace RocketPos.Data.TransactionalLayer.MigrationsMySql
             MigrationsDirectory = @"TransactionalLayer\MigrationsMySql";
         }
 
-        protected override void Seed(DataContext context)
+        protected override void Seed(DataModel.Data.DataLayer.DataContext context)
         {
             //  This method will be called after migrating to the latest version.
 

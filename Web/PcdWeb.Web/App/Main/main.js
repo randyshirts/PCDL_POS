@@ -16,7 +16,7 @@ define('knockout', function () { return ko; });
 
 define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'durandal/viewEngine', 'durandal/activator', 'knockout'],
     function (system, app, viewLocator, viewEngine, activator, ko) {
-        //system.debug(true); //Enable this line only in debug!
+        system.debug(true); //Enable this line only in debug!
 
         ko.punches.enableAll();
 
@@ -51,4 +51,6 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'durandal/vie
             viewLocator.useConvention();
             app.setRoot('viewmodels/layout', 'entrance');
         });
+
+        //abp.au
     });

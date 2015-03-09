@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Linq;
+using Abp.Domain.Entities;
 using DataModel.Data.DataLayer.Repositories;
 using MySql.Data.MySqlClient;
 

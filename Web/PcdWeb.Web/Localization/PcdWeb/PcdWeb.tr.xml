@@ -15,5 +15,6 @@
 	<text name="LoginFormat" value="{0} Inicia sesión" />  
     <text name="About_AspNetBoilerplateDescription" value="ASP.NET Boilerplate, en iyi teknikler ve araçlar kullanarak web uygulamaları geliştirmek için bir başlangıç noktasıdır! ASP.NET Boilerplate &lt;strong&gt;Katmanlı Mimari&lt;/strong&gt; ve &lt;strong&gt;Domain Driven Design (DDD)&lt;/strong&gt; teknikleri kullanarak uygulama geliştirme için temel altyapıyı sağlar." />
     <text name="ForMoreInformation" value="Daha fazla bilgi için" />
+	<text name="LoginInformation" value="Ingresar en esta página" />
   </texts>
 </localizationDictionary>

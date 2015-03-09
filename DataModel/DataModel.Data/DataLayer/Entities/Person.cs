@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using DataModel.Data.DataLayer.Repositories;
+using Newtonsoft.Json;
 
 namespace DataModel.Data.DataLayer.Entities
 {
+    [JsonObject(IsReference = true)]
     public class Person : Entity
     {
 
@@ -26,6 +28,7 @@ namespace DataModel.Data.DataLayer.Entities
         public virtual ICollection<MailingAddress> MailingAddresses { get; set; }
         public virtual ICollection<Email> EmailAddresses { get; set; }
         public virtual PhoneNumber PhoneNumbers { get; set; }
+        public virtual User User { get; set; }
         #endregion
     }
 }

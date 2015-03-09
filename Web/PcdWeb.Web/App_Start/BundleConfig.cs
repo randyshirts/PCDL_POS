@@ -12,15 +12,19 @@ namespace PcdWeb.Web
 
             //~/Bundles/App/vendor/css
             bundles.Add(
-                new StyleBundle("~/Bundles/App/vendor/css")
+                new StyleBundle("~/styles/basestyles")
                     .Include(
                         "~/Content/themes/base/all.css",
                         "~/Content/bootstrap-cosmo.min.css",
                         "~/Content/durandal.css",
                         "~/Content/toastr.min.css",
                         "~/Content/flags/famfamfam-flags.css",
-                        "~/Content/font-awesome.min.css"
-                    )
+                        "~/Content/font-awesome.min.css")
+                    .Include(
+                        "~/App/_Common/styles/main.css", new CssRewriteUrlTransform())
+                    .Include("~/Content/font-awesome.min.css", new CssRewriteUrlTransform())
+                    .Include("~/Abp/Framework/styles/abp.css", new CssRewriteUrlTransform())
+                    .Include("~/Abp/Framework/styles/utils/ie10fix.css")                    
                 );
 
             //~/Bundles/vendor/js/top (These scripts should be included in the head of the page)
@@ -32,9 +36,16 @@ namespace PcdWeb.Web
                     )
                 );
 
+           
+
+            bundles.Add(
+                new ScriptBundle("~/Scripts/modernizr")
+                    .Include("~/Scripts/modernizr-{version}.js") 
+                );
+
             //~/Bundles/vendor/bottom (Included in the bottom for fast page load)
             bundles.Add(
-                new ScriptBundle("~/Bundles/vendor/js/bottom")
+                new ScriptBundle("~/scripts/baselibs")
                     .Include(
                         "~/Scripts/json2.min.js",
 
@@ -60,7 +71,17 @@ namespace PcdWeb.Web
                         "~/Abp/Framework/scripts/libs/abp.blockUI.js",
                         "~/Abp/Framework/scripts/libs/abp.spin.js"
                     )
-                );            
+                );
+
+            bundles.Add(
+           new ScriptBundle("~/Scripts/abp")
+               .Include("~/abp/framework/scripts/abp.js")
+               .Include("~/abp/framework/scripts/abp.localization.js")
+               .Include("~/abp/framework/scripts/libs/abp.jquery.js")
+               .Include("~/abp/framework/scripts/libs/abp.toastr.js")
+               .Include("~/abp/framework/scripts/libs/abp.blockUI.js")
+               .Include("~/abp/framework/scripts/libs/abp.spin.js")
+           );
             
             //APPLICATION RESOURCES
 

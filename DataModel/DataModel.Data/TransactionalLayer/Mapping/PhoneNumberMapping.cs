@@ -19,7 +19,7 @@ namespace RocketPos.Data.DataLayer.Mapping
             //Fields
             Property(b => b.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             Property(b => b.HomePhoneNumber).IsOptional().HasMaxLength(10);
-            Property(b => b.CellPhoneNumber).IsRequired().HasMaxLength(10);
+            Property(b => b.CellPhoneNumber).IsOptional().HasMaxLength(10);
             Property(b => b.AltPhoneNumber).IsOptional().HasMaxLength(10);
            
 

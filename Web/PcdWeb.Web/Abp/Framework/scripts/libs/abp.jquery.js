@@ -54,7 +54,7 @@
             userOptions.complete && userOptions.complete.apply(this, arguments);
         };
 
-        return this.ajaxForm(options);
+        return this.abpAjaxForm(options);
     };
 
     $.fn.abpAjaxForm.defaults = {

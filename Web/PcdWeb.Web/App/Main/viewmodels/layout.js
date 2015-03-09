@@ -6,6 +6,8 @@
 
             self.router = router;
 
+            
+
             self.languages = abp.localization.languages;
             self.currentLanguage = abp.localization.currentLanguage;
 
@@ -15,7 +17,8 @@
                 router.map([
                     { route: '', title: abp.localization.localize('HomePage', 'PcdWeb'), moduleId: 'viewmodels/home', nav: true, menuName: 'Home' },
                     { route: 'login', title: abp.localization.localize('Login', 'PcdWeb'), moduleId: 'viewmodels/login', nav: true, menuName: 'Login' },
-                    { route: 'about', title: abp.localization.localize('About', 'PcdWeb'), moduleId: 'viewmodels/about', nav: true, menuName: 'About' }
+                    { route: 'about', title: abp.localization.localize('About', 'PcdWeb'), moduleId: 'viewmodels/about', nav: true, menuName: 'About' },
+                    { route: 'viewItems', title: abp.localization.localize('ViewItems', 'PcdWeb'), moduleId: 'viewmodels/viewItems', nav: true, menuName: 'ViewItems' }
                 ]).buildNavigationModel();
 
                 return self.router.activate();

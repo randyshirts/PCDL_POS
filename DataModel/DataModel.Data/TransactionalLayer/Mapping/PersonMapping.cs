@@ -20,6 +20,7 @@ namespace DataModel.Data.TransactionalLayer.Mapping
             ToTable("Persons");
 
             //Relationships
+            HasOptional(p => p.User).WithRequired(u => u.PersonUser).WillCascadeOnDelete(false);
             HasOptional(p => p.Consignor).WithRequired(co => co.Consignor_Person).WillCascadeOnDelete(false);
             HasOptional(p => p.Member).WithRequired(me => me.Member_Person).WillCascadeOnDelete(false);
             HasOptional(p => p.Volunteer).WithRequired(vo => vo.Volunteer_Person).WillCascadeOnDelete(false);

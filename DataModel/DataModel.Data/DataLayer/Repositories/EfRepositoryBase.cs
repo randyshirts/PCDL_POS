@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Abp.Domain.Entities;
 using DataModel.Data.TransactionalLayer.Repositories;
 
 
@@ -75,7 +76,10 @@ namespace DataModel.Data.DataLayer.Repositories
 
         public override TEntity Insert(TEntity entity)
         {
-            return Table.Add(entity);
+             var ent = Table.Add(entity);
+             Context.SaveChanges();
+
+            return ent;
         }
 
         public override Task<TEntity> InsertAsync(TEntity entity)
