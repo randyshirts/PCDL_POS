@@ -1,5 +1,6 @@
 ﻿define(['plugins/router', 'durandal/app', 'services/security', 'global/session', 'services/logger', 'jquery', 'knockout', 'knockout.validation'],
     function (router, app, security, session, logger, $, ko) {
+
         // Internal properties and functions
         function ExternalLoginProviderViewModel(data) {
             var self = this;
@@ -21,8 +22,9 @@
 
         function reset() {
             vm.userName("");
+            vm.email("");
             vm.password("");
-            vm.rememberMe(false);
+            vm.confirmPassword("");
             vm.setFocus(true);
             vm.validationErrors.showAllMessages(false);
         }
@@ -31,28 +33,24 @@
         var vm = {
             activate: activate,
             goBack: goBack,
-            title: 'login',
+            title: 'register',
             session: session,
             setFocus: ko.observable(true),
             userName: ko.observable("").extend({ required: true }),
+            email: ko.observable("").extend({ required: true, email: true }),
             password: ko.observable("").extend({ required: true }),
-            rememberMe: ko.observable(false),
+            register: register,
             externalLoginProviders: ko.observableArray(),
             loaded: false,
-            login: login,
-            register: register
+            login: login
         };
 
-
-        vm.validationErrors = ko.validation.group([vm.userName, vm.password]);
-        vm.hasExternalLogin = ko.computed(function () {
-            return vm.externalLoginProviders().length > 0;
-        });
+        vm.confirmPassword = ko.observable("").extend({ required: true, equal: vm.password });
+        vm.validationErrors = ko.validation.group([vm.userName, vm.email, vm.password, vm.confirmPassword]);
 
         return vm;
 
         function activate() {
-
             var dfd = $.Deferred();
 
             session.isBusy(true);
@@ -78,9 +76,10 @@
 
                            vm.loaded = false;
                        }
-                   }).fail(function (jqXHR, textStatus, errorThrown) {
+                   }).fail(function () {
                        logger.log({
-                           message: "Error loading external authentication providers." + errorThrown,
+                           message: "Error loading external authentication providers.",
+                           data: "",
                            showToast: true,
                            type: "warning"
                        });
@@ -98,15 +97,8 @@
             }
         }
 
-        function deactivate() {
-            vm.setFocus(false);
-        }
+        function register() {
 
-        function goBack() {
-            router.navigateBack();
-        }
-
-        function login() {
             if (vm.validationErrors().length > 0) {
                 vm.validationErrors.showAllMessages();
                 return;
@@ -114,38 +106,60 @@
 
             session.isBusy(true);
 
-            security.login({
-                grant_type: "password",
-                username: vm.userName(),
-                password: vm.password()
+            security.register({
+                userName: vm.userName(),
+                email: vm.email(),
+                password: vm.password(),
+                confirmPassword: vm.confirmPassword()
             }).done(function (data) {
-                if (data.userName && data.access_token) {
-                    session.setUser(data, vm.rememberMe());
-                    router.navigate('#/', 'replace');
-                } else {
-                    logger.log({
-                        message: "Error logging in.",
-                        data: "",
-                        showToast: true,
-                        type: "error"
-                    });
-                }
+                security.login({
+                    grant_type: "password",
+                    username: vm.userName(),
+                    password: vm.password()
+                }).done(function (data) {
+                    if (data.userName && data.access_token) {
+                        session.setUser(data);
+                        router.navigate('#/', 'replace');
+                    } else {
+                        logger.log({
+                            message: "An unknown error occurred.",
+                            showToast: true,
+                            type: "error"
+                        });
+                    }
+                }).always(function () {
+                    session.isBusy(false);
+                }).failJSON(function (data) {
+                    if (data && data.error_description) {
+                        logger.log({
+                            message: "An error occurred: " + data.error_description,
+                            data: data.error_description,
+                            showToast: true,
+                            type: "error"
+                        });
+                    } else {
+                        logger.log({
+                            message: "An unknown error occurred.",
+                            showToast: true,
+                            type: "error"
+                        });
+                    }
+                });
             }).always(function () {
-                vm.userName('');
-                vm.password('');
                 session.isBusy(false);
             }).failJSON(function (data) {
-                if (data && data.error_description) {
+                var errors = security.toErrorString(data);
+
+                if (errors) {
                     logger.log({
-                        message: data.error_description,
-                        data: data.error_description,
+                        message: "One or more errors occurred:  " + errors,
+                        data: errors,
                         showToast: true,
                         type: "error"
                     });
                 } else {
                     logger.log({
-                        message: "Error logging in.",
-                        data: "",
+                        message: "An unknown error occurred.",
                         showToast: true,
                         type: "error"
                     });
@@ -153,7 +167,11 @@
             });
         }
 
-        function register() {
-            router.navigate('#/register', 'replace');
+        function login() {
+            router.navigate('#/login', 'replace');
+        }
+
+        function goBack(complete) {
+            router.navigateBack();
         }
     });

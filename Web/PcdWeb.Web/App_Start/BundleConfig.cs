@@ -63,7 +63,7 @@ namespace PcdWeb.Web
 
                         "~/Scripts/knockout-3.2.0.js",
                         "~/Scripts/knockout.mapping-latest.js",
-                        "~/Scripts/knockout.punches.min.js",
+                        "~/Scripts/knockout.punches.js",
 
                         "~/Abp/Framework/scripts/abp.js",
                         "~/Abp/Framework/scripts/libs/abp.jquery.js",

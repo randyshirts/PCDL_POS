@@ -1,3 +1,143 @@
-﻿<div>
-    Login
+﻿<h2>Log in</h2>
+<div class="row">
+    <section class="col-md-7">
+        <form class="form-horizontal" role="form">
+            <h4>Use a local account to log in.</h4>
+            <hr />
+            <div class="form-group">
+                <label for="LoginUserName" class="col-md-2 control-label">User name</label>
+                <div class="col-md-10">
+                    <input type="text" id="LoginUserName" class="form-control" data-bind="value: userName, hasFocus: setFocus" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="LoginPassword" class="col-md-2 control-label">Password</label>
+                <div class="col-md-10">
+                    <input type="password" id="LoginPassword" class="form-control" data-bind="value: password" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        <input type="checkbox" id="LoginRememberMe" data-bind="checked: rememberMe" />
+                        <label for="LoginRememberMe">Remember me?</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="submit" class="btn btn-default" data-bind="click: login, disable: session.isBusy()">Log in</button>
+                </div>
+            </div>
+            <p><a href="#" data-bind="click: register">Register</a> if you don't have a local account.</p>
+
+        </form>
+    </section>
+    <section class="col-md-offset-2 col-md-3">
+        <h4>Use another service to login.</h4>
+        <hr />
+
+        <div>
+            <form class="form-horizontal" role="form" data-bind="visible: externalLoginProviders().length > 0">
+                <p data-bind="foreach: externalLoginProviders">
+                    <button type="submit" class="btn btn-default" data-bind="text: name, attr: { title: 'Log in using your ' + name() + ' account' }, click: login"></button>
+                </p>
+            </form>
+        </div>
+    </section>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@{
+    ViewBag.Title = "Login - Play Create Discover";
+    
+}*@
+@*<div id="wrap">
+    
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Login</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <section class="col-md-8 col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Play Create Discover - Consign your books, games, manipulatives, and everything else that is homeschool related</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-4 col-xs-12 text-center">
+                            <img src="~/Images/home/Play Create Discover llc2.png" style="width: 400px; height: 200px" alt="Play Create Discover"/>
+                            <h2><a target="_blank" href="http://playcreatediscover.wix.com/i-wonder">Play Create Discover Information Site</a>
+                            </h2>
+                            <h2>1008 Oakwood Ave, Huntsville, AL</h2>
+                            <p>Thank you for consigning with us!</p>
+                        </div>*@
+                        @*<div class="col-sm-4 col-xs-12 text-center">
+                            <img src="~/Images/home/friends.png" style="width: 64px; height: 64px" alt="Find your friends" />
+                            <h2>Friendships</h2>
+                            <p>Find your friends, assign tasks to and see tasks of your friends</p>
+                        </div>*@
+                        @*<div class="col-sm-4 col-xs-12 text-center">
+                            <img src="~/Images/home/books on shelf.png" style="width: 64px; height: 64px" alt="See login"/>
+                            <h2>Login Instructions</h2>
+                            <p>If you have not consigned with us before - select 'Register'</p>
+                            <p></p>
+                            <p>If you created an account in the store select 'Register' and please use the email address you provided at the store</p>
+                            <p></p>
+                            <p>If you have already created an online account then use your email address as the username 'janedoe@gmail.com' and enter your password</p>
+                        </div>
+                    </div>
+                </div>*@
+                @*<div class="panel panel-default hidden-xs">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Some screenshots from the application</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-2 col-xs-12"><a class="taskever-screen-preview-image" rel="screenshots" href="~/Images/home/screens/01-overall.png"><img class="img-thumbnail img-responsive" style="max-height: 160px;" src="~/Images/home/screens/01-overall.png" alt="Overall view" /></a></div>
+                        <div class="col-sm-2 col-xs-12"><a class="taskever-screen-preview-image" rel="screenshots" href="~/Images/home/screens/02-overall.png"><img class="img-thumbnail img-responsive" style="max-height: 160px;" src="~/Images/home/screens/02-overall.png" alt="Overall view" /></a></div>
+                        <div class="col-sm-2 col-xs-12"><a class="taskever-screen-preview-image" rel="screenshots" href="~/Images/home/screens/03-friends.png"><img class="img-thumbnail img-responsive" style="max-height: 160px;" src="~/Images/home/screens/03-friends.png" alt="Overall view" /></a></div>
+                        <div class="col-sm-2 col-xs-12"><a class="taskever-screen-preview-image" rel="screenshots" href="~/Images/home/screens/06-profile-tasks.png"><img class="img-thumbnail img-responsive" style="max-height: 160px;" src="~/Images/home/screens/06-profile-tasks.png" alt="Overall view" /></a></div>
+                        <div class="col-sm-2 col-xs-12"><a class="taskever-screen-preview-image" rel="screenshots" href="~/Images/home/screens/05-task-edit.png"><img class="img-thumbnail img-responsive" style="max-height: 160px;" src="~/Images/home/screens/05-task-edit.png" alt="Overall view" /></a></div>
+                        <div class="col-sm-2 col-xs-12"><a class="taskever-screen-preview-image" rel="screenshots" href="~/Images/home/screens/04-create-task.png"><img class="img-thumbnail img-responsive" style="max-height: 160px;" src="~/Images/home/screens/04-create-task.png" alt="Overall view" /></a></div>
+                    </div>
+                </div>*@
+            @*</section>
+            <section class="col-md-4 col-sm-12">
+                @Html.Partial("_LoginPanel")
+                @Html.Partial("_RegisterPanel")
+            </section>
+        </div>
+    </div>
+</div>
+@Html.Partial("_Footer")
+@section styles
+{
+    <link href="~/Content/jquery.fancybox.css" rel="stylesheet" />
+}
+@section scripts
+{
+    <script src="~/Scripts/jquery.fancybox.js"></script>
+    <script src="~/Scripts/require.js" data-main="@(ApplicationPath)ViewResources/main.js"></script>
+    <script>
+        require(['@(ApplicationPath)ViewResources/Account/Login.js']);
+        //require(['/Widgets/LoginBox/LoginBox.js']);
+    </script>
+}*@

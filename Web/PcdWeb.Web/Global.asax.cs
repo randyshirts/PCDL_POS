@@ -11,7 +11,7 @@ namespace PcdWeb.Web
         protected override void Application_Start(object sender, EventArgs e)
         {
             IocManager.Instance.IocContainer.AddFacility<LoggingFacility>(f => f.UseLog4Net().WithConfig("log4net.config"));
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            //FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             base.Application_Start(sender, e);
         }
     }

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using DataModel.Data.ApplicationLayer.DTO;
+using DataModel.Data.DataLayer.Entities;
 using Microsoft.AspNet.Identity;
 
 namespace DataModel.Data.ApplicationLayer.Services
@@ -33,6 +35,10 @@ namespace DataModel.Data.ApplicationLayer.Services
         void SendPasswordResetLink(SendPasswordResetLinkInput input);
 
         void ResetPassword(ResetPasswordInput input);
+
+        GenerateUserIdentityAsyncOutput GenerateUserIdentityAsync(GenerateUserIdentityAsyncInput input);
+
+        GenerateUserIdentityAsyncOutput GenerateUserOauthIdentityAsync(GenerateUserIdentityAsyncInput input);
 
     }
 }

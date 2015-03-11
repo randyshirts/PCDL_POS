@@ -186,6 +186,23 @@ namespace DataModel.Data.ApplicationLayer.Services
             user.PasswordResetCode = null;
         }
 
+        public GenerateUserIdentityAsyncOutput GenerateUserIdentityAsync(GenerateUserIdentityAsyncInput input)
+        {
+            return new GenerateUserIdentityAsyncOutput
+            {
+                Task = _userRepository.GenerateUserIdentityAsync(_userManager, input.User.ConvertToUser())
+            };
+        }
+
+
+        public GenerateUserIdentityAsyncOutput GenerateUserOauthIdentityAsync(GenerateUserIdentityAsyncInput input)
+        {
+            return new GenerateUserIdentityAsyncOutput
+            {
+                Task = _userRepository.GenerateUserIdentityAsync(_userManager, input.User.ConvertToUser())
+            };
+        }
+
         #region Private methods
 
         private void SendConfirmationEmail(User user)
