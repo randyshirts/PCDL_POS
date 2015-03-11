@@ -5955,3 +5955,53 @@ DEBUG 2015-03-08 18:20:00,898 [1    ] Default                                  -
 DEBUG 2015-03-08 18:20:00,901 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IVideoAppService' with service name 'pcdWebApi/video'.
 DEBUG 2015-03-08 18:20:00,904 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IItemAppService' with service name 'pcdWebApi/item'.
 DEBUG 2015-03-08 18:20:00,906 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IBookAppService' with service name 'pcdWebApi/book'.
+DEBUG 2015-03-10 21:13:35,633 [1    ] Abp.Modules.AbpModuleManager             - Loading Abp modules...
+DEBUG 2015-03-10 21:13:38,014 [1    ] Abp.Modules.AbpModuleManager             - Found 12 ABP modules in total.
+DEBUG 2015-03-10 21:13:38,017 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Startup.Application.AbpApplicationModule, Abp.Application, Version=0.1.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:13:38,019 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AutoMapper.AbpAutoMapperModule, Abp.AutoMapper, Version=0.5.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:13:38,019 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AbpKernelModule, Abp, Version=0.5.2.1, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:13:38,020 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFramework.AbpEntityFrameworkModule, Abp.EntityFramework, Version=0.5.2.1, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:13:38,020 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.WebApi.AbpWebApiModule, Abp.Web.Api, Version=0.5.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:13:38,020 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.AbpWebModule, Abp.Web, Version=0.5.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:13:38,020 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.Mvc.AbpWebMvcModule, Abp.Web.Mvc, Version=0.5.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:13:38,020 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: DataModel.Data.ApplicationLayer.Services.PcdApplicationModule, DataModel.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:13:38,020 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: DataModel.Data.DataLayer.PcdWebDataModule, DataModel.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:13:38,020 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: PcdWeb.PcdWebCoreModule, PcdWeb.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:13:38,020 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: PcdWeb.Web.PcdWebWebModule, PcdWeb.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:13:38,020 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: PcdWeb.PcdWebWebApiModule, PcdWeb.WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:13:38,036 [1    ] Abp.Modules.AbpModuleManager             - 12 modules loaded.
+DEBUG 2015-03-10 21:13:39,903 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Found 0 classes defines auto mapping attributes
+WARN  2015-03-10 21:13:42,007 [1    ] EntityFramework.AbpEntityFrameworkModule - No class found derived from AbpDbContext.
+DEBUG 2015-03-10 21:13:42,038 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IConsignorPmtAppService' with service name 'pcdWebApi/consignorPmt'.
+DEBUG 2015-03-10 21:13:42,041 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IItemSaleTransactionAppService' with service name 'pcdWebApi/itemSaleTransaction'.
+DEBUG 2015-03-10 21:13:42,045 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IPcdWebUserAppService' with service name 'pcdWebApi/pcdWebUser'.
+DEBUG 2015-03-10 21:13:42,048 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IPersonAppService' with service name 'pcdWebApi/person'.
+DEBUG 2015-03-10 21:13:42,050 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IStoreCreditTransactionAppService' with service name 'pcdWebApi/storeCreditTransaction'.
+DEBUG 2015-03-10 21:13:42,052 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IVideoAppService' with service name 'pcdWebApi/video'.
+DEBUG 2015-03-10 21:13:42,054 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IItemAppService' with service name 'pcdWebApi/item'.
+DEBUG 2015-03-10 21:13:42,056 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IBookAppService' with service name 'pcdWebApi/book'.
+DEBUG 2015-03-10 21:16:40,719 [1    ] Abp.Modules.AbpModuleManager             - Loading Abp modules...
+DEBUG 2015-03-10 21:16:44,202 [1    ] Abp.Modules.AbpModuleManager             - Found 12 ABP modules in total.
+DEBUG 2015-03-10 21:16:44,205 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Startup.Application.AbpApplicationModule, Abp.Application, Version=0.1.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:16:44,208 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AutoMapper.AbpAutoMapperModule, Abp.AutoMapper, Version=0.5.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:16:44,208 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AbpKernelModule, Abp, Version=0.5.2.1, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:16:44,208 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFramework.AbpEntityFrameworkModule, Abp.EntityFramework, Version=0.5.2.1, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:16:44,208 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.WebApi.AbpWebApiModule, Abp.Web.Api, Version=0.5.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:16:44,209 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.AbpWebModule, Abp.Web, Version=0.5.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:16:44,209 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.Mvc.AbpWebMvcModule, Abp.Web.Mvc, Version=0.5.2.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:16:44,209 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: DataModel.Data.ApplicationLayer.Services.PcdApplicationModule, DataModel.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:16:44,209 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: DataModel.Data.DataLayer.PcdWebDataModule, DataModel.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:16:44,209 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: PcdWeb.PcdWebCoreModule, PcdWeb.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:16:44,209 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: PcdWeb.Web.PcdWebWebModule, PcdWeb.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:16:44,209 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: PcdWeb.PcdWebWebApiModule, PcdWeb.WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2015-03-10 21:16:44,228 [1    ] Abp.Modules.AbpModuleManager             - 12 modules loaded.
+DEBUG 2015-03-10 21:16:46,021 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Found 0 classes defines auto mapping attributes
+WARN  2015-03-10 21:16:47,785 [1    ] EntityFramework.AbpEntityFrameworkModule - No class found derived from AbpDbContext.
+DEBUG 2015-03-10 21:16:47,813 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IConsignorPmtAppService' with service name 'pcdWebApi/consignorPmt'.
+DEBUG 2015-03-10 21:16:47,815 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IItemSaleTransactionAppService' with service name 'pcdWebApi/itemSaleTransaction'.
+DEBUG 2015-03-10 21:16:47,820 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IPcdWebUserAppService' with service name 'pcdWebApi/pcdWebUser'.
+DEBUG 2015-03-10 21:16:47,822 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IPersonAppService' with service name 'pcdWebApi/person'.
+DEBUG 2015-03-10 21:16:47,824 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IStoreCreditTransactionAppService' with service name 'pcdWebApi/storeCreditTransaction'.
+DEBUG 2015-03-10 21:16:47,827 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IVideoAppService' with service name 'pcdWebApi/video'.
+DEBUG 2015-03-10 21:16:47,829 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IItemAppService' with service name 'pcdWebApi/item'.
+DEBUG 2015-03-10 21:16:47,831 [1    ] Default                                  - Dynamic web api controller is created for type 'DataModel.Data.ApplicationLayer.Services.IBookAppService' with service name 'pcdWebApi/book'.

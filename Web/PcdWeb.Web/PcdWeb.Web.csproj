@@ -420,7 +420,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PcdWebControllerBase.cs" />
     <Compile Include="Controllers\WidgetsController.cs" />
-    <Compile Include="FilterConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
