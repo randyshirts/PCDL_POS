@@ -2,6 +2,9 @@
 using System.Reflection;
 using Abp.EntityFramework;
 using Abp.Modules;
+using DataModel.Data.ApplicationLayer.Identity;
+using DataModel.Data.TransactionalLayer.Repositories;
+using Owin;
 using PcdWeb;
 
 namespace DataModel.Data.DataLayer
@@ -19,5 +22,6 @@ namespace DataModel.Data.DataLayer
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
             //Database.SetInitializer<PcdWebDbContext>(null);
         }
+
     }
 }

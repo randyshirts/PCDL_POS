@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Web;
+using DataModel.Data.ApplicationLayer.Identity;
 using DataModel.Data.DataLayer.Entities;
 using DataModel.Data.DataLayer.Repositories;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace DataModel.Data.TransactionalLayer.Repositories
 {
     public class PersonRepository : PcdRepositoryBase<Person>, IPersonRepository
-    {
+    {   
+        
         public void UpdatePerson(Person updatedPerson)
         {
             var original = Context.Persons.Find(updatedPerson.Id);
@@ -46,6 +51,7 @@ namespace DataModel.Data.TransactionalLayer.Repositories
             return query.ToList();
         }
 
+        
         
     }
 }

@@ -43,6 +43,7 @@ namespace DataModel.Data.DataLayer
         public virtual DbSet<Consignor> Consignors { get; set; }
         public virtual DbSet<MailingAddress> MailingAddresses { get; set; }
         public virtual DbSet<Email> Emails { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<PhoneNumber> PhoneNumbers { get; set; }
         public virtual DbSet<CreditTransaction> CreditTransactions { get; set; }
         public virtual DbSet<DebitTransaction> DebitTransactions { get; set; }
@@ -52,6 +53,11 @@ namespace DataModel.Data.DataLayer
         public virtual DbSet<ClassPmtTransaction> ClassPmtTransactions { get; set; }
         public virtual DbSet<SpaceRentalTransaction> SpaceRentalTransactions { get; set; }
         public virtual DbSet<StoreCreditTransaction> StoreCreditTransactions { get; set; }
+
+        public static DataContext Create()
+        {
+            return new DataContext();
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

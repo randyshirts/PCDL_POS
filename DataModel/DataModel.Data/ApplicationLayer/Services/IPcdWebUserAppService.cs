@@ -22,9 +22,11 @@ namespace DataModel.Data.ApplicationLayer.Services
 
         GetUserOutput GetUser(GetUserInput input);
 
-        void RegisterUser(RegisterUserInput registerUser);
+        RegisterUserOutput RegisterUser(RegisterUserInput registerUser);
 
-        Task<IdentityResult> ConfirmEmail(ConfirmEmailInput input);
+        RegisterExternalUserOutput RegisterExternalUser(RegisterExternalUserInput input);
+        
+        ConfirmEmailOutput ConfirmEmail(ConfirmEmailInput input);
 
         GetCurrentUserInfoOutput GetCurrentUserInfo(GetCurrentUserInfoInput input);
 
@@ -34,5 +36,8 @@ namespace DataModel.Data.ApplicationLayer.Services
 
         void ResetPassword(ResetPasswordInput input);
 
+        SendConfirmationOutput SendConfirmation(SendConfirmationInput input);
+        
+        UpdateRegisterUserOutput UpdateRegisterUser(UpdateRegisterUserInput input);
     }
 }

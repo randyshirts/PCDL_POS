@@ -6,7 +6,6 @@ using DataModel.Data.TransactionalLayer.Repositories;
 using Inventory.Controller.Interfaces;
 using RocketPos.Common.Foundation;
 using RocketPos.Common.Helpers;
-using RocketPos.Data.TransactionalLayer;
 
 namespace Inventory.Controller.Elements.ItemElements
 {

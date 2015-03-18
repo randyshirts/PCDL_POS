@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using RocketPos.Common.AmazonAWS;
 
@@ -41,8 +42,6 @@ namespace RocketPos.Common.Helpers
         public List<DateTime> PublicationDate { get; set; }
         public List<double> TradeInValue { get; set; }
 
-
-
         // method to fill up my wrapper class using an ISBN
         public AmazonItemSearchInfo GetProductByIsbn(AWSECommerceServicePortTypeClient amazonClient, string isbn)
         {
@@ -56,15 +55,20 @@ namespace RocketPos.Common.Helpers
             var search = new ItemSearch
             {
                 AWSAccessKeyId = ConfigSettings.accessKeyId + ak2,
-                AssociateTag = ConfigSettings.ASSOCIATE_TAG + at2
+                AssociateTag = ConfigSettings.ASSOCIATE_TAG + at2,
             };
+
 
             //Create Request object
             var request = new ItemSearchRequest
             {
                 SearchIndex = "Books",
-                Power = "isbn : " + isbn + "*",
-                ResponseGroup = new[] {"Medium"}
+                //Power = "isbn : " + isbn + "*",
+                Power = "isbn : " + isbn + "* or " + "ean : " + isbn + "*",
+                ResponseGroup = new[] {"Medium"},
+                //Availability = 0,
+                //AvailabilitySpecified = false
+                
             };
             //request.Keywords = isbn;
 
@@ -77,6 +81,7 @@ namespace RocketPos.Common.Helpers
 
             //Get necessary info from response
             AmazonItemSearchInfo myInfo = null;
+            var dateTime = new DateTime();
 
             //Get a list of results
             if (response.Items[0].Item != null)
@@ -84,15 +89,27 @@ namespace RocketPos.Common.Helpers
                 myInfo = new AmazonItemSearchInfo();
                 for (int i = 0; i < response.Items[0].Item.Count(); i++)
                 {
-                    myInfo.Title.Add(response.Items[0].Item[i].ItemAttributes.Title);
-                    myInfo.Image.Add(response.Items[0].Item[i].MediumImage);
+                    myInfo.Title.Add(response.Items[0].Item[i].ItemAttributes.Title ?? null);
+                    myInfo.Image.Add(response.Items[0].Item[i].MediumImage ?? null);
                     myInfo.ListPrice.Add(response.Items[0].Item[i].ItemAttributes.ListPrice != null ? response.Items[0].Item[i].ItemAttributes.ListPrice.FormattedPrice : null);
-                    myInfo.Ean.Add(response.Items[0].Item[i].ItemAttributes.EAN);
+                    myInfo.Ean.Add(response.Items[0].Item[i].ItemAttributes.EAN ?? null);                   
                     myInfo.Isbn.Add(response.Items[0].Item[i].ItemAttributes.ISBN ?? isbn);
-                    myInfo.Author.Add(response.Items[0].Item[i].ItemAttributes.Author[0]);
-                    myInfo.Binding.Add(response.Items[0].Item[i].ItemAttributes.Binding);
+                    if (myInfo.Ean[i].EndsWith(myInfo.Isbn[i]))
+                        myInfo.Isbn[i] = myInfo.Ean[i];
+                    myInfo.Author.Add(response.Items[0].Item[i].ItemAttributes.Author != null ? response.Items[0].Item[i].ItemAttributes.Author[0] : null);
+                    myInfo.Binding.Add(response.Items[0].Item[i].ItemAttributes.Binding ?? null);
                     myInfo.NumberOfPages.Add(response.Items[0].Item[i].ItemAttributes.NumberOfPages != null ? Int32.Parse(response.Items[0].Item[i].ItemAttributes.NumberOfPages) : 0);
-                    myInfo.PublicationDate.Add(response.Items[0].Item[i].ItemAttributes.PublicationDate != null ? DateTime.Parse(response.Items[0].Item[i].ItemAttributes.PublicationDate) : DateTime.Now.Date);
+                    string myDate = response.Items[0].Item[i].ItemAttributes.PublicationDate;
+                    if (myDate != null)
+                    {
+
+                        if (myDate.Length == 4)
+                            dateTime = DateTime.ParseExact(myDate, "yyyy", CultureInfo.InvariantCulture);
+                        else
+                            DateTime.TryParse(response.Items[0].Item[i].ItemAttributes.PublicationDate, out dateTime);
+                        
+                        myInfo.PublicationDate.Add(dateTime);
+                    }
                     myInfo.TradeInValue.Add(response.Items[0].Item[i].ItemAttributes.TradeInValue != null ? Double.Parse(response.Items[0].Item[i].ItemAttributes.TradeInValue.FormattedPrice.Replace("$", "")) : 0);
                 }
             }

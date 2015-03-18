@@ -15,7 +15,10 @@ namespace DataModel.Data.ApplicationLayer.DTO
             Id = person.Id;
             FirstName = person.FirstName;
             LastName = person.LastName;
-            Consignor = person.Consignor;
+            if (person.Consignor != null)
+                Consignor = new ConsignorDto(person.Consignor);
+            if (person.User != null)
+                User = new UserDto(person.User);
             Member = person.Member;
             Volunteer = person.Volunteer;
             MailingAddresses = person.MailingAddresses;
@@ -25,12 +28,13 @@ namespace DataModel.Data.ApplicationLayer.DTO
            
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Consignor Consignor { get; set; }
+        public ConsignorDto Consignor { get; set; }
         public Member Member { get; set; }
         public Volunteer Volunteer { get; set; }
         public ICollection<MailingAddress> MailingAddresses { get; set; }
         public ICollection<Email> EmailAddresses { get; set; }
         public PhoneNumber PhoneNumbers { get; set; }
+        public UserDto User { get; set; }
 
         public Person ConvertToPerson()
         {
@@ -39,12 +43,13 @@ namespace DataModel.Data.ApplicationLayer.DTO
                 Id = Id,
                 FirstName = FirstName,
                 LastName = LastName,
-                Consignor = Consignor,
+                Consignor = Consignor != null ? Consignor.ConvertToConsignor() : null,
                 Member = Member,
                 Volunteer = Volunteer,
                 MailingAddresses = MailingAddresses,
                 EmailAddresses = EmailAddresses,
-                PhoneNumbers = PhoneNumbers
+                PhoneNumbers = PhoneNumbers,
+                User = User != null ? User.ConvertToUser() : null
             };
         }
     }
@@ -58,4 +63,5 @@ namespace DataModel.Data.ApplicationLayer.DTO
     {
         public List<PersonDto> Persons { get; set; } 
     }
+
 }

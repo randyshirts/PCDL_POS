@@ -21,7 +21,6 @@ using Inventory.Controller.Elements.ItemElements;
 using Inventory.Controller.Visitors.ItemVisitors;
 using RocketPos.Common.Foundation;
 using RocketPos.Common.Helpers;
-using RocketPos.Data.TransactionalLayer;
 
 namespace Inventory.ViewModels.ConsignorItems.ViewModels
 {

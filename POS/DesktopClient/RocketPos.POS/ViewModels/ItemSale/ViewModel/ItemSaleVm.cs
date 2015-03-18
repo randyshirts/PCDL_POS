@@ -18,7 +18,6 @@ using POS.Controller.Elements;
 using POS.ViewModels.PaymentWindow.ViewModels;
 using RocketPos.Common.Foundation;
 using RocketPos.Common.Helpers;
-using RocketPos.Data.TransactionalLayer;
 
 namespace POS.ViewModels.ItemSale.ViewModel
 {

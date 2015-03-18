@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using DataModel.Data.DataLayer;
-using DataModel.Data.DataLayer.Entities;
-using RocketPos.Data.DataLayer;
 
-namespace RocketPos.Data.TransactionalLayer
+namespace DataModel.Data.TransactionalLayer
 {
     [SuppressMessage("ReSharper", "UnusedParameter.Local")]
     public sealed class BusinessContext : IDisposable

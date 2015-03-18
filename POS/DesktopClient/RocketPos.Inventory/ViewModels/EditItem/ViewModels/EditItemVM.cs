@@ -17,7 +17,6 @@ using Inventory.Controller.CustomClasses;
 using Inventory.Controller.Elements;
 using RocketPos.Common.Foundation;
 using RocketPos.Common.Helpers;
-using RocketPos.Data.TransactionalLayer;
 
 namespace Inventory.ViewModels.EditItem.ViewModels
 {

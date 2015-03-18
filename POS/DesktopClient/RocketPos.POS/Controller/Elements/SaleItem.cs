@@ -6,7 +6,6 @@ using POS.Controller.Interfaces;
 using POS.Controller.Visitors;
 using RocketPos.Common.Foundation;
 using RocketPos.Common.Helpers;
-using RocketPos.Data.TransactionalLayer;
 
 //using Inventory.Controller.Interfaces;
 

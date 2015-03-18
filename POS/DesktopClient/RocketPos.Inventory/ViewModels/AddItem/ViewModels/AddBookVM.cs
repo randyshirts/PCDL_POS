@@ -28,6 +28,8 @@ namespace Inventory.ViewModels.AddItem.ViewModels
             Books = new ObservableCollection<Book>();
 
             _bookItem = new BookItem();
+
+            IsAmazonEnabled = true;
             
             _bindingComboValues.InitializeComboBox(EnumsAndLists.Bindings);
         }
@@ -244,6 +246,23 @@ namespace Inventory.ViewModels.AddItem.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the IsAmazonEnabled checkbox value.
+        /// </summary>
+        private bool _isAmazonEnabled;
+        public bool IsAmazonEnabled
+        {
+            get
+            {
+                return _isAmazonEnabled;
+            }
+            set
+            {
+                _isAmazonEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
         //Does ItemSearch - returns many results
         private IEnumerable SearchAmazonByIsbn(string isbn)
         {
@@ -327,14 +346,15 @@ namespace Inventory.ViewModels.AddItem.ViewModels
             get { return _isbnQueryText; }
             set
             {
-                if (_isbnQueryText == value) return;
+                if (_isbnQueryText == value) 
+                    return;
                 _isbnQueryText = value;
                 OnPropertyChanged();
                 Isbn = value;
                 
                 //If ISBN is at least 10 characters search amazon 
                 //  and change title and author fields if found
-                if (!string.IsNullOrEmpty(_isbnQueryText))
+                if (!string.IsNullOrEmpty(_isbnQueryText) && IsAmazonEnabled)
                     QueryCollection = SearchAmazonByIsbn(_isbn);
             }
         }

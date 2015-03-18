@@ -4,13 +4,21 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using System.Windows.Forms;
 using Abp.UI;
 using DataModel.Data.ApplicationLayer.DTO;
+using DataModel.Data.ApplicationLayer.Identity;
 using DataModel.Data.ApplicationLayer.Utils.Email;
 using DataModel.Data.DataLayer.Entities;
 using DataModel.Data.TransactionalLayer.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Host.SystemWeb;
 
 namespace DataModel.Data.ApplicationLayer.Services
 {
@@ -18,17 +26,57 @@ namespace DataModel.Data.ApplicationLayer.Services
     {
         private readonly IPcdWebUserRepository _userRepository;
         private readonly IIdentityMessageService _emailService;
-        private readonly UserManager<User> _userManager;
+        //private readonly UserManager<User> _userManager;
         //private readonly IFriendshipRepository _friendshipRepository;
 
-        public PcdWebUserAppService(UserManager<User> userManager)
+        public PcdWebUserAppService()
         {
             _userRepository = new PcdWebUserRepository();
             //_friendshipRepository = friendshipRepository;
             _emailService = new EmailService();
-            _userManager = userManager;
+            //_userManager = new PcdUserManager();
         }
 
+        private PcdUserManager _userManager;
+        public PcdUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<PcdUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        private PcdRoleManager _roleManager;
+        public PcdRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.Current.GetOwinContext().Get<PcdRoleManager>();
+            }
+            private set { _roleManager = value; }
+        }
+
+        private PcdSignInManager _signInManager;
+        public PcdSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.Current.GetOwinContext().Get<PcdSignInManager>();
+            }
+            private set { _signInManager = value; }
+        }
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.Current.GetOwinContext().Authentication;
+            }
+        }
         //public GetUserProfileOutput GetUserProfile(GetUserProfileInput input)
         //{
         //    var currentUser = _userRepository.Load(IdentityUser.CurrentUserId.Value);
@@ -84,9 +132,12 @@ namespace DataModel.Data.ApplicationLayer.Services
             return new GetUserOutput(new UserDto(user));
         }
 
-        public void RegisterUser(RegisterUserInput registerUser)
+        //Todo - make mergeUser - where it creates the user and merges an existing person
+        public RegisterUserOutput RegisterUser(RegisterUserInput registerUser)
         {
+
             var existingUser = _userRepository.FirstOrDefault(u => u.Email == registerUser.EmailAddress);
+
             if (existingUser != null)
             {
                 if (!existingUser.EmailConfirmed)
@@ -103,7 +154,7 @@ namespace DataModel.Data.ApplicationLayer.Services
 
                 PersonUser = new Person
                 {
-                    FirstName = registerUser.Name,
+                    FirstName = registerUser.FirstName,
                     LastName = registerUser.LastName,
                     EmailAddresses = new List<Email>
                     {
@@ -118,6 +169,7 @@ namespace DataModel.Data.ApplicationLayer.Services
                     }
                 },
 
+                UserName = registerUser.EmailAddress,
                 PhoneNumber = registerUser.Phone,
                 Email = registerUser.EmailAddress,
                 PasswordHash = registerUser.Password,
@@ -126,22 +178,103 @@ namespace DataModel.Data.ApplicationLayer.Services
             };
 
             //var userEntity = registerUser;
+            
             userEntity.PasswordHash = new PasswordHasher().HashPassword(userEntity.PasswordHash);
-            userEntity.EmailConfirmationCode = _userManager.GenerateEmailConfirmationTokenAsync(userEntity.Id).Result;
-            _userRepository.Insert(userEntity);
-            SendConfirmationEmail(userEntity);
+            try
+            {
+                var result = UserManager.CreateAsync(userEntity);
+
+                if (result.Result.Succeeded)
+                {
+                    
+                    SendConfirmationEmail(userEntity);
+                }
+
+                return new RegisterUserOutput() {Result = result.Result};
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
         }
 
-        public async Task<IdentityResult> ConfirmEmail(ConfirmEmailInput input)
+        public UpdateRegisterUserOutput UpdateRegisterUser(UpdateRegisterUserInput input)
         {
-            var user = _userRepository.Get(input.UserId.ToString());
-            var result = await _userManager.ConfirmEmailAsync(input.UserId.ToString(), input.ConfirmationCode);
-            return result;
+            //var userEntity = new User
+            //{
+            //    //PersonUser = input.Person.ConvertToPerson(),
+            //    PersonUser = input.Person.ConvertToPerson(),
+            //    UserName = input.EmailAddress,
+            //    Email = input.EmailAddress,
+            //    PasswordHash = input.Password,
+            //};
+
+            var userEntity = new User
+            {
+                //PersonUser = input.Person.ConvertToPerson(),
+                //PersonUser = input.Person.ConvertToPerson(),
+                UserName = input.EmailAddress,
+                Email = input.EmailAddress,
+                PasswordHash = input.Password,
+                SecurityStamp = Guid.NewGuid().ToString() //Added since we aren't using createAsync
+            };
+
+            input.Person.User = null;
+            //userEntity.PersonUser.Consignor.Consignor_Person.User = null;
+            
+
+            userEntity.PasswordHash = new PasswordHasher().HashPassword(userEntity.PasswordHash);
+            try
+            {
+                bool result;
+                try
+                {                 
+                    result = _userRepository.AddUserToPerson(input.Person.ConvertToPerson(), userEntity);
+                }
+                catch (Exception ex)
+                {
+                    result = false;
+                }
+
+                if (result)
+                {
+                    var user = _userRepository.FirstOrDefault(u => u.Email == input.EmailAddress);
+                    SendConfirmationEmail(user);
+                }
+
+                return new UpdateRegisterUserOutput() { Result = result };
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+
+        public RegisterExternalUserOutput RegisterExternalUser(RegisterExternalUserInput input)
+        {
+
+            return new RegisterExternalUserOutput() {Result = _userManager.CreateAsync(input.User).Result};
+
+        }
+
+        public ConfirmEmailOutput ConfirmEmail(ConfirmEmailInput input)
+        {
+            //var user = _userRepository.Get(input.UserId.ToString());
+            var code = HttpUtility.UrlDecode(input.ConfirmationCode);
+            if (code != null)
+            {
+                //code = code.Replace("%99", "+");
+                var result = UserManager.ConfirmEmailAsync(input.UserId, code);
+                //var result = _userRepository.ConfirmEmail(input.UserId, code);
+                return new ConfirmEmailOutput() { Result = result.Result.Succeeded };
+            }
+            return new ConfirmEmailOutput(){Result = false};
         }
 
         public GetCurrentUserInfoOutput GetCurrentUserInfo(GetCurrentUserInfoInput input)
         {
-            //TODO: Use GetUser?
             return new GetCurrentUserInfoOutput { User = new UserDto(_userRepository.Get(input.UserId.ToString())) };
         }
 
@@ -165,7 +298,7 @@ namespace DataModel.Data.ApplicationLayer.Services
                 throw new UserFriendlyException("Can not find this email address in the system.");
             }
 
-            user.PasswordResetCode = _userManager.GeneratePasswordResetTokenAsync(input.UserId.ToString()).ToString();
+            user.PasswordResetCode = UserManager.GeneratePasswordResetTokenAsync(input.UserId.ToString()).ToString();
             SendPasswordResetLinkEmail(user);
         }
 
@@ -186,10 +319,36 @@ namespace DataModel.Data.ApplicationLayer.Services
             user.PasswordResetCode = null;
         }
 
+        public SendConfirmationOutput SendConfirmation(SendConfirmationInput input)
+        {
+            var existingUser = _userRepository.FirstOrDefault(u => u.Email == input.EmailAddress);
+
+            try
+            {
+                //Send confirmation
+                SendConfirmationEmail(existingUser);
+                return new SendConfirmationOutput{Result = true};
+            }
+            catch (Exception ex)
+            {
+                return new SendConfirmationOutput{Result = false};
+            }
+        
+        }
+
+        
+
         #region Private methods
 
         private void SendConfirmationEmail(User user)
         {
+            var code = UserManager.GenerateEmailConfirmationTokenAsync(user.Id);           
+            user.EmailConfirmationCode = code.Result;
+            _userRepository.UpdateConfirmationCode(user);
+
+            var encoded = code.Result.Replace("+", "%2B");
+            encoded = HttpUtility.UrlEncode(encoded);
+
             var mail = new MailMessage {IsBodyHtml = true, SubjectEncoding = Encoding.UTF8};
 
             var mailBuilder = new StringBuilder();
@@ -210,7 +369,7 @@ namespace DataModel.Data.ApplicationLayer.Services
                     <h3>{TEXT_WELCOME}</h3>
                     <p>{TEXT_DESCRIPTION}</p>
                     <p>&nbsp;</p>
-                    <p><a href=""http://www.playcreatediscover.com/Account/ConfirmEmail?UserId={USER_ID}&ConfirmationCode={CONFIRMATION_CODE}"">http://www.playcreatediscover.com/Account/ConfirmEmail?UserId={USER_ID}&amp;ConfirmationCode={CONFIRMATION_CODE}</a></p>
+                    <p><a href=""http://localhost:61754/api/Account/ConfirmEmail?userId={USER_ID}&confirmationCode={CONFIRMATION_CODE}"">http://localhost:61754/api/Account/ConfirmEmail?userId={USER_ID}&amp;confirmationCode={CONFIRMATION_CODE}</a></p>
                     <p>&nbsp;</p>
                     <p><a href=""http://www.playcreatediscover.com"">http://www.playcreatediscover.com</a></p>
                 </body>
@@ -220,8 +379,8 @@ namespace DataModel.Data.ApplicationLayer.Services
             mailBuilder.Replace("{TEXT_WELCOME}", "Welcome to PcdWeb.com!");
             mailBuilder.Replace("{TEXT_DESCRIPTION}",
                 "Click the link below to confirm your email address and login to the PcdWeb.com");
-            mailBuilder.Replace("{USER_ID}", user.Id.ToString());
-            mailBuilder.Replace("{CONFIRMATION_CODE}", user.EmailConfirmationCode);
+            mailBuilder.Replace("{USER_ID}", user.Id);
+            mailBuilder.Replace("{CONFIRMATION_CODE}", encoded);
 
             mail.Body = mailBuilder.ToString();
             mail.BodyEncoding = Encoding.UTF8;
@@ -233,7 +392,7 @@ namespace DataModel.Data.ApplicationLayer.Services
                 Destination = user.Email
             };
 
-            _emailService.SendAsync(message);
+            var result = _emailService.SendAsync(message);
         }
 
         private void SendPasswordResetLinkEmail(User user)
@@ -267,7 +426,7 @@ namespace DataModel.Data.ApplicationLayer.Services
             mailBuilder.Replace("{TEXT_HTML_TITLE}", "Password reset for PcdWeb");
             mailBuilder.Replace("{TEXT_WELCOME}", "Reset your password on PcdWeb!");
             mailBuilder.Replace("{TEXT_DESCRIPTION}", "Click the link below to reset your password on the PcdWeb.com");
-            mailBuilder.Replace("{USER_ID}", user.Id.ToString());
+            mailBuilder.Replace("{USER_ID}", user.Id);
             mailBuilder.Replace("{RESET_CODE}", user.PasswordResetCode);
 
             mail.Body = mailBuilder.ToString();

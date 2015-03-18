@@ -5,7 +5,6 @@ using DataModel.Data.ApplicationLayer.WpfControllers;
 using DataModel.Data.TransactionalLayer.Repositories;
 using Inventory.Controller.Elements.ItemElements;
 using Inventory.Controller.Interfaces;
-using RocketPos.Data.TransactionalLayer;
 
 namespace Inventory.Controller.Visitors.ItemVisitors
 {

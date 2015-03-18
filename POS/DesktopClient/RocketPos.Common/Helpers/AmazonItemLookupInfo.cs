@@ -30,9 +30,9 @@ namespace RocketPos.Common.Helpers
 
             ItemLookupRequest request = new ItemLookupRequest
             {
-                IdType = ItemLookupRequestIdType.ISBN,
+                IdType = ItemLookupRequestIdType.EAN,
                 IdTypeSpecified = true,
-                Id = new[] {isbn},
+                ItemId = new[] {isbn},
                 SearchIndex = "Books",
                 ResponseGroup = new[] {"OfferFull", "ItemAttributes"}
             };
@@ -80,7 +80,7 @@ namespace RocketPos.Common.Helpers
             {
                 IdType = ItemLookupRequestIdType.EAN,
                 IdTypeSpecified = true,
-                Id = new[] {ean},
+                ItemId = new[] {ean},
                 SearchIndex = AmazonCommonHelpers.GetSearchIndex(itemType),
                 ResponseGroup = new[] {"OfferFull", "ItemAttributes"}
             };

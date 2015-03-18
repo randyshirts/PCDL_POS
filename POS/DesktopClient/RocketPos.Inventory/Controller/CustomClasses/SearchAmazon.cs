@@ -21,7 +21,7 @@ namespace Inventory.Controller.CustomClasses
         {
             try
             {
-                if (isbn.Length <= 4) return null;
+                if (isbn.Length <= 8) return null;
                 var search = new AmazonItemSearchInfo();
                 if (SearchClient != null)
                 {

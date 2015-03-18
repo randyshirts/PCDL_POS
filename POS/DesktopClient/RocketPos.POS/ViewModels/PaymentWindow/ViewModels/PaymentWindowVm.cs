@@ -19,7 +19,6 @@ using RocketPos.Common.Helpers;
 using POS.Controller.CustomClasses;
 using POS.Controller.Elements;
 using POS.Controller.Visitors;
-using RocketPos.Data.TransactionalLayer;
 using MessageBox = System.Windows.MessageBox;
 
 

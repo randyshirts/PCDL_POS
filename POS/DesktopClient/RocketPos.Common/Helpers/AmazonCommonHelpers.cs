@@ -1,4 +1,5 @@
-﻿using RocketPos.Common.AmazonAWS;
+﻿using System.ServiceModel;
+using RocketPos.Common.AmazonAWS;
 
 
 
@@ -12,8 +13,14 @@ namespace RocketPos.Common.Helpers
             //{
             const string ak2 = "3BM4NOYUORFUQ";
             const string sk2 = "daC049THzC4mjoq+6ShbLthRoO";
-            var amazonClient = new AWSECommerceServicePortTypeClient();
+
+            BasicHttpBinding basicBinding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
+            basicBinding.MaxReceivedMessageSize = int.MaxValue;
+            var amazonClient = new AWSECommerceServicePortTypeClient(basicBinding, new EndpointAddress("https://webservices.amazon.com/onca/soap?Service=AWSECommerceService"));
+
             if (amazonClient.Endpoint == null) return null;
+            
+   
             amazonClient.ChannelFactory.Endpoint.EndpointBehaviors.Add(new AmazonSigningEndpointBehavior((ConfigSettings.accessKeyId+ak2), (ConfigSettings.secretKey+sk2)));
             return amazonClient;
             //}

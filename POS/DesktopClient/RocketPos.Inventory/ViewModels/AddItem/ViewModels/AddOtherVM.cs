@@ -22,6 +22,8 @@ namespace Inventory.ViewModels.AddItem.ViewModels
         {
             Others = new ObservableCollection<Other>();
 
+            IsAmazonEnabled = true;
+
             _otherItem = new OtherItem();
         }
 
@@ -130,6 +132,23 @@ namespace Inventory.ViewModels.AddItem.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the IsAmazonEnabled checkbox value.
+        /// </summary>
+        private bool _isAmazonEnabled;
+        public bool IsAmazonEnabled
+        {
+            get
+            {
+                return _isAmazonEnabled;
+            }
+            set
+            {
+                _isAmazonEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
         #region AutoComplete TextBox
         private readonly List<string> _waitMessage = new List<string>() { "Please Wait..." };
         public IEnumerable WaitMessage { get { return _waitMessage; } }
@@ -160,7 +179,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
 
                 //If Other is at least 2 characters search amazon 
                 //  and change title and author fields if found
-                if (!string.IsNullOrEmpty(_titleQueryText))
+                if (!string.IsNullOrEmpty(_titleQueryText) && IsAmazonEnabled)
                     QueryCollection = QueryAmazonByName(_titleQueryText);
             }
         }

@@ -76,10 +76,9 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Suggestion:  "/>
+                    <TextBlock Text="Title:  "/>
                     <TextBlock Grid.Column="1" 
                                Text="{Binding}"/>
-                    <TextBlock Grid.Row="1" Text="Results:  "/>
                 </Grid>
             </Border>
         </DataTemplate>
@@ -101,7 +100,9 @@
                         Binding="{Binding}" 
                         MaxCompletions="5"/>
 
-              
+                <CheckBox IsChecked="{Binding Source={StaticResource AddGameVM}, Path=IsAmazonEnabled, UpdateSourceTrigger=PropertyChanged}">
+                    Enable Amazon Search
+                </CheckBox>
                 <Label>Manufacturer</Label>
                 <TextBox Text="{Binding Source={StaticResource AddGameVM}, Path=Manufacturer, 
                                 ValidatesOnDataErrors=True, 

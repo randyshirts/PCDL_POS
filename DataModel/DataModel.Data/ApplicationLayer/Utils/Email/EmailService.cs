@@ -24,7 +24,7 @@ namespace DataModel.Data.ApplicationLayer.Utils.Email
             Logger = NullLogger.Instance;
         }
 
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
             try
             {
@@ -32,14 +32,17 @@ namespace DataModel.Data.ApplicationLayer.Utils.Email
                 email.Subject = message.Subject;
                 email.Body = message.Body;
                 email.IsBodyHtml = true;
-                var mailClient = new SmtpClient("smtp.live.com", 587) { Credentials = new NetworkCredential("playcreatediscover@gmail.com", "love2learngr8"), EnableSsl = true };
-                return mailClient.SendMailAsync(email);
+                var mailClient = new SmtpClient("smtp.gmail.com", 587) { Credentials = new NetworkCredential("playcreatediscover@gmail.com", "love2learngr8"), EnableSsl = true };
+                await mailClient.SendMailAsync(email);
+                //result.Wait();
+                //if(result.IsCompleted)
+                //    return result;
             }
             catch (Exception ex)
             {
                 Logger.Warn("Could not send email!", ex);
             }
-            return null;
+            //return null;
         }
     }
 }

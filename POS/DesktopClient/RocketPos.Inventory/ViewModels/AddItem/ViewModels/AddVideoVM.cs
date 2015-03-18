@@ -29,7 +29,9 @@ namespace Inventory.ViewModels.AddItem.ViewModels
             Videos = new ObservableCollection<Video>();
 
             _videoItem = new VideoItem();
-            
+
+            IsAmazonEnabled = true;
+
             _formatComboValues.InitializeComboBox(EnumsAndLists.VideoFormats);
              _ratingComboValues.InitializeComboBox(EnumsAndLists.Ratings);
         }
@@ -185,6 +187,23 @@ namespace Inventory.ViewModels.AddItem.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the IsAmazonEnabled checkbox value.
+        /// </summary>
+        private bool _isAmazonEnabled;
+        public bool IsAmazonEnabled
+        {
+            get
+            {
+                return _isAmazonEnabled;
+            }
+            set
+            {
+                _isAmazonEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
         #region AutoComplete TextBox
         private readonly List<string> _waitMessage = new List<string>() { "Please Wait..." };
         public IEnumerable WaitMessage { get { return _waitMessage; } }
@@ -215,7 +234,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
 
                 //If TeachingAide is at least 2 characters search amazon 
                 //  and change title and author fields if found
-                if (!string.IsNullOrEmpty(_titleQueryText))
+                if (!string.IsNullOrEmpty(_titleQueryText) && IsAmazonEnabled)
                     QueryCollection = QueryAmazonByName(_titleQueryText);
             }
         }

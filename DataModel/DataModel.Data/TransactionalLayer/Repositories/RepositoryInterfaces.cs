@@ -51,7 +51,8 @@ namespace DataModel.Data.TransactionalLayer.Repositories
 
     public interface IEmailRepository : IRepository<Email>
     {
-
+        IEnumerable<Email> GetAllEmails();
+        IEnumerable<Person> GetPersonsByEmail(string email);
     }
 
     public interface IGameRepository : IRepository<Game>, IGenericItemRepository<Game>
@@ -109,6 +110,7 @@ namespace DataModel.Data.TransactionalLayer.Repositories
     {
         void UpdatePerson(Person updatedPerson);
         IEnumerable<Person> QueryPersonsThatAreConsigners();
+        
     }
 
     public interface IPhoneNumberRepository : IRepository<PhoneNumber>

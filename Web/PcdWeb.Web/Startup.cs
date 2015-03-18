@@ -4,13 +4,13 @@ using System.Linq;
 using System.Web;
 using Owin;
 
-namespace PcdWeb.Web
+namespace PcdWeb
 {
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            //ConfigureAuth(app);
         }
     }
 }

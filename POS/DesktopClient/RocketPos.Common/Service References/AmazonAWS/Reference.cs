@@ -12,7 +12,7 @@ namespace RocketPos.Common.AmazonAWS {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", ConfigurationName="AmazonAWS.AWSECommerceServicePortType")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", ConfigurationName="AmazonAWS.AWSECommerceServicePortType")]
     public interface AWSECommerceServicePortType {
         
         // CODEGEN: Generating message contract since the operation ItemSearch is neither RPC nor document wrapped.
@@ -120,7 +120,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class ItemSearch : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string marketplaceDomainField;
@@ -236,16 +236,12 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class ItemSearchRequest : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string actorField;
         
         private string artistField;
-        
-        private ItemSearchRequestAvailability availabilityField;
-        
-        private bool availabilityFieldSpecified;
         
         private AudienceRating[] audienceRatingField;
         
@@ -330,31 +326,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public ItemSearchRequestAvailability Availability {
-            get {
-                return this.availabilityField;
-            }
-            set {
-                this.availabilityField = value;
-                this.RaisePropertyChanged("Availability");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool AvailabilitySpecified {
-            get {
-                return this.availabilityFieldSpecified;
-            }
-            set {
-                this.availabilityFieldSpecified = value;
-                this.RaisePropertyChanged("AvailabilitySpecified");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("AudienceRating", Order=3)]
+        [System.Xml.Serialization.XmlElementAttribute("AudienceRating", Order=2)]
         public AudienceRating[] AudienceRating {
             get {
                 return this.audienceRatingField;
@@ -366,7 +338,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
         public string Author {
             get {
                 return this.authorField;
@@ -378,7 +350,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
         public string Brand {
             get {
                 return this.brandField;
@@ -390,7 +362,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
         public string BrowseNode {
             get {
                 return this.browseNodeField;
@@ -402,7 +374,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
         public string Composer {
             get {
                 return this.composerField;
@@ -414,7 +386,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
         public Condition Condition {
             get {
                 return this.conditionField;
@@ -438,7 +410,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
         public string Conductor {
             get {
                 return this.conductorField;
@@ -450,7 +422,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=10)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
         public string Director {
             get {
                 return this.directorField;
@@ -462,7 +434,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="positiveInteger", Order=11)]
+        [System.Xml.Serialization.XmlElementAttribute(DataType="positiveInteger", Order=10)]
         public string ItemPage {
             get {
                 return this.itemPageField;
@@ -474,7 +446,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=12)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=11)]
         public string Keywords {
             get {
                 return this.keywordsField;
@@ -486,7 +458,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=13)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=12)]
         public string Manufacturer {
             get {
                 return this.manufacturerField;
@@ -498,7 +470,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=14)]
+        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=13)]
         public string MaximumPrice {
             get {
                 return this.maximumPriceField;
@@ -510,7 +482,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=15)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=14)]
         public string MerchantId {
             get {
                 return this.merchantIdField;
@@ -522,7 +494,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=16)]
+        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=15)]
         public string MinimumPrice {
             get {
                 return this.minimumPriceField;
@@ -534,7 +506,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=17)]
+        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=16)]
         public string MinPercentageOff {
             get {
                 return this.minPercentageOffField;
@@ -546,7 +518,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=18)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=17)]
         public string MusicLabel {
             get {
                 return this.musicLabelField;
@@ -558,7 +530,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=19)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=18)]
         public string Orchestra {
             get {
                 return this.orchestraField;
@@ -570,7 +542,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=20)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=19)]
         public string Power {
             get {
                 return this.powerField;
@@ -582,7 +554,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=21)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=20)]
         public string Publisher {
             get {
                 return this.publisherField;
@@ -594,7 +566,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=22)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=21)]
         public string RelatedItemPage {
             get {
                 return this.relatedItemPageField;
@@ -606,7 +578,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("RelationshipType", Order=23)]
+        [System.Xml.Serialization.XmlElementAttribute("RelationshipType", Order=22)]
         public string[] RelationshipType {
             get {
                 return this.relationshipTypeField;
@@ -618,7 +590,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("ResponseGroup", Order=24)]
+        [System.Xml.Serialization.XmlElementAttribute("ResponseGroup", Order=23)]
         public string[] ResponseGroup {
             get {
                 return this.responseGroupField;
@@ -630,7 +602,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=25)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=24)]
         public string SearchIndex {
             get {
                 return this.searchIndexField;
@@ -642,7 +614,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=26)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=25)]
         public string Sort {
             get {
                 return this.sortField;
@@ -654,7 +626,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=27)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=26)]
         public string Title {
             get {
                 return this.titleField;
@@ -666,7 +638,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=28)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=27)]
         public string ReleaseDate {
             get {
                 return this.releaseDateField;
@@ -678,7 +650,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=29)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=28)]
         public string IncludeReviewsSummary {
             get {
                 return this.includeReviewsSummaryField;
@@ -690,7 +662,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=30)]
+        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=29)]
         public string TruncateReviewsAt {
             get {
                 return this.truncateReviewsAtField;
@@ -714,17 +686,7 @@ namespace RocketPos.Common.AmazonAWS {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
-    public enum ItemSearchRequestAvailability {
-        
-        /// <remarks/>
-        Available,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public enum AudienceRating {
         
         /// <remarks/>
@@ -773,7 +735,7 @@ namespace RocketPos.Common.AmazonAWS {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public enum Condition {
         
         /// <remarks/>
@@ -797,10 +759,10 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartItem : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private string cartIdField;
+        private string cartItemIdField;
         
         private string aSINField;
         
@@ -820,13 +782,13 @@ namespace RocketPos.Common.AmazonAWS {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public string CartId {
+        public string CartItemId {
             get {
-                return this.cartIdField;
+                return this.cartItemIdField;
             }
             set {
-                this.cartIdField = value;
-                this.RaisePropertyChanged("CartId");
+                this.cartItemIdField = value;
+                this.RaisePropertyChanged("CartItemId");
             }
         }
         
@@ -942,7 +904,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartItemKeyValuePair : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string keyField;
@@ -988,7 +950,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class Price : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string amountField;
@@ -1048,7 +1010,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class NonNegativeIntegerWithUnits : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string unitsField;
@@ -1094,7 +1056,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class DecimalWithUnits : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string unitsField;
@@ -1140,7 +1102,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class Image : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string uRLField;
@@ -1214,7 +1176,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartClearRequest : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string cartIdField;
@@ -1288,7 +1250,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartModifyRequest : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string cartIdField;
@@ -1377,14 +1339,14 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartModifyRequestItem : object, System.ComponentModel.INotifyPropertyChanged {
         
         private CartModifyRequestItemAction actionField;
         
         private bool actionFieldSpecified;
         
-        private string cartIdField;
+        private string cartItemIdField;
         
         private string quantityField;
         
@@ -1414,13 +1376,13 @@ namespace RocketPos.Common.AmazonAWS {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public string CartId {
+        public string CartItemId {
             get {
-                return this.cartIdField;
+                return this.cartItemIdField;
             }
             set {
-                this.cartIdField = value;
-                this.RaisePropertyChanged("CartId");
+                this.cartItemIdField = value;
+                this.RaisePropertyChanged("CartItemId");
             }
         }
         
@@ -1449,7 +1411,7 @@ namespace RocketPos.Common.AmazonAWS {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public enum CartModifyRequestItemAction {
         
         /// <remarks/>
@@ -1464,7 +1426,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartCreateRequest : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string mergeCartField;
@@ -1525,7 +1487,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartCreateRequestItem : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string aSINField;
@@ -1536,7 +1498,7 @@ namespace RocketPos.Common.AmazonAWS {
         
         private string associateTagField;
         
-        private string listIdField;
+        private string listItemIdField;
         
         private CartCreateRequestItemMetaData[] metaDataField;
         
@@ -1590,13 +1552,13 @@ namespace RocketPos.Common.AmazonAWS {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=4)]
-        public string ListId {
+        public string ListItemId {
             get {
-                return this.listIdField;
+                return this.listItemIdField;
             }
             set {
-                this.listIdField = value;
-                this.RaisePropertyChanged("ListId");
+                this.listItemIdField = value;
+                this.RaisePropertyChanged("ListItemId");
             }
         }
         
@@ -1627,7 +1589,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartCreateRequestItemMetaData : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string keyField;
@@ -1673,7 +1635,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartAddRequest : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string cartIdField;
@@ -1762,7 +1724,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartAddRequestItem : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string aSINField;
@@ -1773,7 +1735,7 @@ namespace RocketPos.Common.AmazonAWS {
         
         private string associateTagField;
         
-        private string listIdField;
+        private string listItemIdField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
@@ -1825,13 +1787,13 @@ namespace RocketPos.Common.AmazonAWS {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=4)]
-        public string ListId {
+        public string ListItemId {
             get {
-                return this.listIdField;
+                return this.listItemIdField;
             }
             set {
-                this.listIdField = value;
-                this.RaisePropertyChanged("ListId");
+                this.listItemIdField = value;
+                this.RaisePropertyChanged("ListItemId");
             }
         }
         
@@ -1850,7 +1812,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartGetRequest : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string cartIdField;
@@ -1924,7 +1886,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class SimilarityLookupRequest : object, System.ComponentModel.INotifyPropertyChanged {
         
         private Condition conditionField;
@@ -1966,14 +1928,14 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("Id", Order=1)]
-        public string[] Id {
+        [System.Xml.Serialization.XmlElementAttribute("ItemId", Order=1)]
+        public string[] ItemId {
             get {
                 return this.itemIdField;
             }
             set {
                 this.itemIdField = value;
-                this.RaisePropertyChanged("Id");
+                this.RaisePropertyChanged("ItemId");
             }
         }
         
@@ -2038,7 +2000,7 @@ namespace RocketPos.Common.AmazonAWS {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public enum SimilarityLookupRequestSimilarityType {
         
         /// <remarks/>
@@ -2053,7 +2015,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class ItemLookupRequest : object, System.ComponentModel.INotifyPropertyChanged {
         
         private Condition conditionField;
@@ -2143,14 +2105,14 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("Id", Order=3)]
-        public string[] Id {
+        [System.Xml.Serialization.XmlElementAttribute("ItemId", Order=3)]
+        public string[] ItemId {
             get {
                 return this.itemIdField;
             }
             set {
                 this.itemIdField = value;
-                this.RaisePropertyChanged("Id");
+                this.RaisePropertyChanged("ItemId");
             }
         }
         
@@ -2251,7 +2213,7 @@ namespace RocketPos.Common.AmazonAWS {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public enum ItemLookupRequestIdType {
         
         /// <remarks/>
@@ -2275,7 +2237,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class BrowseNodeLookupRequest : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string[] browseNodeIdField;
@@ -2321,7 +2283,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class ImageSet : object, System.ComponentModel.INotifyPropertyChanged {
         
         private Image swatchImageField;
@@ -2335,6 +2297,8 @@ namespace RocketPos.Common.AmazonAWS {
         private Image mediumImageField;
         
         private Image largeImageField;
+        
+        private Image hiResImageField;
         
         private string categoryField;
         
@@ -2411,6 +2375,18 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        public Image HiResImage {
+            get {
+                return this.hiResImageField;
+            }
+            set {
+                this.hiResImageField = value;
+                this.RaisePropertyChanged("HiResImage");
+            }
+        }
+        
+        /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public string Category {
             get {
@@ -2437,7 +2413,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class VariationAttribute : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string nameField;
@@ -2483,7 +2459,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class Property : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string nameField;
@@ -2529,7 +2505,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class ItemSearchResponse : object, System.ComponentModel.INotifyPropertyChanged {
         
         private OperationRequest operationRequestField;
@@ -2575,7 +2551,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class OperationRequest : object, System.ComponentModel.INotifyPropertyChanged {
         
         private HTTPHeadersHeader[] hTTPHeadersField;
@@ -2680,7 +2656,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class HTTPHeadersHeader : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string nameField;
@@ -2726,7 +2702,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class ArgumentsArgument : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string nameField;
@@ -2772,7 +2748,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class ErrorsError : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string codeField;
@@ -2818,7 +2794,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class Items : object, System.ComponentModel.INotifyPropertyChanged {
         
         private Request requestField;
@@ -2978,7 +2954,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class Request : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string isValidField;
@@ -3151,7 +3127,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CorrectedQuery : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string keywordsField;
@@ -3197,7 +3173,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class SearchResultsMapSearchIndex : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string indexNameField;
@@ -3299,7 +3275,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class Item : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string aSINField;
@@ -3335,6 +3311,8 @@ namespace RocketPos.Common.AmazonAWS {
         private OfferSummary offerSummaryField;
         
         private Offers offersField;
+        
+        private RentalOffer[] rentalOffersField;
         
         private VariationSummary variationSummaryField;
         
@@ -3565,7 +3543,20 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=17)]
+        [System.Xml.Serialization.XmlArrayAttribute(Order=17)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("RentalOffer", IsNullable=false)]
+        public RentalOffer[] RentalOffers {
+            get {
+                return this.rentalOffersField;
+            }
+            set {
+                this.rentalOffersField = value;
+                this.RaisePropertyChanged("RentalOffers");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=18)]
         public VariationSummary VariationSummary {
             get {
                 return this.variationSummaryField;
@@ -3577,7 +3568,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=18)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=19)]
         public Variations Variations {
             get {
                 return this.variationsField;
@@ -3589,7 +3580,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=19)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=20)]
         public CustomerReviews CustomerReviews {
             get {
                 return this.customerReviewsField;
@@ -3601,7 +3592,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Order=20)]
+        [System.Xml.Serialization.XmlArrayAttribute(Order=21)]
         [System.Xml.Serialization.XmlArrayItemAttribute("EditorialReview", IsNullable=false)]
         public EditorialReview[] EditorialReviews {
             get {
@@ -3614,7 +3605,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Order=21)]
+        [System.Xml.Serialization.XmlArrayAttribute(Order=22)]
         [System.Xml.Serialization.XmlArrayItemAttribute("SimilarProduct", IsNullable=false)]
         public SimilarProductsSimilarProduct[] SimilarProducts {
             get {
@@ -3627,7 +3618,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Order=22)]
+        [System.Xml.Serialization.XmlArrayAttribute(Order=23)]
         [System.Xml.Serialization.XmlArrayItemAttribute("Accessory", IsNullable=false)]
         public AccessoriesAccessory[] Accessories {
             get {
@@ -3640,7 +3631,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Order=23)]
+        [System.Xml.Serialization.XmlArrayAttribute(Order=24)]
         [System.Xml.Serialization.XmlArrayItemAttribute("Disc", IsNullable=false)]
         public TracksDisc[] Tracks {
             get {
@@ -3653,7 +3644,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=24)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=25)]
         public BrowseNodes BrowseNodes {
             get {
                 return this.browseNodesField;
@@ -3665,7 +3656,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Order=25)]
+        [System.Xml.Serialization.XmlArrayAttribute(Order=26)]
         [System.Xml.Serialization.XmlArrayItemAttribute("AlternateVersion", IsNullable=false)]
         public ItemAlternateVersion[] AlternateVersions {
             get {
@@ -3692,7 +3683,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class ItemLink : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string descriptionField;
@@ -3738,7 +3729,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class ItemAttributes : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string[] actorField;
@@ -3780,6 +3771,8 @@ namespace RocketPos.Common.AmazonAWS {
         private string editionField;
         
         private string[] eISBNField;
+        
+        private string energyEfficiencyClassField;
         
         private string episodeSequenceField;
         
@@ -3880,6 +3873,8 @@ namespace RocketPos.Common.AmazonAWS {
         private string regionCodeField;
         
         private string releaseDateField;
+        
+        private string seasonSequenceField;
         
         private DecimalWithUnits runningTimeField;
         
@@ -4151,6 +4146,18 @@ namespace RocketPos.Common.AmazonAWS {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=20)]
+        public string EnergyEfficiencyClass {
+            get {
+                return this.energyEfficiencyClassField;
+            }
+            set {
+                this.energyEfficiencyClassField = value;
+                this.RaisePropertyChanged("EnergyEfficiencyClass");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=21)]
         public string EpisodeSequence {
             get {
                 return this.episodeSequenceField;
@@ -4162,7 +4169,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=21)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=22)]
         public string ESRBAgeRating {
             get {
                 return this.eSRBAgeRatingField;
@@ -4174,7 +4181,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("Feature", Order=22)]
+        [System.Xml.Serialization.XmlElementAttribute("Feature", Order=23)]
         public string[] Feature {
             get {
                 return this.featureField;
@@ -4186,7 +4193,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("Format", Order=23)]
+        [System.Xml.Serialization.XmlElementAttribute("Format", Order=24)]
         public string[] Format {
             get {
                 return this.formatField;
@@ -4198,7 +4205,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=24)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=25)]
         public string Genre {
             get {
                 return this.genreField;
@@ -4210,7 +4217,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=25)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=26)]
         public string HardwarePlatform {
             get {
                 return this.hardwarePlatformField;
@@ -4222,7 +4229,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=26)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=27)]
         public string HazardousMaterialType {
             get {
                 return this.hazardousMaterialTypeField;
@@ -4234,7 +4241,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=27)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=28)]
         public bool IsAdultProduct {
             get {
                 return this.isAdultProductField;
@@ -4258,7 +4265,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=28)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=29)]
         public bool IsAutographed {
             get {
                 return this.isAutographedField;
@@ -4282,7 +4289,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=29)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=30)]
         public string ISBN {
             get {
                 return this.iSBNField;
@@ -4294,7 +4301,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=30)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=31)]
         public bool IsEligibleForTradeIn {
             get {
                 return this.isEligibleForTradeInField;
@@ -4318,7 +4325,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=31)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=32)]
         public bool IsMemorabilia {
             get {
                 return this.isMemorabiliaField;
@@ -4342,7 +4349,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=32)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=33)]
         public string IssuesPerYear {
             get {
                 return this.issuesPerYearField;
@@ -4354,7 +4361,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=33)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=34)]
         public ItemAttributesItemDimensions ItemDimensions {
             get {
                 return this.itemDimensionsField;
@@ -4366,7 +4373,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=34)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=35)]
         public string ItemPartNumber {
             get {
                 return this.itemPartNumberField;
@@ -4378,7 +4385,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=35)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=36)]
         public string Label {
             get {
                 return this.labelField;
@@ -4390,7 +4397,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Order=36)]
+        [System.Xml.Serialization.XmlArrayAttribute(Order=37)]
         [System.Xml.Serialization.XmlArrayItemAttribute("Language", IsNullable=false)]
         public ItemAttributesLanguage[] Languages {
             get {
@@ -4403,7 +4410,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=37)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=38)]
         public string LegalDisclaimer {
             get {
                 return this.legalDisclaimerField;
@@ -4415,7 +4422,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=38)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=39)]
         public Price ListPrice {
             get {
                 return this.listPriceField;
@@ -4427,7 +4434,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=39)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=40)]
         public string MagazineType {
             get {
                 return this.magazineTypeField;
@@ -4439,7 +4446,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=40)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=41)]
         public string Manufacturer {
             get {
                 return this.manufacturerField;
@@ -4451,7 +4458,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=41)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=42)]
         public DecimalWithUnits ManufacturerMaximumAge {
             get {
                 return this.manufacturerMaximumAgeField;
@@ -4463,7 +4470,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=42)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=43)]
         public DecimalWithUnits ManufacturerMinimumAge {
             get {
                 return this.manufacturerMinimumAgeField;
@@ -4475,7 +4482,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=43)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=44)]
         public string ManufacturerPartsWarrantyDescription {
             get {
                 return this.manufacturerPartsWarrantyDescriptionField;
@@ -4487,7 +4494,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=44)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=45)]
         public string MediaType {
             get {
                 return this.mediaTypeField;
@@ -4499,7 +4506,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=45)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=46)]
         public string Model {
             get {
                 return this.modelField;
@@ -4511,7 +4518,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=46)]
+        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=47)]
         public string ModelYear {
             get {
                 return this.modelYearField;
@@ -4523,7 +4530,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=47)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=48)]
         public string MPN {
             get {
                 return this.mPNField;
@@ -4535,7 +4542,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=48)]
+        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=49)]
         public string NumberOfDiscs {
             get {
                 return this.numberOfDiscsField;
@@ -4547,7 +4554,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=49)]
+        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=50)]
         public string NumberOfIssues {
             get {
                 return this.numberOfIssuesField;
@@ -4559,7 +4566,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=50)]
+        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=51)]
         public string NumberOfItems {
             get {
                 return this.numberOfItemsField;
@@ -4571,7 +4578,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=51)]
+        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=52)]
         public string NumberOfPages {
             get {
                 return this.numberOfPagesField;
@@ -4583,7 +4590,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=52)]
+        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=53)]
         public string NumberOfTracks {
             get {
                 return this.numberOfTracksField;
@@ -4595,7 +4602,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=53)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=54)]
         public string OperatingSystem {
             get {
                 return this.operatingSystemField;
@@ -4607,7 +4614,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=54)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=55)]
         public ItemAttributesPackageDimensions PackageDimensions {
             get {
                 return this.packageDimensionsField;
@@ -4619,7 +4626,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=55)]
+        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=56)]
         public string PackageQuantity {
             get {
                 return this.packageQuantityField;
@@ -4631,7 +4638,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=56)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=57)]
         public string PartNumber {
             get {
                 return this.partNumberField;
@@ -4643,7 +4650,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("PictureFormat", Order=57)]
+        [System.Xml.Serialization.XmlElementAttribute("PictureFormat", Order=58)]
         public string[] PictureFormat {
             get {
                 return this.pictureFormatField;
@@ -4655,7 +4662,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("Platform", Order=58)]
+        [System.Xml.Serialization.XmlElementAttribute("Platform", Order=59)]
         public string[] Platform {
             get {
                 return this.platformField;
@@ -4667,7 +4674,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=59)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=60)]
         public string ProductGroup {
             get {
                 return this.productGroupField;
@@ -4679,7 +4686,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=60)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=61)]
         public string ProductTypeName {
             get {
                 return this.productTypeNameField;
@@ -4691,7 +4698,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=61)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=62)]
         public string ProductTypeSubcategory {
             get {
                 return this.productTypeSubcategoryField;
@@ -4703,7 +4710,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=62)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=63)]
         public string PublicationDate {
             get {
                 return this.publicationDateField;
@@ -4715,7 +4722,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=63)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=64)]
         public string Publisher {
             get {
                 return this.publisherField;
@@ -4727,7 +4734,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=64)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=65)]
         public string RegionCode {
             get {
                 return this.regionCodeField;
@@ -4739,7 +4746,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=65)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=66)]
         public string ReleaseDate {
             get {
                 return this.releaseDateField;
@@ -4751,7 +4758,19 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=66)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=67)]
+        public string SeasonSequence {
+            get {
+                return this.seasonSequenceField;
+            }
+            set {
+                this.seasonSequenceField = value;
+                this.RaisePropertyChanged("SeasonSequence");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=68)]
         public DecimalWithUnits RunningTime {
             get {
                 return this.runningTimeField;
@@ -4763,7 +4782,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=67)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=69)]
         public string SeikodoProductCode {
             get {
                 return this.seikodoProductCodeField;
@@ -4775,7 +4794,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=68)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=70)]
         public string Size {
             get {
                 return this.sizeField;
@@ -4787,7 +4806,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=69)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=71)]
         public string SKU {
             get {
                 return this.sKUField;
@@ -4799,7 +4818,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=70)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=72)]
         public string Studio {
             get {
                 return this.studioField;
@@ -4811,7 +4830,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=71)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=73)]
         public NonNegativeIntegerWithUnits SubscriptionLength {
             get {
                 return this.subscriptionLengthField;
@@ -4823,7 +4842,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=72)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=74)]
         public string Title {
             get {
                 return this.titleField;
@@ -4835,7 +4854,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=73)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=75)]
         public string TrackSequence {
             get {
                 return this.trackSequenceField;
@@ -4847,7 +4866,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=74)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=76)]
         public Price TradeInValue {
             get {
                 return this.tradeInValueField;
@@ -4859,7 +4878,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=75)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=77)]
         public string UPC {
             get {
                 return this.uPCField;
@@ -4871,7 +4890,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Order=76)]
+        [System.Xml.Serialization.XmlArrayAttribute(Order=78)]
         [System.Xml.Serialization.XmlArrayItemAttribute("UPCListElement", IsNullable=false)]
         public string[] UPCList {
             get {
@@ -4884,7 +4903,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=77)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=79)]
         public string Warranty {
             get {
                 return this.warrantyField;
@@ -4896,7 +4915,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=78)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=80)]
         public Price WEEETaxValue {
             get {
                 return this.wEEETaxValueField;
@@ -4922,7 +4941,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class ItemAttributesCreator : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string roleField;
@@ -4968,7 +4987,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class ItemAttributesItemDimensions : object, System.ComponentModel.INotifyPropertyChanged {
         
         private DecimalWithUnits heightField;
@@ -5042,7 +5061,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class ItemAttributesLanguage : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string nameField;
@@ -5102,7 +5121,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class ItemAttributesPackageDimensions : object, System.ComponentModel.INotifyPropertyChanged {
         
         private DecimalWithUnits heightField;
@@ -5176,7 +5195,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class RelatedItems : object, System.ComponentModel.INotifyPropertyChanged {
         
         private RelatedItemsRelationship relationshipField;
@@ -5290,7 +5309,7 @@ namespace RocketPos.Common.AmazonAWS {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public enum RelatedItemsRelationship {
         
         /// <remarks/>
@@ -5305,7 +5324,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class RelatedItem : object, System.ComponentModel.INotifyPropertyChanged {
         
         private Item itemField;
@@ -5337,7 +5356,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CollectionsCollection : object, System.ComponentModel.INotifyPropertyChanged {
         
         private CollectionsCollectionCollectionSummary collectionSummaryField;
@@ -5397,7 +5416,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CollectionsCollectionCollectionSummary : object, System.ComponentModel.INotifyPropertyChanged {
         
         private Price lowestListPriceField;
@@ -5471,7 +5490,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CollectionsCollectionCollectionParent : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string aSINField;
@@ -5517,7 +5536,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CollectionsCollectionCollectionItem : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string aSINField;
@@ -5563,7 +5582,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class OfferSummary : object, System.ComponentModel.INotifyPropertyChanged {
         
         private Price lowestNewPriceField;
@@ -5693,7 +5712,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class Offers : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string totalOffersField;
@@ -5767,7 +5786,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class Offer : object, System.ComponentModel.INotifyPropertyChanged {
         
         private Merchant merchantField;
@@ -5856,7 +5875,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class Merchant : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string nameField;
@@ -5888,7 +5907,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class OfferAttributes : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string conditionField;
@@ -5920,10 +5939,12 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class OfferListing : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string offerListingIdField;
+        
+        private string pricePerUnitField;
         
         private Price priceField;
         
@@ -5940,6 +5961,10 @@ namespace RocketPos.Common.AmazonAWS {
         private bool isEligibleForSuperSaverShippingField;
         
         private bool isEligibleForSuperSaverShippingFieldSpecified;
+        
+        private bool isEligibleForPrimeFreeDigitalVideoField;
+        
+        private bool isEligibleForPrimeFreeDigitalVideoFieldSpecified;
         
         private bool isEligibleForPrimeField;
         
@@ -5959,6 +5984,18 @@ namespace RocketPos.Common.AmazonAWS {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public string PricePerUnit {
+            get {
+                return this.pricePerUnitField;
+            }
+            set {
+                this.pricePerUnitField = value;
+                this.RaisePropertyChanged("PricePerUnit");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
         public Price Price {
             get {
                 return this.priceField;
@@ -5970,7 +6007,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
         public Price SalePrice {
             get {
                 return this.salePriceField;
@@ -5982,7 +6019,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
         public Price AmountSaved {
             get {
                 return this.amountSavedField;
@@ -5994,7 +6031,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=4)]
+        [System.Xml.Serialization.XmlElementAttribute(DataType="nonNegativeInteger", Order=5)]
         public string PercentageSaved {
             get {
                 return this.percentageSavedField;
@@ -6006,7 +6043,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
         public string Availability {
             get {
                 return this.availabilityField;
@@ -6018,7 +6055,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
         public OfferListingAvailabilityAttributes AvailabilityAttributes {
             get {
                 return this.availabilityAttributesField;
@@ -6030,7 +6067,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
         public bool IsEligibleForSuperSaverShipping {
             get {
                 return this.isEligibleForSuperSaverShippingField;
@@ -6054,7 +6091,31 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
+        public bool IsEligibleForPrimeFreeDigitalVideo {
+            get {
+                return this.isEligibleForPrimeFreeDigitalVideoField;
+            }
+            set {
+                this.isEligibleForPrimeFreeDigitalVideoField = value;
+                this.RaisePropertyChanged("IsEligibleForPrimeFreeDigitalVideo");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool IsEligibleForPrimeFreeDigitalVideoSpecified {
+            get {
+                return this.isEligibleForPrimeFreeDigitalVideoFieldSpecified;
+            }
+            set {
+                this.isEligibleForPrimeFreeDigitalVideoFieldSpecified = value;
+                this.RaisePropertyChanged("IsEligibleForPrimeFreeDigitalVideoSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=10)]
         public bool IsEligibleForPrime {
             get {
                 return this.isEligibleForPrimeField;
@@ -6092,7 +6153,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class OfferListingAvailabilityAttributes : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string availabilityTypeField;
@@ -6180,7 +6241,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class LoyaltyPoints : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string pointsField;
@@ -6226,7 +6287,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class Promotion : object, System.ComponentModel.INotifyPropertyChanged {
         
         private PromotionSummary summaryField;
@@ -6258,10 +6319,12 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class PromotionSummary : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string promotionIdField;
+        
+        private string messageField;
         
         private string categoryField;
         
@@ -6289,6 +6352,18 @@ namespace RocketPos.Common.AmazonAWS {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public string Message {
+            get {
+                return this.messageField;
+            }
+            set {
+                this.messageField = value;
+                this.RaisePropertyChanged("Message");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
         public string Category {
             get {
                 return this.categoryField;
@@ -6300,7 +6375,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
         public string StartDate {
             get {
                 return this.startDateField;
@@ -6312,7 +6387,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
         public string EndDate {
             get {
                 return this.endDateField;
@@ -6324,7 +6399,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
         public string EligibilityRequirementDescription {
             get {
                 return this.eligibilityRequirementDescriptionField;
@@ -6336,7 +6411,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
         public string BenefitDescription {
             get {
                 return this.benefitDescriptionField;
@@ -6348,7 +6423,7 @@ namespace RocketPos.Common.AmazonAWS {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
         public string TermsAndConditions {
             get {
                 return this.termsAndConditionsField;
@@ -6374,7 +6449,141 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
+    public partial class RentalOffer : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private Merchant merchantField;
+        
+        private RentalListing[] rentalListingField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public Merchant Merchant {
+            get {
+                return this.merchantField;
+            }
+            set {
+                this.merchantField = value;
+                this.RaisePropertyChanged("Merchant");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("RentalListing", Order=1)]
+        public RentalListing[] RentalListing {
+            get {
+                return this.rentalListingField;
+            }
+            set {
+                this.rentalListingField = value;
+                this.RaisePropertyChanged("RentalListing");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
+    public partial class RentalListing : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private Price priceField;
+        
+        private NonNegativeIntegerWithUnits periodField;
+        
+        private bool isFulfilledByAmazonField;
+        
+        private bool isFulfilledByAmazonFieldSpecified;
+        
+        private string disclaimerField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public Price Price {
+            get {
+                return this.priceField;
+            }
+            set {
+                this.priceField = value;
+                this.RaisePropertyChanged("Price");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public NonNegativeIntegerWithUnits Period {
+            get {
+                return this.periodField;
+            }
+            set {
+                this.periodField = value;
+                this.RaisePropertyChanged("Period");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public bool IsFulfilledByAmazon {
+            get {
+                return this.isFulfilledByAmazonField;
+            }
+            set {
+                this.isFulfilledByAmazonField = value;
+                this.RaisePropertyChanged("IsFulfilledByAmazon");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool IsFulfilledByAmazonSpecified {
+            get {
+                return this.isFulfilledByAmazonFieldSpecified;
+            }
+            set {
+                this.isFulfilledByAmazonFieldSpecified = value;
+                this.RaisePropertyChanged("IsFulfilledByAmazonSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public string Disclaimer {
+            get {
+                return this.disclaimerField;
+            }
+            set {
+                this.disclaimerField = value;
+                this.RaisePropertyChanged("Disclaimer");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34234")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class VariationSummary : object, System.ComponentModel.INotifyPropertyChanged {
         
         private Price lowestPriceField;
@@ -6448,7 +6657,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class Variations : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string totalVariationsField;
@@ -6523,7 +6732,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CustomerReviews : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string iFrameURLField;
@@ -6583,7 +6792,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class EditorialReview : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string sourceField;
@@ -6657,7 +6866,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class SimilarProductsSimilarProduct : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string aSINField;
@@ -6703,7 +6912,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class AccessoriesAccessory : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string aSINField;
@@ -6749,7 +6958,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class TracksDisc : object, System.ComponentModel.INotifyPropertyChanged {
         
         private TracksDiscTrack[] trackField;
@@ -6795,7 +7004,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class TracksDiscTrack : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string numberField;
@@ -6841,7 +7050,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class BrowseNodes : object, System.ComponentModel.INotifyPropertyChanged {
         
         private Request requestField;
@@ -6887,7 +7096,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class BrowseNode : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string browseNodeIdField;
@@ -7050,7 +7259,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class TopSellersTopSeller : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string aSINField;
@@ -7096,7 +7305,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class NewReleasesNewRelease : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string aSINField;
@@ -7142,7 +7351,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class TopItemSet : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string typeField;
@@ -7188,7 +7397,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class TopItemSetTopItem : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string aSINField;
@@ -7304,7 +7513,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class ItemAlternateVersion : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string aSINField;
@@ -7364,7 +7573,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class SearchBinSet : object, System.ComponentModel.INotifyPropertyChanged {
         
         private Bin[] binField;
@@ -7410,7 +7619,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class Bin : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string binNameField;
@@ -7470,7 +7679,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class BinBinParameter : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string nameField;
@@ -7517,7 +7726,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class ItemSearchRequest1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.ItemSearch ItemSearch;
         
         public ItemSearchRequest1() {
@@ -7534,7 +7743,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class ItemSearchResponse1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.ItemSearchResponse ItemSearchResponse;
         
         public ItemSearchResponse1() {
@@ -7550,7 +7759,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class ItemLookup : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string marketplaceDomainField;
@@ -7666,7 +7875,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class ItemLookupResponse : object, System.ComponentModel.INotifyPropertyChanged {
         
         private OperationRequest operationRequestField;
@@ -7713,7 +7922,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class ItemLookupRequest1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.ItemLookup ItemLookup;
         
         public ItemLookupRequest1() {
@@ -7730,7 +7939,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class ItemLookupResponse1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.ItemLookupResponse ItemLookupResponse;
         
         public ItemLookupResponse1() {
@@ -7746,7 +7955,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class BrowseNodeLookup : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string marketplaceDomainField;
@@ -7862,7 +8071,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class BrowseNodeLookupResponse : object, System.ComponentModel.INotifyPropertyChanged {
         
         private OperationRequest operationRequestField;
@@ -7909,7 +8118,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class BrowseNodeLookupRequest1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.BrowseNodeLookup BrowseNodeLookup;
         
         public BrowseNodeLookupRequest1() {
@@ -7926,7 +8135,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class BrowseNodeLookupResponse1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.BrowseNodeLookupResponse BrowseNodeLookupResponse;
         
         public BrowseNodeLookupResponse1() {
@@ -7942,7 +8151,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class SimilarityLookup : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string marketplaceDomainField;
@@ -8058,7 +8267,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class SimilarityLookupResponse : object, System.ComponentModel.INotifyPropertyChanged {
         
         private OperationRequest operationRequestField;
@@ -8105,7 +8314,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class SimilarityLookupRequest1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.SimilarityLookup SimilarityLookup;
         
         public SimilarityLookupRequest1() {
@@ -8122,7 +8331,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class SimilarityLookupResponse1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.SimilarityLookupResponse SimilarityLookupResponse;
         
         public SimilarityLookupResponse1() {
@@ -8138,7 +8347,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartGet : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string marketplaceDomainField;
@@ -8254,7 +8463,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartGetResponse : object, System.ComponentModel.INotifyPropertyChanged {
         
         private OperationRequest operationRequestField;
@@ -8300,7 +8509,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class Cart : object, System.ComponentModel.INotifyPropertyChanged {
         
         private Request requestField;
@@ -8519,7 +8728,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartItems : object, System.ComponentModel.INotifyPropertyChanged {
         
         private Price subTotalField;
@@ -8565,7 +8774,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class SavedForLaterItems : object, System.ComponentModel.INotifyPropertyChanged {
         
         private Price subTotalField;
@@ -8611,7 +8820,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class SimilarViewedProductsSimilarViewedProduct : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string aSINField;
@@ -8657,7 +8866,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class OtherCategoriesSimilarProductsOtherCategoriesSimilarProduct : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string aSINField;
@@ -8704,7 +8913,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class CartGetRequest1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.CartGet CartGet;
         
         public CartGetRequest1() {
@@ -8721,7 +8930,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class CartGetResponse1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.CartGetResponse CartGetResponse;
         
         public CartGetResponse1() {
@@ -8737,7 +8946,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartAdd : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string marketplaceDomainField;
@@ -8853,7 +9062,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartAddResponse : object, System.ComponentModel.INotifyPropertyChanged {
         
         private OperationRequest operationRequestField;
@@ -8900,7 +9109,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class CartAddRequest1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.CartAdd CartAdd;
         
         public CartAddRequest1() {
@@ -8917,7 +9126,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class CartAddResponse1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.CartAddResponse CartAddResponse;
         
         public CartAddResponse1() {
@@ -8933,7 +9142,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartCreate : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string marketplaceDomainField;
@@ -9049,7 +9258,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartCreateResponse : object, System.ComponentModel.INotifyPropertyChanged {
         
         private OperationRequest operationRequestField;
@@ -9096,7 +9305,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class CartCreateRequest1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.CartCreate CartCreate;
         
         public CartCreateRequest1() {
@@ -9113,7 +9322,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class CartCreateResponse1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.CartCreateResponse CartCreateResponse;
         
         public CartCreateResponse1() {
@@ -9129,7 +9338,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartModify : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string marketplaceDomainField;
@@ -9245,7 +9454,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartModifyResponse : object, System.ComponentModel.INotifyPropertyChanged {
         
         private OperationRequest operationRequestField;
@@ -9292,7 +9501,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class CartModifyRequest1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.CartModify CartModify;
         
         public CartModifyRequest1() {
@@ -9309,7 +9518,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class CartModifyResponse1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.CartModifyResponse CartModifyResponse;
         
         public CartModifyResponse1() {
@@ -9325,7 +9534,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartClear : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string marketplaceDomainField;
@@ -9441,7 +9650,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01")]
     public partial class CartClearResponse : object, System.ComponentModel.INotifyPropertyChanged {
         
         private OperationRequest operationRequestField;
@@ -9488,7 +9697,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class CartClearRequest1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.CartClear CartClear;
         
         public CartClearRequest1() {
@@ -9505,7 +9714,7 @@ namespace RocketPos.Common.AmazonAWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class CartClearResponse1 {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservices.amazon.com/AWSECommerceService/2013-08-01", Order=0)]
         public RocketPos.Common.AmazonAWS.CartClearResponse CartClearResponse;
         
         public CartClearResponse1() {
