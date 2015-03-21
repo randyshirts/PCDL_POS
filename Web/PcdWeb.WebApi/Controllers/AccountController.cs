@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace PcdWeb.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        
+
         private IAuthenticationManager Authentication
         {
             get { return HttpContext.Current.GetOwinContext().Authentication; }
@@ -33,81 +34,118 @@ namespace PcdWeb.Controllers
         public AccountController()
         {
             _userAppService = new PcdWebUserAppService();
-        }   
+        }
 
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterUserInput input)
         {
-            
-             ////var recaptchaHelper = this.GetRecaptchaVerificationHelper(this.ToString(), recaptchaPrivateKey);
-             //var recaptchaHelper = this.GetRecaptchaVerificationHelper();
-             //if (String.IsNullOrEmpty(recaptchaHelper.Response))
-             //{
-             //    throw new UserFriendlyException("Captcha answer cannot be empty.");
-             //}
 
-             //var recaptchaResult = recaptchaHelper.VerifyRecaptchaResponse();
-             //if (recaptchaResult != RecaptchaVerificationResult.Success)
-             //{
-             //    throw new UserFriendlyException("Incorrect captcha answer.");
-             //} 
-            
-            
+            //define output
+            var output = new RegisterApiOutputModel();
+
+            ////var recaptchaHelper = this.GetRecaptchaVerificationHelper(this.ToString(), recaptchaPrivateKey);
+            //var recaptchaHelper = this.GetRecaptchaVerificationHelper();
+            //if (String.IsNullOrEmpty(recaptchaHelper.Response))
+            //{
+            //    throw new UserFriendlyException("Captcha answer cannot be empty.");
+            //}
+
+            //var recaptchaResult = recaptchaHelper.VerifyRecaptchaResponse();
+            //if (recaptchaResult != RecaptchaVerificationResult.Success)
+            //{
+            //    throw new UserFriendlyException("Incorrect captcha answer.");
+            //} 
+
+
             var result = _userAppService.RegisterUser(input).Result;
+            //if (result == null) return BadRequest("Registration Failed - Try Again");
 
-             IHttpActionResult errorResult = GetErrorResult(result);
+            if (result.Result.Succeeded)
+            {
+                await _userAppService.SendConfirmation(new SendConfirmationInput() {EmailAddress = input.EmailAddress});
+                output.message = "success";
+            }
 
-             if (errorResult != null)
-             {
-                 return errorResult;
-             }
+            if (result.Result.Errors.Any())
+            {
+                var alreadyRegisteredError =
+                    result.Result.Errors.FirstOrDefault(e => e.StartsWith("You registered with"));
+                if (alreadyRegisteredError != null)
+                {
+                    await
+                        _userAppService.SendConfirmation(new SendConfirmationInput() {EmailAddress = input.EmailAddress});
+                    output.message = alreadyRegisteredError;
+                }
+                else
+                    output.message = result.Result.Errors.FirstOrDefault();
+            }
+            //IHttpActionResult errorResult = GetErrorResult(result.Result); 
+            //if (errorResult != null)
+            //{
+            //    return Ok(errorResult);
+            //}
 
-             return Ok();
+
+
+            return Ok(output);
         }
 
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("UpdateRegistration")]
-        public IHttpActionResult UpdateRegistration(UpdateRegisterUserInput input)
+        public async Task<IHttpActionResult> UpdateRegistration(UpdateRegisterUserInput input)
         {
+            //define output
+            var output = new RegisterApiOutputModel();
+
             //Get matching person
-            var persons = GetPersonsFromEmail(new GetPersonsByEmailInput() {EmailAddress = input.EmailAddress});
+            var persons = new List<Person>();
+            try
+            {
+                persons = GetPersonsFromEmail(new GetPersonsByEmailInput() {EmailAddress = input.EmailAddress});
+            }
+            catch (Exception ex)
+            {
+                output.message = "The server is down, wait an hour or two and if the problem persists call us";
+            }
+
+            
             input.Person = new PersonDto(persons.FirstOrDefault(p => (p.FirstName == input.FirstName) &&
                                                         (p.LastName == input.LastName)));
-            
-            var result = _userAppService.UpdateRegisterUser(input);
 
-            //IHttpActionResult errorResult = GetErrorResult(result);
-            //IHttpActionResult errorResult = ;
+            var result = await _userAppService.UpdateRegisterUser(input);
 
-            //if (errorResult != null)
-            //{
-            //    return errorResult;
-            //}
+            if (result.Result)
+            {
+                output.message = "success";
+                return Ok(output);
+            }
 
-            if(result.Result)
-                return Ok();
-
-            return BadRequest("Registration Failed");
+            output.message = "Registration Failed";
+            return Ok(output);
         }
 
         [AcceptVerbs("GET", "POST")]
         [Route("ConfirmEmail")]
-        public bool ConfirmEmail(string userId, string confirmationCode)
+        public HttpResponseMessage ConfirmEmail(string userId, string confirmationCode)
         {
             var input = new ConfirmEmailInput { ConfirmationCode = confirmationCode, UserId = userId };
 
             if (input.UserId == null || input.ConfirmationCode == null)
             {
-                return false;
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
-            
+
             var result = _userAppService.ConfirmEmail(input);
 
+            var response = Request.CreateResponse(HttpStatusCode.Moved);
+            response.Headers.Location = new Uri("http://localhost:61754/#/emailConfirmed");
+            return response;
 
-            return result.Result;
+
+            //return result.Result;
             //return result.Result.Succeeded ? RedirectToAction("Login", new { loginMessage = "Congratulations! Your account is activated. Enter your email address and password to login" })
             //                                : RedirectToAction("Login", new { loginMessage = "Sorry there was an error. Please contact 'Play Create Discover' to resolve" });
         }
@@ -116,7 +154,7 @@ namespace PcdWeb.Controllers
         [Route("SendConfirmation")]
         public bool SendConfirmation(SendConfirmationInput input)
         {
-            
+
             if (input.EmailAddress == null)
             {
                 return false;
@@ -124,7 +162,7 @@ namespace PcdWeb.Controllers
 
             var result = _userAppService.SendConfirmation(input);
 
-            return result.Result;
+            return result.Result.Result;
             //return result.Result.Succeeded ? RedirectToAction("Login", new { loginMessage = "Congratulations! Your account is activated. Enter your email address and password to login" })
             //                                : RedirectToAction("Login", new { loginMessage = "Sorry there was an error. Please contact 'Play Create Discover' to resolve" });
         }
@@ -135,19 +173,41 @@ namespace PcdWeb.Controllers
         [Route("GetUsers")]
         public IHttpActionResult GetUsers(GetPersonsByEmailInput input)
         {
-            List<Person> existingUsers = GetPersonsFromEmail(input);
 
-            if (existingUsers.Count > 0)
+            var output = new GetUsersApiOutput();
+
+            //Check for existing user
+            var user = new GetUserByUsernameOutput();
+            try
             {
-                var users = existingUsers.Select(u => new ExistingUserInfo(u));
-
-                return Ok(users);
+                user = _userAppService.GetUserByUsername(new GetUserByUsernameInput() {Email = input.EmailAddress});
+            }
+            catch (Exception ex)
+            {
+                output.message = "The server is down, wait an hour or two and if the problem persists call us";
             }
 
-            return BadRequest("No Matches Found");
+            if (user.User != null)
+                output.message = "Email already registered";                      
+
+            if(output.message != null)
+                return Ok(output);
+
+            //Find persons if no users exist with current email
+            List<Person> existingUsers = GetPersonsFromEmail(input);
+
+            if (existingUsers.Any())
+            {
+                output.users = existingUsers.Select(u => new ExistingUserInfo(u));
+                output.message = "success";
+                return Ok(output);
+            }
+
+            output.message = "No Matches Found";
+            return Ok(output);
         }
 
-        
+
         //// GET api/Account/ExternalLogin
         //[OverrideAuthentication]
         //[HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
@@ -321,30 +381,40 @@ namespace PcdWeb.Controllers
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {
+            List<string> errors = new List<string>();
+            
             if (result == null)
             {
                 return InternalServerError();
             }
 
-            if (!result.Succeeded)
+            //if (!result.Succeeded)
+            //{
+            //    if (result.Errors != null)
+            //    {
+            //        int count = 0;
+            //        foreach (string error in result.Errors)
+            //        {
+            //            ModelState.AddModelError(count.ToString(), error);
+            //            errors.Add(error);
+            //            count++;
+            //        }
+            //    }
+
+            //    if (ModelState.IsValid)
+            //    {
+            //        // No ModelState errors are available to send, so just return an empty BadRequest.
+            //        return BadRequest();
+            //    }
+
+
+            //    return BadRequest(ModelState);
+            //}
+
+            if (result.Errors != null)
             {
-                if (result.Errors != null)
-                {
-                    foreach (string error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error);
-                    }
-                }
-
-                if (ModelState.IsValid)
-                {
-                    // No ModelState errors are available to send, so just return an empty BadRequest.
-                    return BadRequest();
-                }
-
-                return BadRequest(ModelState);
+                return BadRequest(result.Errors.FirstOrDefault());
             }
-
             return null;
         }
 
@@ -374,7 +444,7 @@ namespace PcdWeb.Controllers
                 return "client_Id is required";
             }
 
-            var client = _userAppService.GetUser(new GetUserInput() {UserId = Int32.Parse(clientId)}).User.ConvertToUser();
+            var client = _userAppService.GetUser(new GetUserInput() { UserId = Int32.Parse(clientId) }).User.ConvertToUser();
 
             if (client == null)
             {

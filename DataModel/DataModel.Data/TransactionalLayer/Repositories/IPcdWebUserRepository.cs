@@ -13,6 +13,7 @@ namespace DataModel.Data.TransactionalLayer.Repositories
         bool UpdateConfirmationCode(User user);
         bool AddUserToPerson(Person person, User user);
         bool ConfirmEmail(string userId, string code);
+        User GetUserByUsername(string username);
     }
 
 }

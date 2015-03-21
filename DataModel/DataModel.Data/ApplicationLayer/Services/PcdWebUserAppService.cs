@@ -13,12 +13,9 @@ using DataModel.Data.ApplicationLayer.Utils.Email;
 using DataModel.Data.DataLayer.Entities;
 using DataModel.Data.TransactionalLayer.Repositories;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Host.SystemWeb;
+
 
 namespace DataModel.Data.ApplicationLayer.Services
 {
@@ -26,8 +23,6 @@ namespace DataModel.Data.ApplicationLayer.Services
     {
         private readonly IPcdWebUserRepository _userRepository;
         private readonly IIdentityMessageService _emailService;
-        //private readonly UserManager<User> _userManager;
-        //private readonly IFriendshipRepository _friendshipRepository;
 
         public PcdWebUserAppService()
         {
@@ -44,10 +39,6 @@ namespace DataModel.Data.ApplicationLayer.Services
             {
                 return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<PcdUserManager>();
             }
-            private set
-            {
-                _userManager = value;
-            }
         }
 
         private PcdRoleManager _roleManager;
@@ -57,7 +48,6 @@ namespace DataModel.Data.ApplicationLayer.Services
             {
                 return _roleManager ?? HttpContext.Current.GetOwinContext().Get<PcdRoleManager>();
             }
-            private set { _roleManager = value; }
         }
 
         private PcdSignInManager _signInManager;
@@ -67,7 +57,6 @@ namespace DataModel.Data.ApplicationLayer.Services
             {
                 return _signInManager ?? HttpContext.Current.GetOwinContext().Get<PcdSignInManager>();
             }
-            private set { _signInManager = value; }
         }
 
         private IAuthenticationManager AuthenticationManager
@@ -77,47 +66,19 @@ namespace DataModel.Data.ApplicationLayer.Services
                 return HttpContext.Current.GetOwinContext().Authentication;
             }
         }
-        //public GetUserProfileOutput GetUserProfile(GetUserProfileInput input)
-        //{
-        //    var currentUser = _userRepository.Load(IdentityUser.CurrentUserId.Value);
-
-        //    var profileUser = _userRepository.Get(input.UserId);
-        //    if (profileUser == null)
-        //    {
-        //        throw new UserFriendlyException("Can not find the user!");
-        //    }
-
-        //    if (profileUser.Id != currentUser.Id)
-        //    {
-        //        var friendship = _friendshipRepository.GetOrNull(currentUser.Id, input.UserId);
-        //        if (friendship == null)
-        //        {
-        //            return new GetUserProfileOutput { CanNotSeeTheProfile = true, User = profileUser.MapTo<UserDto>() }; //TODO: Is it true to send user informations?
-        //        }
-
-        //        if (friendship.Status != FriendshipStatus.Accepted)
-        //        {
-        //            return new GetUserProfileOutput { CanNotSeeTheProfile = true, SentFriendshipRequest = true, User = profileUser.MapTo<UserDto>() };
-        //        }
-        //    }
-
-        //    return new GetUserProfileOutput { User = profileUser.MapTo<UserDto>() };
-        //}
-
-        //public ChangeProfileImageOutput ChangeProfileImage(ChangeProfileImageInput input)
-        //{
-        //    var currentUser = _userRepository.Get(IdentityUser.CurrentUserId.Value); //TODO: test Load method
-        //    var oldFileName = currentUser.ProfileImage;
-
-        //    currentUser.ProfileImage = input.FileName;
-
-        //    return new ChangeProfileImageOutput() { OldFileName = oldFileName };
-        //}
-
 
         public IEnumerable<UserDto> GetAllUsers()
         {
             return _userRepository.GetAllList().Select(u => new UserDto(u));
+        }
+
+        public GetUserByUsernameOutput GetUserByUsername(GetUserByUsernameInput input)
+        {
+            var user = _userRepository.GetUserByUsername(input.Email);
+            if(user != null)
+                return new GetUserByUsernameOutput() {User = new UserDto(user)};
+
+            return new GetUserByUsernameOutput() { User = null };
         }
 
         public UserDto GetActiveUserOrNull(string emailAddress, string password) //TODO: Make this GetUserOrNullInput and GetUserOrNullOutput
@@ -132,21 +93,38 @@ namespace DataModel.Data.ApplicationLayer.Services
             return new GetUserOutput(new UserDto(user));
         }
 
-        //Todo - make mergeUser - where it creates the user and merges an existing person
-        public RegisterUserOutput RegisterUser(RegisterUserInput registerUser)
+        public async Task<RegisterUserOutput> RegisterUser(RegisterUserInput registerUser)
         {
-
-            var existingUser = _userRepository.FirstOrDefault(u => u.Email == registerUser.EmailAddress);
+            User existingUser;
+            try
+            {
+                existingUser = _userRepository.FirstOrDefault(u => u.Email == registerUser.EmailAddress);
+            }
+            catch (Exception ex)
+            {
+                return new RegisterUserOutput() { Result = new IdentityResult("The server is down, wait an hour or two and if the problem persists call us") };
+            }
 
             if (existingUser != null)
             {
-                if (!existingUser.EmailConfirmed)
+                try
                 {
-                    SendConfirmationEmail(existingUser);
-                    throw new UserFriendlyException("You registered with this email address before (" + registerUser.EmailAddress + ")! We re-sent an activation code to your email!");
-                }
+                    if (!existingUser.EmailConfirmed)
+                    {
+                        //var result = SendConfirmationEmail(existingUser);
+                        throw new UserFriendlyException("You registered with this email address before (" +
+                                                        registerUser.EmailAddress +
+                                                        ")! We re-sent an activation code to your email!");
+                    }
 
-                throw new UserFriendlyException("There is already a user with this email address (" + registerUser.EmailAddress + ")! Select another email address!");
+                    throw new UserFriendlyException("There is already a user with this email address (" +
+                                                    registerUser.EmailAddress + ")! Select another email address!");
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.Message);
+                    return new RegisterUserOutput() {Result = new IdentityResult(ex.Message)};
+                }
             }
 
             var userEntity = new User
@@ -166,29 +144,26 @@ namespace DataModel.Data.ApplicationLayer.Services
                     PhoneNumbers = new PhoneNumber
                     {
                         HomePhoneNumber = registerUser.Phone
-                    }
+                    },
+                    Consignor = new Consignor()
                 },
 
                 UserName = registerUser.EmailAddress,
                 PhoneNumber = registerUser.Phone,
                 Email = registerUser.EmailAddress,
                 PasswordHash = registerUser.Password,
-                //UserName = registerUser.UserName
-
             };
-
-            //var userEntity = registerUser;
             
             userEntity.PasswordHash = new PasswordHasher().HashPassword(userEntity.PasswordHash);
             try
             {
                 var result = UserManager.CreateAsync(userEntity);
 
-                if (result.Result.Succeeded)
-                {
-                    
-                    SendConfirmationEmail(userEntity);
-                }
+                //if (result.Result.Succeeded)
+                //{
+                //    var user = _userRepository.FirstOrDefault(u => u.Email == registerUser.EmailAddress);
+                //    SendConfirmationEmail(user);
+                //}
 
                 return new RegisterUserOutput() {Result = result.Result};
             }
@@ -199,56 +174,40 @@ namespace DataModel.Data.ApplicationLayer.Services
             }
         }
 
-        public UpdateRegisterUserOutput UpdateRegisterUser(UpdateRegisterUserInput input)
+        public async Task<UpdateRegisterUserOutput> UpdateRegisterUser(UpdateRegisterUserInput input)
         {
-            //var userEntity = new User
-            //{
-            //    //PersonUser = input.Person.ConvertToPerson(),
-            //    PersonUser = input.Person.ConvertToPerson(),
-            //    UserName = input.EmailAddress,
-            //    Email = input.EmailAddress,
-            //    PasswordHash = input.Password,
-            //};
 
             var userEntity = new User
             {
-                //PersonUser = input.Person.ConvertToPerson(),
-                //PersonUser = input.Person.ConvertToPerson(),
                 UserName = input.EmailAddress,
                 Email = input.EmailAddress,
                 PasswordHash = input.Password,
-                SecurityStamp = Guid.NewGuid().ToString() //Added since we aren't using createAsync
+                PhoneNumber = input.Person.PhoneNumbers.CellPhoneNumber ?? input.Person.PhoneNumbers.HomePhoneNumber,
+                SecurityStamp = Guid.NewGuid().ToString() 
             };
 
-            input.Person.User = null;
-            //userEntity.PersonUser.Consignor.Consignor_Person.User = null;
-            
+            input.Person.User = null;          
 
             userEntity.PasswordHash = new PasswordHasher().HashPassword(userEntity.PasswordHash);
             try
             {
                 bool result;
-                try
-                {                 
-                    result = _userRepository.AddUserToPerson(input.Person.ConvertToPerson(), userEntity);
-                }
-                catch (Exception ex)
-                {
-                    result = false;
-                }
+                
+                result = _userRepository.AddUserToPerson(input.Person.ConvertToPerson(), userEntity);
 
                 if (result)
                 {
                     var user = _userRepository.FirstOrDefault(u => u.Email == input.EmailAddress);
-                    SendConfirmationEmail(user);
+                    await SendConfirmationEmail(user);
+                    return new UpdateRegisterUserOutput() { Result = true};
                 }
 
-                return new UpdateRegisterUserOutput() { Result = result };
+                return new UpdateRegisterUserOutput() { Result = false };
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return null;
+                return new UpdateRegisterUserOutput() { Result = false };
             }
         }
 
@@ -319,14 +278,14 @@ namespace DataModel.Data.ApplicationLayer.Services
             user.PasswordResetCode = null;
         }
 
-        public SendConfirmationOutput SendConfirmation(SendConfirmationInput input)
+        public async Task<SendConfirmationOutput> SendConfirmation(SendConfirmationInput input)
         {
             var existingUser = _userRepository.FirstOrDefault(u => u.Email == input.EmailAddress);
 
             try
             {
                 //Send confirmation
-                SendConfirmationEmail(existingUser);
+                await SendConfirmationEmail(existingUser);
                 return new SendConfirmationOutput{Result = true};
             }
             catch (Exception ex)
@@ -340,7 +299,7 @@ namespace DataModel.Data.ApplicationLayer.Services
 
         #region Private methods
 
-        private void SendConfirmationEmail(User user)
+        private async Task SendConfirmationEmail(User user)
         {
             var code = UserManager.GenerateEmailConfirmationTokenAsync(user.Id);           
             user.EmailConfirmationCode = code.Result;
@@ -392,7 +351,7 @@ namespace DataModel.Data.ApplicationLayer.Services
                 Destination = user.Email
             };
 
-            var result = _emailService.SendAsync(message);
+            await _emailService.SendAsync(message);
         }
 
         private void SendPasswordResetLinkEmail(User user)

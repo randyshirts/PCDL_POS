@@ -232,28 +232,35 @@
     <Content Include="Abp\Framework\styles\abp.css" />
     <Content Include="Abp\Framework\styles\abp.min.css" />
     <Content Include="Abp\Framework\styles\utils\ie10fix.css" />
+    <Content Include="app\account\emailConfirmed.html" />
+    <Content Include="app\account\emailConfirmedController.js" />
+    <Content Include="app\account\emailSent.html" />
+    <Content Include="app\account\emailSentController.js" />
+    <Content Include="app\account\signupChoice.html" />
+    <Content Include="app\account\signupChoiceController.js" />
     <Content Include="app\app.js" />
-    <Content Include="app\controllers\associateController.js" />
-    <Content Include="app\controllers\existinguserController.js" />
-    <Content Include="app\controllers\homeController.js" />
-    <Content Include="app\controllers\indexController.js" />
-    <Content Include="app\controllers\loginController.js" />
+    <Content Include="app\account\associateController.js" />
+    <Content Include="app\account\existinguserController.js" />
+    <Content Include="app\directives\compareDirective.js" />
+    <Content Include="app\main\homeController.js" />
+    <Content Include="app\main\indexController.js" />
+    <Content Include="app\account\loginController.js" />
     <Content Include="app\controllers\ordersController.js" />
-    <Content Include="app\controllers\refreshController.js" />
-    <Content Include="app\controllers\signupController.js" />
-    <Content Include="app\controllers\tokensManagerController.js" />
-    <Content Include="app\services\authInterceptorService.js" />
-    <Content Include="app\services\authService.js" />
+    <Content Include="app\account\refreshController.js" />
+    <Content Include="app\account\signupController.js" />
+    <Content Include="app\account\tokensManagerController.js" />
+    <Content Include="app\account\authInterceptorService.js" />
+    <Content Include="app\account\authService.js" />
     <Content Include="app\services\ordersService.js" />
-    <Content Include="app\services\tokensManagerService.js" />
-    <Content Include="app\views\associate.html" />
-    <Content Include="app\views\existinguser.html" />
-    <Content Include="app\views\home.html" />
-    <Content Include="app\views\login.html" />
+    <Content Include="app\account\tokensManagerService.js" />
+    <Content Include="app\account\associate.html" />
+    <Content Include="app\account\existinguser.html" />
+    <Content Include="app\main\home.html" />
+    <Content Include="app\account\login.html" />
     <Content Include="app\views\orders.html" />
-    <Content Include="app\views\refresh.html" />
-    <Content Include="app\views\signup.html" />
-    <Content Include="app\views\tokens.html" />
+    <Content Include="app\account\refresh.html" />
+    <Content Include="app\account\signup.html" />
+    <Content Include="app\account\tokens.html" />
     <Content Include="authComplete.html" />
     <Content Include="Content\bootstrap-cosmo.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -344,6 +351,8 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Abp\Framework\styles\abp.less" />
     <Content Include="Abp\Framework\styles\abp.css.map" />
+    <Content Include="Scripts\jcs-auto-validate.js" />
+    <Content Include="Scripts\jcs-auto-validate.min.js" />
     <Content Include="Scripts\jquery.blockUI.min.js" />
     <Content Include="Scripts\jquery.fancybox-buttons.js" />
     <Content Include="Scripts\jquery.fancybox-media.js" />
@@ -359,6 +368,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\jcs-auto-validate.min.js.map" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -395,14 +405,17 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Utils\Email\EmailService.cs" />
-    <Compile Include="Utils\Email\EmailSettingDefinitionProvider.cs" />
-    <Compile Include="Utils\Email\IEmailService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\lang\jcs-auto-validate_ru-ru.json" />
+    <Content Include="Scripts\lang\jcs-auto-validate_it-it.json" />
+    <Content Include="Scripts\lang\jcs-auto-validate_fr-fr.json" />
+    <Content Include="Scripts\lang\jcs-auto-validate_en-us.json" />
+    <Content Include="Scripts\lang\jcs-auto-validate_en-gb.json" />
+    <Content Include="Scripts\lang\jcs-auto-validate_de-de.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -5,7 +5,9 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
     $scope.message = "";
 
     $scope.registration = {
-        userName: "",
+        userName: "",       
+        emailaddress: "",
+        phonenumber: "",
         password: "",
         confirmPassword: ""
     };
@@ -13,12 +15,16 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
     $scope.signUp = function () {
 
         authService.saveRegistration($scope.registration).then(function (response) {
+                if (response.data.message === "success") {
+                    $scope.savedSuccessfully = true;
+                    $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
+                    startTimer();
+                } else {
+                    $scope.savedSuccessfully = false;
+                    $scope.message = response.data.message;
+                }
 
-            $scope.savedSuccessfully = true;
-            $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
-            startTimer();
-
-        },
+            },
          function (response) {
              var errors = [];
              for (var key in response.data.modelState) {

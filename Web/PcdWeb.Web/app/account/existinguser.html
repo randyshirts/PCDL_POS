@@ -1,0 +1,93 @@
+﻿<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4" ng-hide="existingUsers.length">
+        <form class="form-existing" role="form" name="existingsignup">
+            <h2 class="form-login-heading">Merge Account</h2>
+            <input type="email" class="form-control" placeholder="Email" data-ng-model="userinfo.emailaddress" name="emailaddress"
+                   ng-change="onchange()" ng-model-options="{updateOn: 'blur' }" required autofocus>
+            <span style="color: red" ng-show="existingsignup.emailaddress.$dirty && existingsignup.emailaddress.$invalid">
+                <span ng-show="existingsignup.emailaddress.$error.required">Email is required.</span>
+                <span ng-show="existingsignup.emailaddress.$error.email">Invalid email address.</span>
+            </span>
+
+            <input type="password" class="form-control" placeholder="Password" data-ng-model="userinfo.password" name="password"
+                   ng-change="onchange()" ng-model-options="{updateOn: 'blur' }" required>
+            <span style="color: red" ng-show="existingsignup.password.$dirty && existingsignup.password.$invalid">
+                <span ng-show="existingsignup.password.$error.required">Password is required.</span>
+            </span>
+
+            <input type="password" class="form-control" placeholder="Confirm Password" data-ng-model="userinfo.passwordrepeat"
+                   data-password-verify="userinfo.password" name="passwordrepeat" ng-change="onchange()" ng-model-options="{updateOn: 'blur' }" required>
+            <span style="color: red" ng-show="existingsignup.passwordrepeat.$dirty && existingsignup.passwordrepeat.$invalid">
+                <span ng-show="existingsignup.passwordrepeat.$error.required">Confirm password.</span>
+                <span ng-show="existingsignup.passwordrepeat.$error.passwordVerify">Passwords do not match.</span>
+            </span>
+
+            <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="signUp()"
+                    ng-disabled="(existingsignup.emailaddress.$dirty && existingsignup.emailaddress.$invalid) ||
+                                (existingsignup.password.$dirty && existingsignup.password.$invalid) ||
+                                (existingsignup.passwordrepeat.$dirty && existingsignup.passwordrepeat.$invalid)">
+                Submit
+            </button>
+                <div data-ng-hide="message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+                    {{message}}
+                </div>
+</form>
+    </div>
+    <div class="col-md-4" ng-show="existingUsers.length">
+        Select the check box next to the record which matches your information.
+
+        Then press 'submit'.
+
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+
+    <div class="col-md-8">
+        <table class="table table-striped table-bordered table-hover" ng-show="existingUsers.length">
+            <thead>
+            <tr>
+                <th>Select</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="user in existingUsers">
+                <td>
+                    <input type="checkbox" data-ng-model="user.isSelected">
+                </td>
+                <td>
+                    {{ user.firstName }}
+                </td>
+                <td>
+                    {{ user.lastName }}
+                </td>
+                <td>
+                    {{ user.phoneNumber }}
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4" ng-show="existingUsers.length">
+        <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="updateRegistration()">Submit</button>
+        <div data-ng-hide="message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+            {{message}}
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>

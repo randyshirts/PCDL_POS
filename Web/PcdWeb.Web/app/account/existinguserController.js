@@ -1,9 +1,10 @@
 ﻿'use strict';
-app.controller('existinguserController', ['$scope', 'authService', function ($scope, authService) {
+app.controller('existinguserController', ['$scope', '$location', '$timeout', 'authService', function ($scope, $location, $timeout, authService) {
 
     //$scope.existingUsers = [{"IsSelected":false,"firstName":"Randy","lastName":"Shirts","phoneNumber":"1234567890"}];
     $scope.existingUsers = [];
     $scope.message = "";
+    $scope.savedSuccessfully = false;
 
     $scope.userinfo =
     {
@@ -14,15 +15,20 @@ app.controller('existinguserController', ['$scope', 'authService', function ($sc
 
     $scope.signUp = function () {
         authService.getUsers($scope.userinfo).then(function (results) {
-            
-                $scope.existingUsers = results.data;
+
+            if (results.data.message === "success") {
+                $scope.existingUsers = results.data.users;
+            } else {
+                $scope.message = results.data.message;
+                $scope.savedSuccessfully = false;
+            }
 
         }, function (error) {
             //alert(error.data.message);
         });
     }
 
-    $scope.sendConfirmation = function() {
+    $scope.updateRegistration = function() {
         var count = [];
         var selectedUsers = [];
         var listedUsers = $scope.existingUsers;
@@ -46,7 +52,13 @@ app.controller('existinguserController', ['$scope', 'authService', function ($sc
 
             //Register
             authService.updateRegistration(user).then(function (results) {
-                //$scope.existingUsers = results.data;
+                var result = results.data;
+                if(result.message === "success")
+                    startTimer();
+                else {
+                    $scope.message = result.message;
+                }
+                
             },
             function (error) {
                 //alert(error.data.message);
@@ -59,6 +71,13 @@ app.controller('existinguserController', ['$scope', 'authService', function ($sc
             //function (error) {
             //    //alert(error.data.message);
             //});
+        }
+
+        var startTimer = function () {
+            var timer = $timeout(function () {
+                $timeout.cancel(timer);
+                $location.path('/emailSent');
+            }, 2000);
         }
     }
 }]);

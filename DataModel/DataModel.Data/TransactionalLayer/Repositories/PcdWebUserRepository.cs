@@ -67,5 +67,13 @@ namespace DataModel.Data.TransactionalLayer.Repositories
             query.EmailConfirmed = true;
             return true;
         }
+
+        public User GetUserByUsername(string username)
+        {
+            var query = (from u in Context.Users
+                         where (u.UserName == username) 
+                         select u).FirstOrDefault();
+            return query;
+        }
     }
 }

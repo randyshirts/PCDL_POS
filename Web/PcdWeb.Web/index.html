@@ -30,7 +30,7 @@
                     <li data-ng-hide="!authentication.isAuth"><a href="#/refresh">Refresh Token</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a href="#/login">Login</a></li>
-                    <li data-ng-hide="authentication.isAuth"> <a href="#/signup">Sign Up</a></li>
+                    <li data-ng-hide="authentication.isAuth"> <a href="#/signupChoice">Sign Up</a></li>
                 </ul>
             </div>
         </div>
@@ -66,8 +66,8 @@
 
     <!-- 3rd party libraries -->
 
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js"></script>
     <script src="scripts/angular-local-storage.min.js"></script>
     <script src="scripts/loading-bar.min.js"></script>
 
@@ -75,22 +75,26 @@
     <script src="app/app.js?v=2"></script>
 
     <!-- Load services -->
-    <script src="app/services/authInterceptorService.js?v=2"></script>
-    <script src="app/services/authService.js?v=2"></script>
+    <script src="app/account/authInterceptorService.js?v=2"></script>
+    <script src="app/account/authService.js?v=2"></script>
     <script src="app/services/ordersService.js?v=2"></script>
-    <script src="app/services/tokensManagerService.js?v=2"></script>
+    <script src="app/account/tokensManagerService.js?v=2"></script>
     <!-- Load controllers -->
-    <script src="app/controllers/indexController.js?v=2"></script>
-    <script src="app/controllers/homeController.js?v=2"></script>
-    <script src="app/controllers/loginController.js?v=2"></script>
-    <script src="app/controllers/signupController.js?v=2"></script>
-    <script src="app/controllers/existinguserController.js?v=2"></script>
+    <script src="app/main/indexController.js?v=2"></script>
+    <script src="app/main/homeController.js?v=2"></script>
+    <script src="app/account/loginController.js?v=2"></script>
+    <script src="app/account/signupController.js?v=2"></script>
+    <script src="app/account/signupChoiceController.js?v=2"></script>
+    <script src="app/account/existinguserController.js?v=2"></script>
     <script src="app/controllers/ordersController.js?v=2"></script>
-    <script src="app/controllers/refreshController.js?v=2"></script>
-    <script src="app/controllers/tokensManagerController.js?v=2"></script>
-    <script src="app/controllers/associateController.js?v=2"></script>
+    <script src="app/account/refreshController.js?v=2"></script>
+    <script src="app/account/tokensManagerController.js?v=2"></script>
+    <script src="app/account/associateController.js?v=2"></script>
+    <script src="app/account/emailSentController.js?v=2"></script>
+    <script src="app/account/emailConfirmedController.js?v=2"></script>
     <!-- Load custom filters -->
-    <!-- Load custom directives -->
+<!-- Load custom directives -->
+    <script src="app/directives/compareDirective.js?v=2"></script>
 
 </body>
 </html>

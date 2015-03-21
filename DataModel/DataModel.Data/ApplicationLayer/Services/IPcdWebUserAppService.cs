@@ -11,18 +11,13 @@ namespace DataModel.Data.ApplicationLayer.Services
 {
     public interface IPcdWebUserAppService : IApplicationService
     {
-
-        //ChangeProfileImageOutput ChangeProfileImage(ChangeProfileImageInput input);
-
-        //GetUserProfileOutput GetUserProfile(GetUserProfileInput input);
-
         IEnumerable<UserDto> GetAllUsers();
 
         UserDto GetActiveUserOrNull(string emailAddress, string password);
 
         GetUserOutput GetUser(GetUserInput input);
 
-        RegisterUserOutput RegisterUser(RegisterUserInput registerUser);
+        Task<RegisterUserOutput> RegisterUser(RegisterUserInput registerUser);
 
         RegisterExternalUserOutput RegisterExternalUser(RegisterExternalUserInput input);
         
@@ -36,8 +31,10 @@ namespace DataModel.Data.ApplicationLayer.Services
 
         void ResetPassword(ResetPasswordInput input);
 
-        SendConfirmationOutput SendConfirmation(SendConfirmationInput input);
+        Task<SendConfirmationOutput> SendConfirmation(SendConfirmationInput input);
         
-        UpdateRegisterUserOutput UpdateRegisterUser(UpdateRegisterUserInput input);
+        Task<UpdateRegisterUserOutput> UpdateRegisterUser(UpdateRegisterUserInput input);
+
+        GetUserByUsernameOutput GetUserByUsername(GetUserByUsernameInput input);
     }
 }

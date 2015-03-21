@@ -190,6 +190,7 @@
     <Compile Include="Controllers\ProtectedController.cs" />
     <Compile Include="Controllers\RefreshTokensController.cs" />
     <Compile Include="Helper.cs" />
+    <Compile Include="Models\RegisterModels.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\ExistingUserInfo.cs" />
     <Compile Include="Models\ExternalLoginModels.cs" />
