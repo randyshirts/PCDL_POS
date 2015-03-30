@@ -97,6 +97,7 @@
     <Compile Include="Helpers\CommonConverters.cs" />
     <Compile Include="Helpers\DateTimeSpan.cs" />
     <Compile Include="Helpers\EnumsAndLists.cs" />
+    <Compile Include="Helpers\PdfBarcodeHelpers.cs" />
     <Compile Include="Helpers\Random_Helper.cs" />
     <Compile Include="Helpers\ReceiptPrinterHelper.cs" />
     <Compile Include="Helpers\SearchItems.cs" />

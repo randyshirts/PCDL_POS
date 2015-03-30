@@ -23,7 +23,7 @@ namespace RocketPos.Data.DataLayer.Mapping
             Property(b => b.Condition).IsRequired().HasMaxLength(25);
             Property(b => b.Description).IsOptional();
             Property(i => i.CashPayout).IsOptional();
-            Property(i => i.Barcode).IsRequired().IsFixedLength().HasMaxLength(13);
+            Property(i => i.Barcode).IsRequired().IsFixedLength().HasMaxLength(15);
             //Property(i => i.ConsignorPmt).IsOptional();
 
             //Table

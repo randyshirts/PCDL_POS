@@ -194,7 +194,6 @@
     <Compile Include="ViewModels\PrintBarcodesView\Views\PrintBarcodesView.xaml.cs">
       <DependentUpon>PrintBarcodesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controller\CustomClasses\PrintBarcodes.cs" />
     <Compile Include="Controller\Elements\ItemElements\ConsignorItem.cs" />
     <Compile Include="Controller\Elements\ConsignorInfo.cs" />
     <Compile Include="Controller\Elements\ItemElements\BookItem.cs" />

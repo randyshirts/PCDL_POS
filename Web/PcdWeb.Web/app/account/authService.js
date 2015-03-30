@@ -52,6 +52,13 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         });
     };
 
+    var _getUserInfo = function (userinfo) {
+
+        return $http.post(serviceBase + 'api/account/getuserinfo', userinfo).then(function (results) {
+            return results;
+        });
+    };
+
     var _login = function (loginData) {
 
         var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
@@ -62,7 +69,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
         var deferred = $q.defer();
 
-        $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
+        $http.post(serviceBase + 'api/account/login', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
 
             if (loginData.useRefreshTokens) {
                 localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, refreshToken: response.refresh_token, useRefreshTokens: true });
@@ -93,6 +100,41 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         _authentication.userName = "";
         _authentication.useRefreshTokens = false;
 
+    };
+
+    
+    var _recoverPassword = function (userInfo) {
+
+        return $http.post(serviceBase + 'api/account/recoverpassword', userInfo, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(function (response) {
+            return response;
+        });
+
+    };
+
+    var _resetPassword = function(userInfo) {
+        return $http.post(serviceBase + 'api/account/resetpassword', userInfo, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(function (response) {
+            return response;
+        });
+    };
+
+    var _changePassword = function (userInfo) {
+        return $http.post(serviceBase + 'api/account/changepassword', userInfo, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(function (response) {
+            return response;
+        });
+    };
+    
+    var _changeEmail = function (userInfo) {
+        return $http.post(serviceBase + 'api/account/changeemail', userInfo ).then(function (response) {
+            if (response.data === "success")
+                _authentication.userName = userInfo.newEmail;
+            return response;
+        });
+    };
+    
+    var _savePersonalInfo = function (accountInfo) {
+        return $http.post(serviceBase + 'api/account/updatePerson', accountInfo).then(function (response) {
+            return response;
+        });
     };
 
     var _fillAuthData = function () {
@@ -183,14 +225,19 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
     authServiceFactory.saveRegistration = _saveRegistration;
     authServiceFactory.updateRegistration = _updateRegistration;
+    authServiceFactory.savePersonalInfo = _savePersonalInfo;
     authServiceFactory.sendConfirmation = _sendConfirmation;
     authServiceFactory.getUsers = _getUsers;
+    authServiceFactory.getUserInfo = _getUserInfo;
     authServiceFactory.login = _login;
     authServiceFactory.logOut = _logOut;
     authServiceFactory.fillAuthData = _fillAuthData;
     authServiceFactory.authentication = _authentication;
     authServiceFactory.refreshToken = _refreshToken;
-
+    authServiceFactory.recoverPassword = _recoverPassword;
+    authServiceFactory.resetPassword = _resetPassword;
+    authServiceFactory.changePassword = _changePassword;
+    authServiceFactory.changeEmail = _changeEmail;
     authServiceFactory.obtainAccessToken = _obtainAccessToken;
     authServiceFactory.externalAuthData = _externalAuthData;
     authServiceFactory.registerExternal = _registerExternal;

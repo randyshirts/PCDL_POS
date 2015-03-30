@@ -232,16 +232,36 @@
     <Content Include="Abp\Framework\styles\abp.css" />
     <Content Include="Abp\Framework\styles\abp.min.css" />
     <Content Include="Abp\Framework\styles\utils\ie10fix.css" />
+    <Content Include="app\account\manage\changeEmailController.js" />
+    <Content Include="app\account\manage\changePasswordController.js" />
+    <Content Include="app\account\manage\changeEmailForm.html" />
+    <Content Include="app\account\manage\changePasswordForm.html" />
     <Content Include="app\account\emailConfirmed.html" />
     <Content Include="app\account\emailConfirmedController.js" />
     <Content Include="app\account\emailSent.html" />
     <Content Include="app\account\emailSentController.js" />
+    <Content Include="app\account\forgotPassword.html" />
+    <Content Include="app\account\forgotPasswordController.js" />
+    <Content Include="app\account\manage\manageAccount.html" />
+    <Content Include="app\account\manage\manageAccountController.js" />
+    <Content Include="app\account\manage\personalInfoController.js" />
+    <Content Include="app\account\manage\personalInfoForm.html" />
+    <Content Include="app\account\resetPassword.html" />
+    <Content Include="app\account\resetPasswordController.js" />
     <Content Include="app\account\signupChoice.html" />
     <Content Include="app\account\signupChoiceController.js" />
+    <Content Include="app\addItems\addItemGrid.html" />
+    <Content Include="app\addItems\addItemGridController.js" />
+    <Content Include="app\addItems\addItemsSharedController.js" />
+    <Content Include="app\addItems\addItemsSharedForm.html" />
+    <Content Include="app\addItems\addItemsMain.html" />
+    <Content Include="app\addItems\addItemsMainController.js" />
     <Content Include="app\app.js" />
-    <Content Include="app\account\associateController.js" />
     <Content Include="app\account\existinguserController.js" />
     <Content Include="app\directives\compareDirective.js" />
+    <Content Include="app\directives\csselectDirective.js" />
+    <Content Include="app\directives\currencyDirective.js" />
+    <Content Include="app\directives\onlyDigitsDirective.js" />
     <Content Include="app\main\homeController.js" />
     <Content Include="app\main\indexController.js" />
     <Content Include="app\account\loginController.js" />
@@ -251,9 +271,8 @@
     <Content Include="app\account\tokensManagerController.js" />
     <Content Include="app\account\authInterceptorService.js" />
     <Content Include="app\account\authService.js" />
-    <Content Include="app\services\ordersService.js" />
+    <Content Include="app\addItems\itemsService.js" />
     <Content Include="app\account\tokensManagerService.js" />
-    <Content Include="app\account\associate.html" />
     <Content Include="app\account\existinguser.html" />
     <Content Include="app\main\home.html" />
     <Content Include="app\account\login.html" />
@@ -338,8 +357,8 @@
     <Content Include="Localization\AbpWeb\AbpWeb.xml" />
     <Content Include="Localization\PcdWeb\PcdWeb.tr.xml" />
     <Content Include="Localization\PcdWeb\PcdWeb.xml" />
-    <Content Include="RecaptchaNet.ReadMe.txt" />
     <Content Include="Scripts\almond-custom.js" />
+    <Content Include="Scripts\angular-busy.min.js" />
     <Content Include="Scripts\angular-local-storage.min.js" />
     <Content Include="Scripts\authComplete.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -390,6 +409,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\ng-currency.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
@@ -397,6 +417,8 @@
     <Content Include="Scripts\json2.min.js" />
     <Content Include="Scripts\knockout.mapping-latest.debug.js" />
     <Content Include="Scripts\knockout.mapping-latest.js" />
+    <Content Include="Scripts\smart-table.js" />
+    <Content Include="Scripts\smart-table.min.js" />
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
@@ -423,7 +445,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="app\services\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DataModel\DataModel.Data\DataModel.Data.csproj">
       <Project>{308C26DC-2F9E-47E9-8A60-9D3FE132D67F}</Project>

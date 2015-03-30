@@ -166,5 +166,15 @@ namespace DataModel.Data.TransactionalLayer.Repositories
             return pmts.Sum(f => f.StoreCreditPmtAmount) -
                         purchases.Sum(f => f.StoreCreditTransactionAmount);
         }
+
+        public Consignor GetConsignorByEmail(string email)
+        {
+          
+            var consignor = (from c in Context.Consignors
+                                   where (c.Consignor_Person.EmailAddresses.Any(p => p.EmailAddress == email))
+                                   select c).FirstOrDefault();
+
+            return consignor;
+        }
     }
 }

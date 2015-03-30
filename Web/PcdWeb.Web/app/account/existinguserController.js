@@ -13,9 +13,14 @@ app.controller('existinguserController', ['$scope', '$location', '$timeout', 'au
         passwordrepeat: ""
     }
 
+    $scope.busyDisabled = true;
+
     $scope.signUp = function () {
+
+        $scope.busyDisabled = false;
         authService.getUsers($scope.userinfo).then(function (results) {
 
+            $scope.busyDisabled = true;
             if (results.data.message === "success") {
                 $scope.existingUsers = results.data.users;
             } else {
@@ -39,7 +44,7 @@ app.controller('existinguserController', ['$scope', '$location', '$timeout', 'au
             }
         }
         if (count.length > 1) {
-            $scope.confirmationMessage = "Please only select one record";
+            $scope.confirmationMessage = "Please select only one record";
         }
         if (count.length === 0) {
             $scope.confirmationMessage = "Please select a record";
@@ -51,15 +56,18 @@ app.controller('existinguserController', ['$scope', '$location', '$timeout', 'au
             user.passwordrepeat = $scope.userinfo.passwordrepeat;
 
             //Register
+            $scope.busyDisabled = false;
             authService.updateRegistration(user).then(function (results) {
+                $scope.busyDisabled = true;
                 var result = results.data;
-                if(result.message === "success")
-                    startTimer();
-                else {
-                    $scope.message = result.message;
-                }
-                
-            },
+                    if (result.message === "success") {
+                        $scope.message = "Registration successful - you will be redirected in 2 seconds";
+                        startTimer();
+                    } else {
+                        $scope.message = result.message;
+                    }
+
+                },
             function (error) {
                 //alert(error.data.message);
             });

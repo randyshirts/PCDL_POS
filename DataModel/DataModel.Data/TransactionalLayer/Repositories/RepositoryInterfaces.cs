@@ -29,7 +29,7 @@ namespace DataModel.Data.TransactionalLayer.Repositories
         List<string> GetConsignorNamesLastnameFirst();
         Consignor GetConsignorByFullName(string fullName);
         double GetConsignorCreditBalance(string name);
-
+        Consignor GetConsignorByEmail(string email);
     }
 
     public interface IConsignorPmtRepository : IRepository<ConsignorPmt>

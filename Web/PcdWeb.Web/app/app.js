@@ -1,5 +1,5 @@
 ﻿
-var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar']);
+var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ng-currency', 'smart-table']);
 
 app.config(function ($routeProvider) {
 
@@ -56,6 +56,26 @@ app.config(function ($routeProvider) {
     $routeProvider.when("/signupChoice", {
         controller: "signupChoiceController",
         templateUrl: "/app/account/signupChoice.html"
+    });
+
+    $routeProvider.when("/forgotPassword", {
+        controller: "forgotPasswordController",
+        templateUrl: "/app/account/forgotPassword.html"
+    });
+
+    $routeProvider.when("/resetPassword", {
+        controller: "resetPasswordController",
+        templateUrl: "/app/account/resetPassword.html"
+    });
+
+    $routeProvider.when("/manageAccount", {
+        controller: "manageAccountController",
+        templateUrl: "/app/account/manage/manageAccount.html"
+    });
+
+    $routeProvider.when("/addItemsMain", {
+        controller: "addItemsMainController",
+        templateUrl: "/app/addItems/addItemsMain.html"
     });
 
     $routeProvider.otherwise({ redirectTo: "/home" });

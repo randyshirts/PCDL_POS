@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using Abp.Domain.Entities;
+using DataModel.Data.DataLayer.Entities;
 using DataModel.Data.DataLayer.Repositories;
 using MySql.Data.MySqlClient;
 
@@ -38,12 +40,19 @@ namespace DataModel.Data.TransactionalLayer.Repositories
             var oldItem = GetItemByTitle(item.Title);
             if (oldItem != null)
             {
-
+                
                 //Update Items property
+                T updatedItem;
                 if (item.Items_TItems != null && item.Items_TItems.Count == 1)
-                    oldItem.Items_TItems.Add(item.Items_TItems.ElementAt(0));     //Add new item to old item record
+                {
+                    updatedItem = Get(oldItem.Id);
+                    updatedItem.Items_TItems.Add(item.Items_TItems.ElementAt(0));
+                    Context.SaveChanges();
+                }
+                //oldItem.Items_TItems.Add();     //Add new item to old item record
                 else
-                    throw new ArgumentException("Can't add more than one item to a item at the same time, or Item.Items is null");
+                    throw new ArgumentException(
+                        "Can't add more than one item to a item at the same time, or Item.Items is null");
             }
             //Item doesn't exist so add it
             else
@@ -53,10 +62,11 @@ namespace DataModel.Data.TransactionalLayer.Repositories
                 Validation.EanLength(item.EAN);
                 Validation.ImageLength(item.ItemImage);
                 Context.Set(typeof(T)).Add(item);
+                Context.SaveChanges();
             }
-            Context.SaveChanges();
 
             //Set Barcode here because we need Id
+
             if (item.Items_TItems != null)
             {
                 var itemId = item.Items_TItems.ElementAt(0).Id;

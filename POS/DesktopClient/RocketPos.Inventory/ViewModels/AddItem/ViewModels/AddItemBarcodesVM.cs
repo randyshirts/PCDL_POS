@@ -6,6 +6,7 @@
 
 using System;
 using System.Linq;
+using Common.Barcodes;
 using GalaSoft.MvvmLight.Messaging;
 using RocketPos.Common.Foundation;
 using Inventory.Controller.CustomClasses;
@@ -110,10 +111,14 @@ namespace Inventory.ViewModels.AddItem.ViewModels
 
         public ActionCommand PrintBarcodesCommand
         {
-            get
-            {
-                return new ActionCommand(p => PrintBarcodes.PrintBarcodesItems(DataGridBarcodes.ToList()));
-            }
+            get { return new ActionCommand(p => PrintBarcodesLocal()); }
+        }
+
+        private void PrintBarcodesLocal()
+        {
+            var pdfBarcodes = PdfBarcodeHelpers.ConvertBarcodeItemsToPdfModels(DataGridBarcodes);
+            var doc = PrintBarcodes.PrintBarcodesItems(pdfBarcodes.ToList());
+            PrintBarcodes.LaunchPdfDocument(doc);
         }
 
         //private PdfFontBase f;

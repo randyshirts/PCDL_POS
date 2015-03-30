@@ -11,8 +11,10 @@ namespace DataModel.Data.TransactionalLayer.Repositories
     public interface IPcdWebUserRepository : IRepository<User, string>
     {
         bool UpdateConfirmationCode(User user);
+        bool ResetPassword(string userId, string password);
         bool AddUserToPerson(Person person, User user);
         bool ConfirmEmail(string userId, string code);
+        bool UpdateResetCode(User user);
         User GetUserByUsername(string username);
     }
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PcdWeb.Models
+namespace PcdWeb.Models.AccountModels
 {
     public class UserModel
     {

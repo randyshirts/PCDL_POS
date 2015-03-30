@@ -1,0 +1,34 @@
+﻿<div ng-controller="addItemGridController as grid" ng-show="grid.itemsCollection.length">
+    <h2 class="form-login-heading">Recently Added Items</h2>
+    <table st-table="itemsCollection" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Print</th>               
+                <th>Title</th>
+                <th>Barcode</th>
+                <th>Type</th>
+                <th>Date Added</th>
+                <th>Price</th>
+                <th>Discount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in grid.itemsCollection">
+                <td> <input type="checkbox" ng-model="row.print"></td>              
+                <td>{{row.title}}</td>
+                <td>{{row.barcode}}</td>
+                <td>{{row.subject}}</td>
+                <td>{{row.dateAdded | date}}</td>
+                <td>{{row.price | currency}}</td>
+                <td>{{row.discounted}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="grid.printBarcodes()">
+        <span ng-hide="grid.saveBusy"><i class="fa fa-refresh fa-spin"></i> Please wait...</span>
+        <span ng-show="grid.saveBusy">Print Barcodes</span>
+    </button>
+    <!--<div data-ng-hide="grid.message == ''" data-ng-class="(grid.savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+        {{grid.message}}
+    </div>-->
+</div>

@@ -7,17 +7,21 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
         useRefreshTokens: false
     };
 
+    $scope.busyDisabled = true;
+
     $scope.message = "";
 
     $scope.login = function () {
-
+        $scope.busyDisabled = false;
         authService.login($scope.loginData).then(function (response) {
 
+            $scope.busyDisabled = true;
             $location.path('/orders');
 
         },
          function (err) {
-             $scope.message = err.error_description;
+             $scope.busyDisabled = true;
+             $scope.message = err.message;
          });
     };
 

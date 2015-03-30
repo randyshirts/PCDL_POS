@@ -9,13 +9,16 @@ namespace DataModel.Data.ApplicationLayer.DTO
     {
         public ConsignorDto(Consignor cons)
         {
-            Id = cons.Id;
-            DateAdded = cons.DateAdded;
-            Consignor_Person = cons.Consignor_Person;
-            ConsignorPmts_Consignor = cons.ConsignorPmts_Consignor;
-            StoreCreditPmts_Consignor = cons.StoreCreditPmts_Consignor;
-            StoreCreditTransactions_Consignor = cons.StoreCreditTransactions_Consignor;
-            Items_Consignor = cons.Items_Consignor;
+            if (cons != null)
+            {
+                Id = cons.Id;
+                DateAdded = cons.DateAdded;
+                Consignor_Person = cons.Consignor_Person;
+                ConsignorPmts_Consignor = cons.ConsignorPmts_Consignor;
+                StoreCreditPmts_Consignor = cons.StoreCreditPmts_Consignor;
+                StoreCreditTransactions_Consignor = cons.StoreCreditTransactions_Consignor;
+                Items_Consignor = cons.Items_Consignor;
+            }
         }
            
         public DateTime DateAdded { get; set; }
@@ -105,5 +108,15 @@ namespace DataModel.Data.ApplicationLayer.DTO
     public class GetAllConsignorsOutput : IOutputDto
     {
         public List<ConsignorDto> Consignors { get; set; } 
+    }
+
+    public class GetConsignorByEmailInput : IInputDto
+    {
+        public string Email { get; set; }
+    }
+
+    public class GetConsignorByEmailOutput : IOutputDto
+    {
+        public ConsignorDto Consignor { get; set; }
     }
 }

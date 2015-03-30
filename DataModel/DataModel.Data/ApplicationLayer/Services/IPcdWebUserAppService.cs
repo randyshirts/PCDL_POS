@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using DataModel.Data.ApplicationLayer.DTO;
-using Microsoft.AspNet.Identity;
 
 namespace DataModel.Data.ApplicationLayer.Services
 {
@@ -25,16 +21,22 @@ namespace DataModel.Data.ApplicationLayer.Services
 
         GetCurrentUserInfoOutput GetCurrentUserInfo(GetCurrentUserInfoInput input);
 
-        void ChangePassword(ChangePasswordInput input);
+        Task<ChangePasswordOutput> ChangePassword(ChangePasswordInput input);
 
-        void SendPasswordResetLink(SendPasswordResetLinkInput input);
-
-        void ResetPassword(ResetPasswordInput input);
+        Task<SendPasswordResetLinkOutput> SendPasswordResetLink(SendPasswordResetLinkInput input);
 
         Task<SendConfirmationOutput> SendConfirmation(SendConfirmationInput input);
         
         Task<UpdateRegisterUserOutput> UpdateRegisterUser(UpdateRegisterUserInput input);
 
         GetUserByUsernameOutput GetUserByUsername(GetUserByUsernameInput input);
+
+        Task<LoginWithFormOutput> LoginWithForm(LoginWithFormInput input);
+
+        UpdateUserOutput UpdateUser(UpdateUserInput input);
+
+        VerifyResetCodeOutput VerifyResetCode(VerifyResetCodeInput input);
+
+        Task<ChangeForgotPasswordOutput> ChangeForgotPassword(ChangeForgotPasswordInput input);
     }
 }

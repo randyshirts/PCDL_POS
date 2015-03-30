@@ -139,7 +139,9 @@ namespace DataModel.Data.DataLayer.Repositories
         {
             AttachIfNot(entity);
             Context.Entry(entity).State = EntityState.Modified;
-            return entity;
+            var result = Context.SaveChanges() > 0;
+            
+            return result ? entity : null;
         }
 
         public override Task<TEntity> UpdateAsync(TEntity entity)

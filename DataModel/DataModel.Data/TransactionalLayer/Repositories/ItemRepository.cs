@@ -14,7 +14,7 @@ namespace DataModel.Data.TransactionalLayer.Repositories
             var barcode =
                 item.ListedDate.Year.ToString().Substring(Math.Max(0, item.ListedDate.Year.ToString().Length - 2)) +
                 item.ListedDate.Month.ToString("D2") +
-                item.Consignor.Id.ToString("D4") + item.Id.ToString("D5");
+                item.Consignor.Id.ToString("D4") + item.Id.ToString("D7");
 
             if (Context.Items.Any(i => i.Barcode == barcode))
                 throw new ArgumentException("Barcode already exists in SetItemBarcode in BusinessContext");

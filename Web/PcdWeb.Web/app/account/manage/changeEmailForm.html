@@ -1,0 +1,27 @@
+﻿<form class="form-login" role="form" name="changeemail" ng-controller="changeEmailController as emailCtrl" novalidate>
+    <h2 class="form-login-heading">Change Email Address</h2>
+
+    <input type="email" class="form-control" placeholder="Current Email" data-ng-model="emailCtrl.userInfo.currentEmail" name="currentemail"
+           ng-change="onchange()" ng-model-options="{updateOn: 'blur' }" ng-disabled="true" required>
+    <span style="color: red" ng-show="changeemail.currentemail.$dirty && changeemail.currentemail.$invalid">
+        <span ng-show="changeemail.currentemail.$error.required">Email is required</span>
+        <span ng-show="changeemail.currentemail.$error.email">Email is invalid</span>
+    </span>
+
+    <input type="email" class="form-control" placeholder="New Email" data-ng-model="emailCtrl.userInfo.newEmail" name="newemail"
+           ng-change="onchange()" ng-model-options="{updateOn: 'blur' }" required>
+    <span style="color: red" ng-show="changeemail.newemail.$dirty && changeemail.newemail.$invalid">
+        <span ng-show="changeemail.newemail.$error.required">Email is required</span>
+        <span ng-show="changeemail.newemail.$error.email">Email is invalid</span>
+    </span>
+
+    <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="emailCtrl.updateEmail()"
+            ng-disabled="(changeemail.currentemail.$dirty && changeemail.currentemail.$invalid) ||
+                                (changeemail.newemail.$dirty && changeemail.newemail.$invalid)">
+        <span ng-hide="emailCtrl.busyDisabled"><i class="fa fa-refresh fa-spin"></i> Please wait...</span>
+        <span ng-show="emailCtrl.busyDisabled">Submit</span>
+    </button>
+    <div data-ng-hide="emailCtrl.message == ''" data-ng-class="(emailCtrl.savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+        {{emailCtrl.message}}
+    </div>
+</form>

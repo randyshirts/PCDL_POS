@@ -6,13 +6,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
+using Common.Barcodes;
 using DataModel.Data.ApplicationLayer.WpfControllers;
 using DataModel.Data.DataLayer.Entities;
-using DataModel.Data.TransactionalLayer.Repositories;
-using Inventory.Controller.CustomClasses;
-using Inventory.Controller.Elements;
 using RocketPos.Common.Foundation;
 using RocketPos.Common.Helpers;
 
@@ -177,10 +174,14 @@ namespace Inventory.ViewModels.PrintBarcodesView.ViewModels
 
         public ActionCommand PrintBarcodesButtonCommand
         {
-            get
-            {
-                return new ActionCommand(p => PrintBarcodes.PrintBarcodesItems(DataGridBarcodes.ToList()));
-            }
+            get { return new ActionCommand(p => PrintBarcodesLocal()); }
+        }
+
+        private void PrintBarcodesLocal()
+        {
+            var pdfBarcodes = PdfBarcodeHelpers.ConvertBarcodeItemsToPdfModels(DataGridBarcodes);
+            var doc = PrintBarcodes.PrintBarcodesItems(pdfBarcodes.ToList());
+            PrintBarcodes.LaunchPdfDocument(doc);
         }
 
         private void ClearBarcodesButtonGrid()
@@ -188,7 +189,7 @@ namespace Inventory.ViewModels.PrintBarcodesView.ViewModels
             DataGridBarcodes.Clear();
         }
 
-
+        
         /// <summary>
         /// Gets a value indicating whether the view model is valid.
         /// </summary>
@@ -254,7 +255,7 @@ namespace Inventory.ViewModels.PrintBarcodesView.ViewModels
             set
             {
                 _dataGridBarcodes = value;
-                OnPropertyChanged("DataGridBarcodes");
+                OnPropertyChanged();
             }
         }
 

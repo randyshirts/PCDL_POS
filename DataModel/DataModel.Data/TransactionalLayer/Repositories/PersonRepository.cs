@@ -27,17 +27,34 @@ namespace DataModel.Data.TransactionalLayer.Repositories
                     Context.SaveChanges();
                     i++;
                 }
-                i = 0;
-                foreach (var address in original.MailingAddresses)
+
+                if (original.MailingAddresses.Count > 0)
                 {
-                    Context.Entry(address).CurrentValues.SetValues(updatedPerson.MailingAddresses.ElementAtOrDefault(i));
-                    Context.SaveChanges();
-                    i++;
+                    i = 0;
+                    foreach (var address in original.MailingAddresses)
+                    {
+                        Context.Entry(address)
+                            .CurrentValues.SetValues(updatedPerson.MailingAddresses.ElementAtOrDefault(i));
+                        Context.SaveChanges();
+                        i++;
+                    }
                 }
- 
+                else
+                {
+                    if (updatedPerson.MailingAddresses != null)
+                    {
+                        original.MailingAddresses.Add(updatedPerson.MailingAddresses.FirstOrDefault());
+                        Context.SaveChanges();
+                    }
+    
+                }
+
                 Context.Entry(original.PhoneNumbers).CurrentValues.SetValues(updatedPerson.PhoneNumbers);
                 Context.SaveChanges();
-                
+
+                //Context.Entry(original.User).CurrentValues.SetValues(updatedPerson.User);
+                //Context.SaveChanges();
+
                 Context.Entry(original).CurrentValues.SetValues(updatedPerson);
                 Context.SaveChanges();
             }

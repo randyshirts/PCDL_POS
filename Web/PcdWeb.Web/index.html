@@ -2,10 +2,10 @@
 <html data-ng-app="AngularAuthApp">
 <head>
 
-    <meta name="keywords" content="angularjs,SPA,Single Page Application,refresh tokens,authentication,bearer token authentication,OWIN,bootstrap,bootstrap ui,tutorial,JS framework,ASP.NET WEB API 2,Taiseer Joudeh" />
-    <meta name="description" content="SPA built using angularjs,authentication is done using bearer token,back end built using Asp.net web api 2 and OWIN Framework,creatd by Taiseer Joudeh" />
+    <meta name="keywords" content="homeschool,home school,Huntsville,AL,books,classes,kids,camps,games,supplies" />
+    <meta name="description" content="Homeschool community center and consignment store for the North Alabama community" />
     <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
-    <title>AngularJS Authentication</title>
+    <title>Play Create Discover</title>
     <link href="content/css/bootstrap.min.css" rel="stylesheet" />
     <link href="content/css/site.css" rel="stylesheet" />
     <link href="content/css/loading-bar.css" rel="stylesheet" />
@@ -25,9 +25,8 @@
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
-                    <li data-ng-hide="!authentication.isAuth"><a href="#">Welcome {{authentication.userName}}</a></li>
-                    <li data-ng-hide="!authentication.isAuth"><a href="#/orders">My Orders</a></li>
-                    <li data-ng-hide="!authentication.isAuth"><a href="#/refresh">Refresh Token</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/manageAccount">Welcome {{authentication.userName}}</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/addItemsMain">Add Items</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a href="#/login">Login</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a href="#/signupChoice">Sign Up</a></li>
@@ -35,14 +34,7 @@
             </div>
         </div>
     </div>
-    <div class="jumbotron">
-        <div class="container">
-            <div class="page-header text-center">
-                <h1>AngularJS Authentication</h1>
-            </div>
-            <p>AngularJS Application which uses OAuth Bearer Token for authentication and implements Refresh Tokens. The backend API is built using ASP.NET Web API 2, OWIN middleware, and ASP.NET Identity.</p>
-        </div>
-    </div>
+    
 
     <div class="container">
         <div data-ng-view="">
@@ -55,10 +47,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p class="text-muted">Created by Taiseer Joudeh. Twitter: <a target="_blank" href="http://twitter.com/tjoudeh">@tjoudeh</a></p>
+                    <p class="text-muted">Property of Play Create Discover LLC. Web: <a target="_blank" href="http://playcreatediscover.wix.com/i-wonder">PlayCreateDiscover.wix.com</a></p>
                 </div>
                 <div class="col-md-6">
-                    <p class="text-muted">Taiseer Joudeh Blog: <a target="_blank" href="http://bitoftech.net">bitoftech.net</a></p>
+                    <p class="text-muted">Created By: Randy Shirts</p>
                 </div>
             </div>
         </div>
@@ -70,31 +62,43 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js"></script>
     <script src="scripts/angular-local-storage.min.js"></script>
     <script src="scripts/loading-bar.min.js"></script>
+    <script src="scripts/ng-currency.js"></script>
+    <script src="scripts/smart-table.js"></script>
 
-    <!-- Load app main script -->
+<!-- Load app main script -->
     <script src="app/app.js?v=2"></script>
 
     <!-- Load services -->
     <script src="app/account/authInterceptorService.js?v=2"></script>
     <script src="app/account/authService.js?v=2"></script>
-    <script src="app/services/ordersService.js?v=2"></script>
+    <script src="app/addItems/itemsService.js?v=2"></script>
     <script src="app/account/tokensManagerService.js?v=2"></script>
     <!-- Load controllers -->
     <script src="app/main/indexController.js?v=2"></script>
     <script src="app/main/homeController.js?v=2"></script>
     <script src="app/account/loginController.js?v=2"></script>
     <script src="app/account/signupController.js?v=2"></script>
+    <script src="app/account/manage/manageAccountController.js?v=2"></script>
+    <script src="app/account/manage/changePasswordController.js?v=2"></script>
+    <script src="app/account/manage/personalInfoController.js?v=2"></script>
+    <script src="app/account/manage/changeEmailController.js?v=2"></script>
+    <script src="app/account/forgotPasswordController.js?v=2"></script>
+    <script src="app/account/resetPasswordController.js?v=2"></script>
     <script src="app/account/signupChoiceController.js?v=2"></script>
     <script src="app/account/existinguserController.js?v=2"></script>
     <script src="app/controllers/ordersController.js?v=2"></script>
     <script src="app/account/refreshController.js?v=2"></script>
     <script src="app/account/tokensManagerController.js?v=2"></script>
-    <script src="app/account/associateController.js?v=2"></script>
     <script src="app/account/emailSentController.js?v=2"></script>
     <script src="app/account/emailConfirmedController.js?v=2"></script>
+    <script src="app/addItems/addItemsMainController.js?v=2"></script>
+    <script src="app/addItems/addItemsSharedController.js?v=2"></script>
+    <script src="app/addItems/addItemGridController.js?v=2"></script>
     <!-- Load custom filters -->
-<!-- Load custom directives -->
+    <!-- Load custom directives -->
     <script src="app/directives/compareDirective.js?v=2"></script>
-
+    <script src="app/directives/onlyDigitsDirective.js?v=2"></script>
+    <script src="app/directives/csselectDirective.js?v=2"></script>
+    <!--<script src="app/directives/currencyDirective.js?v=2"></script>-->
 </body>
 </html>

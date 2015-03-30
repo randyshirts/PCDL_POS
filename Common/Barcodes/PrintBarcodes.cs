@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using RocketPos.Common.Helpers;
 using Spire.Pdf;
 using Spire.Pdf.Barcode;
 using Spire.Pdf.Graphics;
+//using RocketPos.Common.Helpers;
 
-namespace Inventory.Controller.CustomClasses
+namespace Common.Barcodes
 {
     public static class PrintBarcodes
     {
-        public static void PrintBarcodesItems(List<BarcodeItem> barcodes)
+        public static PdfDocument PrintBarcodesItems(List<PdfBarcodeModel> barcodes)
         {
             var count = 0;
             //PdfFontBase f;
@@ -41,13 +41,13 @@ namespace Inventory.Controller.CustomClasses
             float x = 0;
             text.Text = "Barcodes Added " + DateTime.Now.ToString("MM/dd/yy") + ":";
             var result = text.Draw(page, x, y);
-            y = result.Bounds.Bottom + 2;
+            y = result.Bounds.Bottom + 8;
 
 
             //Get the data from the DataGrid
             foreach (var bi in barcodes)
             {
-                var bc = bi.BarcodeItemBc;
+                var bc = bi.Barcode;
 
                 if (bi.IsPrintBarcode)
                 {
@@ -67,9 +67,14 @@ namespace Inventory.Controller.CustomClasses
                     }
 
 
+                    //Draw title
+                    text.Text = (bi.Title.Length > 15) ? bi.Title.Remove(15) : bi.Title;
+                    result = text.Draw(page, x, y);
+                    page = result.Page;
+                    y = result.Bounds.Bottom + 2;
+                    x = 0;
+
                     //draw date, subject, and price
-
-
                     text.Text = bi.PriceListed.ToString("c2");
                     result = text.Draw(page, x, y);
                     page = result.Page;
@@ -81,10 +86,18 @@ namespace Inventory.Controller.CustomClasses
 
                     if (bi.IsDiscountable)
                     {
-                        x = x + 120;
+                        x = x + 124;
                         text.Text = bi.DateListed.ToString("MM/dd/yy");
                         result = text.Draw(page, x, y);
                         page = result.Page;                        
+                        x = x - 124;
+                    }
+                    else
+                    {
+                        x = x + 120;
+                        text.Text = "ND";
+                        result = text.Draw(page, x, y);
+                        page = result.Page;
                         x = x - 120;
                     }
                     y = result.Bounds.Bottom + 2;
@@ -109,12 +122,13 @@ namespace Inventory.Controller.CustomClasses
 
             section.Pages.Add();
 
+            return doc;
+
             //Save pdf file.  
-            doc.SaveToFile("Barcodes.pdf");
-            doc.Close();
+            //LaunchPdfDocument(doc);
 
             //Launching the Pdf file.  
-            System.Diagnostics.Process.Start("Barcodes.pdf");
+            //System.Diagnostics.Process.Start("Barcodes.pdf");
 
             ////////Examples of other Barcode formats////////////
 
@@ -261,5 +275,23 @@ namespace Inventory.Controller.CustomClasses
             //System.Diagnostics.Process.Start(@"..\..\..\..\Data\barcode.png");
 
         }
+
+        public static PdfDocument SavePdfDocument(PdfDocument doc)
+        {
+            doc.SaveToFile("Barcodes.pdf");
+            doc.Close();
+
+            return doc;
+        }
+
+         public static void LaunchPdfDocument(PdfDocument doc)
+        {
+            doc.SaveToFile("Barcodes.pdf");
+            doc.Close();
+
+            //Launching the Pdf file.  
+            System.Diagnostics.Process.Start("Barcodes.pdf");
+        }
+        
     }
 }

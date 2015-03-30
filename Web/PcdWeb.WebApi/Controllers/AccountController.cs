@@ -7,20 +7,26 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using Abp.Modules.Core.Mvc.Models;
+using Abp.UI;
 using DataModel.Data.ApplicationLayer.DTO;
 using DataModel.Data.ApplicationLayer.Services;
 using DataModel.Data.DataLayer.Entities;
 using DataModel.Data.TransactionalLayer.Repositories;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Linq;
 using PcdWeb.Models;
+using PcdWeb.Models.AccountModels;
 
 
 namespace PcdWeb.Controllers
 {
-    [RoutePrefix("api/Account")]
+    [System.Web.Http.RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
 
@@ -37,14 +43,24 @@ namespace PcdWeb.Controllers
         }
 
         // POST api/Account/Register
-        [AllowAnonymous]
-        [Route("Register")]
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterUserInput input)
         {
+            if (!ModelState.IsValid)
+            {
+                throw new UserFriendlyException("Your form is invalid!");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return Ok("Invalid input");
+            }
 
             //define output
             var output = new RegisterApiOutputModel();
 
+            
             ////var recaptchaHelper = this.GetRecaptchaVerificationHelper(this.ToString(), recaptchaPrivateKey);
             //var recaptchaHelper = this.GetRecaptchaVerificationHelper();
             //if (String.IsNullOrEmpty(recaptchaHelper.Response))
@@ -81,22 +97,16 @@ namespace PcdWeb.Controllers
                 else
                     output.message = result.Result.Errors.FirstOrDefault();
             }
-            //IHttpActionResult errorResult = GetErrorResult(result.Result); 
-            //if (errorResult != null)
-            //{
-            //    return Ok(errorResult);
-            //}
-
-
 
             return Ok(output);
         }
 
         // POST api/Account/Register
-        [AllowAnonymous]
-        [Route("UpdateRegistration")]
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.Route("UpdateRegistration")]
         public async Task<IHttpActionResult> UpdateRegistration(UpdateRegisterUserInput input)
         {
+            
             //define output
             var output = new RegisterApiOutputModel();
 
@@ -127,8 +137,8 @@ namespace PcdWeb.Controllers
             return Ok(output);
         }
 
-        [AcceptVerbs("GET", "POST")]
-        [Route("ConfirmEmail")]
+        [System.Web.Http.AcceptVerbs("GET", "POST")]
+        [System.Web.Http.Route("ConfirmEmail")]
         public HttpResponseMessage ConfirmEmail(string userId, string confirmationCode)
         {
             var input = new ConfirmEmailInput { ConfirmationCode = confirmationCode, UserId = userId };
@@ -144,14 +154,10 @@ namespace PcdWeb.Controllers
             response.Headers.Location = new Uri("http://localhost:61754/#/emailConfirmed");
             return response;
 
-
-            //return result.Result;
-            //return result.Result.Succeeded ? RedirectToAction("Login", new { loginMessage = "Congratulations! Your account is activated. Enter your email address and password to login" })
-            //                                : RedirectToAction("Login", new { loginMessage = "Sorry there was an error. Please contact 'Play Create Discover' to resolve" });
         }
 
-        [AcceptVerbs("GET", "POST")]
-        [Route("SendConfirmation")]
+        [System.Web.Http.AcceptVerbs("GET", "POST")]
+        [System.Web.Http.Route("SendConfirmation")]
         public bool SendConfirmation(SendConfirmationInput input)
         {
 
@@ -163,16 +169,24 @@ namespace PcdWeb.Controllers
             var result = _userAppService.SendConfirmation(input);
 
             return result.Result.Result;
-            //return result.Result.Succeeded ? RedirectToAction("Login", new { loginMessage = "Congratulations! Your account is activated. Enter your email address and password to login" })
-            //                                : RedirectToAction("Login", new { loginMessage = "Sorry there was an error. Please contact 'Play Create Discover' to resolve" });
+
         }
 
-        // POST api/Account/Register
-        [AcceptVerbs("GET", "POST")]
-        [AllowAnonymous]
-        [Route("GetUsers")]
+        // POST api/Account/getUsers
+        [System.Web.Http.AcceptVerbs("GET", "POST")]
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.Route("GetUsers")]
         public IHttpActionResult GetUsers(GetPersonsByEmailInput input)
         {
+            if (!ModelState.IsValid)
+            {
+                throw new UserFriendlyException("Your form is invalid!");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return Ok("Invalid input");
+            }
 
             var output = new GetUsersApiOutput();
 
@@ -206,6 +220,326 @@ namespace PcdWeb.Controllers
             output.message = "No Matches Found";
             return Ok(output);
         }
+
+        // POST api/Account/getUserInfo
+        [System.Web.Http.AcceptVerbs("GET", "POST")]
+        [System.Web.Http.Route("GetUserInfo")]
+        public IHttpActionResult GetUserInfo(GetPersonsByEmailInput input)
+        {
+            if (!ModelState.IsValid)
+            {
+                throw new UserFriendlyException("Your form is invalid!");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return Ok("Invalid input");
+            }
+
+            var person = new Person();
+            var output = new UserInfoOutput();
+            try
+            {
+                //Find persons person with current email
+                List<Person> persons = GetPersonsFromEmail(input);
+                person = persons.FirstOrDefault();
+
+                output = new UserInfoOutput(person);
+            }
+            catch (Exception ex)
+            {
+                output.Message = "The server is down, wait an hour or two and if the problem persists call us";
+                return Ok(output.Message);
+            }         
+
+            if (person != null)
+            {
+                output.Message = "success";
+                return Ok(output);
+            }
+
+            output.Message = "No Matches Found";
+            return Ok(output);
+        }
+
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("Login")]
+        public virtual async Task<IHttpActionResult> Login(LoginModel loginModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                throw new UserFriendlyException("Your form is invalid!");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return Ok("Invalid input");
+            }
+
+            // This doen't count login failures towards lockout only two factor authentication
+            // To enable password failures to trigger lockout, change to shouldLockout: true
+            var input = new LoginWithFormInput()
+            {
+                Email = loginModel.UserName,
+                Password = loginModel.Password,
+                RememberMe = loginModel.UseRefreshToken,
+                ShouldLockout = false
+            };
+            var result = await _userAppService.LoginWithForm(input);
+            switch (result.Result)
+            {
+                case SignInStatus.Success:
+                    return Ok("success");
+                case SignInStatus.LockedOut:
+                    return BadRequest("lockout");
+                case SignInStatus.RequiresVerification:
+                {
+                    await _userAppService.SendConfirmation(new SendConfirmationInput() { EmailAddress = loginModel.UserName });
+                    return BadRequest("Email not confirmed. We sent a new code to your email address");
+                }
+                case SignInStatus.Failure:
+                    return BadRequest("Invalid email address or password");
+                default:
+                    return BadRequest("Invalid login attempt");
+            }
+            
+        }
+
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("RecoverPassword")]
+        [ValidateAntiForgeryToken]
+        public virtual async Task<IHttpActionResult> RecoverPassword(SendPasswordResetLinkInput input)
+        {
+            var result = await _userAppService.SendPasswordResetLink(input);
+            if(!result.Result)
+                return Ok("success");
+            else
+                return
+                    BadRequest("Could not send new password to the specified email. Please contact Play Create Discover");
+            
+        }
+
+        // GET: /Account/ResetPassword
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.AcceptVerbs("GET", "POST")]
+        [System.Web.Http.Route("ResetPassword")]
+        public HttpResponseMessage ResetPassword(string userId, string resetCode)
+        {
+            //Check code and if successful set reset code to resetConfirmed        
+            var result =
+                _userAppService.VerifyResetCode(new VerifyResetCodeInput() {UserId = userId, ResetCode = resetCode});
+
+            if (!result.Result) return Request.CreateResponse(HttpStatusCode.BadRequest);
+
+            //Navigate to reset password page
+            var response = Request.CreateResponse(HttpStatusCode.Moved);
+            response.Headers.Location = new Uri("http://localhost:61754/#/resetPassword");
+            return resetCode == null ? Request.CreateResponse(HttpStatusCode.BadRequest) : response;
+        }
+       
+        // POST: /Account/ResetPassword
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.HttpPost]
+        [ValidateAntiForgeryToken]
+        [System.Web.Http.Route("ResetPassword")]
+        public async Task<IHttpActionResult> ResetPassword(ResetPasswordModel input)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Ok("Invalid input");
+            }
+
+            var result =
+                await _userAppService.ChangeForgotPassword(new ChangeForgotPasswordInput()
+                {
+                    Password = input.Password,
+                    Email = input.EmailAddress
+                });
+            
+            if (result.Result)
+            {
+                return Ok("success");
+            }
+            return Ok("Password reset failed");
+        }
+
+        // GET: /Account/ChangePassword
+        [System.Web.Http.AcceptVerbs("GET", "POST")]
+        [System.Web.Http.Route("ChangePassword")]
+        public IHttpActionResult ChangePassword(ChangePasswordInput input)
+        {   
+            try
+            {
+                _userAppService.ChangePassword(input);
+                return Ok("success");
+            }
+            catch (Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+        }
+
+        // GET: /Account/ChangeEmail
+        [System.Web.Http.AcceptVerbs("GET", "POST")]
+        [System.Web.Http.Route("ChangeEmail")]
+        public IHttpActionResult ChangeEmail(ChangeEmailModel input)
+        {
+            //Check if new email already has a person or user associated with it
+            //Get matching person
+            var persons = new List<Person>();
+            var user = new User();
+            try
+            {
+                persons = GetPersonsFromEmail(new GetPersonsByEmailInput() { EmailAddress = input.NewEmail });
+                var userDto = _userAppService.GetUserByUsername(new GetUserByUsernameInput() {Email = input.NewEmail}).User;
+                user = userDto != null ? userDto.ConvertToUser() : null;
+            }
+            catch (Exception ex)
+            {
+                return Ok("The server is down, wait an hour or two and if the problem persists call us");
+            }
+
+            if (persons.Any() || (user != null))
+            {
+                return Ok("Email already associated with an account in the system. Contact the store for help");
+            }
+
+            //Get record for current person
+            var person = GetPersonsFromEmail(new GetPersonsByEmailInput() { EmailAddress = input.CurrentEmail }).FirstOrDefault();
+            if (person == null)
+                return Ok("No record exists for the current email");
+
+            //Update person 
+            using (var repo = new PersonRepository())
+            {
+                var app = new PersonAppService(repo);
+                
+                //Change email address and update person
+                person.EmailAddresses.FirstOrDefault().EmailAddress = input.NewEmail;
+                try
+                {
+                    app.UpdatePerson(new UpdatePersonInput() { PersonDto = new PersonDto(person) });
+                }
+                catch (Exception ex)
+                {
+                    return Ok(ex.Message);
+                }
+            }
+
+
+            //Change Email and Username for user
+            try
+            {
+                var updateInput = new UpdateUserInput()
+                {
+                    CurrentEmail = input.CurrentEmail,
+                    NewEmail = input.NewEmail,
+                    PhoneNumber = null
+                };
+                _userAppService.UpdateUser(updateInput);
+
+                return Ok("success");
+            }
+            catch (Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+        }
+
+        [System.Web.Http.AcceptVerbs("GET", "POST")]
+        [System.Web.Http.Route("UpdatePerson")]
+        public IHttpActionResult UpdatePerson(UserInfoOutput input)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Ok("Invalid input");
+            }
+
+            Person person;
+            try
+            {
+                //Find persons person with current email
+                List<Person> persons = GetPersonsFromEmail(new GetPersonsByEmailInput() {EmailAddress = input.EmailAddress});
+                person = persons.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                return Ok("The server is down. Please wait an hour or two and contact us if the problem persists");
+            }
+
+            if (person == null)
+            {
+                return Ok("Could not find person to update");
+            }
+
+
+            //Find user info
+            var updateInput = new UpdateUserInput()
+            {
+                CurrentEmail = input.EmailAddress,
+                NewEmail = null,
+                PhoneNumber = input.CellPhoneNumber ?? input.HomePhoneNumber ?? input.AltPhoneNumber
+            };
+            //Update user info
+            var userResult = _userAppService.UpdateUser(updateInput);
+
+            if (!userResult.Result)
+                return Ok("Error updating user");
+
+            bool result;
+
+            using (var repo = new PersonRepository())
+            {
+                var app = new PersonAppService(repo);
+                
+                //update person
+                person.EmailAddresses.FirstOrDefault().EmailAddress = input.EmailAddress;
+                if (person.MailingAddresses.FirstOrDefault() != null)
+                {
+                    person.MailingAddresses.FirstOrDefault().MailingAddress1 = input.MailingAddress;
+                    person.MailingAddresses.FirstOrDefault().MailingAddress2 = input.MailingAddress2;
+                    person.MailingAddresses.FirstOrDefault().City = input.City;
+                    person.MailingAddresses.FirstOrDefault().ZipCode = input.ZipCode;
+                    person.MailingAddresses.FirstOrDefault().State = input.State;
+                }
+                else
+                {
+                    var address = new MailingAddress()
+                    {
+                        City = input.City,
+                        ZipCode = input.ZipCode,
+                        State = input.State,
+                        MailingAddress1 = input.MailingAddress,
+                        MailingAddress2 = input.MailingAddress2
+                    };
+                    person.MailingAddresses.Add(address);
+                }
+                person.PhoneNumbers.CellPhoneNumber = input.CellPhoneNumber;
+                person.PhoneNumbers.HomePhoneNumber = input.HomePhoneNumber;
+                person.PhoneNumbers.AltPhoneNumber = input.AltPhoneNumber;
+                person.FirstName = input.FirstName;
+                person.LastName = input.LastName;
+
+                try
+                {
+                    app.UpdatePerson(new UpdatePersonInput() {PersonDto = new PersonDto(person)});
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    return Ok(ex.Message);
+                }
+            }
+
+            if (result)
+                return Ok("success");
+
+            return Ok("Error updating record");
+
+        }
+
 
 
         //// GET api/Account/ExternalLogin
@@ -444,7 +778,7 @@ namespace PcdWeb.Controllers
                 return "client_Id is required";
             }
 
-            var client = _userAppService.GetUser(new GetUserInput() { UserId = Int32.Parse(clientId) }).User.ConvertToUser();
+            var client = _userAppService.GetUser(new GetUserInput() { UserId = clientId }).User.ConvertToUser();
 
             if (client == null)
             {

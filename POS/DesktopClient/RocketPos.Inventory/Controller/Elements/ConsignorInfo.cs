@@ -22,15 +22,20 @@ namespace RocketPos.Inventory.Resources
             LastName = person.LastName;
 
             //Email Address
-            EmailAddress = person.EmailAddresses.FirstOrDefault().EmailAddress;
+            if (person.EmailAddresses.Any())
+            {
+                EmailAddress = person.EmailAddresses.FirstOrDefault().EmailAddress;
+            }
 
             //Mailing Address
-            MailingAddress1 = person.MailingAddresses.FirstOrDefault().MailingAddress1;
-            MailingAddress2 = person.MailingAddresses.FirstOrDefault().MailingAddress2;
-            City = person.MailingAddresses.FirstOrDefault().City;
-            State = person.MailingAddresses.FirstOrDefault().State;
-            ZipCode = person.MailingAddresses.FirstOrDefault().ZipCode;
-
+            if (person.MailingAddresses.Any())
+            {
+                MailingAddress1 = person.MailingAddresses.FirstOrDefault().MailingAddress1;
+                MailingAddress2 = person.MailingAddresses.FirstOrDefault().MailingAddress2;
+                City = person.MailingAddresses.FirstOrDefault().City;
+                State = person.MailingAddresses.FirstOrDefault().State;
+                ZipCode = person.MailingAddresses.FirstOrDefault().ZipCode;
+            }
             //Phone Numbers
             CellPhoneNumber = person.PhoneNumbers.CellPhoneNumber;
             HomePhoneNumber = person.PhoneNumbers.HomePhoneNumber;

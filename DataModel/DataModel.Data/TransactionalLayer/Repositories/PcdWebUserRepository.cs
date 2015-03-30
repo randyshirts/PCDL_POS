@@ -44,6 +44,25 @@ namespace DataModel.Data.TransactionalLayer.Repositories
             return Context.SaveChanges() > 0;
         }
 
+        public bool UpdateResetCode(User user)
+        {
+            var original = Context.Users.Find(user.Id);
+            
+            original.PasswordResetCode = user.PasswordResetCode;
+
+            return Context.SaveChanges() > 0;
+        }
+
+        public bool ResetPassword(string userId, string password)
+        {
+            var original = Context.Users.Find(userId);
+
+            original.PasswordHash = new PasswordHasher().HashPassword(password);
+            original.PasswordResetCode = null;
+
+            return Context.SaveChanges() > 0;
+        }
+
         public bool AddUserToPerson(Person person, User user)
         {
             //var thisPerson = Context.Persons.Find(person.Id);
@@ -75,5 +94,7 @@ namespace DataModel.Data.TransactionalLayer.Repositories
                          select u).FirstOrDefault();
             return query;
         }
+
+        
     }
 }

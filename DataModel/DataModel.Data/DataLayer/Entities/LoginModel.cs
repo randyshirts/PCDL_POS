@@ -5,11 +5,11 @@ namespace Abp.Modules.Core.Mvc.Models
     public class LoginModel
     {
         [Required]
-        public string EmailAddress { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         public string Password { get; set; }
 
-        public bool RememberMe { get; set; }
+        public bool UseRefreshToken { get; set; }
     }
 }

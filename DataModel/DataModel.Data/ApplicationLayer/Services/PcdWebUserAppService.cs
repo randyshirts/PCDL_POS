@@ -89,8 +89,26 @@ namespace DataModel.Data.ApplicationLayer.Services
 
         public GetUserOutput GetUser(GetUserInput input)
         {
-            var user = _userRepository.Get(input.UserId.ToString());
-            return new GetUserOutput(new UserDto(user));
+            var user = _userRepository.Get(input.UserId);
+            
+            return new GetUserOutput() { User = new UserDto(user) };
+        }
+
+        public UpdateUserOutput UpdateUser(UpdateUserInput input)
+        {
+            var original = UserManager.FindByNameAsync(input.CurrentEmail).Result;
+
+            //Only update phonenumber and email for now
+            original.PhoneNumber = input.PhoneNumber;
+
+            if (input.NewEmail != null)
+            {
+                original.Email = input.NewEmail;
+                original.UserName = input.NewEmail;
+            }
+            var result = UserManager.Update(original);
+
+            return new UpdateUserOutput() {Result = result.Succeeded};
         }
 
         public async Task<RegisterUserOutput> RegisterUser(RegisterUserInput registerUser)
@@ -127,6 +145,19 @@ namespace DataModel.Data.ApplicationLayer.Services
                 }
             }
 
+            List<Person> persons;
+            using (var repo = new EmailRepository())
+            {
+                var app = new EmailAppService(repo);
+                persons = app.GetPersonsByEmail(new GetPersonsByEmailInput() { EmailAddress = registerUser.EmailAddress }).EmailPersons
+                    .Select(p => p.ConvertToPerson()).ToList();
+            }
+            
+            if (persons.Any())
+            {
+                return new RegisterUserOutput() { Result = new IdentityResult("There is already a record for this email, try selecting 'Merge Account' on the home page") };
+            }
+
             var userEntity = new User
             {
 
@@ -146,6 +177,9 @@ namespace DataModel.Data.ApplicationLayer.Services
                         HomePhoneNumber = registerUser.Phone
                     },
                     Consignor = new Consignor()
+                    {
+                        DateAdded = DateTime.Now
+                    }
                 },
 
                 UserName = registerUser.EmailAddress,
@@ -211,6 +245,21 @@ namespace DataModel.Data.ApplicationLayer.Services
             }
         }
 
+        public async Task<LoginWithFormOutput> LoginWithForm(LoginWithFormInput input)
+        {
+            var user = await UserManager.FindByNameAsync(input.Email);
+            if (user != null)
+            {
+                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                {
+                    return new LoginWithFormOutput() { Result = SignInStatus.RequiresVerification };
+                }
+            }
+            
+            var result = await SignInManager.PasswordSignInAsync(input.Email, input.Password, input.RememberMe, input.ShouldLockout);
+            return new LoginWithFormOutput() {Result = result};
+        }
+
         public RegisterExternalUserOutput RegisterExternalUser(RegisterExternalUserInput input)
         {
 
@@ -232,50 +281,76 @@ namespace DataModel.Data.ApplicationLayer.Services
             return new ConfirmEmailOutput(){Result = false};
         }
 
+        public VerifyResetCodeOutput VerifyResetCode(VerifyResetCodeInput input)
+        {
+            var user = UserManager.FindByIdAsync(input.UserId);
+            if (user.Result != null)
+            {
+
+                var resetCode = HttpUtility.UrlDecode(input.ResetCode);
+                if (user.Result.PasswordResetCode == resetCode)
+                {
+                    user.Result.PasswordResetCode = "resetConfirmed";
+                    var updateResult = _userRepository.UpdateResetCode(user.Result);
+                    return new VerifyResetCodeOutput() {Result = updateResult};
+                }
+                return new VerifyResetCodeOutput() { Result = false };
+            }
+            return new VerifyResetCodeOutput() { Result = false };
+        }
+
+        public async Task<ChangeForgotPasswordOutput> ChangeForgotPassword(ChangeForgotPasswordInput input)
+        {
+            var user = await UserManager.FindByNameAsync(input.Email);
+            if (user == null)
+            {
+                return new ChangeForgotPasswordOutput() {Result = false};
+            }
+
+            if (user.PasswordResetCode == "resetConfirmed")
+            {
+                var result = _userRepository.ResetPassword(user.Id, input.Password);
+                return new ChangeForgotPasswordOutput() {Result = result};
+            }
+
+            return new ChangeForgotPasswordOutput() { Result = false };
+        }
+
+
         public GetCurrentUserInfoOutput GetCurrentUserInfo(GetCurrentUserInfoInput input)
         {
             return new GetCurrentUserInfoOutput { User = new UserDto(_userRepository.Get(input.UserId.ToString())) };
         }
 
-        public void ChangePassword(ChangePasswordInput input)
+        public async Task<ChangePasswordOutput> ChangePassword(ChangePasswordInput input)
         {
-            var currentUser = _userRepository.Get(input.CurrentUserId.ToString());
-            if (currentUser.PasswordHash != input.CurrentPassword)
-            {
-                throw new UserFriendlyException("Current password is invalid!");
-            }
-
-            currentUser.PasswordHash = input.NewPassword;
-            currentUser.PasswordHash = new PasswordHasher().HashPassword(currentUser.PasswordHash);
+            var currentUser = UserManager.FindByNameAsync(input.EmailAddress).Result;
+            
+            var result = await UserManager.ChangePasswordAsync(currentUser.Id, input.CurrentPassword, input.NewPassword);
+           
+            return new ChangePasswordOutput() {Result = result.Succeeded};
         }
 
-        public void SendPasswordResetLink(SendPasswordResetLinkInput input)
+        public async Task<SendPasswordResetLinkOutput> SendPasswordResetLink(SendPasswordResetLinkInput input)
         {
-            var user = _userRepository.FirstOrDefault(u => u.Email == input.EmailAddress);
-            if (user == null)
+            try
             {
-                throw new UserFriendlyException("Can not find this email address in the system.");
+                var user = _userRepository.FirstOrDefault(u => u.Email == input.EmailAddress);
+                if (user == null)
+                {
+                    throw new UserFriendlyException("Can not find this email address in the system.");
+                }
+
+                var result = UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                user.PasswordResetCode = result.Result;
+                var updateSuccessful = _userRepository.Update(user);
+                await SendPasswordResetLinkEmail(user);
+                return new SendPasswordResetLinkOutput() {Result = result.IsFaulted};
             }
-
-            user.PasswordResetCode = UserManager.GeneratePasswordResetTokenAsync(input.UserId.ToString()).ToString();
-            SendPasswordResetLinkEmail(user);
-        }
-
-        public void ResetPassword(ResetPasswordInput input)
-        {
-            var user = _userRepository.Get(input.UserId.ToString());
-            if (string.IsNullOrWhiteSpace(user.PasswordResetCode))
+            catch (Exception ex)
             {
-                throw new UserFriendlyException("You can not reset your password. You must first send a reset password link to your email.");
+                return new SendPasswordResetLinkOutput() {Result = true}; //true == isFaulted
             }
-
-            if (input.PasswordResetCode != user.PasswordResetCode)
-            {
-                throw new UserFriendlyException("Password reset code is invalid!");
-            }
-
-            user.PasswordHash = input.Password;
-            user.PasswordResetCode = null;
         }
 
         public async Task<SendConfirmationOutput> SendConfirmation(SendConfirmationInput input)
@@ -293,9 +368,7 @@ namespace DataModel.Data.ApplicationLayer.Services
                 return new SendConfirmationOutput{Result = false};
             }
         
-        }
-
-        
+        }       
 
         #region Private methods
 
@@ -334,10 +407,10 @@ namespace DataModel.Data.ApplicationLayer.Services
                 </body>
                 </html>");
 
-            mailBuilder.Replace("{TEXT_HTML_TITLE}", "Email confirmation for PcdWeb");
-            mailBuilder.Replace("{TEXT_WELCOME}", "Welcome to PcdWeb.com!");
+            mailBuilder.Replace("{TEXT_HTML_TITLE}", "Email confirmation for Play Create Discover");
+            mailBuilder.Replace("{TEXT_WELCOME}", "Welcome to PlayCreateDiscover.com!");
             mailBuilder.Replace("{TEXT_DESCRIPTION}",
-                "Click the link below to confirm your email address and login to the PcdWeb.com");
+                "Click the link below to confirm your email address and login to the PlayCreateDiscover.com");
             mailBuilder.Replace("{USER_ID}", user.Id);
             mailBuilder.Replace("{CONFIRMATION_CODE}", encoded);
 
@@ -347,15 +420,18 @@ namespace DataModel.Data.ApplicationLayer.Services
             var message = new IdentityMessage
             {
                 Body = mail.Body,
-                Subject = "Email confirmation for PcdWeb",
+                Subject = "Email confirmation for Play Create Discover",
                 Destination = user.Email
             };
 
             await _emailService.SendAsync(message);
         }
 
-        private void SendPasswordResetLinkEmail(User user)
+        private async Task SendPasswordResetLinkEmail(User user)
         {
+            var encoded = user.PasswordResetCode.Replace("+", "%2B");
+            encoded = HttpUtility.UrlEncode(encoded);
+            
             var mail = new MailMessage {IsBodyHtml = true, SubjectEncoding = Encoding.UTF8};
 
             var mailBuilder = new StringBuilder();
@@ -376,17 +452,17 @@ namespace DataModel.Data.ApplicationLayer.Services
                     <h3>{TEXT_WELCOME}</h3>
                     <p>{TEXT_DESCRIPTION}</p>
                     <p>&nbsp;</p>
-                    <p><a href=""http://www.taskever.com/Account/ResetPassword?UserId={USER_ID}&ResetCode={RESET_CODE}"">http://www.taskever.com/Account/ResetPassword?UserId={USER_ID}&amp;ResetCode={RESET_CODE}</a></p>
+                    <p><a href=""http://localhost:61754/api/Account/ResetPassword?UserId={USER_ID}&ResetCode={RESET_CODE}"">http://localhost:61754/api/Account/ResetPassword?UserId={USER_ID}&amp;ResetCode={RESET_CODE}</a></p>
                     <p>&nbsp;</p>
-                    <p><a href=""http://www.taskever.com"">http://www.taskever.com</a></p>
+                    <p><a href=""http://www.playcreatediscover.com"">http://www.playcreatediscover.com</a></p>
                 </body>
                 </html>");
 
-            mailBuilder.Replace("{TEXT_HTML_TITLE}", "Password reset for PcdWeb");
-            mailBuilder.Replace("{TEXT_WELCOME}", "Reset your password on PcdWeb!");
-            mailBuilder.Replace("{TEXT_DESCRIPTION}", "Click the link below to reset your password on the PcdWeb.com");
+            mailBuilder.Replace("{TEXT_HTML_TITLE}", "Password reset for Play Create Discover");
+            mailBuilder.Replace("{TEXT_WELCOME}", "Reset your password on Play Create Discover!");
+            mailBuilder.Replace("{TEXT_DESCRIPTION}", "Click the link below to reset your password on the PlayCreateDiscover.com");
             mailBuilder.Replace("{USER_ID}", user.Id);
-            mailBuilder.Replace("{RESET_CODE}", user.PasswordResetCode);
+            mailBuilder.Replace("{RESET_CODE}", encoded);
 
             mail.Body = mailBuilder.ToString();
             mail.BodyEncoding = Encoding.UTF8;
@@ -394,11 +470,11 @@ namespace DataModel.Data.ApplicationLayer.Services
             var message = new IdentityMessage
             {
                 Body = mail.Body,
-                Subject = "Password reset for PcdWeb",
+                Subject = "Password reset for Play Create Discover",
                 Destination = user.Email
             };
 
-            _emailService.SendAsync(message);
+            await _emailService.SendAsync(message);
         }
 
         #endregion

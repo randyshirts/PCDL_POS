@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using DataModel.Data.DataLayer.Entities;
 
-namespace PcdWeb.Models
+namespace PcdWeb.Models.AccountModels
 {
     public class ExistingUserInfo
     {

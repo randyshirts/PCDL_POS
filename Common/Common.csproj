@@ -42,8 +42,12 @@
     <Reference Include="Microsoft.Owin">
       <HintPath>..\DataModel\Build\Microsoft.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Spire.Pdf">
+      <HintPath>..\Dependencies\FreeSpire.PDF.3.2\lib\net40\Spire.Pdf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Barcodes\PdfBarcodeModel.cs" />
+    <Compile Include="Barcodes\PrintBarcodes.cs" />
     <Compile Include="Dependency\ISingletonDependency.cs" />
     <Compile Include="Dependency\ITransientDependency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -88,5 +88,13 @@ namespace DataModel.Data.ApplicationLayer.Services
                 Consignors = list
             };
         }
+
+        public GetConsignorByEmailOutput GetConsignorByEmail(GetConsignorByEmailInput input)
+        {
+            return new GetConsignorByEmailOutput
+            {
+                Consignor = new ConsignorDto(_consignorRepository.GetConsignorByEmail(input.Email))
+            };
+        }
     }
 }
