@@ -6,10 +6,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using DataModel.Data.ApplicationLayer.WpfControllers;
 using DataModel.Data.DataLayer.Entities;
 using GalaSoft.MvvmLight.Command;
@@ -30,7 +32,7 @@ namespace POS.ViewModels.ItemSale.ViewModel
 
         public ItemSaleVm()
         {
-            
+
             DataGridSaleItems = new TrulyObservableCollection<SaleItem>();
             //StoreCreditTrans = new StoreCreditTransaction();
             _queryCollection = InitializeBarcodeItems();
@@ -41,13 +43,13 @@ namespace POS.ViewModels.ItemSale.ViewModel
             _leftShiftDown = false;
             _scanShiftDown = false;
 
-            Messenger.Default.Register<PropertySetter>(this, PaymentWindowVm.Token, msg => GetPaymentWindowProperty(msg.PropertyName, msg.PropertyValue)); 
-            
+            Messenger.Default.Register<PropertySetter>(this, PaymentWindowVm.Token, msg => GetPaymentWindowProperty(msg.PropertyName, msg.PropertyValue));
+
         }
 
         private void GetPaymentWindowProperty(string name, object value)
         {
-            if(name == "IsPaymentComplete")
+            if (name == "IsPaymentComplete")
                 SetPaymentComplete((bool)value);
 
             if (name == "StoreCreditTr")
@@ -103,9 +105,9 @@ namespace POS.ViewModels.ItemSale.ViewModel
                             {
                                 if (xChar != null) xChar = xChar.ToLower();
                             }
-                        
+
                             CurrentBarcode += xChar;
-                        
+
                         }
                     }
                     else
@@ -134,7 +136,7 @@ namespace POS.ViewModels.ItemSale.ViewModel
 
 
             if (!IsPaymentComplete) return;
-            
+
             var transaction = AddTransaction();
             DataGridSaleItems.Clear();
             StoreCreditTrans = null;
@@ -203,6 +205,11 @@ namespace POS.ViewModels.ItemSale.ViewModel
             if ((gridIndex + 1) == tempItems.Count)
                 gridIndex--;
 
+            //Insert back into querycollection
+            var list = QueryCollection.ToList();
+            list.Add(new BarcodeItem(saleItem.ConvertSaleItemToItem()));
+            QueryCollection = list;
+
             //Remove from temp
             tempItems.Remove(saleItem);
 
@@ -242,12 +249,12 @@ namespace POS.ViewModels.ItemSale.ViewModel
             {
                 _currentBarcode = value;
 
-                //Add to datagrid if 13 characters long
+                //Add to datagrid if 15 characters long
                 if (_currentBarcode != null)
                 {
-                    if (_currentBarcode.Length == 13)
+                    if (_currentBarcode.Length == 15)
                     {
-                        
+
                         var saleItem = new SaleItem(_currentBarcode);
                         DataGridSaleItems.Add(saleItem);
                         IsEnabledPmt = DataGridSaleItems.FirstOrDefault() != null;
@@ -292,7 +299,7 @@ namespace POS.ViewModels.ItemSale.ViewModel
         // <summary>
         // Gets or sets the Discount for a transaction.
         // </summary>
-        public double Discount { get; set; }        
+        public double Discount { get; set; }
 
         private bool _isEnabledPmt;
         public bool IsEnabledPmt
@@ -309,14 +316,15 @@ namespace POS.ViewModels.ItemSale.ViewModel
         }
 
         private StoreCreditTransaction _storeCreditTrans;
-        private StoreCreditTransaction StoreCreditTrans {
+        private StoreCreditTransaction StoreCreditTrans
+        {
             get { return _storeCreditTrans; }
             set
             {
-                if(value != null)
+                if (value != null)
                     _storeCreditTrans = new StoreCreditTransaction();
                 _storeCreditTrans = value;
-            } 
+            }
         }
 
         private double GetTotalAmount()
@@ -326,377 +334,275 @@ namespace POS.ViewModels.ItemSale.ViewModel
 
         private ItemSaleTransaction AddTransaction()
         {
-            
-                //Convert DataGridSaleItems to Item list
+
+            //Convert DataGridSaleItems to Item list
             var icontroller = new ItemController();
-                var itemList = DataGridSaleItems.Select(item => icontroller.GetItemById(item.Id)).ToList();
+            var itemList = DataGridSaleItems.Select(item => icontroller.GetItemById(item.Id)).ToList();
 
 
-                //Get city, state, county tax amount from DataGridSaleItems
-                CityTax = DataGridSaleItems.Sum(item => item.CityTaxAmount);
-                StateTax = DataGridSaleItems.Sum(item => item.StateTaxAmount);
-                CountyTax = DataGridSaleItems.Sum(item => item.CountyTaxAmount);
+            //Get city, state, county tax amount from DataGridSaleItems
+            CityTax = DataGridSaleItems.Sum(item => item.CityTaxAmount);
+            StateTax = DataGridSaleItems.Sum(item => item.StateTaxAmount);
+            CountyTax = DataGridSaleItems.Sum(item => item.CountyTaxAmount);
 
-                //Get discount total from DataGridSaleItems
-                Discount = DataGridSaleItems.Sum(item => item.DiscountAmount);
+            //Get discount total from DataGridSaleItems
+            Discount = DataGridSaleItems.Sum(item => item.DiscountAmount);
 
-                var transaction = new ItemSaleTransaction()
+            var transaction = new ItemSaleTransaction()
+            {
+                CreditTransaction_ItemSale = new CreditTransaction()
                 {
-                    CreditTransaction_ItemSale = new CreditTransaction()
+                    TransactionDate = DateTime.Now,
+                    TransactionTotal = TotalAmount,
+                    LocalSalesTaxTotal = CityTax,
+                    StateSalesTaxTotal = StateTax,
+                    CountySalesTaxTotal = CountyTax,
+                    DiscountTotal = Discount,
+                    StoreCreditTransaction = StoreCreditTrans
+                },
+
+                Items_ItemSaleTransaction = itemList
+            };
+
+            try
+            {
+                var iscontroller = new ItemSaleTransactionController();
+                iscontroller.AddNewItemSaleTransaction(transaction);
+                ProcessConsignorPayment(itemList);
+
+                foreach (var saleItem in DataGridSaleItems)
+                {
+                    var tempItem = saleItem.ConvertSaleItemToItem();
+                    var item = icontroller.GetItemById(tempItem.Id);
+                    item.SalePrice = saleItem.SaleAmount;
+                    icontroller.UpdateItem(item);
+                }
+
+                return transaction;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "AddTransaction - ItemSaleVm");
+                return null;
+            }
+
+
+        }
+
+        private void ProcessConsignorPayment(List<Item> itemsList)
+        {
+            //Create a PaymentTransaction which includes date, amount, consignor, items
+
+            foreach (var item in itemsList)
+            {
+                //var ccontroller = new ConsignorController();
+                var consignor = item.Consignor;
+                //Create StoreCreditPmt if cash is not checked
+                var storeCredit = new StoreCreditPmt();
+
+                var ndFee = 0.0;
+                var gridItem = DataGridSaleItems.FirstOrDefault(i => i.Id == item.Id);
+                double thisItemsSoldPrice = 0;
+                if (gridItem != null)
+                {
+                    var dateSpan = DateTimeSpan.CompareDates(gridItem.ListedDate, DateTime.Now);
+                    if(gridItem.IsDiscountable || (dateSpan.Months < 3))
+                        thisItemsSoldPrice = (gridItem.UnitPrice - gridItem.DateDiscount)*ConfigSettings.CONS_CREDIT_PAYOUT_PCT;
+                    else
                     {
-                        TransactionDate = DateTime.Now,
-                        TransactionTotal = TotalAmount,
-                        LocalSalesTaxTotal = CityTax,
-                        StateSalesTaxTotal = StateTax,
-                        CountySalesTaxTotal = CountyTax,
-                        DiscountTotal = Discount,
-                        StoreCreditTransaction = StoreCreditTrans
+                        thisItemsSoldPrice = (gridItem.UnitPrice - gridItem.DateDiscount)*
+                                             ConfigSettings.CONS_CREDIT_PAYOUT_PCT - ConfigSettings.ND_FEE;
+                        ndFee = ConfigSettings.ND_FEE;
+                    }
+                }
+                else
+                {
+                    throw new Exception("Item not found in DataSalesGrid - can't continue");
+                }
+                storeCredit.StoreCreditPmtAmount = thisItemsSoldPrice;
+                storeCredit.ConsignorId = consignor.Id;
+
+
+                var consignorPmt = new ConsignorPmt
+                {
+                    //Consignor Info
+                    ConsignorId = consignor.Id,
+
+                    NoDiscountFee = ndFee,
+
+                    //DebitTransaction Info
+                    DebitTransaction_ConsignorPmt = new DebitTransaction
+                    {
+                        DebitTotal = thisItemsSoldPrice,
+                        DebitTransactionDate = DateTime.Now,
+                        StoreCreditPmt = storeCredit,
                     },
 
-                    Items_ItemSaleTransaction = itemList
+                    //Items info
+                    Items_ConsignorPmt = new List<Item>(){ item },
                 };
 
                 try
                 {
-                    var iscontroller = new ItemSaleTransactionController();
-                    iscontroller.AddNewItemSaleTransaction(transaction);
-                    foreach (var saleItem in DataGridSaleItems)
-                    {
-                        var tempItem = saleItem.ConvertSaleItemToItem();
-                        var item = icontroller.GetItemById(tempItem.Id);
-                        item.SalePrice = saleItem.SaleAmount;
-                        icontroller.UpdateItem(item);
-                    }
+                    var cpcontroller = new ConsignorPmtController();
+                    cpcontroller.AddNewConsignorPmt(consignorPmt);
 
-                    return transaction;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "AddTransaction - ItemSaleVm");
-                    return null;
+                    MessageBox.Show(
+                        "Exception adding Consignor Payment in ProcessConsignorPayment method in ItemSaleVm class - " +
+                        ex.Message);
                 }
-            
+            }
+
+
+
+
+
+            // Display status of transaction on screen
+            // Send message to open cash drawer
 
         }
-            #endregion
+        #endregion
 
-            #region DataGrid Stuff
-            /// <summary>
-            /// Gets the collection of SaleItem entities.
-            /// </summary>
-            private TrulyObservableCollection<SaleItem> _dataGridSaleItems;
-            public TrulyObservableCollection<SaleItem> DataGridSaleItems
+        #region DataGrid Stuff
+        /// <summary>
+        /// Gets the collection of SaleItem entities.
+        /// </summary>
+        private TrulyObservableCollection<SaleItem> _dataGridSaleItems;
+        public TrulyObservableCollection<SaleItem> DataGridSaleItems
+        {
+            get { return _dataGridSaleItems; }
+
+            set
             {
-                get { return _dataGridSaleItems; }
+                _dataGridSaleItems = value;
+                OnPropertyChanged();
+            }
+        }
 
-                set
-                {
-                    _dataGridSaleItems = value;
-                    OnPropertyChanged();
-                }
+        /// <summary>
+        /// Gets the selectedItem row from the datagrid.
+        /// </summary>
+        private SaleItem _selectedSaleItem;
+        public SaleItem SelectedSaleItem
+        {
+            get { return _selectedSaleItem; }
+            set
+            {
+                _selectedSaleItem = value;
+                //OnSelected();
+            }
+        }
+        #endregion
+
+        #region AutoComplete TextBox
+
+        private IEnumerable<BarcodeItem> _queryCollection;
+        public IEnumerable<BarcodeItem> QueryCollection
+        {
+            get
+            {
+                //if ((barcode != null) && (barcode.Length > 0))
+                //    SearchItemsByBarcode(barcode);
+                //if (queryCollection == null)
+                //queryCollection = new List<string>();
+                return _queryCollection;
+            }
+            set
+            {
+                _queryCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private static IEnumerable<BarcodeItem> InitializeBarcodeItems()
+        {
+            try
+            {
+                var barcodes = new List<BarcodeItem>();
+                var controller = new ItemController();
+                //var results = controller.GetAllItems();
+                var results = controller.SearchAllItems(null, "Shelved", null, null, null).ToList();
+                results.AddRange((controller.SearchAllItems(null, "Lost", null, null, null)));
+                results.AddRange((controller.SearchAllItems(null, "Arrived but not shelved", null, null, null)));
+                results.AddRange((controller.SearchAllItems(null, "Not yet arrived in store", null, null, null)));
+
+                barcodes.AddRange(results.Select(item => new BarcodeItem(item)));
+
+                return barcodes;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "InitializeBarcodeItemsException - POS.ItemSaleVm");
+                return null;
             }
 
-            /// <summary>
-            /// Gets the selectedItem row from the datagrid.
-            /// </summary>
-            private SaleItem _selectedSaleItem;
-            public SaleItem SelectedSaleItem
+        }
+
+        private int _barcodeResultCount;
+        public AutoCompleteFilterPredicate<object> BarcodeFilter
+        {
+            get
             {
-                get { return _selectedSaleItem; }
-                set
+                return DoOnBarcodeFilter;
+            }
+        }
+
+        private bool DoOnBarcodeFilter(string search, object data)
+        {
+            var obj = data as BarcodeItem;
+
+            var result = true;
+
+            if ((obj != null) && obj.BarcodeItemBc.Contains(search))
+            {
+                if (_barcodeResultCount++ >= 10)
                 {
-                    _selectedSaleItem = value;
-                    //OnSelected();
+                    result = false;
                 }
             }
+            else
+                result = false;
 
-            #region AutoComplete TextBox
-
-            private readonly IEnumerable<BarcodeItem> _queryCollection;
-            public IEnumerable<BarcodeItem> QueryCollection
+            if (String.IsNullOrEmpty(search))
             {
-                get
-                {
-                    //if ((barcode != null) && (barcode.Length > 0))
-                    //    SearchItemsByBarcode(barcode);
-                    //if (queryCollection == null)
-                    //queryCollection = new List<string>();
-                    return _queryCollection;
-                }
+                SelectedBarcodeItem = null;
             }
 
-            private static IEnumerable<BarcodeItem> InitializeBarcodeItems()
+            return (result);
+
+        }
+
+        /// <summary>
+        /// Gets or sets the BarcodeItem value.
+        /// </summary>
+        private BarcodeItem _selectedBarcodeItem;
+        public BarcodeItem SelectedBarcodeItem
+        {
+            get { return _selectedBarcodeItem; }
+            set
             {
-                try
+                _barcodeResultCount = 0;
+
+                _selectedBarcodeItem = value;
+
+                //If textcompletion is enabled this part will break the functionality of the autocomplete
+                if ((_selectedBarcodeItem != null) && !_isBarcodeReading)
                 {
-                    var barcodes = new List<BarcodeItem>();
-                    var controller = new ItemController();
-                    //var results = controller.GetAllItems();
-                    var results = controller.SearchAllItems(null, "Shelved", null, null, null).ToList();
-                    results.AddRange((controller.SearchAllItems(null, "Lost", null, null, null)));
-                    results.AddRange((controller.SearchAllItems(null, "Arrived but not shelved", null, null, null)));
-                    results.AddRange((controller.SearchAllItems(null, "Not yet arrived in store", null, null, null)));
+                    if (_selectedBarcodeItem.BarcodeItemBc.Length != 15) return;
+                    CurrentBarcode = _selectedBarcodeItem.BarcodeItemBc;
+                    _selectedBarcodeItem.BarcodeItemBc = String.Empty;
 
-                    barcodes.AddRange(results.Select(item => new BarcodeItem(item)));
-                    
-                    return barcodes;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "InitializeBarcodeItemsException - POS.ItemSaleVm");
-                    return null;
-                }
-
-            }
-
-            private int _barcodeResultCount;
-            public AutoCompleteFilterPredicate<object> BarcodeFilter
-            {
-                get
-                {
-                    return DoOnBarcodeFilter;
-                }
-            }
-
-            private bool DoOnBarcodeFilter(string search, object data)
-            {
-                var obj = data as BarcodeItem;
-
-                var result = true;
-
-                if ((obj != null) && obj.BarcodeItemBc.Contains(search))
-                {
-                    if (_barcodeResultCount++ >= 10)
-                    {
-                        result = false;
-                    }
                 }
                 else
-                    result = false;
-
-                if (String.IsNullOrEmpty(search))
                 {
-                    SelectedBarcodeItem = null;
-                }
-
-                return (result);
-
-            }
-
-            /// <summary>
-            /// Gets or sets the BarcodeItem value.
-            /// </summary>
-            private BarcodeItem _selectedBarcodeItem;
-            public BarcodeItem SelectedBarcodeItem
-            {
-                get { return _selectedBarcodeItem; }
-                set
-                {
-                    _barcodeResultCount = 0;
-
-                    _selectedBarcodeItem = value;
-
-                    //If textcompletion is enabled this part will break the functionality of the autocomplete
-                    if ((_selectedBarcodeItem != null) && !_isBarcodeReading)
-                    {
-                        if (_selectedBarcodeItem.BarcodeItemBc.Length != 13) return;
-                        CurrentBarcode = _selectedBarcodeItem.BarcodeItemBc;
-                        _selectedBarcodeItem.BarcodeItemBc = String.Empty;
-                        
-                    }
-                    else
-                    {
-                        CurrentBarcode = null;
-                    }
+                    CurrentBarcode = null;
                 }
             }
-            #endregion
-        //    private void OnSelected()
-        //    {
-        //        //if (SelectedConsignor != null)
-        //        //    Messenger.Default.Send(new PropertySetter("GameImage", SelectedGameItem.GameImage), Token);
-        //    }
-
-        //    /// <summary>
-        //    /// Gets the command that allows a cell to be updated.
-        //    /// </summary>
-        //    public RelayCommand<DataGridCellEditEndingEventArgs> CellEditEndingCommand
-        //    {
-        //        get
-        //        {
-        //            return new RelayCommand<DataGridCellEditEndingEventArgs>(UpdateSaleItem);
-        //        }
-        //    }
-
-        //    /// <summary>
-        //    /// Gets the command that allows a row to be deleted.
-        //    /// </summary>
-        //    public RelayCommand DeleteSelectedCommand
-        //    {
-        //        get
-        //        {
-        //            return new RelayCommand(DeleteSaleItem);
-        //        }
-        //    }
-
-        //    private void DeleteSaleItem()
-        //    {
-
-        //        if (MessageBox.Show("Deletions are permanent. Are you sure you want to delete this item? ", "Confirm Delete", MessageBoxButton.YesNo) == MessageBoxResult.No)
-        //            return;
-
-        //        if (null == SelectedSaleItem) return;
-        //        var consignorItem = DataGridSaleItems.FirstOrDefault(ci => ci.Consignor_Item.Id == SelectedSaleItem.Consignor_Item.Id);
-        //        if (consignorItem == null) return;
-        //        var tempConsignors = DataGridSaleItems;
-        //        var gridIndex = tempConsignors.IndexOf(consignorItem);
-        //        if ((gridIndex + 1) == tempConsignors.Count)
-        //            gridIndex--;
-        //        tempConsignors.Remove(consignorItem);
-        //        DataGridSaleItems = tempConsignors;
-        //        SelectedSaleItem = DataGridSaleItems.ElementAtOrDefault(gridIndex);
-
-        //        using (var bc = new BusinessContext())
-        //        {
-        //            bc.DeleteItemById(consignorItem.Consignor_Item.Id);
-        //        }
-        //    }
-
-        //    private void UpdateSaleItem(DataGridCellEditEndingEventArgs e)
-        //    {
-
-
-        //            var text = WpfHelpers.GetTextFromCellEditingEventArgs(e);
-
-        //            //Get the Column header
-        //            var column = e.Column.Header.ToString();
-
-        //            //Add info to new ConsignorInfo
-        //            var consignorItem = e.Row.Item as SaleItem;
-        //            var success = consignorItem != null && consignorItem.SetProperty(column, text);
-
-        //            if (SaleItemIsValid(consignorItem) && success)
-        //            {
-        //                var updateVisitor = new ItemUpdateVisitor();
-        //                consignorItem.Accept(updateVisitor);
-        //            }
-        //            else
-        //            {
-        //                e.Cancel = true;
-        //                if (consignorItem != null) consignorItem.ReportError(column, text);
-        //            }
-
-        //    }
-
-        //    private static bool SaleItemIsValid(SaleItem consignorItem)
-        //    {
-        //        if (consignorItem.ItemType == "Book")
-        //            return !String.IsNullOrWhiteSpace(consignorItem.Title) &&
-        //                    (consignorItem.Title.Length <= 150) &&
-        //                    !String.IsNullOrWhiteSpace(consignorItem.IsbnEan) &&
-        //                    ((consignorItem.IsbnEan.Length == 13) || (consignorItem.IsbnEan.Length == 10)) &&
-        //                    !String.IsNullOrWhiteSpace(consignorItem.ItemStatus) &&
-        //                    !String.IsNullOrWhiteSpace(consignorItem.ListedPrice) &&
-        //                    Validation_Helper.ParseCurrency(consignorItem.ListedPrice) &&
-        //                    Validation_Helper.ParseCurrency(consignorItem.SoldPrice);
-        //        if (!String.IsNullOrWhiteSpace(consignorItem.IsbnEan))
-        //            return !String.IsNullOrWhiteSpace(consignorItem.Title) &&
-        //                   (consignorItem.Title.Length <= 150) &&
-        //                   (consignorItem.IsbnEan.Length == 13) &&
-        //                   !String.IsNullOrWhiteSpace(consignorItem.ItemStatus) &&
-        //                   !String.IsNullOrWhiteSpace(consignorItem.ListedPrice) &&
-        //                   Validation_Helper.ParseCurrency(consignorItem.ListedPrice) &&
-        //                   Validation_Helper.ParseCurrency(consignorItem.SoldPrice);
-        //        return !String.IsNullOrWhiteSpace(consignorItem.Title) &&
-        //               (consignorItem.Title.Length <= 150) &&
-        //               !String.IsNullOrWhiteSpace(consignorItem.ItemStatus) &&
-        //               !String.IsNullOrWhiteSpace(consignorItem.ListedPrice) &&
-        //               Validation_Helper.ParseCurrency(consignorItem.ListedPrice) &&
-        //               Validation_Helper.ParseCurrency(consignorItem.SoldPrice);
-        //    }
-
-        //    private void InitializeDataGrid(ObservableCollection<Item> items)
-        //    {
-
-        //            //Clear DataGridSaleItems
-        //            DataGridSaleItems.Clear();
-
-        //            DataGridSaleItems = CreateSaleItemsList(items);
-
-        //    }
-
-        //    //Make a collection of SaleItems with info from the Items Table
-        //    private TrulyObservableCollection<SaleItem> CreateSaleItemsList(IEnumerable<Item> items)
-        //    {
-        //        //Temp Collection Definition
-        //        var tempSaleItems = new TrulyObservableCollection<SaleItem>();
-
-        //        //Clear DataGridSaleItems
-        //        DataGridSaleItems.Clear();
-
-        //        //Make the collection
-        //        var i = items.GetEnumerator();
-        //        while (i.MoveNext())
-        //        {
-        //            //Create an instance of a ConsignorInfo with the current consignor and person info
-        //            var currentSaleItem = new SaleItem(i.Current);
-        //            //Add the new instance to the collection
-        //            tempSaleItems.Add(currentSaleItem);
-        //        }
-
-        //        return tempSaleItems;
-        //    }
-
-        //    public TrulyObservableCollection<SaleItem> UpdateConsignorPortion(bool cash)
-        //    {
-        //        var consignorItems = DataGridSaleItems;
-
-        //        double totalPayment = 0;
-
-        //        foreach (var ci in consignorItems)
-        //        {
-        //            double currentPmt;
-        //            if ((ci.SoldPrice != null) && (ci.ItemStatus == "Sold"))
-        //            {
-        //                if (cash)
-        //                {
-        //                    currentPmt = (double.Parse(ci.SoldPrice, NumberStyles.Currency) * ConfigSettings.CONS_CASH_PAYOUT_PCT);
-        //                }
-        //                else
-        //                {
-        //                    currentPmt = (double.Parse(ci.SoldPrice, NumberStyles.Currency) * ConfigSettings.CONS_CREDIT_PAYOUT_PCT);
-        //                }
-
-        //                ci.ConsignorPortion = currentPmt.ToString("C2");
-        //                totalPayment += currentPmt;
-        //            }
-        //            else if ((ci.SoldPrice == null) && (ci.ItemStatus == "Sold"))
-        //            {
-        //                currentPmt = 0;
-        //                ci.ConsignorPortion = currentPmt.ToString("C2");
-        //                totalPayment += currentPmt;
-        //            }
-        //        }
-
-        //        PayoutAmountText = totalPayment.ToString("C2");
-
-        //        return consignorItems;
-        //    }
-
-        //    public TrulyObservableCollection<SaleItem> ClearConsignorPortion()
-        //    {
-        //        var consignorItems = DataGridSaleItems;
-
-        //        foreach (var ci in consignorItems)
-        //        {
-        //            ci.ConsignorPortion = null;
-        //        }
-
-        //        PayoutAmountText = "$0";
-
-        //        return consignorItems;
-        //    }
-            #endregion
-        //}
+        }
+        #endregion
+        
     }
 }

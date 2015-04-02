@@ -25,6 +25,29 @@ namespace Inventory.ViewModels.AddItem.ViewModels
             IsAmazonEnabled = true;
 
             _teachingAideItem = new TeachingAideItem();
+
+            //Register for messages
+            Messenger.Default.Register<PropertySetterString>(this, AddItemVm.Token, msg => SetItemProperty(msg.PropertyName, msg.PropertyValue));
+        }
+
+        /// <summary>
+        /// Sets a property from AddItemVm.
+        /// </summary>
+        private void SetItemProperty(string propertyName, string propertyValue)
+        {
+            //Find the property
+            if (propertyName == "TeachingAideLowestNewPrice")
+            {
+                LowestNewPrice = Double.Parse(propertyValue);
+            }
+            if (propertyName == "TeachingAideLowestUsedPrice")
+            {
+                LowestUsedPrice = Double.Parse(propertyValue);
+            }
+            if (propertyName == "TeachingAideImage")
+            {
+                TeachingAideImage = propertyValue;
+            }
         }
 
         /// <summary>

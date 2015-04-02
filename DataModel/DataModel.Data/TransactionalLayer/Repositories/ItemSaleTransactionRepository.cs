@@ -19,39 +19,38 @@ namespace DataModel.Data.TransactionalLayer.Repositories
             }
 
             //Validation if a record already exists for this Transaction
-            var oldTransaction = GetItemSaleTransactionById(transaction.Id);
-            if (oldTransaction != null)
-            {
-                //Update Items property
-                if (transaction.Items_ItemSaleTransaction.Count == 1)
-                    oldTransaction.Items_ItemSaleTransaction.Add(transaction.Items_ItemSaleTransaction.ElementAt(0));     //Add new item to old transaction record
-                else
-                    throw new ArgumentException("AddItemSaleTransaction - Can't add more than one item to a Transaction at the same time, or Transaction.Items is null");
-            }
+            //var oldTransaction = GetItemSaleTransactionById(transaction.Id);
+            //if (oldTransaction != null)
+            //{
+            //    //Update Items property
+            //    if (transaction.Items_ItemSaleTransaction.Count == 1)
+            //        oldTransaction.Items_ItemSaleTransaction.Add(transaction.Items_ItemSaleTransaction.ElementAt(0));     //Add new item to old transaction record
+            //    else
+            //        throw new ArgumentException("AddItemSaleTransaction - Can't add more than one item to a Transaction at the same time, or Transaction.Items is null");
+            //}
             //Transaction doesn't exist so add it
-            else
+            
+            Validation.PriceRequire(transaction.CreditTransaction_ItemSale.StateSalesTaxTotal);
+            Validation.PriceRequire(transaction.CreditTransaction_ItemSale.LocalSalesTaxTotal);
+            Validation.PriceRequire(transaction.CreditTransaction_ItemSale.CountySalesTaxTotal);
+            Validation.PriceRequire(transaction.CreditTransaction_ItemSale.TransactionTotal);
+            Validation.DateRequire(transaction.CreditTransaction_ItemSale.TransactionDate);
+
+            var itemList = new Collection<Item>();
+            foreach (var item in transaction.Items_ItemSaleTransaction)
             {
-                Validation.PriceRequire(transaction.CreditTransaction_ItemSale.StateSalesTaxTotal);
-                Validation.PriceRequire(transaction.CreditTransaction_ItemSale.LocalSalesTaxTotal);
-                Validation.PriceRequire(transaction.CreditTransaction_ItemSale.CountySalesTaxTotal);
-                Validation.PriceRequire(transaction.CreditTransaction_ItemSale.TransactionTotal);
-                Validation.DateRequire(transaction.CreditTransaction_ItemSale.TransactionDate);
-
-                var itemList = new Collection<Item>();
-                foreach (var item in transaction.Items_ItemSaleTransaction)
-                {
-                    var temp = Context.Items.Find(item.Id);
+                var temp = Context.Items.Find(item.Id);
                     
-                    itemList.Add(temp);
+                itemList.Add(temp);
 
-                }
-
-                transaction.Items_ItemSaleTransaction = null;
-                
-                Context.ItemSaleTransactions.Add(transaction);
-
-                transaction.Items_ItemSaleTransaction = itemList;
             }
+
+            transaction.Items_ItemSaleTransaction = null;
+                
+            Context.ItemSaleTransactions.Add(transaction);
+
+            transaction.Items_ItemSaleTransaction = itemList;
+            
 
             Context.SaveChanges();
 

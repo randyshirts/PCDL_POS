@@ -8,6 +8,7 @@
              xmlns:viewModel="clr-namespace:POS.ViewModels.PaymentWindow.ViewModels"
              xmlns:helpers="clr-namespace:RocketPos.Common.Helpers;assembly=RocketPos.Common"
              VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+             Height="800" Width="1200"
         >
 
 
@@ -27,7 +28,7 @@
 
 
 
-        <DockPanel Margin="20"  
+        <DockPanel Margin="10"  
                    VerticalAlignment="Stretch" 
                    HorizontalAlignment="Stretch" 
                    Grid.Row="0"
@@ -74,7 +75,7 @@
             <Button Command="{Binding CashCommand}" 
                     DockPanel.Dock="Top"
                     Margin="20" 
-                    Padding="10"
+                    Padding="8"
                     VerticalAlignment="Stretch"
                     >
                 <TextBlock
@@ -87,7 +88,7 @@
             <Button Command="{Binding CreditCommand}" 
                     DockPanel.Dock="Top"
                     Margin="20" 
-                    Padding="10"
+                    Padding="8"
                     VerticalAlignment="Stretch">
                 <TextBlock
                     Text ="Credit" 
@@ -99,7 +100,7 @@
             <Button Command="{Binding DebitCommand}" 
                     DockPanel.Dock="Top"
                     Margin="20"
-                    Padding="10"
+                    Padding="8"
                     VerticalAlignment="Stretch">
                 <TextBlock
                     Text ="Debit" 
@@ -111,7 +112,7 @@
             <Button Command="{Binding StoreCreditCommand}" 
                     DockPanel.Dock="Top"
                     Margin="20"
-                    Padding="10"
+                    Padding="8"
                     VerticalAlignment="Stretch">
                 <TextBlock
                     Text ="Store Credit" 
@@ -123,7 +124,7 @@
             <Button Command="{Binding SplitTransactionCommand}" 
                     DockPanel.Dock="Top"
                     Margin="20"
-                    Padding="10"
+                    Padding="8"
                     VerticalAlignment="Stretch">
                 <TextBlock
                     Text ="Split Payment" 
@@ -135,7 +136,7 @@
             <Button Command="{Binding CancelTransactionCommand}" 
                     DockPanel.Dock="Top"
                     Margin="20"
-                    Padding="10"
+                    Padding="8"
                     VerticalAlignment="Stretch"
                     CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                 <TextBlock
@@ -159,7 +160,7 @@
                     FontSize="24">
             </Label>
 
-            <StatusBar DockPanel.Dock="Top"
+            <!--<StatusBar DockPanel.Dock="Top"
                        HorizontalAlignment="Center">
 
                 <Grid DockPanel.Dock="Top">
@@ -174,7 +175,7 @@
                                  Height="15" 
                                  Value="67" />
                 </Grid>
-            </StatusBar>
+            </StatusBar>-->
             <Button Command="{Binding CancelCreditDebitCommand}" 
                     DockPanel.Dock="Top"
                     Margin="10"
@@ -429,14 +430,14 @@
                     Grid.Row ="0"
                     Visibility="{Binding IsSplitVisible}">
                 
-            <Label Margin="10"
+            <Label Margin="10,0,10,5"
                    FontSize="32"
                    HorizontalAlignment="Center"
                    Content="Split Transaction"></Label>
             
             <Separator/>
             
-            <Label Margin="10"
+            <Label Margin="10,0,10,5"
                    FontSize="32"
                    HorizontalAlignment="Center"
                    Content="Cash"></Label>
@@ -445,7 +446,7 @@
                    VerticalAlignment="Stretch"
                    Content="Total Cash Rendered:"
                    HorizontalContentAlignment="Center"
-                   Margin="10"
+                   Margin="10,5,10,0"
                    FontSize="20"    />
 
             <TextBox Text="{Binding CashReceived, 
@@ -466,7 +467,7 @@
             
             <Separator/>
             
-            <Label Margin="10,10,10,0"
+            <Label Margin="10,5,10,0"
                    FontSize="20"
                    HorizontalAlignment="Center"
                    Content ="Store Credit"> 
@@ -513,7 +514,7 @@
 
             </Grid>
             
-            <Label  Margin="10,10,10,0">Store Credit Charged for this Transaction:</Label>
+            <Label  Margin="80,0,80,3">Store Credit Charged for this Transaction:</Label>
             <TextBox Text="{Binding StoreCreditCharged, 
                                         Mode=TwoWay, 
                                         UpdateSourceTrigger=LostFocus, 
@@ -531,7 +532,7 @@
             
             <Separator/>
 
-            <Label Margin="10,10,10,0"
+            <Label Margin="60,0,60,0"
                    FontSize="20"
                    HorizontalAlignment="Center"
                    Content ="Credit/Debit">
@@ -565,8 +566,38 @@
                                FontSize="32"
                                MinWidth="100"/>
 
+                
+                
             </Grid>
-
+            
+            <Grid DockPanel.Dock="Top" 
+                  Background="Aquamarine" 
+                  Margin="80,0,80,0"
+                  MinWidth="150"
+                  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70*"/>
+                    <ColumnDefinition Width="30*"/>
+                </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" 
+                       FontWeight="ExtraBold" 
+                       FontSize="24"
+                       Content ="Change Due:"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left">
+            </Label>
+            <TextBlock Grid.Column="1" 
+                            HorizontalAlignment="Right"        
+		                       TextAlignment="Center"
+		                       Text="{Binding SplitChangeDue, Converter={StaticResource moneyConverter}}"
+		                       VerticalAlignment="Center"
+                               IsEnabled="False" 
+                               FontWeight="SemiBold"
+                               Foreground="DarkSlateGray"
+                               FontSize="32"
+                               MinWidth="100"/>
+            </Grid>  
+              
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Stretch"
                         HorizontalAlignment="Center">

@@ -25,6 +25,29 @@ namespace Inventory.ViewModels.AddItem.ViewModels
             IsAmazonEnabled = true;
 
             _gameItem = new GameItem();
+
+            //Register for messages
+            Messenger.Default.Register<PropertySetterString>(this, AddItemVm.Token, msg => SetItemProperty(msg.PropertyName, msg.PropertyValue));
+        }
+
+        /// <summary>
+        /// Sets a property from AddItemVm.
+        /// </summary>
+        private void SetItemProperty(string propertyName, string propertyValue)
+        {
+            //Find the property
+            if (propertyName == "GameLowestNewPrice")
+            {
+                LowestNewPrice = Double.Parse(propertyValue);
+            }
+            if (propertyName == "GameLowestUsedPrice")
+            {
+                LowestUsedPrice = Double.Parse(propertyValue);
+            }
+            if (propertyName == "GameImage")
+            {
+                GameImage = propertyValue;
+            }
         }
 
         /// <summary>

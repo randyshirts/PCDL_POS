@@ -17,7 +17,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
     {
 
         public static readonly Guid Token = Guid.NewGuid();         //So others know messages came from this instance
-        
+
         public AddOtherVm()
         {
             Others = new ObservableCollection<Other>();
@@ -25,6 +25,29 @@ namespace Inventory.ViewModels.AddItem.ViewModels
             IsAmazonEnabled = true;
 
             _otherItem = new OtherItem();
+
+            //Register for messages
+            Messenger.Default.Register<PropertySetterString>(this, AddItemVm.Token, msg => SetItemProperty(msg.PropertyName, msg.PropertyValue));
+        }
+
+        /// <summary>
+        /// Sets a property from AddItemVm.
+        /// </summary>
+        private void SetItemProperty(string propertyName, string propertyValue)
+        {
+            //Find the property
+            if (propertyName == "OtherLowestNewPrice")
+            {
+                LowestNewPrice = Double.Parse(propertyValue);
+            }
+            if (propertyName == "OtherLowestUsedPrice")
+            {
+                LowestUsedPrice = Double.Parse(propertyValue);
+            }
+            if (propertyName == "OtherImage")
+            {
+                OtherImage = propertyValue;
+            }
         }
 
         /// <summary>

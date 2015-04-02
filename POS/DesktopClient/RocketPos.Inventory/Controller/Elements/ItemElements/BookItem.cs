@@ -183,7 +183,7 @@ namespace Inventory.Controller.Elements.ItemElements
                         ListedPrice = orig;
                         return false;
                     }
-                case "ListedDate":
+                case "Date Listed":
                     {
                         if (String.IsNullOrEmpty(text)) return false; //Non nullable
                         

@@ -64,6 +64,18 @@ namespace RocketPos.Common.Foundation
         public object PropertyValue { get; set; }
     }
 
+    public class PropertySetterString
+    {
+        public PropertySetterString(string propertyName, string propertyValue)
+        {
+            PropertyName = propertyName;
+            PropertyValue = propertyValue;
+        }
+
+        public string PropertyName { get; set; }
+        public string PropertyValue { get; set; }
+    }
+
 	#region Switch view
 
 	/// <summary>

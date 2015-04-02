@@ -469,7 +469,15 @@ namespace POS.ViewModels.PaymentWindow.ViewModels
                 if (_isCashVisible == Visibility.Visible.ToString())
                     Change = _cashReceived - TotalAmount;
                 if (_isSplitVisible == Visibility.Visible.ToString())
+                {
                     CreditDebitAmount = TotalAmount - _cashReceived - _storeCreditCharged;
+                    if (CreditDebitAmount < 0)
+                    {
+                        SplitChangeDue = CreditDebitAmount*-1;
+                        CreditDebitAmount = 0;
+                    }
+                
+                }
                 OnPropertyChanged();
             }
         }
@@ -561,12 +569,28 @@ namespace POS.ViewModels.PaymentWindow.ViewModels
                 {
                     _storeCreditCharged = value;
                     CreditDebitAmount = TotalAmount - CashReceived - _storeCreditCharged;
+                    if (CreditDebitAmount < 0)
+                    {
+                        SplitChangeDue = -1*CreditDebitAmount;
+                        CreditDebitAmount = 0;
+                    }
                     OnPropertyChanged();
                 }
                 else
                 {
                     MessageBox.Show("Enter an amount less than or equal to the available store credit");
                 }
+            }
+        }
+
+        private double _splitChangeDue;
+        public double SplitChangeDue
+        {
+            get { return _splitChangeDue; }
+            set
+            {
+                _splitChangeDue = value;
+                OnPropertyChanged();
             }
         }
 
@@ -598,6 +622,11 @@ namespace POS.ViewModels.PaymentWindow.ViewModels
                 }
             }
 
+            if (SplitChangeDue > 0)
+            {
+                Change = SplitChangeDue;
+            }
+
             IsSplitVisible = Visibility.Hidden.ToString();
             IsPrintingVisible = Visibility.Visible.ToString();
 
@@ -615,6 +644,7 @@ namespace POS.ViewModels.PaymentWindow.ViewModels
         private void CancelSplit()
         {
             CashReceived = 0;
+            SplitChangeDue = 0;
             Change = 0;
             CreditBalanceAmount = 0;
             CreditDebitAmount = 0;

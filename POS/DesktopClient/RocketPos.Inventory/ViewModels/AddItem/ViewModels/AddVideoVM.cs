@@ -34,6 +34,29 @@ namespace Inventory.ViewModels.AddItem.ViewModels
 
             _formatComboValues.InitializeComboBox(EnumsAndLists.VideoFormats);
              _ratingComboValues.InitializeComboBox(EnumsAndLists.Ratings);
+
+             //Register for messages
+             Messenger.Default.Register<PropertySetterString>(this, AddItemVm.Token, msg => SetItemProperty(msg.PropertyName, msg.PropertyValue));
+        }
+
+        /// <summary>
+        /// Sets a property from AddItemVm.
+        /// </summary>
+        private void SetItemProperty(string propertyName, string propertyValue)
+        {
+            //Find the property
+            if (propertyName == "VideoLowestNewPrice")
+            {
+                LowestNewPrice = Double.Parse(propertyValue);
+            }
+            if (propertyName == "VideoLowestUsedPrice")
+            {
+                LowestUsedPrice = Double.Parse(propertyValue);
+            }
+            if (propertyName == "VideoImage")
+            {
+                VideoImage = propertyValue;
+            }
         }
 
         /// <summary>

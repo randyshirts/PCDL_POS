@@ -35,7 +35,7 @@
         <DataTemplate x:Key="AutoCompleteBoxItemTemplate">
             <Border BorderBrush="Salmon" BorderThickness="2" CornerRadius="5">
                 <StackPanel Orientation="Horizontal">
-                    <Label  Content="{Binding BarcodeItemBc}" Width="100" FontWeight="Bold"/>
+                    <Label  Content="{Binding BarcodeItemBc}" Width="120" FontWeight="Bold"/>
                     <Label Content="{Binding Title}"/>
                 </StackPanel>
             </Border>

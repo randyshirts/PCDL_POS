@@ -36,7 +36,7 @@ namespace DataModel.Data.TransactionalLayer.Repositories
                     foreach (var temp in consignorPmt.Items_ConsignorPmt.Select(item => Context.Items.Find(item.Id)))
                     {
                         temp.Consignor = null;
-                        temp.Status = "Paid";
+                        //temp.Status = "Paid";
                         itemList.Add(temp);
                     }
                     consignorPmt.Items_ConsignorPmt = null;

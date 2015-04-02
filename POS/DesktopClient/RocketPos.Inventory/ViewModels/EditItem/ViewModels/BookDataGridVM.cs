@@ -237,7 +237,7 @@ namespace Inventory.ViewModels.EditItem.ViewModels
                     case "Consignor Name":
                     case "Status":
                     case "Subject":
-                    case "ListedDate":
+                    case "Date Listed":
                     case "ListedPrice":
                     case "Condition":
                     case "Discount":

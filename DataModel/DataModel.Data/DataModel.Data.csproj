@@ -291,6 +291,14 @@
     <Compile Include="TransactionalLayer\MigrationsMySql\201503111729492_MvcOnly.Designer.cs">
       <DependentUpon>201503111729492_MvcOnly.cs</DependentUpon>
     </Compile>
+    <Compile Include="TransactionalLayer\MigrationsMySql\201503300152243_ChangedBarcodeLength.cs" />
+    <Compile Include="TransactionalLayer\MigrationsMySql\201503300152243_ChangedBarcodeLength.Designer.cs">
+      <DependentUpon>201503300152243_ChangedBarcodeLength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TransactionalLayer\MigrationsMySql\201503312258170_AddedNdFeeToConsignorPmt.cs" />
+    <Compile Include="TransactionalLayer\MigrationsMySql\201503312258170_AddedNdFeeToConsignorPmt.Designer.cs">
+      <DependentUpon>201503312258170_AddedNdFeeToConsignorPmt.cs</DependentUpon>
+    </Compile>
     <Compile Include="TransactionalLayer\MigrationsMySql\Configuration.cs" />
     <Compile Include="TransactionalLayer\Repositories\EmailRepository.cs" />
     <Compile Include="TransactionalLayer\Repositories\IPcdWebUserRepository.cs" />
@@ -409,6 +417,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TransactionalLayer\MigrationsMySql\201503111729492_MvcOnly.resx">
       <DependentUpon>201503111729492_MvcOnly.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransactionalLayer\MigrationsMySql\201503300152243_ChangedBarcodeLength.resx">
+      <DependentUpon>201503300152243_ChangedBarcodeLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransactionalLayer\MigrationsMySql\201503312258170_AddedNdFeeToConsignorPmt.resx">
+      <DependentUpon>201503312258170_AddedNdFeeToConsignorPmt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

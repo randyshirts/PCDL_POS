@@ -61,7 +61,7 @@
                                                 DisplayMemberPath="ValueString"
                                                 Width="7*"/>
 
-                    <DataGridTemplateColumn Header="ListedDate" Width="6*">
+                    <DataGridTemplateColumn Header="Date Listed" Width="6*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding ListedDate, Converter={StaticResource dateTimeConverter}}" 
@@ -71,7 +71,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <DatePicker x:Name="ListedDatePicker" SelectedDate="{Binding ListedDate}" />
+                                <DatePicker x:Name="DateListedPicker" SelectedDate="{Binding ListedDate}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>

@@ -31,6 +31,7 @@ namespace POS.Controller.Elements
         public double DiscountAmount { get; set; }
         public double TaxAmount { get; set; }
         public bool IsDiscountable { get; set; }
+        public string Barcode { get; set; }
 
 
         public SaleItem(string barcode)
@@ -45,6 +46,7 @@ namespace POS.Controller.Elements
             ListedDate = item.ListedDate;
             UnitPrice = item.ListedPrice;
             Quantity = 1;
+            Barcode = barcode;
 
             //Find date discount
             var dateSpan = DateTimeSpan.CompareDates(ListedDate, DateTime.Now);
@@ -131,6 +133,7 @@ namespace POS.Controller.Elements
             ListedDate = item.ListedDate;
             UnitPrice = item.ListedPrice;
             Quantity = 1;
+            Barcode = item.Barcode;
 
             //Find date discount
             var dateDiff = Math.Abs(DateTime.Now.Month - ListedDate.Month);

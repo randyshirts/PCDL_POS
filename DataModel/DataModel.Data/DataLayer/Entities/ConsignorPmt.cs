@@ -10,6 +10,7 @@ namespace DataModel.Data.DataLayer.Entities
         #region Define Members
         //Define members
         //public int Id { get; set; }
+        public double NoDiscountFee { get; set; }
         public virtual DebitTransaction DebitTransaction_ConsignorPmt { get; set; }
         public virtual int ConsignorId { get; set; }
         public virtual Consignor Consignor_ConsignorPmt { get; set; }

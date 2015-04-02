@@ -13,6 +13,7 @@ namespace RocketPos.Data.DataLayer.Mapping
 
             //Fields
             Property(b => b.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            Property(cp => cp.NoDiscountFee).IsOptional();
 
             //Table
             ToTable("ConsignorPmts");

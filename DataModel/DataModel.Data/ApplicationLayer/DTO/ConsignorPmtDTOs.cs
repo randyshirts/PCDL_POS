@@ -14,12 +14,14 @@ namespace DataModel.Data.ApplicationLayer.DTO
         public ConsignorPmtDto(ConsignorPmt pmt)
         {
             Id = pmt.Id;
+            NoDiscountFee = pmt.NoDiscountFee;
             ConsignorId = pmt.ConsignorId;
             DebitTransaction_ConsignorPmt = pmt.DebitTransaction_ConsignorPmt;
             Consignor_ConsignorPmt = pmt.Consignor_ConsignorPmt;
             Items_ConsignorPmt = pmt.Items_ConsignorPmt;
         }
 
+        public double NoDiscountFee { get; set; }
         public DebitTransaction DebitTransaction_ConsignorPmt { get; set; }
         public int ConsignorId { get; set; }
         public Consignor Consignor_ConsignorPmt { get; set; }
@@ -30,6 +32,7 @@ namespace DataModel.Data.ApplicationLayer.DTO
             return new ConsignorPmt
             {
                 Id = Id,
+                NoDiscountFee = NoDiscountFee,
                 ConsignorId = ConsignorId,
                 DebitTransaction_ConsignorPmt = DebitTransaction_ConsignorPmt,
                 Consignor_ConsignorPmt = Consignor_ConsignorPmt,

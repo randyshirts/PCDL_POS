@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using DataModel.Data.ApplicationLayer.WpfControllers;
@@ -572,6 +573,14 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                             OpenBarcodeView();
                             Messenger.Default.Send(new PropertySetter("DataGridBarcodes", Barcodes), Token);
 
+                            BookItem.TradeInValue = 0;
+                            BookItem.LowestUsedPrice = 0;
+                            BookItem.LowestNewPrice = 0;
+                            BookItem.BookImage = null;
+                            Messenger.Default.Send(new PropertySetterString("TradeInValue", BookItem.TradeInValue.ToString()), Token);
+                            Messenger.Default.Send(new PropertySetterString("BookLowestUsedPrice", BookItem.LowestUsedPrice.ToString(CultureInfo.InvariantCulture)), Token);
+                            Messenger.Default.Send(new PropertySetterString("BookLowestNewPrice", BookItem.LowestNewPrice.ToString(CultureInfo.InvariantCulture)), Token);
+                            Messenger.Default.Send(new PropertySetterString("BookImage", BookItem.BookImage), Token);
                             break;
                         }
                         catch (Exception ex)
@@ -606,6 +615,13 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                             OpenBarcodeView();
                             Messenger.Default.Send(new PropertySetter("DataGridBarcodes", Barcodes), Token);
 
+                            
+                            GameItem.LowestUsedPrice = 0;
+                            GameItem.LowestNewPrice = 0;
+                            GameItem.GameImage = null;
+                            Messenger.Default.Send(new PropertySetterString("GameLowestUsedPrice", GameItem.LowestUsedPrice.ToString(CultureInfo.InvariantCulture)), Token);
+                            Messenger.Default.Send(new PropertySetterString("GameLowestNewPrice", GameItem.LowestNewPrice.ToString(CultureInfo.InvariantCulture)), Token);
+                            Messenger.Default.Send(new PropertySetterString("GameImage", GameItem.GameImage), Token);
                             break;
                         }
                         catch (Exception ex)
@@ -640,6 +656,12 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                             OpenBarcodeView();
                             Messenger.Default.Send(new PropertySetter("DataGridBarcodes", Barcodes), Token);
 
+                            OtherItem.LowestUsedPrice = 0;
+                            OtherItem.LowestNewPrice = 0;
+                            OtherItem.OtherImage = null;
+                            Messenger.Default.Send(new PropertySetterString("OtherLowestUsedPrice", OtherItem.LowestUsedPrice.ToString(CultureInfo.InvariantCulture)), Token);
+                            Messenger.Default.Send(new PropertySetterString("OtherLowestNewPrice", OtherItem.LowestNewPrice.ToString(CultureInfo.InvariantCulture)), Token);
+                            Messenger.Default.Send(new PropertySetterString("OtherImage", OtherItem.OtherImage), Token);
                             break;
                         }
                         catch (Exception ex)
@@ -675,6 +697,12 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                             OpenBarcodeView();
                             Messenger.Default.Send(new PropertySetter("DataGridBarcodes", Barcodes), Token);
 
+                            TeachingAideItem.LowestUsedPrice = 0;
+                            TeachingAideItem.LowestNewPrice = 0;
+                            TeachingAideItem.TeachingAideImage = null;
+                            Messenger.Default.Send(new PropertySetterString("TeachingAideLowestUsedPrice", TeachingAideItem.LowestUsedPrice.ToString(CultureInfo.InvariantCulture)), Token);
+                            Messenger.Default.Send(new PropertySetterString("TeachingAideLowestNewPrice", TeachingAideItem.LowestNewPrice.ToString(CultureInfo.InvariantCulture)), Token);
+                            Messenger.Default.Send(new PropertySetterString("TeachingAideImage", TeachingAideItem.TeachingAideImage), Token);
                             break;
                         }
                         catch (Exception ex)
@@ -708,6 +736,12 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                             OpenBarcodeView();
                             Messenger.Default.Send(new PropertySetter("DataGridBarcodes", Barcodes), Token);
 
+                            VideoItem.LowestUsedPrice = 0;
+                            VideoItem.LowestNewPrice = 0;
+                            VideoItem.VideoImage = null;
+                            Messenger.Default.Send(new PropertySetterString("VideoLowestUsedPrice", VideoItem.LowestUsedPrice.ToString(CultureInfo.InvariantCulture)), Token);
+                            Messenger.Default.Send(new PropertySetterString("VideoLowestNewPrice", VideoItem.LowestNewPrice.ToString(CultureInfo.InvariantCulture)), Token);
+                            Messenger.Default.Send(new PropertySetterString("VideoImage", VideoItem.VideoImage), Token);
                             break;
                         }
                         catch (Exception ex)

@@ -19,7 +19,16 @@ namespace RocketPos.Common.Helpers
             }
         }
 
-        
+
+        public static double ND_FEE
+        {
+            get
+            {
+                return Convert.ToDouble(ConfigurationManager.AppSettings
+                        ["ND_FEE"]);
+            }
+        }
+
         public static double CONS_CREDIT_PAYOUT_PCT
         {
             get
