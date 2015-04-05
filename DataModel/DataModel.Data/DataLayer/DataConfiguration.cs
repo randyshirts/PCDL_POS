@@ -1,5 +1,8 @@
 ﻿using System.Data.Entity;
-using MySql.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.SqlServer;
+
+//using MySql.Data.Entity;
 //using System.Data.Entity.SqlServer;
 
 namespace DataModel.Data.DataLayer
@@ -10,8 +13,11 @@ namespace DataModel.Data.DataLayer
         
         public DataConfiguration()
         {
-            DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
-            //SetTransactionHandler(MySqlProviderServices, () => new CommitFailureHandler());
+            //MySql
+            //DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
+            
+            //Sql
+            SetTransactionHandler(SqlProviderServices.ProviderInvariantName, () => new CommitFailureHandler());
         }
 
         

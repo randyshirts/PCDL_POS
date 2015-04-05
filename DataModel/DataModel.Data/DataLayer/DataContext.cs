@@ -7,13 +7,14 @@ using System.Reflection;
 using Abp.EntityFramework;
 using DataModel.Data.DataLayer.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
-using MySql.Data.Entity;
+//using MySql.Data.Entity;
 
 namespace DataModel.Data.DataLayer
 {
     
+    //Include for MySql
+    //[DbConfigurationType(typeof(MySqlEFConfiguration))]
 
-    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public partial class DataContext : DbContext
     {
         

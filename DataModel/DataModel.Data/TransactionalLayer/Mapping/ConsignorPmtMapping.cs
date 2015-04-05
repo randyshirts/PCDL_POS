@@ -2,7 +2,7 @@
 using System.Data.Entity.ModelConfiguration;
 using DataModel.Data.DataLayer.Entities;
 
-namespace RocketPos.Data.DataLayer.Mapping
+namespace DataModel.Data.TransactionalLayer.Mapping
 {
     public class ConsignorPmtMap : EntityTypeConfiguration<ConsignorPmt>
     {

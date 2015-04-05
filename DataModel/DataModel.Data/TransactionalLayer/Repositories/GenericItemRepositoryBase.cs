@@ -5,7 +5,7 @@ using System.Linq;
 using Abp.Domain.Entities;
 using DataModel.Data.DataLayer.Entities;
 using DataModel.Data.DataLayer.Repositories;
-using MySql.Data.MySqlClient;
+//using MySql.Data.MySqlClient;
 
 namespace DataModel.Data.TransactionalLayer.Repositories
 {
@@ -78,7 +78,8 @@ namespace DataModel.Data.TransactionalLayer.Repositories
         public virtual T GetItemByTitle(string title)
         {
             var sqlCommand = "SELECT * FROM " + typeof (T).Name + "s WHERE Title = @p0";
-            var item = Context.Database.SqlQuery<T>(sqlCommand, new MySqlParameter("p0", title)).FirstOrDefault();
+            //var item = Context.Database.SqlQuery<T>(sqlCommand, new MySqlParameter("p0", title)).FirstOrDefault();    //MySql 
+            var item = Context.Database.SqlQuery<T>(sqlCommand, new SqlParameter("p0", title)).FirstOrDefault();
 
             return item;
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Http;
 using AngularJSAuthentication.API;
+using Castle.Windsor;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
@@ -38,9 +39,7 @@ namespace PcdWeb
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
-                       
             
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<AuthContext, AngularJSAuthentication.API.Migrations.Configuration>());
 
         }
 

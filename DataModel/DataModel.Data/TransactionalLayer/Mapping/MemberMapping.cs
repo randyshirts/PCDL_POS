@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using DataModel.Data.DataLayer.Entities;
 
-namespace RocketPos.Data.DataLayer.Mapping
+namespace DataModel.Data.TransactionalLayer.Mapping
 {
     public class MemberMap : EntityTypeConfiguration<Member>
     {

@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DataModel.Data.DataLayer.Entities;
+using DataModel.Data.TransactionalLayer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Data.Entity;
-using RocketPos.Data.DataLayer.Entities;
-using RocketPos.Data.TransactionalLayer;
+using RocketPos.Tests.DataTests;
 
-namespace RocketPos.Tests.DataTests.Functional_Tests
+//using RocketPos.Data.DataLayer.Entities;
+//using RocketPos.Data.TransactionalLayer;
+
+namespace Pcd.Tests.DataTests.Functional_Tests.BusinessLayer
 {
     [TestClass]
     public class BookScenarioTests : FunctionalTest

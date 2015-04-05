@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -20,6 +21,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Linq;
+using PcdWeb.Logging;
 using PcdWeb.Models;
 using PcdWeb.Models.AccountModels;
 
@@ -47,6 +49,7 @@ namespace PcdWeb.Controllers
         [System.Web.Http.Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterUserInput input)
         {
+            //ApiLog.Instance.Trace("Register account controller started");
             if (!ModelState.IsValid)
             {
                 throw new UserFriendlyException("Your form is invalid!");
@@ -56,6 +59,8 @@ namespace PcdWeb.Controllers
             {
                 return Ok("Invalid input");
             }
+
+            //ApiLog.Instance.Trace("Register account controller valid");
 
             //define output
             var output = new RegisterApiOutputModel();
@@ -74,9 +79,11 @@ namespace PcdWeb.Controllers
             //    throw new UserFriendlyException("Incorrect captcha answer.");
             //} 
 
-
-            var result = _userAppService.RegisterUser(input).Result;
+            //Todo: var cts = new CancellationTokenSource(); //send cancellation token to RegisterUser instead of "await Task.FromResult(0);" use cancel token 
+            //http://jeremybytes.blogspot.com/2015/01/task-and-await-basic-cancellation.html
+            var result = await _userAppService.RegisterUser(input);
             //if (result == null) return BadRequest("Registration Failed - Try Again");
+            
 
             if (result.Result.Succeeded)
             {
@@ -86,12 +93,12 @@ namespace PcdWeb.Controllers
 
             if (result.Result.Errors.Any())
             {
+                
                 var alreadyRegisteredError =
                     result.Result.Errors.FirstOrDefault(e => e.StartsWith("You registered with"));
                 if (alreadyRegisteredError != null)
                 {
-                    await
-                        _userAppService.SendConfirmation(new SendConfirmationInput() {EmailAddress = input.EmailAddress});
+                    await _userAppService.SendConfirmation(new SendConfirmationInput() { EmailAddress = input.EmailAddress });
                     output.message = alreadyRegisteredError;
                 }
                 else
@@ -137,6 +144,7 @@ namespace PcdWeb.Controllers
             return Ok(output);
         }
 
+        //[System.Web.Http.AllowAnonymous]
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [System.Web.Http.Route("ConfirmEmail")]
         public HttpResponseMessage ConfirmEmail(string userId, string confirmationCode)

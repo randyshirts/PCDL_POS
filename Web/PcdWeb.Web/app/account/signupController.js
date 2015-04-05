@@ -36,7 +36,7 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
                      errors.push(response.data.modelState[key][i]);
                  }
              }
-             $scope.message = "Failed to register user due to:" + errors.join(' ');
+             $scope.message = response.data.message;
          });
     };
 

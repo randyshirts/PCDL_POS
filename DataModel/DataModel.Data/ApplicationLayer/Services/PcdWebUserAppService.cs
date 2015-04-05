@@ -113,14 +113,25 @@ namespace DataModel.Data.ApplicationLayer.Services
 
         public async Task<RegisterUserOutput> RegisterUser(RegisterUserInput registerUser)
         {
-            User existingUser;
+            User existingUser = null;
+
+            IdentityResult result = null;
             try
             {
                 existingUser = _userRepository.FirstOrDefault(u => u.Email == registerUser.EmailAddress);
             }
             catch (Exception ex)
             {
-                return new RegisterUserOutput() { Result = new IdentityResult("The server is down, wait an hour or two and if the problem persists call us") };
+                
+                result =
+                    new IdentityResult("The server is down, wait an hour or two and if the problem persists call us");
+                
+            }
+
+            if (result != null)
+            {
+                await Task.FromResult(0);
+                return new RegisterUserOutput() { Result = result };
             }
 
             if (existingUser != null)
@@ -141,7 +152,15 @@ namespace DataModel.Data.ApplicationLayer.Services
                 catch (Exception ex)
                 {
                     //MessageBox.Show(ex.Message);
-                    return new RegisterUserOutput() {Result = new IdentityResult(ex.Message)};
+                    
+                    result = new IdentityResult(ex.Message);
+                    
+                }
+
+                if (result != null)
+                {
+                    await Task.FromResult(0);
+                    return new RegisterUserOutput() { Result = result };
                 }
             }
 
@@ -155,6 +174,7 @@ namespace DataModel.Data.ApplicationLayer.Services
             
             if (persons.Any())
             {
+                await Task.FromResult(0);
                 return new RegisterUserOutput() { Result = new IdentityResult("There is already a record for this email, try selecting 'Merge Account' on the home page") };
             }
 
@@ -191,15 +211,15 @@ namespace DataModel.Data.ApplicationLayer.Services
             userEntity.PasswordHash = new PasswordHasher().HashPassword(userEntity.PasswordHash);
             try
             {
-                var result = UserManager.CreateAsync(userEntity);
+                var createResult = await UserManager.CreateAsync(userEntity);
 
-                //if (result.Result.Succeeded)
+                //if (result.Succeeded)
                 //{
                 //    var user = _userRepository.FirstOrDefault(u => u.Email == registerUser.EmailAddress);
-                //    SendConfirmationEmail(user);
+                //    await SendConfirmationEmail(user);
                 //}
 
-                return new RegisterUserOutput() {Result = result.Result};
+                return new RegisterUserOutput() { Result = createResult };
             }
             catch(Exception ex)
             {
@@ -357,17 +377,21 @@ namespace DataModel.Data.ApplicationLayer.Services
         {
             var existingUser = _userRepository.FirstOrDefault(u => u.Email == input.EmailAddress);
 
-            try
-            {
-                //Send confirmation
-                await SendConfirmationEmail(existingUser);
-                return new SendConfirmationOutput{Result = true};
-            }
-            catch (Exception ex)
-            {
-                return new SendConfirmationOutput{Result = false};
-            }
-        
+            //try
+            //{
+            //    //Send confirmation
+            //    await SendConfirmationEmail(existingUser);
+            //    return new SendConfirmationOutput{Result = true};
+            //}
+            //catch (Exception ex)
+            //{
+            //    return new SendConfirmationOutput{Result = false};
+            //}
+
+            //Send confirmation
+            await SendConfirmationEmail(existingUser);
+            return new SendConfirmationOutput { Result = true };
+
         }       
 
         #region Private methods
@@ -401,7 +425,7 @@ namespace DataModel.Data.ApplicationLayer.Services
                     <h3>{TEXT_WELCOME}</h3>
                     <p>{TEXT_DESCRIPTION}</p>
                     <p>&nbsp;</p>
-                    <p><a href=""http://localhost:61754/api/Account/ConfirmEmail?userId={USER_ID}&confirmationCode={CONFIRMATION_CODE}"">http://localhost:61754/api/Account/ConfirmEmail?userId={USER_ID}&amp;confirmationCode={CONFIRMATION_CODE}</a></p>
+                    <p>Click this <a href=""http://playcreatediscover.com/Account/ConfirmEmail?userId={USER_ID}&confirmationCode={CONFIRMATION_CODE}"">link</a> to activate your account</p>
                     <p>&nbsp;</p>
                     <p><a href=""http://www.playcreatediscover.com"">http://www.playcreatediscover.com</a></p>
                 </body>
@@ -452,7 +476,7 @@ namespace DataModel.Data.ApplicationLayer.Services
                     <h3>{TEXT_WELCOME}</h3>
                     <p>{TEXT_DESCRIPTION}</p>
                     <p>&nbsp;</p>
-                    <p><a href=""http://localhost:61754/api/Account/ResetPassword?UserId={USER_ID}&ResetCode={RESET_CODE}"">http://localhost:61754/api/Account/ResetPassword?UserId={USER_ID}&amp;ResetCode={RESET_CODE}</a></p>
+                    <p><a href=""http://www.playcreatediscover.com/api/Account/ResetPassword?UserId={USER_ID}&ResetCode={RESET_CODE}"">http://localhost:61754/api/Account/ResetPassword?UserId={USER_ID}&amp;ResetCode={RESET_CODE}</a></p>
                     <p>&nbsp;</p>
                     <p><a href=""http://www.playcreatediscover.com"">http://www.playcreatediscover.com</a></p>
                 </body>
