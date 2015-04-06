@@ -1,0 +1,56 @@
+﻿<form class="form-login" role="form" name="signup" novalidate>
+    <h2 class="form-login-heading">Sign up</h2>
+    <input type="text" class="form-control" placeholder="First Name" data-ng-model="registration.firstname" name="firstname" required autofocus>
+    <span style="color:red" ng-show="signup.firstname.$dirty && signup.firstname.$invalid">
+        <span ng-show="signup.firstname.$error.required">Name is required.</span>
+    </span>
+
+    <input type="text" class="form-control" placeholder="Last Name" data-ng-model="registration.lastname" name="lastname" required>
+    <span style="color: red" ng-show="signup.lastname.$dirty && signup.lastname.$invalid">
+        <span ng-show="signup.lastname.$error.required">Name is required.</span>
+    </span>
+    
+    <input type="email" class="form-control" placeholder="Email Address" data-ng-model="registration.emailaddress" name="emailaddress" 
+           ng-change="onchange()" ng-model-options="{updateOn: 'blur' }" required>
+    <span style="color: red" ng-show="signup.emailaddress.$dirty && signup.emailaddress.$invalid">
+        <span ng-show="signup.emailaddress.$error.required">Email is required.</span>
+        <span ng-show="signup.emailaddress.$error.email">Invalid email address.</span>
+    </span>
+
+    <input type="number" ng-minlength="10" ng-maxlength="10" class=" form-control" placeholder="Phone Number" data-ng-model="registration.phone" 
+           name="phone" ng-change="onchange()" ng-model-options="{updateOn: 'blur' }" required>
+    <span style="color: red" ng-show="signup.phone.$dirty && signup.phone.$invalid">
+        <span ng-show="signup.phone.$error.required">Phone number is required.</span>
+        <span ng-show="signup.phone.$error.number">Invalid telephone number.</span>
+        <span ng-show="signup.phone.$error.minlength">Telephone number must be at least 10 digits.</span>
+        <span ng-show="signup.phone.$error.maxlength">Telephone number must not be more than 10 digits.</span>
+    </span>
+
+    <input type="password" class="form-control" placeholder="Password" data-ng-model="registration.password" name="password" 
+           ng-change="onchange()" ng-model-options="{updateOn: 'blur' }" required>
+    <span style="color: red" ng-show="signup.password.$dirty && signup.password.$invalid">
+        <span ng-show="signup.password.$error.required">Password is required.</span>
+    </span>
+
+    <input type="password" class="form-control" placeholder="Confirm Password" data-ng-model="registration.passwordrepeat" 
+           data-password-verify="registration.password" name="passwordrepeat" ng-change="onchange()" ng-model-options="{updateOn: 'blur' }" required>
+    <span style="color: red" ng-show="signup.passwordrepeat.$dirty && signup.passwordrepeat.$invalid">
+        <span ng-show="signup.passwordrepeat.$error.required">Confirm password.</span>
+        <span ng-show="signup.passwordrepeat.$error.passwordVerify">Passwords do not match.</span>
+    </span>
+
+    <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="signUp()"
+            ng-disabled="(signup.firstname.$dirty && signup.firstname.$invalid) ||
+                            (signup.lastname.$dirty && signup.lastname.$invalid) ||
+                            (signup.emailaddress.$dirty && signup.emailaddress.$invalid) ||
+                            (signup.phone.$dirty && signup.phone.$invalid) ||
+                            (signup.password.$dirty && signup.password.$invalid) ||
+                            (signup.passwordrepeat.$dirty && signup.passwordrepeat.$invalid)">
+        <span ng-hide="busyDisabled"><i class="fa fa-refresh fa-spin"></i> Please wait...</span>
+        <span ng-show="busyDisabled">Submit</span>
+    </button>
+
+        <div data-ng-hide="message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+            {{message}}
+        </div>
+</form>
