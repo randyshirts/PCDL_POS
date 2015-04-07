@@ -16,7 +16,7 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
         authService.login($scope.loginData).then(function (response) {
 
             $scope.busyDisabled = true;
-            $location.path('/orders');
+            $location.path('/addItemsMain');
 
         },
          function (err) {

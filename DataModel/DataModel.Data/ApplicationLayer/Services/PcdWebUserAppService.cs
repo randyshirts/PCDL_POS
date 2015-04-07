@@ -425,7 +425,7 @@ namespace DataModel.Data.ApplicationLayer.Services
                     <h3>{TEXT_WELCOME}</h3>
                     <p>{TEXT_DESCRIPTION}</p>
                     <p>&nbsp;</p>
-                    <p>Click this <a href=""http://playcreatediscover.com/Account/ConfirmEmail?userId={USER_ID}&confirmationCode={CONFIRMATION_CODE}"">link</a> to activate your account</p>
+                    <p>Click this <a href=""http://playcreatediscover.com/api/Account/ConfirmEmail?userId={USER_ID}&confirmationCode={CONFIRMATION_CODE}"">link</a> to activate your account</p>
                     <p>&nbsp;</p>
                     <p><a href=""http://www.playcreatediscover.com"">http://www.playcreatediscover.com</a></p>
                 </body>

@@ -1,5 +1,5 @@
 ﻿
-var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ng-currency', 'smart-table']);
+var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ng-currency', 'smart-table', 'ngCookies']);
 
 app.config(function ($routeProvider) {
 
@@ -82,8 +82,8 @@ app.config(function ($routeProvider) {
 
 });
 
-var serviceBase = 'http://localhost:61754/';
-//var serviceBase = 'http://www.playcreatediscover.com/';
+//var serviceBase = 'http://localhost:61754/';
+var serviceBase = 'http://playcreatediscover.com/';
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     clientId: 'ngAuthApp'
@@ -91,6 +91,7 @@ app.constant('ngAuthSettings', {
 
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
+    $httpProvider.defaults.withCredentials = true;
 });
 
 app.run(['authService', function (authService) {

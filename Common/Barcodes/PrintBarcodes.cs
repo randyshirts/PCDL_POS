@@ -86,19 +86,19 @@ namespace Common.Barcodes
 
                     if (bi.IsDiscountable)
                     {
-                        x = x + 124;
+                        x = x + 135;
                         text.Text = bi.DateListed.ToString("MM/dd/yy");
                         result = text.Draw(page, x, y);
                         page = result.Page;                        
-                        x = x - 124;
+                        x = x - 135;
                     }
                     else
                     {
-                        x = x + 120;
+                        x = x + 135;
                         text.Text = "ND";
                         result = text.Draw(page, x, y);
                         page = result.Page;
-                        x = x - 120;
+                        x = x - 135;
                     }
                     y = result.Bounds.Bottom + 2;
                     x = x - 40;

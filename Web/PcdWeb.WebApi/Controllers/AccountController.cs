@@ -159,7 +159,7 @@ namespace PcdWeb.Controllers
             var result = _userAppService.ConfirmEmail(input);
 
             var response = Request.CreateResponse(HttpStatusCode.Moved);
-            response.Headers.Location = new Uri("http://localhost:61754/#/emailConfirmed");
+            response.Headers.Location = new Uri("http://www.playcreatediscover.com/#/emailConfirmed");
             return response;
 
         }
@@ -374,6 +374,7 @@ namespace PcdWeb.Controllers
         }
 
         // GET: /Account/ChangePassword
+        [System.Web.Http.Authorize]
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [System.Web.Http.Route("ChangePassword")]
         public IHttpActionResult ChangePassword(ChangePasswordInput input)
@@ -456,6 +457,7 @@ namespace PcdWeb.Controllers
             }
         }
 
+        [System.Web.Http.Authorize]
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [System.Web.Http.Route("UpdatePerson")]
         public IHttpActionResult UpdatePerson(UserInfoOutput input)
