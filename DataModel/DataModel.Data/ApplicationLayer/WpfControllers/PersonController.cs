@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AutoMapper;
 using DataModel.Data.ApplicationLayer.DTO;
 using DataModel.Data.ApplicationLayer.Services;
 using DataModel.Data.DataLayer.Entities;

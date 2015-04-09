@@ -184,7 +184,6 @@
     <None Include="Application.ico">
       <Visible>false</Visible>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\OnlinePurchase\ViewModel\" />

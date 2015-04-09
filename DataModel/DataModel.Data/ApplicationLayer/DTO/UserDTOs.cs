@@ -348,11 +348,11 @@ namespace DataModel.Data.ApplicationLayer.DTO
             //                             )
             //    ).ReverseMap();
 
-            AutoMapper.Mapper.CreateMap<RegisterUserInput, User>();
+            //AutoMapper.Mapper.CreateMap<RegisterUserInput, User>();
 
-            AutoMapper.Mapper.CreateMap<User, UserDto>().ReverseMap();
+            //AutoMapper.Mapper.CreateMap<User, UserDto>().ReverseMap();
 
-            AutoMapper.Mapper.CreateMap<RegisterUserInput, User>();
+            //AutoMapper.Mapper.CreateMap<RegisterUserInput, User>();
         }
 
 

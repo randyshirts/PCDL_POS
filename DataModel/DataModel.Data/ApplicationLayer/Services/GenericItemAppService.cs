@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Abp.Application.Services;
-using AutoMapper;
 using DataModel.Data.ApplicationLayer.DTO;
 using DataModel.Data.DataLayer.Entities;
 using DataModel.Data.DataLayer.Repositories;

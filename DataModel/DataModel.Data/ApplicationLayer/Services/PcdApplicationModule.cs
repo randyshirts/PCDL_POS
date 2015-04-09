@@ -1,15 +1,15 @@
 ﻿using System.Reflection;
 using Abp.Modules;
-using PcdWeb;
+//using PcdWeb;
 
 namespace DataModel.Data.ApplicationLayer.Services
 {
-    [DependsOn(typeof(PcdWebCoreModule))]
+    //[DependsOn(typeof(PcdWebCoreModule))]
     public class PcdApplicationModule : AbpModule
     {
-        public override void Initialize()
-        {
-            IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
-        }
+        //public override void Initialize()
+        //{
+        //    IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
+        //}
     }
 }

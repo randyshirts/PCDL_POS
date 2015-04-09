@@ -61,9 +61,6 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\..\Dependencies\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper">
-      <HintPath>..\..\Web\PcdWeb.Web\Bin\AutoMapper.dll</HintPath>
-    </Reference>
     <Reference Include="Castle.Core">
       <HintPath>..\..\Dependencies\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
@@ -391,10 +388,6 @@
     <ProjectReference Include="..\..\Common\Common.csproj">
       <Project>{d30d964b-3a26-445d-80f2-d94bd4c60f3d}</Project>
       <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Web\PcdWeb.Core\PcdWeb.Core.csproj">
-      <Project>{17298EA0-AF73-4F30-B6F1-2066100D7D74}</Project>
-      <Name>PcdWeb.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

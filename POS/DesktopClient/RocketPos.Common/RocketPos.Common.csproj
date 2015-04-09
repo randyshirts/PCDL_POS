@@ -111,10 +111,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
     <None Include="Service References\AmazonAWS\AWSECommerceService1.wsdl" />
     <None Include="Service References\AmazonAWS\RocketPos.Common.AmazonAWS.BrowseNodeLookupResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
