@@ -5,11 +5,11 @@ using Abp.Modules;
 using DataModel.Data.ApplicationLayer.Identity;
 using DataModel.Data.TransactionalLayer.Repositories;
 using Owin;
-using PcdWeb;
+//using PcdWeb;
 
 namespace DataModel.Data.DataLayer
 {
-    [DependsOn(typeof(AbpEntityFrameworkModule), typeof(PcdWebCoreModule))]
+    //[DependsOn(typeof(AbpEntityFrameworkModule), typeof(PcdWebCoreModule))]
     public class PcdWebDataModule : AbpModule
     {
         public override void PreInitialize()
@@ -19,7 +19,7 @@ namespace DataModel.Data.DataLayer
 
         public override void Initialize()
         {
-            IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
+            //IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
             //Database.SetInitializer<PcdWebDbContext>(null);
         }
 

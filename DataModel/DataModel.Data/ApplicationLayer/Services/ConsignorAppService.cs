@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Abp.Application.Services;
-using AutoMapper;
 using DataModel.Data.ApplicationLayer.DTO;
 using DataModel.Data.DataLayer.Repositories;
 using DataModel.Data.TransactionalLayer.Repositories;

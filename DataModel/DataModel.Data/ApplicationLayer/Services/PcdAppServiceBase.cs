@@ -1,5 +1,5 @@
 ﻿using Abp.Application.Services;
-using PcdWeb;
+//using PcdWeb;
 
 namespace DataModel.Data.ApplicationLayer.Services
 {
@@ -8,9 +8,9 @@ namespace DataModel.Data.ApplicationLayer.Services
     /// </summary>
     public abstract class PcdAppServiceBase : ApplicationService
     {
-        protected PcdAppServiceBase()
-        {
-            LocalizationSourceName = PcdWebConsts.WebLocalizationSourceName;
-        }
+        //protected PcdAppServiceBase()
+        //{
+        //    LocalizationSourceName = PcdWebConsts.WebLocalizationSourceName;
+        //}
     }
 }
