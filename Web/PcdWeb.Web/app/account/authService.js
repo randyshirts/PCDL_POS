@@ -108,20 +108,21 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     
     var _recoverPassword = function (userInfo) {
 
-        return $http.post(serviceBase + 'api/account/recoverpassword', userInfo, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(function (response) {
+        //return $http.post(serviceBase + 'api/account/recoverpassword', userInfo, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(function (response) {
+        return $http.post(serviceBase + 'api/account/recoverpassword', userInfo).then(function (response) {
             return response;
         });
 
     };
 
     var _resetPassword = function(userInfo) {
-        return $http.post(serviceBase + 'api/account/resetpassword', userInfo, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(function (response) {
+        return $http.post(serviceBase + 'api/account/resetpassword', userInfo).then(function (response) {
             return response;
         });
     };
 
     var _changePassword = function (userInfo) {
-        return $http.post(serviceBase + 'api/account/changepassword', userInfo, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(function (response) {
+        return $http.post(serviceBase + 'api/account/changepassword', userInfo).then(function (response) {
             return response;
         });
     };

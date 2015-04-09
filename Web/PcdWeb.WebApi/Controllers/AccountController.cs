@@ -343,7 +343,7 @@ namespace PcdWeb.Controllers
 
             //Navigate to reset password page
             var response = Request.CreateResponse(HttpStatusCode.Moved);
-            response.Headers.Location = new Uri("http://localhost:61754/#/resetPassword");
+            response.Headers.Location = new Uri("http://www.playcreatediscover.com/#/resetPassword");
             return resetCode == null ? Request.CreateResponse(HttpStatusCode.BadRequest) : response;
         }
        
@@ -377,11 +377,11 @@ namespace PcdWeb.Controllers
         [System.Web.Http.Authorize]
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [System.Web.Http.Route("ChangePassword")]
-        public IHttpActionResult ChangePassword(ChangePasswordInput input)
+        public async Task<IHttpActionResult> ChangePassword(ChangePasswordInput input)
         {   
             try
             {
-                _userAppService.ChangePassword(input);
+                await _userAppService.ChangePassword(input);
                 return Ok("success");
             }
             catch (Exception ex)

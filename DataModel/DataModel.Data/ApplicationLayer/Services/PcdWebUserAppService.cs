@@ -476,7 +476,7 @@ namespace DataModel.Data.ApplicationLayer.Services
                     <h3>{TEXT_WELCOME}</h3>
                     <p>{TEXT_DESCRIPTION}</p>
                     <p>&nbsp;</p>
-                    <p><a href=""http://www.playcreatediscover.com/api/Account/ResetPassword?UserId={USER_ID}&ResetCode={RESET_CODE}"">http://localhost:61754/api/Account/ResetPassword?UserId={USER_ID}&amp;ResetCode={RESET_CODE}</a></p>
+                    <p>Click this <a href=""http://playcreatediscover.com/api/Account/ResetPassword?UserId={USER_ID}&ResetCode={RESET_CODE}"">link</a> to reset your password</p>
                     <p>&nbsp;</p>
                     <p><a href=""http://www.playcreatediscover.com"">http://www.playcreatediscover.com</a></p>
                 </body>
