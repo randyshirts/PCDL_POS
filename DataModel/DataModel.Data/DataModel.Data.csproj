@@ -61,9 +61,6 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\..\Dependencies\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper">
-      <HintPath>..\..\Web\PcdWeb.Web\Bin\AutoMapper.dll</HintPath>
-    </Reference>
     <Reference Include="Castle.Core">
       <HintPath>..\..\Dependencies\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
