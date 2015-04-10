@@ -18,18 +18,18 @@ namespace ManagementTool.ViewModels.Login
     public class AuthenticationVm : ViewModel
     {
         private readonly IAuthenticationService _authenticationService;
-        private readonly DelegateCommand _loginCommand;
-        private readonly DelegateCommand _logoutCommand;
-        private readonly DelegateCommand _showViewCommand;
+        private readonly ActionCommand _loginCommand;
+        private readonly ActionCommand _logoutCommand;
+        private readonly ActionCommand _showViewCommand;
         private string _username;
         private string _status;
 
         public AuthenticationVm(IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;
-            _loginCommand = new DelegateCommand(Login, CanLogin);
-            _logoutCommand = new DelegateCommand(Logout, CanLogout);
-            _showViewCommand = new DelegateCommand(ShowView, null);
+            _loginCommand = new ActionCommand(Login, CanLogin);
+            _logoutCommand = new ActionCommand(Logout, CanLogout);
+            _showViewCommand = new ActionCommand(ShowView, null);
         }
 
         #region Properties
@@ -73,17 +73,17 @@ namespace ManagementTool.ViewModels.Login
 
         #region Commands
 
-        public DelegateCommand LoginCommand
+        public ActionCommand LoginCommand
         {
             get { return _loginCommand; }
         }
 
-        public DelegateCommand LogoutCommand
+        public ActionCommand LogoutCommand
         {
             get { return _logoutCommand; }
         }
 
-        public DelegateCommand ShowViewCommand
+        public ActionCommand ShowViewCommand
         {
             get { return _showViewCommand; }
         }
@@ -109,9 +109,9 @@ namespace ManagementTool.ViewModels.Login
                 customPrincipal.Identity = new CustomIdentity(user.Username, user.Email, user.Roles);
 
                 //Update UI
-                NotifyPropertyChanged("AuthenticatedUser");
-                NotifyPropertyChanged("IsAuthenticated");
-                _loginCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged("AuthenticatedUser");
+                OnPropertyChanged("IsAuthenticated");
+                _loginCommand.CanExecute();
                 _logoutCommand.RaiseCanExecuteChanged();
                 Username = string.Empty; //reset
                 passwordBox.Password = string.Empty; //reset

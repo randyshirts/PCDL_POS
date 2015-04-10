@@ -68,7 +68,7 @@ namespace Common.Barcodes
 
 
                     //Draw title
-                    text.Text = (bi.Title.Length > 15) ? bi.Title.Remove(15) : bi.Title;
+                    text.Text = (bi.Title.Length > 40) ? bi.Title.Remove(40) : bi.Title;
                     result = text.Draw(page, x, y);
                     page = result.Page;
                     y = result.Bounds.Bottom + 2;

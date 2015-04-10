@@ -201,6 +201,7 @@
     <Content Include="app\directives\csselectDirective.js" />
     <Content Include="app\directives\currencyDirective.js" />
     <Content Include="app\directives\onlyDigitsDirective.js" />
+    <Content Include="app\filters\trueFalse.js" />
     <Content Include="app\main\homeController.js" />
     <Content Include="app\main\indexController.js" />
     <Content Include="app\account\loginController.js" />
