@@ -14,13 +14,13 @@
         </thead>
         <tbody>
             <tr ng-repeat="row in grid.itemsCollection">
-                <td> <input type="checkbox" ng-model="row.print"></td>              
+                <td> <input type="checkbox" ng-model="row.print" ng-init="row.print=true"></td>              
                 <td>{{row.title}}</td>
                 <td>{{row.barcode}}</td>
                 <td>{{row.subject}}</td>
                 <td>{{row.dateAdded | date}}</td>
                 <td>{{row.price | currency}}</td>
-                <td>{{row.discounted}}</td>
+                <td>{{row.discounted | true_false}}</td>
             </tr>
         </tbody>
     </table>
@@ -31,4 +31,15 @@
     <!--<div data-ng-hide="grid.message == ''" data-ng-class="(grid.savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
         {{grid.message}}
     </div>-->
+    <div>
+        <br/>
+        <br/>
+        <h2>Notes on Printing Barcodes</h2>
+        <p>You must have a <a target="_blank" href="http://get.adobe.com/reader/">PDF reader</a> installed.</p>
+        <p>Pop-ups must be enabled in your browser to view and print barcodes</p>
+        <p>Once the pdf appears in your pdf viewer - print the document, or save the pdf to print later.</p>
+        <p>If you close this tab and logout this page will no longer show your added items.
+            To print barcodes which were added but are not displayed please contact
+            playcreatedisver@gmail.com or come to the center at 1200 Jordan Ln. St. 8, Huntsville, AL </p>
+    </div>
 </div>
