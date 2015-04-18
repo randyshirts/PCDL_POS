@@ -425,11 +425,12 @@ namespace DataModel.Data.ApplicationLayer.Services
                     <h3>{TEXT_WELCOME}</h3>
                     <p>{TEXT_DESCRIPTION}</p>
                     <p>&nbsp;</p>
-                    <p>Click this <a href=""http://playcreatediscover.com/api/Account/ConfirmEmail?userId={USER_ID}&confirmationCode={CONFIRMATION_CODE}"">link</a> to activate your account</p>
+                    <p>Click this <a href=""http://www.playcreatediscover.com/api/Account/ConfirmEmail?userId={USER_ID}&confirmationCode={CONFIRMATION_CODE}"">link</a> to activate your account</p>
                     <p>&nbsp;</p>
-                    <p><a href=""http://www.playcreatediscover.com"">http://www.playcreatediscover.com</a></p>
+                    
                 </body>
                 </html>");
+            //<p><a href=""http://www.playcreatediscover.com"">http://www.playcreatediscover.com</a></p>
 
             mailBuilder.Replace("{TEXT_HTML_TITLE}", "Email confirmation for Play Create Discover");
             mailBuilder.Replace("{TEXT_WELCOME}", "Welcome to PlayCreateDiscover.com!");
@@ -476,11 +477,11 @@ namespace DataModel.Data.ApplicationLayer.Services
                     <h3>{TEXT_WELCOME}</h3>
                     <p>{TEXT_DESCRIPTION}</p>
                     <p>&nbsp;</p>
-                    <p>Click this <a href=""http://playcreatediscover.com/api/Account/ResetPassword?UserId={USER_ID}&ResetCode={RESET_CODE}"">link</a> to reset your password</p>
-                    <p>&nbsp;</p>
-                    <p><a href=""http://www.playcreatediscover.com"">http://www.playcreatediscover.com</a></p>
+                    <p>Click this <a href=""http://www.playcreatediscover.com/api/Account/ResetPassword?UserId={USER_ID}&ResetCode={RESET_CODE}"">link</a> to reset your password</p>
+                    <p>&nbsp;</p>                   
                 </body>
                 </html>");
+            //<p><a href=""http://www.playcreatediscover.com"">http://www.playcreatediscover.com</a></p>
 
             mailBuilder.Replace("{TEXT_HTML_TITLE}", "Password reset for Play Create Discover");
             mailBuilder.Replace("{TEXT_WELCOME}", "Reset your password on Play Create Discover!");
