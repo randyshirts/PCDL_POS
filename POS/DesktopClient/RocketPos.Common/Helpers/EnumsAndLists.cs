@@ -86,6 +86,7 @@ namespace RocketPos.Common.Helpers
             "English K-6",
             "English 7-12",
             "Music",
+            "Foreign Language",
             "Art",
             "Games",
             "Videos",
