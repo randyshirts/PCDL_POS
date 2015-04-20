@@ -201,6 +201,7 @@
     <Content Include="app\directives\csselectDirective.js" />
     <Content Include="app\directives\currencyDirective.js" />
     <Content Include="app\directives\onlyDigitsDirective.js" />
+    <Content Include="app\filters\trueFalse.js" />
     <Content Include="app\main\homeController.js" />
     <Content Include="app\main\indexController.js" />
     <Content Include="app\account\loginController.js" />
@@ -245,9 +246,6 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\images\icon.png" />
-    <Content Include="Content\images\ios-startup-image-landscape.png" />
-    <Content Include="Content\images\ios-startup-image-portrait.png" />
     <Content Include="Content\jquery.fancybox-buttons.css" />
     <Content Include="Content\jquery.fancybox-thumbs.css" />
     <Content Include="Content\jquery.fancybox.css" />
@@ -291,6 +289,10 @@
     <Content Include="Images\home\books on shelf2.png" />
     <Content Include="Images\home\Play Create Discover llc.png" />
     <Content Include="Images\home\Play Create Discover llc2.png" />
+    <Content Include="Images\print\2-DSCF4301_small.png" />
+    <Content Include="Images\print\20150416_075437_small.png" />
+    <Content Include="Images\print\20150416_075516_small.png" />
+    <Content Include="Images\print\3-DSCF4303_small.png" />
     <Content Include="index.html" />
     <Content Include="Localization\AbpWeb\AbpWeb.tr.xml" />
     <Content Include="Localization\AbpWeb\AbpWeb.xml" />

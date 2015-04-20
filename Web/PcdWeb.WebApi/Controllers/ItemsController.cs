@@ -9,6 +9,7 @@ using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
 using Abp.UI;
+using Castle.Core.Internal;
 using Common.Barcodes;
 using DataModel.Data.ApplicationLayer.DTO;
 using DataModel.Data.ApplicationLayer.Services;
@@ -123,6 +124,7 @@ namespace PcdWeb.Controllers
             if (model.ItemType == "book")
             {
                 //Add Book
+                model.Isbn = model.Isbn.IsNullOrEmpty() ? "9999999999" : model.Isbn;
                 output = AddBook(model, consignor);
                 output.DateAdded = DateTime.Now.ToShortDateString();
                 return Ok(output);
