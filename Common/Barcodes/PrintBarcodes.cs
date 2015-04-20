@@ -21,10 +21,10 @@ namespace Common.Barcodes
             var unitCvtr = new PdfUnitConvertor();
             var margin = new PdfMargins
             {
-                Top = unitCvtr.ConvertUnits(2.00f, PdfGraphicsUnit.Centimeter, PdfGraphicsUnit.Point)
+                Top = unitCvtr.ConvertUnits(0.00f, PdfGraphicsUnit.Centimeter, PdfGraphicsUnit.Point)
             };
             margin.Bottom = margin.Top;
-            margin.Left = unitCvtr.ConvertUnits(2.50f, PdfGraphicsUnit.Centimeter, PdfGraphicsUnit.Point);
+            margin.Left = unitCvtr.ConvertUnits(1.00f, PdfGraphicsUnit.Centimeter, PdfGraphicsUnit.Point);
             margin.Right = margin.Left;
 
             var section = doc.Sections.Add();
@@ -54,15 +54,15 @@ namespace Common.Barcodes
 
                     if (((count%5) == 0) && ((count%10) != 0))
                     {
-                        y = 40;
-                        x = 220;
+                        y = 60;
+                        x = 270;
                     }
 
                     if (((count%10) == 0) && ((count != 0)))
                     {
                         // Create one page  
                         page = section.Pages.Add();
-                        y = 40;
+                        y = 60;
                         x = 0;
                     }
 
@@ -72,7 +72,7 @@ namespace Common.Barcodes
                     result = text.Draw(page, x, y);
                     page = result.Page;
                     y = result.Bounds.Bottom + 2;
-                    x = 0;
+                    //x = 0;
 
                     //draw date, subject, and price
                     text.Text = bi.PriceListed.ToString("c2");
