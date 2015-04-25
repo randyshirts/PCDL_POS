@@ -103,6 +103,9 @@ namespace DataModel.Data.ApplicationLayer.Services
 
         public SearchAllItemsOutput SearchAllItems(SearchAllItemsInput input)
         {
+            if (input.ItemType == "Teaching Aide")
+                input.ItemType = "TeachingAide";
+
             return new SearchAllItemsOutput
             {
                 Items = _itemRepository.SearchAllItems(input.Barcode, 
