@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
 using Abp.UI;
+using Castle.Core.Internal;
 using DataModel.Data.ApplicationLayer.DTO;
 using DataModel.Data.ApplicationLayer.Identity;
 using DataModel.Data.ApplicationLayer.Utils.Email;
@@ -19,14 +21,16 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace DataModel.Data.ApplicationLayer.Services
 {
-    public class PcdWebUserAppService : IPcdWebUserAppService
+    public class PcdUserAppService : IPcdUserAppService
     {
-        private readonly IPcdWebUserRepository _userRepository;
+
+        #region Constructors and Properties
+        private readonly IPcdUserRepository _userRepository;
         private readonly IIdentityMessageService _emailService;
 
-        public PcdWebUserAppService()
+        public PcdUserAppService()
         {
-            _userRepository = new PcdWebUserRepository();
+            _userRepository = new PcdUserRepository();
             //_friendshipRepository = friendshipRepository;
             _emailService = new EmailService();
             //_userManager = new PcdUserManager();
@@ -66,7 +70,10 @@ namespace DataModel.Data.ApplicationLayer.Services
                 return HttpContext.Current.GetOwinContext().Authentication;
             }
         }
+        #endregion
 
+
+        #region UserManager Section
         public IEnumerable<UserDto> GetAllUsers()
         {
             return _userRepository.GetAllList().Select(u => new UserDto(u));
@@ -392,7 +399,70 @@ namespace DataModel.Data.ApplicationLayer.Services
             await SendConfirmationEmail(existingUser);
             return new SendConfirmationOutput { Result = true };
 
-        }       
+        }
+#endregion
+
+        #region RoleManager section
+        public async Task<CreateRoleOutput> CreateRole(CreateRoleInput input)
+        {
+                         
+            var role = new UserRole(input.Name, input.Description);
+     
+            var roleresult = await RoleManager.CreateAsync(role);
+            if (!roleresult.Succeeded)
+            {
+                return new CreateRoleOutput() {Res = CreateRoleOutput.Result.AddRoleFailed};
+            }
+            return new CreateRoleOutput() { Res = CreateRoleOutput.Result.Success };
+        
+        }
+
+        public async Task<EditUserRoleOutput> EditUserRole(EditUserRoleInput input)
+        {
+            if (input.Id != null)
+            {
+                var role = await RoleManager.FindByIdAsync(input.Id);
+                if (role != null)
+                {
+                    role.Name = input.Name;
+                    await RoleManager.UpdateAsync(role);
+                    return new EditUserRoleOutput() {Res = EditUserRoleOutput.Result.Success};
+                }
+                return new EditUserRoleOutput() {Res = EditUserRoleOutput.Result.IdNotFound};
+            }
+
+            return new EditUserRoleOutput() { Res = EditUserRoleOutput.Result.IdIsNull };
+        }
+
+        public async Task<DeleteRoleOutput> DeleteRole(DeleteRoleInput input)
+        {
+            if (input.Id == null)
+            {
+                return new DeleteRoleOutput() {Res = DeleteRoleOutput.Result.IdIsNull};
+            }
+            var role = await RoleManager.FindByIdAsync(input.Id);
+            if (role == null)
+            {
+                return new DeleteRoleOutput() {Res = DeleteRoleOutput.Result.RoleIsNull};
+            }
+
+            var result = await RoleManager.DeleteAsync(role);
+
+            if (!result.Succeeded)
+            {
+                return new DeleteRoleOutput() {Res = DeleteRoleOutput.Result.DeleteFailed};
+            }
+
+            return new DeleteRoleOutput() {Res = DeleteRoleOutput.Result.Success};
+        }
+
+        public GetRolesOutput GetRoles()
+        {
+            return new GetRolesOutput() {Roles = RoleManager.Roles.Select(r => (UserRole)r).ToList()};
+        }
+
+        #endregion
+
 
         #region Private methods
 

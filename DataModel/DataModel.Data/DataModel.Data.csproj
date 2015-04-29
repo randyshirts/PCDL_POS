@@ -212,7 +212,7 @@
     <Compile Include="ApplicationLayer\Services\IConsignorPmtAppService.cs" />
     <Compile Include="ApplicationLayer\Services\IEmailAppService.cs" />
     <Compile Include="ApplicationLayer\Services\IItemSaleTransactionAppService.cs" />
-    <Compile Include="ApplicationLayer\Services\IPcdWebUserAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\IPcdUserAppService.cs" />
     <Compile Include="ApplicationLayer\Services\IPersonAppService.cs" />
     <Compile Include="ApplicationLayer\Services\IStoreCreditPmtAppservice.cs" />
     <Compile Include="ApplicationLayer\Services\IStoreCreditTransactionAppService.cs" />
@@ -220,7 +220,7 @@
     <Compile Include="ApplicationLayer\Services\IVideoAppService.cs" />
     <Compile Include="ApplicationLayer\Services\PcdApplicationModule.cs" />
     <Compile Include="ApplicationLayer\Services\PcdAppServiceBase.cs" />
-    <Compile Include="ApplicationLayer\Services\PcdWebUserAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\PcdUserAppService.cs" />
     <Compile Include="ApplicationLayer\Services\PersonAppService.cs" />
     <Compile Include="ApplicationLayer\Services\StoreCreditPmtAppService.cs" />
     <Compile Include="ApplicationLayer\Services\StoreCreditTransactionAppService.cs" />
@@ -281,12 +281,12 @@
     </Compile>
     <Compile Include="TransactionalLayer\MigrationsSql\Configuration.cs" />
     <Compile Include="TransactionalLayer\Repositories\EmailRepository.cs" />
-    <Compile Include="TransactionalLayer\Repositories\IPcdWebUserRepository.cs" />
+    <Compile Include="TransactionalLayer\Repositories\IPcdUserRepository.cs" />
     <Compile Include="TransactionalLayer\Repositories\IRepository.cs" />
     <Compile Include="DataLayer\Repositories\ISoftDelete.cs" />
     <Compile Include="TransactionalLayer\Repositories\IGenericItemRepository.cs" />
     <Compile Include="TransactionalLayer\Repositories\PcdRoleManager.cs" />
-    <Compile Include="TransactionalLayer\Repositories\PcdWebUserRepository.cs" />
+    <Compile Include="TransactionalLayer\Repositories\PcdUserRepository.cs" />
     <Compile Include="TransactionalLayer\Repositories\RepositoryInterfaces.cs" />
     <Compile Include="DataLayer\Repositories\PcdRepositoryBase.cs" />
     <Compile Include="TransactionalLayer\Repositories\RepositoryBase.cs" />

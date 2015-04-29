@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace DataModel.Data.TransactionalLayer.Repositories
 {
-    public class PcdWebUserRepository : PcdRepositoryBase<User, string>, IPcdWebUserRepository
+    public class PcdUserRepository : PcdRepositoryBase<User, string>, IPcdUserRepository
     {
         private PcdUserManager _userManager;
         public PcdUserManager UserManager

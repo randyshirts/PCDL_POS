@@ -60,6 +60,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModels\Login\AuthenticationVm.cs" />
+    <Compile Include="ViewModels\RoleAdmin\RoleAdminView.xaml.cs">
+      <DependentUpon>RoleAdminView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RoleAdmin\RoleAdminVm.cs" />
+    <Compile Include="Views\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SecretWindow.xaml.cs">
+      <DependentUpon>SecretWindow.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthenticationService.cs" />
@@ -96,6 +106,20 @@
       <Project>{732b3834-f3a3-498f-b4df-c42229fcaa71}</Project>
       <Name>RocketPos.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ViewModels\RoleAdmin\RoleAdminView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SecretWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

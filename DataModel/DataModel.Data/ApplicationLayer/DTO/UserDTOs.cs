@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Claims;
@@ -333,28 +334,61 @@ namespace DataModel.Data.ApplicationLayer.DTO
         public bool ShouldLockout { get; set; }
     }
 
-    public static class UserDtosMapper
+    public class EditUserRoleInput : IInputDto
     {
-        public static void Map()
+        public string Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class EditUserRoleOutput : IOutputDto
+    {
+        public Result Res { get; set; }
+
+        public enum Result
         {
-            //AutoMapper.Mapper.CreateMap<User, UserDto>()
-            //    .ForMember(
-            //        user => user.ProfileImage,
-            //        configuration => configuration.ResolveUsing(
-            //            user => user.ProfileImage == null
-            //                //TODO: How to implement this?
-            //                        ? ""
-            //                        : "ProfileImages/" + user.ProfileImage
-            //                             )
-            //    ).ReverseMap();
-
-            //AutoMapper.Mapper.CreateMap<RegisterUserInput, User>();
-
-            //AutoMapper.Mapper.CreateMap<User, UserDto>().ReverseMap();
-
-            //AutoMapper.Mapper.CreateMap<RegisterUserInput, User>();
+            IdIsNull,
+            IdNotFound,
+            Success
         }
+    }
 
+    public class CreateRoleInput : IInputDto
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
 
+    public class CreateRoleOutput : IOutputDto
+    {
+        public Result Res { get; set; }
+
+        public enum Result
+        {
+            AddRoleFailed,
+            Success
+        }
+    }
+
+    public class DeleteRoleOutput : IOutputDto
+    {
+        public Result Res { get; set; }
+
+        public enum Result
+        {
+            IdIsNull,
+            RoleIsNull,
+            DeleteFailed,
+            Success
+        }
+    }
+
+    public class DeleteRoleInput : IInputDto
+    {
+        public string Id { get; set; }
+    }
+
+    public class GetRolesOutput : IOutputDto
+    {
+        public List<UserRole> Roles { get; set; }
     }
 }

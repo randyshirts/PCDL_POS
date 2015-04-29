@@ -16,10 +16,10 @@ namespace PcdWeb.Providers
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
         //private AuthRepository _repo = null;
-        private readonly IPcdWebUserAppService _userAppService;
+        private readonly IPcdUserAppService _userAppService;
         public SimpleAuthorizationServerProvider()
         {
-            _userAppService = new PcdWebUserAppService();
+            _userAppService = new PcdUserAppService();
         }
         
         //public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)

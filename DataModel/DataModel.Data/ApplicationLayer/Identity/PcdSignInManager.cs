@@ -14,7 +14,7 @@ namespace DataModel.Data.ApplicationLayer.Identity
         public PcdSignInManager(PcdUserManager userManager, IAuthenticationManager authenticationManager) :
             base(userManager, authenticationManager) { }
 
-        public Task<ClaimsIdentity> CreateUserIdentityAsync(PcdWebUserRepository userRepo, User user)
+        public Task<ClaimsIdentity> CreateUserIdentityAsync(PcdUserRepository userRepo, User user)
         {
             return userRepo.GenerateUserIdentityAsync((PcdUserManager)UserManager, user);
         }

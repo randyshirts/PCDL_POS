@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Security;
+using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using ManagementTool.ViewModels.RoleAdmin;
+using ManagementTool.Views;
 using RocketPos.Common.Foundation;
 
 namespace ManagementTool.ViewModels.Login
@@ -15,14 +18,13 @@ namespace ManagementTool.ViewModels.Login
     {
     }
 
-    public class AuthenticationVm : ViewModel
+    public class AuthenticationVm : ViewModel, IViewModel
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly ActionCommand _loginCommand;
         private readonly ActionCommand _logoutCommand;
         private readonly ActionCommand _showViewCommand;
-        private string _username;
-        private string _status;
+       
 
         public AuthenticationVm(IAuthenticationService authenticationService)
         {
@@ -30,17 +32,21 @@ namespace ManagementTool.ViewModels.Login
             _loginCommand = new ActionCommand(Login, CanLogin);
             _logoutCommand = new ActionCommand(Logout, CanLogout);
             _showViewCommand = new ActionCommand(ShowView, null);
+
+            LoginEnabled = true;
+            LogoutEnabled = false;
         }
 
         #region Properties
 
+        private string _username;
         public string Username
         {
             get { return _username; }
             set
             {
                 _username = value;
-                NotifyPropertyChanged("Username");
+                OnPropertyChanged();
             }
         }
 
@@ -59,16 +65,38 @@ namespace ManagementTool.ViewModels.Login
             }
         }
 
+        private string _status;
         public string Status
         {
             get { return _status; }
             set
             {
                 _status = value;
-                NotifyPropertyChanged("Status");
+                OnPropertyChanged();
             }
         }
 
+        private bool _loginEnabled;
+        public bool LoginEnabled
+        {
+            get { return _loginEnabled;}
+            set
+            {
+                _loginEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _logoutEnabled;
+        public bool LogoutEnabled
+        {
+            get { return _logoutEnabled; }
+            set
+            {
+                _logoutEnabled = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
 
         #region Commands
@@ -111,8 +139,9 @@ namespace ManagementTool.ViewModels.Login
                 //Update UI
                 OnPropertyChanged("AuthenticatedUser");
                 OnPropertyChanged("IsAuthenticated");
-                _loginCommand.CanExecute();
-                _logoutCommand.RaiseCanExecuteChanged();
+                LoginEnabled = false;
+                LogoutEnabled = true;
+                //_logoutCommand.RaiseCanExecuteChanged();
                 Username = string.Empty; //reset
                 passwordBox.Password = string.Empty; //reset
                 Status = string.Empty;
@@ -138,10 +167,10 @@ namespace ManagementTool.ViewModels.Login
             if (customPrincipal != null)
             {
                 customPrincipal.Identity = new AnonymousIdentity();
-                NotifyPropertyChanged("AuthenticatedUser");
-                NotifyPropertyChanged("IsAuthenticated");
-                _loginCommand.RaiseCanExecuteChanged();
-                _logoutCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged("AuthenticatedUser");
+                OnPropertyChanged("IsAuthenticated");
+                LoginEnabled = true;
+                LogoutEnabled = false;
                 Status = string.Empty;
             }
         }
@@ -165,7 +194,7 @@ namespace ManagementTool.ViewModels.Login
                 if (parameter == null)
                     view = new SecretWindow();
                 else
-                    view = new AdminWindow();
+                    view = new RoleAdminView();
 
                 view.Show();
             }
@@ -176,16 +205,16 @@ namespace ManagementTool.ViewModels.Login
         }
 
 
-        #region INotifyPropertyChanged Members
+        //#region INotifyPropertyChanged Members
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
+        //private void NotifyPropertyChanged(string propertyName)
+        //{
+        //    if (PropertyChanged != null)
+        //        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        //}
 
-        #endregion
+        //#endregion
     }
 }

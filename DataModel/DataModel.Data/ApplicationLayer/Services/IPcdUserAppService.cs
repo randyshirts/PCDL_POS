@@ -5,7 +5,7 @@ using DataModel.Data.ApplicationLayer.DTO;
 
 namespace DataModel.Data.ApplicationLayer.Services
 {
-    public interface IPcdWebUserAppService : IApplicationService
+    public interface IPcdUserAppService : IApplicationService
     {
         IEnumerable<UserDto> GetAllUsers();
 

@@ -362,15 +362,15 @@ namespace Inventory.Controller.Elements.ItemElements
                 newItem.Barcode = Barcode;
                 newItem.IsDiscountable = IsDiscountable;
                 newItem.Book = Consignor_Book;
-                newItem.Id = Consignor_Item.Id;               
+                newItem.BookId = Consignor_Item.BookId;               
                 newItem.Game = Consignor_Game;
-                newItem.Id = Consignor_Item.Id;
+                newItem.GameId = Consignor_Item.GameId;
                 newItem.Other = Consignor_Other;
-                newItem.Id = Consignor_Item.Id;
+                newItem.OtherId = Consignor_Item.OtherId;
                 newItem.TeachingAide = Consignor_TeachingAide;
-                newItem.Id = Consignor_Item.Id;
+                newItem.TeachingAideId = Consignor_Item.TeachingAideId;
                 newItem.Video = Consignor_Video;
-                newItem.Id = Consignor_Item.Id;
+                newItem.VideoId = Consignor_Item.VideoId;
             
             }
             else
@@ -388,15 +388,15 @@ namespace Inventory.Controller.Elements.ItemElements
                 newItem.Barcode = Barcode;
                 newItem.IsDiscountable = IsDiscountable;
                 newItem.Book = Consignor_Book;
-                newItem.Id = Consignor_Item.Id;
+                newItem.BookId = Consignor_Item.BookId;
                 newItem.Game = Consignor_Game;
-                newItem.Id = Consignor_Item.Id;
+                newItem.GameId = Consignor_Item.GameId;
                 newItem.Other = Consignor_Other;
-                newItem.Id = Consignor_Item.Id;
+                newItem.OtherId = Consignor_Item.OtherId;
                 newItem.TeachingAide = Consignor_TeachingAide;
-                newItem.Id = Consignor_Item.Id;
+                newItem.TeachingAideId = Consignor_Item.TeachingAideId;
                 newItem.Video = Consignor_Video;
-                newItem.Id = Consignor_Item.Id;
+                newItem.VideoId = Consignor_Item.VideoId;
             }
             return newItem;
         }

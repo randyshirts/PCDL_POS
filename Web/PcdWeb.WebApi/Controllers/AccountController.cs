@@ -38,10 +38,10 @@ namespace PcdWeb.Controllers
         }
 
         //private AuthRepository _repo = null;
-        private readonly IPcdWebUserAppService _userAppService;
+        private readonly IPcdUserAppService _userAppService;
         public AccountController()
         {
-            _userAppService = new PcdWebUserAppService();
+            _userAppService = new PcdUserAppService();
         }
 
         // POST api/Account/Register

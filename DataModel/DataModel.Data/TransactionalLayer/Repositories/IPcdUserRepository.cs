@@ -8,7 +8,7 @@ using DataModel.Data.DataLayer.Entities;
 
 namespace DataModel.Data.TransactionalLayer.Repositories
 {
-    public interface IPcdWebUserRepository : IRepository<User, string>
+    public interface IPcdUserRepository : IRepository<User, string>
     {
         bool UpdateConfirmationCode(User user);
         bool ResetPassword(string userId, string password);
