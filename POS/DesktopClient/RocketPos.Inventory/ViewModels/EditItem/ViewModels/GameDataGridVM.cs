@@ -56,7 +56,7 @@ namespace Inventory.ViewModels.EditItem.ViewModels
             Messenger.Default.Register<PropertySetter>(this, EditItemVm.Token, msg => SetDataGridGames(msg.PropertyName, msg.PropertyValue));
 
             //Fill grid with all games on record
-            InitializeDataGrid();
+            //InitializeDataGrid();
 
         }
 

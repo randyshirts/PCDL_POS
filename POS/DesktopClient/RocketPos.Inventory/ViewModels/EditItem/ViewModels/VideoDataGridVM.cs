@@ -60,7 +60,7 @@ namespace Inventory.ViewModels.EditItem.ViewModels
             Messenger.Default.Register<PropertySetter>(this, EditItemVm.Token, msg => SetDataGridVideos(msg.PropertyName, msg.PropertyValue));
 
             //Fill grid with all videos on record
-            InitializeDataGrid();
+            //InitializeDataGrid();
 
         }
 

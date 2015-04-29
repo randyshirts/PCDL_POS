@@ -56,7 +56,7 @@ namespace Inventory.ViewModels.EditItem.ViewModels
             Messenger.Default.Register<PropertySetter>(this, EditItemVm.Token, msg => SetDataGridBooks(msg.PropertyName, msg.PropertyValue));
 
             //Fill grid with all books on record
-            InitializeDataGrid();
+            //InitializeDataGrid();
 
         }
 

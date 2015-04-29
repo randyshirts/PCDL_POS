@@ -56,7 +56,7 @@ namespace Inventory.ViewModels.EditItem.ViewModels
             Messenger.Default.Register<PropertySetter>(this, EditItemVm.Token, msg => SetDataGridTeachingAides(msg.PropertyName, msg.PropertyValue));
 
             //Fill grid with all teachingAides on record
-            InitializeDataGrid();
+            //InitializeDataGrid();
 
         }
 
