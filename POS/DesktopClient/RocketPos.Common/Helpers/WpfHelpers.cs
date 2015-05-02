@@ -182,7 +182,7 @@ namespace RocketPos.Common.Helpers
     {
         public static void ShowWindow(object viewModel)
         {
-            var win = new Window {Content = viewModel};
+            var win = new Window {Content = viewModel, Height = 800, Width = 1200};
             win.Show();
         }
 

@@ -423,6 +423,26 @@
                     </TextBlock>
                 </Button>
             </StackPanel>
+            <Label HorizontalAlignment="Stretch"
+                   VerticalAlignment="Stretch"
+                   Content="Change:"
+                   HorizontalContentAlignment="Center"
+                   FontSize="24"    />
+
+            <TextBlock Text="{Binding Change, 
+                                        Mode=TwoWay, 
+                                        UpdateSourceTrigger=PropertyChanged, 
+                                        Converter={StaticResource moneyConverter}}"
+                     FlowDirection="LeftToRight"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Stretch"
+                     TextAlignment="Center"
+                     MinWidth="120"
+                     MaxWidth="180"
+                     MinHeight="25"
+                     MaxHeight="40"
+                     FontSize="20">
+            </TextBlock>
         </StackPanel>
 
         <StackPanel Margin="10"

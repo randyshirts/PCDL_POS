@@ -24,7 +24,7 @@ namespace DataModel.Data.TransactionalLayer.Repositories
             }
 
             //Validation if a record already exists for this book
-            var oldBook = GetBookByIsbn(book.ISBN);
+            var oldBook = GetBookByTitle(book.Title);
             if (oldBook != null)
             {
 
@@ -76,6 +76,15 @@ namespace DataModel.Data.TransactionalLayer.Repositories
         {
             var book = (from s in Context.Books
                         where s.ISBN == isbn
+                        select s).FirstOrDefault<Book>();
+
+            return book;
+        }
+
+        public Book GetBookByTitle(string title)
+        {
+            var book = (from s in Context.Books
+                        where s.Title == title
                         select s).FirstOrDefault<Book>();
 
             return book;
