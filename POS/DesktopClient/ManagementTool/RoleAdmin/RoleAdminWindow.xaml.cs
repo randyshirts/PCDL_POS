@@ -3,15 +3,15 @@ using System.Windows;
 using ManagementTool.ViewModels.Login;
 using ManagementTool.Views;
 
-namespace ManagementTool.ViewModels.RoleAdmin
+namespace ManagementTool.RoleAdmin
 {
     /// <summary>
-    /// Interaction logic for RoleAdminView.xaml
+    /// Interaction logic for RoleAdminWindow.xaml
     /// </summary>
     [PrincipalPermission(SecurityAction.Demand, Role = "Administrators")]
-    public partial class RoleAdminView : Window, IView
+    public partial class RoleAdminWindow : Window, IView
     {
-        public RoleAdminView()
+        public RoleAdminWindow()
         {
             InitializeComponent();
         }

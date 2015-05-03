@@ -17,7 +17,7 @@ namespace RocketPos.Common.Helpers
             Subject = item.Subject;
             DateListed = item.ListedDate;
             PriceListed = item.ListedPrice;
-            IsPrintBarcode = true;
+            IsPrintBarcode = false;
             IsDiscountable = item.IsDiscountable;
 
             if (item.BookId != null)
