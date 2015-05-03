@@ -8,7 +8,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using ManagementTool.ViewModels.RoleAdmin;
+using ManagementTool.RoleAdmin;
+using ManagementTool.RoleAdmin.Views;
 using ManagementTool.Views;
 using RocketPos.Common.Foundation;
 
@@ -194,7 +195,7 @@ namespace ManagementTool.ViewModels.Login
                 if (parameter == null)
                     view = new SecretWindow();
                 else
-                    view = new RoleAdminView();
+                    view = new RoleAdminWindow();
 
                 view.Show();
             }

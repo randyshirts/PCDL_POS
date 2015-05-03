@@ -35,6 +35,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.1.1.35049, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Dependencies\MvvmLightLibs.5.1.1.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.1.1.35049, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Dependencies\MvvmLightLibs.5.1.1.0\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Build\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -60,10 +72,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModels\Login\AuthenticationVm.cs" />
-    <Compile Include="ViewModels\RoleAdmin\RoleAdminView.xaml.cs">
+    <Compile Include="RoleAdmin\RoleAdminWindow.xaml.cs">
+      <DependentUpon>RoleAdminWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RoleAdmin\ViewModels\RoleMainViewVm.cs" />
+    <Compile Include="RoleAdmin\Views\RoleAdminView.xaml.cs">
       <DependentUpon>RoleAdminView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\RoleAdmin\RoleAdminVm.cs" />
+    <Compile Include="RoleAdmin\ViewModels\RoleAdminVm.cs" />
+    <Compile Include="RoleAdmin\Views\RoleMainView.xaml.cs">
+      <DependentUpon>RoleMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RoleAdmin\ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
@@ -108,7 +128,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ViewModels\RoleAdmin\RoleAdminView.xaml">
+    <Page Include="RoleAdmin\Views\RoleAdminView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RoleAdmin\RoleAdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RoleAdmin\Views\RoleMainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ManagementTool.ViewModels.Login;
 using RocketPos.Common.Foundation;
 
-namespace ManagementTool.ViewModels.RoleAdmin
+namespace ManagementTool.RoleAdmin.ViewModels
 {
     public class RoleAdminVm : ViewModel, IViewModel
     {
+        public static readonly Guid Token = Guid.NewGuid();         //So others know messages came from this instance
+        
         private string _roleName;
         public string RoleName {
             get { return _roleName; }

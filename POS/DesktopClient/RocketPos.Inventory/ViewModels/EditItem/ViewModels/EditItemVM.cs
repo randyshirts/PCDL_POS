@@ -336,7 +336,7 @@ namespace Inventory.ViewModels.EditItem.ViewModels
                 //If textcompletion is enabled this part will break the functionality of the autocomplete
                 if (_selectedBarcodeItem != null)
                 {
-                    if (_selectedBarcodeItem.BarcodeItemBc.Length == 13)
+                    if (_selectedBarcodeItem.BarcodeItemBc.Length == 15)
                     {
                         Barcode = _selectedBarcodeItem.BarcodeItemBc;
                         BarcodeId = _selectedBarcodeItem.Id;
