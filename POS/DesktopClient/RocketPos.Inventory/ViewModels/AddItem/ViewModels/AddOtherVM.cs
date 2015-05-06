@@ -274,7 +274,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                         OtherImage = null;
                         //Send message to change property so that addItem works correctly
                         Messenger.Default.Send(new PropertySetter("Manufacturer", null), Token);
-                        Messenger.Default.Send(new PropertySetter("Title", null), Token);
+                       // Messenger.Default.Send(new PropertySetter("Title", null), Token);
                         Messenger.Default.Send(new PropertySetter("OtherImage", null), Token);
                     }
                     return search.Title;
@@ -284,7 +284,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                 OtherImage = null;
                 //Send message to change property so that addItem works correctly
                 Messenger.Default.Send(new PropertySetter("Manufacturer", null), Token);
-                Messenger.Default.Send(new PropertySetter("Title", null), Token);
+                //Messenger.Default.Send(new PropertySetter("Title", null), Token);
                 Messenger.Default.Send(new PropertySetter("OtherImage", null), Token);
                 return null;
             }

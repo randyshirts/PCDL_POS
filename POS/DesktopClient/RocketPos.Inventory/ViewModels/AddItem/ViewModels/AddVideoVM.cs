@@ -337,11 +337,11 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                             
                         //Send message to change property so that addItem works correctly
                         Messenger.Default.Send(new PropertySetter("Publisher", null), Token);
-                        Messenger.Default.Send(new PropertySetter("Title", null), Token);
+                        //Messenger.Default.Send(new PropertySetter("Title", null), Token);
                         Messenger.Default.Send(new PropertySetter("VideoImage", null), Token);
-                        Messenger.Default.Send(new PropertySetter("VideoFormat", null), Token);
+                        //Messenger.Default.Send(new PropertySetter("VideoFormat", null), Token);
                         Messenger.Default.Send(new PropertySetter("EAN", null), Token);
-                        Messenger.Default.Send(new PropertySetter("Rating", null), Token);
+                        //Messenger.Default.Send(new PropertySetter("Rating", null), Token);
                     }
                     return search.Title;
                 }
@@ -352,11 +352,11 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                 Rating = null;
                 //Send message to change property so that addItem works correctly
                 Messenger.Default.Send(new PropertySetter("Publisher", null), Token);
-                Messenger.Default.Send(new PropertySetter("Title", null), Token);
+                //Messenger.Default.Send(new PropertySetter("Title", null), Token);
                 Messenger.Default.Send(new PropertySetter("VideoImage", null), Token);
-                Messenger.Default.Send(new PropertySetter("VideoFormat", null), Token);
+                //Messenger.Default.Send(new PropertySetter("VideoFormat", null), Token);
                 Messenger.Default.Send(new PropertySetter("EAN", Ean), Token);
-                Messenger.Default.Send(new PropertySetter("Rating", null), Token);
+                //Messenger.Default.Send(new PropertySetter("Rating", null), Token);
                 return null;
             }
 
