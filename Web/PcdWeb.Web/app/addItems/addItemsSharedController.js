@@ -74,6 +74,10 @@ app.controller('addItemsSharedController', ['authService', 'itemsService', funct
                 self.itemInfo.discounted = "isDiscounted";
             } else {
                 self.message = results.data.message;
+                if (results.data.message === "Session Timed Out") {
+                    authService.logoff();
+                    startTimer();
+                }
                 self.savedSuccessfully = false;
             }
 
@@ -81,4 +85,12 @@ app.controller('addItemsSharedController', ['authService', 'itemsService', funct
             //alert(error.data.message);
         });
     };
+
+    var startTimer = function () {
+        var timer = $timeout(function () {
+            $timeout.cancel(timer);
+            $location.path('/login');
+        }, 3000);
+    }
+
 }]);

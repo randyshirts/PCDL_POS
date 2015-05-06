@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.factory('itemsService', ['$http', 'ngAuthSettings', function ($http, ngAuthSettings) {
+app.factory('itemsService', ['$http', 'ngAuthSettings', 'authService', '$location', function ($http, ngAuthSettings, auth, $location) {
 
     var serviceBase = ngAuthSettings.apiServiceBaseUri;
 
@@ -15,9 +15,9 @@ app.factory('itemsService', ['$http', 'ngAuthSettings', function ($http, ngAuthS
 
     var _addItem = function(itemInfo) {
 
-        return $http.post(serviceBase + 'api/items/additem', itemInfo).then(function (results) {
+        return $http.post(serviceBase + 'api/items/additem', itemInfo).then(function(results) {
             return results;
-        });
+        }); 
     };
 
     var _printBarcodes = function (itemsCollection) {

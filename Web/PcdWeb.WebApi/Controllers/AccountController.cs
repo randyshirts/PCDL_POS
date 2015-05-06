@@ -24,6 +24,7 @@ using Newtonsoft.Json.Linq;
 using PcdWeb.Logging;
 using PcdWeb.Models;
 using PcdWeb.Models.AccountModels;
+using PcdWeb.Models.ItemModels;
 
 
 namespace PcdWeb.Controllers
@@ -313,6 +314,16 @@ namespace PcdWeb.Controllers
             }
             
         }
+
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("LoginTimeout")]
+        public IHttpActionResult LoginTimeout(string ReturnUrl)
+        {
+            var output = new AddItemApiOutput() {Message = "Session Timed Out"};
+            return Ok(output);
+        }
+
 
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpPost]
