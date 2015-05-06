@@ -82,7 +82,7 @@ app.config(function ($routeProvider) {
 
 });
 
-var serviceBase = 'http://localhost:61754/';
+//var serviceBase = 'http://localhost:61754/';
 //var serviceBase = 'http://playcreatediscover.com/';
 var serviceBase = 'http://www.playcreatediscover.com/';
 app.constant('ngAuthSettings', {
