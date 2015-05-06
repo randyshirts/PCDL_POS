@@ -338,8 +338,8 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                         PublicationDate = null;
                         TradeInValue = 0;
                         //Send message to change property so that addItem works correctly
-                        Messenger.Default.Send(new PropertySetter("Author", null), Token);
-                        Messenger.Default.Send(new PropertySetter("Title", null), Token);
+                        //Messenger.Default.Send(new PropertySetter("Author", null), Token);
+                        //Messenger.Default.Send(new PropertySetter("Title", null), Token);
                         Messenger.Default.Send(new PropertySetter("BookImage", null), Token);
                     }
 
@@ -349,8 +349,8 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                     Title = null;
                     BookImage = null;
                     //Send message to change property so that addItem works correctly
-                    Messenger.Default.Send(new PropertySetter("Author", null), Token);
-                    Messenger.Default.Send(new PropertySetter("Title", null), Token);
+                    //Messenger.Default.Send(new PropertySetter("Author", null), Token);
+                    //Messenger.Default.Send(new PropertySetter("Title", null), Token);
                     Messenger.Default.Send(new PropertySetter("BookImage", null), Token);                   
                 
                 return null;
