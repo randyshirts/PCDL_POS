@@ -37,7 +37,6 @@ namespace DataModel.Data.ApplicationLayer.Utils.Email
                 using (
                     var mailClient = new SmtpClient("mail.host4asp.net", 25) //,"smtp.gmail.com","mail.host4asp.net" 587, "mail.playcreatediscover.com"
                     {
-                        //Credentials = new NetworkCredential("playcreatediscover@gmail.com", "love2learngr8"),
                         Credentials = new NetworkCredential("donotreply@playcreatediscover.com", "uqLdSLu6t0Uy"),
                         EnableSsl = false
                         

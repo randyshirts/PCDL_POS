@@ -85,6 +85,7 @@ app.config(function ($routeProvider) {
 //var serviceBase = 'http://localhost:61754/';
 //var serviceBase = 'http://playcreatediscover.com/';
 var serviceBase = 'http://www.playcreatediscover.com/';
+//var serviceBase = 'http://test.playcreatediscover.com/';
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     clientId: 'ngAuthApp'
