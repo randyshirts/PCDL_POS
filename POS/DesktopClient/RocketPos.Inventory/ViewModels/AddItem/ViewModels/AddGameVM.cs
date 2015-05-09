@@ -256,7 +256,10 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                         if (!search.Ean.IsNullOrEmpty()) Ean = search.Ean[selectedIndex];
                             
                         //Get the lowest prices from Amazon
-                        GameItem = (GameItem)SearchAmazon.QueryAmazonByEan(GameItem, Ean, "Game");
+                        var newGame = SearchAmazon.QueryAmazonByEan(GameItem, Ean, "Game");
+                        if (newGame != null)
+                            GameItem = (GameItem)newGame;
+                        
                         if (GameItem != null)
                         {
                             LowestNewPrice = GameItem.LowestNewPrice;

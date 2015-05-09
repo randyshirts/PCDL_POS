@@ -102,8 +102,36 @@ namespace POS.ViewModels.PaymentWindow.ViewModels
             IsStoreCreditVisible = Visibility.Hidden.ToString();
             IsSplitVisible = Visibility.Hidden.ToString();
 
-            CreditDebitTransactionText = "Credit Transaction";
+            CreditDebitTransactionText = "Credit Transaction\n";
+            CreditDebitInstructions = CreditInstructions;
         }
+
+        private const string CreditInstructions = "Swipe Sale\n" + "1- Select 'SoftPay-FDMS' if option appears\n" + 
+                                                    "2- Swipe customer's card\n" + 
+                                                    "3- Key amount of transaction\n" + 
+                                                    "4- Select Payment type\n" + 
+                                                    "5- Press 'Enter'\n" + 
+                                                    "6- 'Yes' to confirm amount, 'No' to exit and restart\n" + 
+                                                    "7- Wait while terminal connects to host - if approved receipt will print\n" + 
+                                                    "8- 'Yes' to print customer receipt copy, 'No' to skip customer copy\n\n" + 
+                                                    "Keyed Sale\n" + 
+                                                    "1- Select 'Sale'\n" + 
+                                                    "2- Key amount of transaction\n" + 
+                                                    "3- Press 'Enter'\n" + 
+                                                    "4- 'Yes' to confirm amount, 'No' to exit and restart\n" + 
+                                                    "5- Key Expiration Date (MMYY format)\n" + 
+                                                    "6- Press 'Enter'\n" + 
+                                                    "7- Answer terminal prompt (if any)\n" + 
+                                                    "8- Wait while terminal connects to host - if approved receipt will print\n" + 
+                                                    "9- 'Yes' to print customer receipt copy, 'No' to skip customer copy\n\n" + 
+                                                    "Void Last\n" + 
+                                                    "1- Select 'SoftPay-FDMS' if option appears\n" + 
+                                                    "2- Select 'Void'\n" + 
+                                                    "3- Select 'Yes' to void last ransaction\n" + 
+                                                    "4- Verify item\n" + 
+                                                    "5- Select 'Yes' to void\n" + 
+                                                    "6- Merchant receipt will print\n" + 
+                                                    "7- 'Yes' to print customer receipt copy, 'No' to skip customer copy\n";
 
         public ActionCommand DebitCommand
         {
@@ -121,7 +149,18 @@ namespace POS.ViewModels.PaymentWindow.ViewModels
             IsSplitVisible = Visibility.Hidden.ToString();
 
             CreditDebitTransactionText = "Debit Transaction";
+            CreditDebitInstructions = DebitInstructions;
         }
+
+        private const string DebitInstructions = "Swipe Sale\n" + "1- Select 'SoftPay-FDMS' if option appears\n" + 
+                                                    "2- Swipe customer's card\n" + 
+                                                    "3- Key amount of transaction\n" + 
+                                                    "4- Select Payment type\n" + 
+                                                    "5- Press 'Enter'\n" + 
+                                                    "6- Ask customer to key in PIN, press 'Enter'" +
+                                                    "6- 'Yes' to confirm amount, 'No' to exit and restart\n" + 
+                                                    "7- Wait while terminal connects to host - if approved receipt will print\n" + 
+                                                    "8- 'Yes' to print customer receipt copy, 'No' to skip customer copy\n";
 
         public ActionCommand StoreCreditCommand
         {
@@ -205,6 +244,18 @@ namespace POS.ViewModels.PaymentWindow.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        private string _creditDebitInstructions;
+        public string CreditDebitInstructions
+        {
+            get { return _creditDebitInstructions; }
+            set
+            {
+                _creditDebitInstructions = value;
+                OnPropertyChanged();
+            }
+        }
+        
 
         public ActionCommand DoneCreditDebitCommand
         {
