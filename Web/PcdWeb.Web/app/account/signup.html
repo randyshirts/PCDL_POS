@@ -17,7 +17,7 @@
         <span ng-show="signup.emailaddress.$error.email">Invalid email address.</span>
     </span>
 
-    <input type="number" ng-minlength="10" ng-maxlength="10" class=" form-control" placeholder="Phone Number" data-ng-model="registration.phone" 
+    <input type="number" ng-minlength="10" ng-maxlength="10" class=" form-control" placeholder="Phone Number" data-ng-model="registration.phone"
            name="phone" ng-change="onchange()" ng-model-options="{updateOn: 'blur' }" required>
     <span style="color: red" ng-show="signup.phone.$dirty && signup.phone.$invalid">
         <span ng-show="signup.phone.$error.required">Phone number is required.</span>
@@ -32,11 +32,11 @@
         <span ng-show="signup.password.$error.required">Password is required.</span>
     </span>
 
-    <input type="password" class="form-control" placeholder="Confirm Password" data-ng-model="registration.passwordrepeat" 
-           data-password-verify="registration.password" name="passwordrepeat" ng-change="onchange()" ng-model-options="{updateOn: 'blur' }" required>
-    <span style="color: red" ng-show="signup.passwordrepeat.$dirty && signup.passwordrepeat.$invalid">
-        <span ng-show="signup.passwordrepeat.$error.required">Confirm password.</span>
-        <span ng-show="signup.passwordrepeat.$error.passwordVerify">Passwords do not match.</span>
+    <input type="password" class="form-control" placeholder="Confirm Password" data-ng-model="registration.passwordRepeat"
+           data-password-verify="registration.password" name="passwordRepeat" ng-change="onchange()" ng-model-options="{updateOn: 'blur' }" required>
+    <span style="color: red" ng-show="signup.passwordRepeat.$dirty && signup.passwordRepeat.$invalid">
+        <span ng-show="signup.passwordRepeat.$error.required">Confirm password.</span>
+        <span ng-show="signup.passwordRepeat.$error.passwordVerify">Passwords do not match.</span>
     </span>
 
     <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="signUp()"
@@ -45,7 +45,7 @@
                             (signup.emailaddress.$dirty && signup.emailaddress.$invalid) ||
                             (signup.phone.$dirty && signup.phone.$invalid) ||
                             (signup.password.$dirty && signup.password.$invalid) ||
-                            (signup.passwordrepeat.$dirty && signup.passwordrepeat.$invalid)">
+                            (signup.passwordRepeat.$dirty && signup.passwordRepeat.$invalid)">
         <span ng-hide="busyDisabled"><i class="fa fa-refresh fa-spin"></i> Please wait...</span>
         <span ng-show="busyDisabled">Submit</span>
     </button>

@@ -61,6 +61,7 @@ namespace PcdWeb.Controllers
                 return Ok("Invalid input");
             }
 
+            
             //ApiLog.Instance.Trace("Register account controller valid");
 
             //define output
@@ -84,12 +85,13 @@ namespace PcdWeb.Controllers
             //http://jeremybytes.blogspot.com/2015/01/task-and-await-basic-cancellation.html
             var result = await _userAppService.RegisterUser(input);
             //if (result == null) return BadRequest("Registration Failed - Try Again");
-            
 
             if (result.Result.Succeeded)
             {
-                await _userAppService.SendConfirmation(new SendConfirmationInput() {EmailAddress = input.EmailAddress});
+                await _userAppService.SendConfirmation(new SendConfirmationInput() { EmailAddress = input.EmailAddress });
                 output.message = "success";
+                return Ok(output);
+                
             }
 
             if (result.Result.Errors.Any())
