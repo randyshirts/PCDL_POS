@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Inventory.ViewModels.AddMember.Views
 {
     /// <summary>
-    /// Interaction logic for AddModelView.xaml
+    /// Interaction logic for AddMemberView.xaml
     /// </summary>
-    public partial class AddModelView : UserControl
+    public partial class AddMemberView : UserControl
     {
-        public AddModelView()
+        public AddMemberView()
         {
             InitializeComponent();
         }

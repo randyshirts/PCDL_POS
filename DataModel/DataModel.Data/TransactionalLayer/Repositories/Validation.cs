@@ -315,6 +315,17 @@ namespace DataModel.Data.TransactionalLayer.Repositories
             }
         }
 
+        internal static void MemberPersonDuplicate(Member member, Member oldMember)
+        {
+            if (member.Member_Person != null)
+            {
+                if (oldMember.Member_Person != null)
+                    throw new ArgumentException("Member already contains Id, cannot change Id of Member");
+                if (oldMember.Member_Person != null && oldMember.Member_Person.Id == member.Member_Person.Id)
+                    throw new ArgumentException("A Member exists that already contains specified Id, cannot add duplicate Id to Member");
+
+            }
+        }
 
         internal static void ConsignorPmtDuplicate(ConsignorPmt consignorPmt, ConsignorPmt oldConsignorPmt)
         {

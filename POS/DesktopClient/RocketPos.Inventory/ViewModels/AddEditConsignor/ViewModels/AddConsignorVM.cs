@@ -11,6 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using DataModel.Data.ApplicationLayer.WpfControllers;
 using DataModel.Data.DataLayer.Entities;
 using DataModel.Data.TransactionalLayer.Repositories;
@@ -29,6 +30,7 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
     public class AddConsignorVm : ViewModel
     {
         public static readonly Guid Token = Guid.NewGuid();         //So others know messages came from this instance
+        private readonly ComboBoxListValues _nameComboValues = new ComboBoxListValues();
 
         //private EnumsAndLists myEnumsLists = new EnumsAndLists();   //Various lists and enums used by the application
 
@@ -43,12 +45,41 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
             //Initialize ComboBoxes
             stateComboValues.InitializeComboBox(EnumsAndLists.States);
 
+            //var controller = new PersonController();
+            //AllPersons = controller.GetAllPersons().ToList();
+            //var names = StringHelpers.CombineNames(AllPersons);
+            //var nameComboList = new List<string>(names);
+            ////NameComboList.Insert(0, "All");
+            //_nameComboValues.InitializeComboBox(nameComboList);
+
             //Register for messages
             //Messenger.Default.Register<PropertySetter>(this, AddGameVM.Token, msg => SetGameProperty(msg.PropertyName, (string)msg.PropertyValue));         
 
             //Fill grid with all games on record
-            InitializeDataGrid();
+            //InitializeDataGrid();
         }
+
+
+        public ICommand WindowLoaded
+        {
+            get
+            {
+                return new ActionCommand(p => LoadWindow());
+            }
+        }
+
+        private void LoadWindow()
+        {
+            //Load ExistingNames
+            var controller = new PersonController();
+            AllPersons = controller.GetAllPersons().ToList();
+            var names = StringHelpers.CombineNames(AllPersons);
+            var nameComboList = new List<string>(names);
+            //NameComboList.Insert(0, "All");
+            _nameComboValues.InitializeComboBox(nameComboList);
+
+        }
+
 
         /// <summary>
         /// Sets a property of myAddGame view model.
@@ -94,6 +125,80 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
             private set { stateComboValues.ComboValues = value; }
         }
 
+        /// <summary>
+        /// Gets the NameComboValues list.
+        /// </summary>
+        public List<ComboBoxListValues> NameComboValues
+        {
+            get { return _nameComboValues.ComboValues; }
+        }
+
+        /// <summary>
+        /// Gets or sets the existing person name.
+        /// </summary>
+        private string _existingName;
+        public string ExistingName
+        {
+            get { return _existingName; }
+            set
+            {
+                _existingName = value;
+
+                if (_existingName != null)
+                {
+                    SelectedPerson =
+                        AllPersons.Find(
+                            p =>
+                                p.FirstName == _existingName.Split().ElementAt(0) &&
+                                (p.LastName == _existingName.Split().ElementAt(1)));
+                    FirstName = SelectedPerson.FirstName;
+                    LastName = SelectedPerson.LastName;
+                    EmailAddress = SelectedPerson.EmailAddresses.FirstOrDefault().EmailAddress;
+                    CellPhoneNumber = SelectedPerson.PhoneNumbers.CellPhoneNumber;
+                    HomePhoneNumber = SelectedPerson.PhoneNumbers.HomePhoneNumber;
+                    AltPhoneNumber = SelectedPerson.PhoneNumbers.AltPhoneNumber;
+
+                    if (SelectedPerson.MailingAddresses.Any())
+                    {
+                        MailingAddress1 = SelectedPerson.MailingAddresses.FirstOrDefault().MailingAddress1;
+                        MailingAddress2 = SelectedPerson.MailingAddresses.FirstOrDefault().MailingAddress2;
+                        City = SelectedPerson.MailingAddresses.FirstOrDefault().City;
+                        State = SelectedPerson.MailingAddresses.FirstOrDefault().State;
+                        ZipCode = SelectedPerson.MailingAddresses.FirstOrDefault().ZipCode;
+                    }
+                    else
+                    {
+                        MailingAddress1 = null;
+                        MailingAddress2 = null;
+                        City = null;
+                        State = null;
+                        ZipCode = null;
+                    }
+
+                    OnPropertyChanged("FirstName");
+                    OnPropertyChanged("LastName");
+                    OnPropertyChanged("EmailAddress");
+                    OnPropertyChanged("CellPhoneNumber");
+                    OnPropertyChanged("HomePhoneNumber");
+                    OnPropertyChanged("AltPhoneNumber");
+                    OnPropertyChanged("MailingAddress1");
+                    OnPropertyChanged("MailingAddress2");
+                    OnPropertyChanged("City");
+                    OnPropertyChanged("State");
+                    OnPropertyChanged("ZipCode");
+
+                }
+                else
+                {
+                    SelectedPerson = null;
+                }
+
+                OnPropertyChanged();
+            }
+        }
+
+        public List<Person> AllPersons { get; set; }
+        private Person SelectedPerson { get; set; }
 
         /// <summary>
         /// Gets or sets the date the consignor was added.
@@ -421,8 +526,10 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
             try
             {
                 var controller = new ConsignorController();
-                controller.AddNewConsignor(consignor);
-                ConsignorInfo consignorInfo = new ConsignorInfo(consignor, consignor.Consignor_Person);
+                var id = controller.AddNewConsignor(consignor);
+                var pc = new PersonController();
+                var person = pc.GetPerson(id);
+                ConsignorInfo consignorInfo = new ConsignorInfo(consignor, person);
                 DataGridConsignors.Add(consignorInfo);
             }
             catch (Exception ex)
@@ -432,6 +539,7 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
 
 
         }
+
         #endregion
 
         #region DataGrid Stuff

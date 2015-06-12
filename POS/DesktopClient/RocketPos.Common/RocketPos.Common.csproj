@@ -101,6 +101,7 @@
     <Compile Include="Helpers\Random_Helper.cs" />
     <Compile Include="Helpers\ReceiptPrinterHelper.cs" />
     <Compile Include="Helpers\SearchItems.cs" />
+    <Compile Include="Helpers\StringHelpers.cs" />
     <Compile Include="Helpers\Validation_Helper.cs" />
     <Compile Include="Helpers\WpfHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

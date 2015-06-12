@@ -11,6 +11,12 @@
         xmlns:entities1="clr-namespace:DataModel.Data.DataLayer.Entities;assembly=DataModel.Data"
         VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoaded}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30*" />
@@ -26,6 +32,17 @@
                     FontWeight="ExtraBold"
                     DockPanel.Dock="Top"/>
 
+            <Label DockPanel.Dock="Top">Existing Name</Label>
+            <ComboBox ItemsSource="{Binding NameComboValues}"
+					      DisplayMemberPath="ValueString"
+                          SelectedValuePath="ValueString"
+                          SelectedValue="{Binding ExistingName,  
+                                                Mode=OneWayToSource,
+                                                ValidatesOnDataErrors=True,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                          DockPanel.Dock="Top">
+            </ComboBox>
+            
             <Label DockPanel.Dock="Top">First Name</Label>
             <TextBox Text="{Binding FirstName, 
                                         UpdateSourceTrigger=PropertyChanged, 

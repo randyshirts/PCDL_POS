@@ -74,6 +74,19 @@
                         Text ="View Consignor Items/Pay Consignors" TextWrapping="Wrap" TextAlignment="Center">
                     </TextBlock>
                 </Button>
+                
+                <Separator/>
+                <Label 
+                    Content="Members" 
+                    HorizontalAlignment="Center"
+                    FontSize="14"
+                    FontWeight="Medium"
+                    Foreground="Black">
+                </Label>
+                <Button Name="MemberViewButton" Content="Add/Edit Members" HorizontalAlignment="Stretch" Width="Auto"
+                    Command="{Binding Path=AddMemberButtonCommand, Mode=OneTime}" >
+                </Button>
+                
                 <Separator/>
                 <Label 
                     Content="Transactions" 

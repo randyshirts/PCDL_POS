@@ -68,6 +68,24 @@ namespace DataModel.Data.TransactionalLayer.Repositories
             return consignor.Id;
         }
 
+        public bool AddConsignorToPerson(Person person, Consignor consignor)
+        {
+            var thisPerson = (from p in Context.Persons
+                              where (p.Id == person.Id)
+                              select p).FirstOrDefault();
+
+            if (thisPerson == null) return false;
+            consignor.Consignor_Person = thisPerson;
+            thisPerson.Consignor = consignor;
+            
+            //Context.SaveChanges();
+
+            var val = AddNewConsignor(consignor);
+            return val > 0;
+
+
+        }
+
         public void DeleteConsignerById(int id)
         {
 

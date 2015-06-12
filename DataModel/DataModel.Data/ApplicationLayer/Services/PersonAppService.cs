@@ -32,6 +32,37 @@ namespace DataModel.Data.ApplicationLayer.Services
 
         }
 
+        public QueryPersonsThatAreMembersOutput QueryPersonsThatAreMembers()
+        {
+            var output = _personRepository.QueryPersonsThatAreMembers();
+            var list = output.Select(p => (new PersonDto(p))).ToList();
+
+            return new QueryPersonsThatAreMembersOutput
+            {
+                Persons = list
+            };
+
+        }
+
+        public GetPersonOutput GetPerson(GetPersonInput input)
+        {
+            return new GetPersonOutput
+            {
+                PersonDto = new PersonDto(_personRepository.Get(input.Id))
+            };
+        }
+
+
+        public GetAllPersonsOutput GetAllPersons()
+        {
+            var output = _personRepository.GetAllPersons();
+            var list = output.Select(p => (new PersonDto(p))).ToList();
+
+            return new GetAllPersonsOutput
+            {
+                Persons = list
+            };
+        }
         
     }
 }

@@ -22,6 +22,7 @@ namespace DataModel.Data.TransactionalLayer.Repositories
     public interface IConsignorRepository : IRepository<Consignor>
     {
         int AddNewConsignor(Consignor consignor);
+        bool AddConsignorToPerson(Person person, Consignor consignor);
         void DeleteConsignerById(int id);
         void UpdateConsignor(Consignor updatedConsignor);        
         Consignor GetConsignorByName(string firstName, string lastName);
@@ -98,7 +99,16 @@ namespace DataModel.Data.TransactionalLayer.Repositories
 
     public interface IMemberRepository : IRepository<Member>
     {
-
+        int AddNewMember(Member member);
+        bool AddMemberToPerson(Person person, Member member);
+        void DeleteMemberById(int id);
+        void UpdateMember(Member updatedMember);
+        Member GetMemberByName(string firstName, string lastName);
+        List<string> GetMemberNames();
+        List<string> GetMemberNamesLastnameFirst();
+        Member GetMemberByFullName(string fullName);
+        double GetMemberCreditBalance(string name);
+        Member GetMemberByEmail(string email);
     }
 
     public interface IOtherRepository : IRepository<Other>, IGenericItemRepository<Other>
@@ -110,7 +120,8 @@ namespace DataModel.Data.TransactionalLayer.Repositories
     {
         void UpdatePerson(Person updatedPerson);
         IEnumerable<Person> QueryPersonsThatAreConsigners();
-        
+        IEnumerable<Person> QueryPersonsThatAreMembers();
+        IEnumerable<Person> GetAllPersons();
     }
 
     public interface IPhoneNumberRepository : IRepository<PhoneNumber>

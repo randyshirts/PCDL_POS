@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using Inventory.ViewModels.AddEditConsignor.ViewModels;
 using Inventory.ViewModels.AddItem.ViewModels;
+using Inventory.ViewModels.AddMember.ViewModels;
 using Inventory.ViewModels.ConsignorItems.ViewModels;
 using Inventory.ViewModels.EditItem.ViewModels;
 using Inventory.ViewModels.PrintBarcodesView.ViewModels;
@@ -24,6 +25,7 @@ namespace Inventory.ViewModels.MainView.ViewModels
             if ((newViewModel.GetType() == (typeof(AddItemVm))) ||
                 (newViewModel.GetType() == (typeof(EditItemVm))) ||
                 (newViewModel.GetType() == (typeof(AddConsignorVm))) ||
+                (newViewModel.GetType() == (typeof(AddMemberVm))) ||
                 (newViewModel.GetType() == (typeof(ConsignorItemsVm))))
             {
                 LoadAddNewMainView(newViewModel);
@@ -74,6 +76,12 @@ namespace Inventory.ViewModels.MainView.ViewModels
             }
 
             if (newViewModel.GetType() == (typeof(AddConsignorVm)))
+            {
+                TopLeftColSpan = "2";
+                TopLeftRowSpan = "2";
+            }
+
+            if (newViewModel.GetType() == (typeof(AddMemberVm)))
             {
                 TopLeftColSpan = "2";
                 TopLeftRowSpan = "2";
@@ -219,6 +227,16 @@ namespace Inventory.ViewModels.MainView.ViewModels
             {
                 var myAddConsignorVm = new AddConsignorVm();
                 return new ActionCommand(p => LoadAddNewMainView(myAddConsignorVm));
+            }
+
+        }
+
+        public ActionCommand AddMemberButtonCommand
+        {
+            get
+            {
+                var myAddMemberVm = new AddMemberVm();
+                return new ActionCommand(p => LoadAddNewMainView(myAddMemberVm));
             }
 
         }

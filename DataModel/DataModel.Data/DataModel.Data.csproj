@@ -189,6 +189,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationLayer\DTO\MemberDTOs.cs" />
     <Compile Include="ApplicationLayer\DTO\ConsignorDTOs.cs" />
     <Compile Include="ApplicationLayer\DTO\ConsignorPmtDTOs.cs" />
     <Compile Include="ApplicationLayer\DTO\EmailDTOs.cs" />
@@ -207,8 +208,10 @@
     <Compile Include="ApplicationLayer\Identity\PcdSignInManager.cs" />
     <Compile Include="ApplicationLayer\Identity\PcdUserManager.cs" />
     <Compile Include="ApplicationLayer\Identity\PcdUserStore.cs" />
+    <Compile Include="ApplicationLayer\Services\MemberAppService.cs" />
     <Compile Include="ApplicationLayer\Services\ConsignorPmtAppService.cs" />
     <Compile Include="ApplicationLayer\Services\EmailAppService.cs" />
+    <Compile Include="ApplicationLayer\Services\IMemberAppService.cs" />
     <Compile Include="ApplicationLayer\Services\IConsignorPmtAppService.cs" />
     <Compile Include="ApplicationLayer\Services\IEmailAppService.cs" />
     <Compile Include="ApplicationLayer\Services\IItemSaleTransactionAppService.cs" />
@@ -243,8 +246,10 @@
     <Compile Include="ApplicationLayer\Utils\Logging\DataLog.cs" />
     <Compile Include="ApplicationLayer\Utils\SMS\SmsService.cs" />
     <Compile Include="ApplicationLayer\WpfControllers\BookController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\MemberController.cs" />
     <Compile Include="ApplicationLayer\WpfControllers\ConsignorController.cs" />
     <Compile Include="ApplicationLayer\WpfControllers\ConsignorPmtController.cs" />
+    <Compile Include="ApplicationLayer\WpfControllers\IMemberController.cs" />
     <Compile Include="ApplicationLayer\WpfControllers\IConsignorPmtController.cs" />
     <Compile Include="ApplicationLayer\WpfControllers\IItemSaleTransactionController.cs" />
     <Compile Include="ApplicationLayer\WpfControllers\IPersonController.cs" />
@@ -279,7 +284,16 @@
     <Compile Include="TransactionalLayer\MigrationsSql\201504021333298_Initial.Designer.cs">
       <DependentUpon>201504021333298_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="TransactionalLayer\MigrationsSql\201505301955352_addedMembersTable.cs" />
+    <Compile Include="TransactionalLayer\MigrationsSql\201505301955352_addedMembersTable.Designer.cs">
+      <DependentUpon>201505301955352_addedMembersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TransactionalLayer\MigrationsSql\201506071349282_AddStartDateToMembers.cs" />
+    <Compile Include="TransactionalLayer\MigrationsSql\201506071349282_AddStartDateToMembers.Designer.cs">
+      <DependentUpon>201506071349282_AddStartDateToMembers.cs</DependentUpon>
+    </Compile>
     <Compile Include="TransactionalLayer\MigrationsSql\Configuration.cs" />
+    <Compile Include="TransactionalLayer\Repositories\MemberRepository.cs" />
     <Compile Include="TransactionalLayer\Repositories\EmailRepository.cs" />
     <Compile Include="TransactionalLayer\Repositories\IPcdUserRepository.cs" />
     <Compile Include="TransactionalLayer\Repositories\IRepository.cs" />
@@ -394,6 +408,12 @@
     <EmbeddedResource Include="TransactionalLayer\MigrationsSql\201504021333298_Initial.resx">
       <DependentUpon>201504021333298_Initial.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransactionalLayer\MigrationsSql\201505301955352_addedMembersTable.resx">
+      <DependentUpon>201505301955352_addedMembersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransactionalLayer\MigrationsSql\201506071349282_AddStartDateToMembers.resx">
+      <DependentUpon>201506071349282_AddStartDateToMembers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

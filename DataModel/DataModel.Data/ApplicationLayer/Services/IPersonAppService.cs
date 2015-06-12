@@ -7,6 +7,7 @@ namespace DataModel.Data.ApplicationLayer.Services
     {
         void UpdatePerson(UpdatePersonInput input);
         QueryPersonsThatAreConsignersOutput QueryPersonsThatAreConsigners();
-        
+        QueryPersonsThatAreMembersOutput QueryPersonsThatAreMembers();
+        GetPersonOutput GetPerson(GetPersonInput input);
     }
 }
