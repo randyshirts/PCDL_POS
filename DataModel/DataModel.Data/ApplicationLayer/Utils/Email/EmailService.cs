@@ -35,10 +35,10 @@ namespace DataModel.Data.ApplicationLayer.Utils.Email
                 email.Body = message.Body;
                 email.IsBodyHtml = true;
                 using (
-                    var mailClient = new SmtpClient("mail.host4asp.net", 25) //,"smtp.gmail.com","mail.host4asp.net" 587, "mail.playcreatediscover.com"
+                    var mailClient = new SmtpClient("mail.playcreatediscover.com", 25) //,"smtp.gmail.com","mail.host4asp.net" 587, "mail.playcreatediscover.com"
                     {
-                        //Credentials = new NetworkCredential("playcreatediscover@gmail.com", "love2learngr8"),
                         Credentials = new NetworkCredential("donotreply@playcreatediscover.com", "uqLdSLu6t0Uy"),
+                        //Credentials = new NetworkCredential("playcreatediscover@gmail.com", "love2learngr8"),
                         EnableSsl = false
                         
                     })

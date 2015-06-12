@@ -1,49 +1,42 @@
-﻿// -----------------------------------------------------------------------------
-//  <copyright file="CustomerViewModel.cs" company="DCOM Engineering, LLC">
-//      Copyright (c) DCOM Engineering, LLC.  All rights reserved.
-//  </copyright>
-// -----------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using DataModel.Data.ApplicationLayer.WpfControllers;
 using DataModel.Data.DataLayer.Entities;
-using DataModel.Data.TransactionalLayer.Repositories;
-using GalaSoft.MvvmLight.Command;
 using RocketPos.Common.Foundation;
 using RocketPos.Common.Helpers;
 using RocketPos.Inventory.Resources;
+using GalaSoft.MvvmLight.Command;
+using System.Windows.Controls;
+using System.Windows.Input;
 
-namespace Inventory.ViewModels.AddEditConsignor.ViewModels
+namespace Inventory.ViewModels.AddMember.ViewModels
 {
-    //using Google.Apis.Books.v1;
-
-    /// <summary>
-    /// A View-Model that represents a Consignor and its state information.
-    /// </summary>
-    public class AddConsignorVm : ViewModel
+    class AddMemberVm : ViewModel
     {
         public static readonly Guid Token = Guid.NewGuid();         //So others know messages came from this instance
-        private readonly ComboBoxListValues _nameComboValues = new ComboBoxListValues();
 
         //private EnumsAndLists myEnumsLists = new EnumsAndLists();   //Various lists and enums used by the application
 
         //List for sources of ComboBoxes
         private ComboBoxListValues stateComboValues = new ComboBoxListValues();
+        private readonly ComboBoxListValues _nameComboValues = new ComboBoxListValues();
+        private readonly ComboBoxListValues _memberTypeComboValues = new ComboBoxListValues();
+        private readonly ComboBoxListValues _memberTermComboValues = new ComboBoxListValues();
 
-        public AddConsignorVm()
+        public AddMemberVm()
         {
-            Consignors = new ObservableCollection<Consignor>();
-            DataGridConsignors = new ObservableCollection<ConsignorInfo>();
+            Members = new ObservableCollection<Member>();
+            DataGridMembers = new ObservableCollection<MemberInfo>();
 
             //Initialize ComboBoxes
             stateComboValues.InitializeComboBox(EnumsAndLists.States);
+            _memberTypeComboValues.InitializeComboBox(EnumsAndLists.MemberTypes.Keys.ToList());
+            _memberTermComboValues.InitializeComboBox(EnumsAndLists.MemberTerms);
 
             //var controller = new PersonController();
             //AllPersons = controller.GetAllPersons().ToList();
@@ -55,10 +48,9 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
             //Register for messages
             //Messenger.Default.Register<PropertySetter>(this, AddGameVM.Token, msg => SetGameProperty(msg.PropertyName, (string)msg.PropertyValue));         
 
-            //Fill grid with all games on record
-            //InitializeDataGrid();
+            //Fill grid with all members on record
+            InitializeDataGrid();
         }
-
 
         public ICommand WindowLoaded
         {
@@ -79,7 +71,6 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
             _nameComboValues.InitializeComboBox(nameComboList);
 
         }
-
 
         /// <summary>
         /// Sets a property of myAddGame view model.
@@ -111,11 +102,29 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
         //private string GameEAN { get; set; }
 
         /// <summary>
-        /// Gets the collection of Consignor entities.
+        /// Gets the collection of Member entities.
         /// </summary>
-        public ICollection<Consignor> Consignors { get; private set; }
+        public ICollection<Member> Members { get; private set; }
 
-        #region AddConsignor Stuff
+        #region AddMember Stuff
+        /// <summary>
+        /// Gets the stateComboValues list.
+        /// </summary>
+        public List<ComboBoxListValues> MemberTypeComboValues
+        {
+            get { return _memberTypeComboValues.ComboValues; }
+            private set { _memberTypeComboValues.ComboValues = value; }
+        }
+
+        /// <summary>
+        /// Gets the stateComboValues list.
+        /// </summary>
+        public List<ComboBoxListValues> MemberTermComboValues
+        {
+            get { return _memberTermComboValues.ComboValues; }
+            private set { _memberTermComboValues.ComboValues = value; }
+        }
+
         /// <summary>
         /// Gets the stateComboValues list.
         /// </summary>
@@ -157,14 +166,14 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
                     CellPhoneNumber = SelectedPerson.PhoneNumbers.CellPhoneNumber;
                     HomePhoneNumber = SelectedPerson.PhoneNumbers.HomePhoneNumber;
                     AltPhoneNumber = SelectedPerson.PhoneNumbers.AltPhoneNumber;
-
+                    
                     if (SelectedPerson.MailingAddresses.Any())
                     {
                         MailingAddress1 = SelectedPerson.MailingAddresses.FirstOrDefault().MailingAddress1;
                         MailingAddress2 = SelectedPerson.MailingAddresses.FirstOrDefault().MailingAddress2;
                         City = SelectedPerson.MailingAddresses.FirstOrDefault().City;
                         State = SelectedPerson.MailingAddresses.FirstOrDefault().State;
-                        ZipCode = SelectedPerson.MailingAddresses.FirstOrDefault().ZipCode;
+                        ZipCode = SelectedPerson.MailingAddresses.FirstOrDefault().ZipCode;                       
                     }
                     else
                     {
@@ -186,7 +195,7 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
                     OnPropertyChanged("City");
                     OnPropertyChanged("State");
                     OnPropertyChanged("ZipCode");
-
+                    
                 }
                 else
                 {
@@ -197,11 +206,66 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
             }
         }
 
+        public DateTime StartDate { get; set; }
+        public DateTime RenewDate { get; set; }
+        private int _memberTypeKey { get; set; }
+
+        private string _memberType;
+        [Required]
+        public string MemberType
+        {
+            get { return _memberType; }
+            set
+            {
+                _memberType = value;
+                if(_memberType != null)
+                    _memberTypeKey = EnumsAndLists.MemberTypes[_memberType];
+            }
+        }
+
+        private string _memberTerm;
+        [Required]
+        public string MemberTerm
+        {
+            get { return _memberTerm; }
+            set
+            {
+                _memberTerm = value;
+                if (_memberTerm != null)
+                {
+                    if (_memberTerm.StartsWith("Full-Year"))
+                    {
+                        RenewDate = DateTime.Parse("7/1/" + (DateTime.Now.Year + 1));
+                        StartDate = DateTime.Parse("7/1/" + DateTime.Now.Year);
+                    }
+                    else if (_memberTerm.StartsWith("Fall Semester") && (DateTime.Now.Month < 10))
+                    {
+                        RenewDate = DateTime.Parse("1/1/" + (DateTime.Now.Year + 1));
+                        StartDate = DateTime.Parse("7/1/" + DateTime.Now.Year);
+                    }
+                    else if (_memberTerm.StartsWith("Fall Semester") && (DateTime.Now.Month >= 10))
+                    {
+                        RenewDate = DateTime.Parse("1/1/" + (DateTime.Now.Year + 2));
+                        StartDate = DateTime.Parse("7/1/" + (DateTime.Now.Year + 1));
+                    }
+                    else if (_memberTerm.StartsWith("Spring Semester") && (DateTime.Now.Month >= 6))
+                    {
+                        RenewDate = DateTime.Parse("7/1/" + (DateTime.Now.Year + 1));
+                        StartDate = DateTime.Parse("1/1/" + (DateTime.Now.Year + 1));
+                    }
+                    else if (_memberTerm.StartsWith("Spring Semester") && (DateTime.Now.Month < 6))
+                    {
+                        RenewDate = DateTime.Parse("7/1/" + DateTime.Now.Year);
+                        StartDate = DateTime.Parse("1/1/" + DateTime.Now.Year);
+                    }
+                }
+            }
+        }
         public List<Person> AllPersons { get; set; }
         private Person SelectedPerson { get; set; }
 
         /// <summary>
-        /// Gets or sets the date the consignor was added.
+        /// Gets or sets the date the member was added.
         /// </summary>
         [Required]
         public string DateAdded { get; set; }
@@ -367,11 +431,11 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
         /// <summary>
         /// Gets the command that allows a customer to be added.
         /// </summary>
-        public ActionCommand AddConsignorCommand
+        public ActionCommand AddMemberCommand
         {
             get
             {
-                return new ActionCommand(p => AddConsignor(FirstName, LastName, EmailAddress, CellPhoneNumber,
+                return new ActionCommand(p => AddMember(FirstName, LastName, EmailAddress, CellPhoneNumber,
                                                 HomePhoneNumber, AltPhoneNumber, MailingAddress1, MailingAddress2,
                                                 City, State, ZipCode),
                                          p => IsValid);
@@ -475,7 +539,7 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
             return base.OnValidate(propertyName);
         }
 
-        private void AddConsignor(string firstName, string lastName, string emailAddress, string cellPhoneNumber,
+        private void AddMember(string firstName, string lastName, string emailAddress, string cellPhoneNumber,
                                   string homePhoneNumber, string altPhoneNumber, string mailingAddress1,
                                   string mailingAddress2, string city, string state, string zipCode)
         {
@@ -484,12 +548,17 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
             DateTime dateAdded;
             if (!(DateTime.TryParse(DateAdded, out dateAdded)))
                 dateAdded = DateTime.Now;
+           
+            //int memberType = 1;
 
-            Consignor consignor = new Consignor
+            Member member = new Member
             {
                 DateAdded = dateAdded,
+                RenewDate = RenewDate,
+                StartDate = StartDate,
+                MemberType = _memberTypeKey,
 
-                Consignor_Person = new Person
+                Member_Person = new Person
                 {
                     FirstName = firstName,
                     LastName = lastName,
@@ -525,46 +594,48 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
 
             try
             {
-                var controller = new ConsignorController();
-                var id = controller.AddNewConsignor(consignor);
+                var controller = new MemberController();
+                var id = controller.AddNewMember(member);
                 var pc = new PersonController();
                 var person = pc.GetPerson(id);
-                ConsignorInfo consignorInfo = new ConsignorInfo(consignor, person);
-                DataGridConsignors.Add(consignorInfo);
+                MemberInfo memberInfo = new MemberInfo(member, person);
+                DataGridMembers.Add(memberInfo);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("AddConsignorException", ex.Message);
+                MessageBox.Show(ex.Message, "AddMemberException");
             }
 
 
         }
 
+        
+
         #endregion
 
         #region DataGrid Stuff
         /// <summary>
-        /// Gets the collection of ConsignorInfo entities.
+        /// Gets the collection of MemberInfo entities.
         /// </summary>
-        public ObservableCollection<ConsignorInfo> DataGridConsignors { get; set; }
+        public ObservableCollection<MemberInfo> DataGridMembers { get; set; }
 
         /// <summary>
         /// Gets the selectedItem row from the datagrid.
         /// </summary>
-        private ConsignorInfo selectedConsignor;
-        public ConsignorInfo SelectedConsignor
+        private MemberInfo selectedMember;
+        public MemberInfo SelectedMember
         {
-            get { return selectedConsignor; }
+            get { return selectedMember; }
             set
             {
-                selectedConsignor = value;
+                selectedMember = value;
                 OnSelected();
             }
         }
 
         private void OnSelected()
         {
-            //if (SelectedConsignor != null)
+            //if (SelectedMember != null)
             //    Messenger.Default.Send(new PropertySetter("GameImage", SelectedGameItem.GameImage), Token);
         }
 
@@ -575,7 +646,7 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
         {
             get
             {
-                return new RelayCommand<DataGridCellEditEndingEventArgs>(UpdateConsignorInfo);
+                return new RelayCommand<DataGridCellEditEndingEventArgs>(UpdateMemberInfo);
             }
         }
 
@@ -586,54 +657,54 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
         {
             get
             {
-                return new RelayCommand(DeleteConsignorInfo);
+                return new RelayCommand(DeleteMemberInfo);
             }
         }
 
-        private void DeleteConsignorInfo()
+        private void DeleteMemberInfo()
         {
             if (MessageBox.Show("Deletions are permanent. Are you sure you want to delete this item? ", "Confirm Delete", MessageBoxButton.YesNo) == MessageBoxResult.No)
                 return;
-            if (null != SelectedConsignor)
+            if (null != SelectedMember)
             {
-                var consignorInfo = DataGridConsignors.FirstOrDefault(bi => bi.Id == SelectedConsignor.Id);
-                if (consignorInfo != null)
+                var memberInfo = DataGridMembers.FirstOrDefault(bi => bi.Id == SelectedMember.Id);
+                if (memberInfo != null)
                 {
-                    var tempConsignors = DataGridConsignors;
-                    var gridIndex = tempConsignors.IndexOf(consignorInfo);
-                    if ((gridIndex + 1) == tempConsignors.Count)
+                    var tempMembers = DataGridMembers;
+                    var gridIndex = tempMembers.IndexOf(memberInfo);
+                    if ((gridIndex + 1) == tempMembers.Count)
                         gridIndex--;
-                    tempConsignors.Remove(consignorInfo);
-                    DataGridConsignors = tempConsignors;
-                    SelectedConsignor = DataGridConsignors.ElementAtOrDefault(gridIndex);
+                    tempMembers.Remove(memberInfo);
+                    DataGridMembers = tempMembers;
+                    SelectedMember = DataGridMembers.ElementAtOrDefault(gridIndex);
 
-                    var controller = new ConsignorController();
-                    controller.DeleteConsignerById(consignorInfo.Id);
+                    var controller = new MemberController();
+                    controller.DeleteMemberById(memberInfo.Id);
                     
                 }
             }
         }
 
-        private void UpdateConsignorInfo(DataGridCellEditEndingEventArgs e)
+        private void UpdateMemberInfo(DataGridCellEditEndingEventArgs e)
         {
             var text = WpfHelpers.GetTextFromCellEditingEventArgs(e);
 
             //Get the Column header
             var column = e.Column.Header.ToString();
 
-            //Add info to new ConsignorInfo
-            var consignorInfo = e.Row.Item as ConsignorInfo;
-            var success = consignorInfo.SetProperty(column, text);
+            //Add info to new MemberInfo
+            var memberInfo = e.Row.Item as MemberInfo;
+            var success = memberInfo.SetProperty(column, text);
 
-            if (ConsignorInfoIsValid(consignorInfo) && success)
+            if (MemberInfoIsValid(memberInfo) && success)
             {
                 switch (column)
                 {
                     case "DateAdded":
                         {
-                            var consignor = consignorInfo.ConvertConsignorInfoToConsignor((ConsignorInfo)(e.Row.Item));
-                            var controller = new ConsignorController();
-                            controller.UpdateConsignor(consignor);
+                            var member = memberInfo.ConvertMemberInfoToMember((MemberInfo)(e.Row.Item));
+                            var controller = new MemberController();
+                            controller.UpdateMember(member);
                             break;
                         }
                     case "First Name":
@@ -648,7 +719,7 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
                     case "State":
                     case "ZipCode":
                         {
-                            var person = consignorInfo.ConvertConsignorInfoToPerson((ConsignorInfo)(e.Row.Item));
+                            var person = memberInfo.ConvertMemberInfoToPerson((MemberInfo)(e.Row.Item));
                             var controller = new PersonController();
                             controller.UpdatePerson(person);
                             break;
@@ -658,57 +729,57 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
             else
             {
                 e.Cancel = true;
-                consignorInfo.ReportError(column, text);
+                memberInfo.ReportError(column, text);
             }
 
         }
 
-        private bool ConsignorInfoIsValid(ConsignorInfo consignorInfo)
+        private bool MemberInfoIsValid(MemberInfo memberInfo)
         {
-            EmailAddressAttribute email = new EmailAddressAttribute();//consignorInfo.EmailAddress
+            EmailAddressAttribute email = new EmailAddressAttribute();//memberInfo.EmailAddress
 
-            if (String.IsNullOrEmpty(consignorInfo.MailingAddress2))
+            if (String.IsNullOrEmpty(memberInfo.MailingAddress2))
             {
-                return !String.IsNullOrWhiteSpace(consignorInfo.FirstName) &&
-                        !String.IsNullOrWhiteSpace(consignorInfo.LastName) &&
-                        (consignorInfo.FirstName.Length <= 20) &&
-                        (consignorInfo.LastName.Length <= 20) &&
-                        email.IsValid(consignorInfo.EmailAddress) &&
-                        (consignorInfo.EmailAddress.Length <= 40) &&
-                        (!String.IsNullOrWhiteSpace(consignorInfo.CellPhoneNumber) || (!String.IsNullOrWhiteSpace(consignorInfo.HomePhoneNumber))) &&
-                        Validation_Helper.ParsePhoneNumberLogic(consignorInfo.CellPhoneNumber) &&
-                        Validation_Helper.ParsePhoneNumberLogic(consignorInfo.HomePhoneNumber) &&
-                        Validation_Helper.ParsePhoneNumberLogic(consignorInfo.AltPhoneNumber) &&
-                        !String.IsNullOrWhiteSpace(consignorInfo.MailingAddress1) &&
-                        (consignorInfo.MailingAddress1.Length <= 40) &&
-                        !String.IsNullOrWhiteSpace(consignorInfo.City) &&
-                        (consignorInfo.City.Length <= 30) &&
-                        !String.IsNullOrWhiteSpace(consignorInfo.State) &&
-                        (consignorInfo.State.Length == 2) &&
-                        !String.IsNullOrWhiteSpace(consignorInfo.ZipCode) &&
-                        Validation_Helper.ParseZipCodeLogic(consignorInfo.ZipCode);
+                return !String.IsNullOrWhiteSpace(memberInfo.FirstName) &&
+                        !String.IsNullOrWhiteSpace(memberInfo.LastName) &&
+                        (memberInfo.FirstName.Length <= 20) &&
+                        (memberInfo.LastName.Length <= 20) &&
+                        email.IsValid(memberInfo.EmailAddress) &&
+                        (memberInfo.EmailAddress.Length <= 40) &&
+                        (!String.IsNullOrWhiteSpace(memberInfo.CellPhoneNumber) || (!String.IsNullOrWhiteSpace(memberInfo.HomePhoneNumber))) &&
+                        Validation_Helper.ParsePhoneNumberLogic(memberInfo.CellPhoneNumber) &&
+                        Validation_Helper.ParsePhoneNumberLogic(memberInfo.HomePhoneNumber) &&
+                        Validation_Helper.ParsePhoneNumberLogic(memberInfo.AltPhoneNumber) &&
+                        !String.IsNullOrWhiteSpace(memberInfo.MailingAddress1) &&
+                        (memberInfo.MailingAddress1.Length <= 40) &&
+                        !String.IsNullOrWhiteSpace(memberInfo.City) &&
+                        (memberInfo.City.Length <= 30) &&
+                        !String.IsNullOrWhiteSpace(memberInfo.State) &&
+                        (memberInfo.State.Length == 2) &&
+                        !String.IsNullOrWhiteSpace(memberInfo.ZipCode) &&
+                        Validation_Helper.ParseZipCodeLogic(memberInfo.ZipCode);
             }
             else
             {
-                return !String.IsNullOrWhiteSpace(consignorInfo.FirstName) &&
-                        !String.IsNullOrWhiteSpace(consignorInfo.LastName) &&
-                        (consignorInfo.FirstName.Length <= 20) &&
-                        (consignorInfo.LastName.Length <= 20) &&
-                        email.IsValid(consignorInfo.EmailAddress) &&
-                        (consignorInfo.EmailAddress.Length <= 40) &&
-                        (!String.IsNullOrWhiteSpace(consignorInfo.CellPhoneNumber) || (!String.IsNullOrWhiteSpace(consignorInfo.HomePhoneNumber))) &&
-                        Validation_Helper.ParsePhoneNumberLogic(consignorInfo.CellPhoneNumber) &&
-                        Validation_Helper.ParsePhoneNumberLogic(consignorInfo.HomePhoneNumber) &&
-                        Validation_Helper.ParsePhoneNumberLogic(consignorInfo.AltPhoneNumber) &&
-                        !String.IsNullOrWhiteSpace(consignorInfo.MailingAddress1) &&
-                        (consignorInfo.MailingAddress1.Length <= 40) &&
-                        (consignorInfo.MailingAddress2.Length <= 40) &&
-                        !String.IsNullOrWhiteSpace(consignorInfo.City) &&
-                        (consignorInfo.City.Length <= 30) &&
-                        !String.IsNullOrWhiteSpace(consignorInfo.State) &&
-                        (consignorInfo.State.Length == 2) &&
-                        !String.IsNullOrWhiteSpace(consignorInfo.ZipCode) &&
-                        Validation_Helper.ParseZipCodeLogic(consignorInfo.ZipCode);
+                return !String.IsNullOrWhiteSpace(memberInfo.FirstName) &&
+                        !String.IsNullOrWhiteSpace(memberInfo.LastName) &&
+                        (memberInfo.FirstName.Length <= 20) &&
+                        (memberInfo.LastName.Length <= 20) &&
+                        email.IsValid(memberInfo.EmailAddress) &&
+                        (memberInfo.EmailAddress.Length <= 40) &&
+                        (!String.IsNullOrWhiteSpace(memberInfo.CellPhoneNumber) || (!String.IsNullOrWhiteSpace(memberInfo.HomePhoneNumber))) &&
+                        Validation_Helper.ParsePhoneNumberLogic(memberInfo.CellPhoneNumber) &&
+                        Validation_Helper.ParsePhoneNumberLogic(memberInfo.HomePhoneNumber) &&
+                        Validation_Helper.ParsePhoneNumberLogic(memberInfo.AltPhoneNumber) &&
+                        !String.IsNullOrWhiteSpace(memberInfo.MailingAddress1) &&
+                        (memberInfo.MailingAddress1.Length <= 40) &&
+                        (memberInfo.MailingAddress2.Length <= 40) &&
+                        !String.IsNullOrWhiteSpace(memberInfo.City) &&
+                        (memberInfo.City.Length <= 30) &&
+                        !String.IsNullOrWhiteSpace(memberInfo.State) &&
+                        (memberInfo.State.Length == 2) &&
+                        !String.IsNullOrWhiteSpace(memberInfo.ZipCode) &&
+                        Validation_Helper.ParseZipCodeLogic(memberInfo.ZipCode);
             }
 
         }
@@ -716,39 +787,40 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
         private void InitializeDataGrid()
         {
             var pcontroller = new PersonController();
-            ObservableCollection<Person> persons = new ObservableCollection<Person>(pcontroller.QueryPersonsThatAreConsigners());
+            ObservableCollection<Person> persons = new ObservableCollection<Person>(pcontroller.QueryPersonsThatAreMembers());
             
-            var ccontroller = new ConsignorController();
-            ObservableCollection<Consignor> consignors = new ObservableCollection<Consignor>(ccontroller.GetAllConsignors());
+            var ccontroller = new MemberController();
+            ObservableCollection<Member> members = new ObservableCollection<Member>(ccontroller.GetAllMembers());
 
-            DataGridConsignors = MergeConsignorInfo(consignors, persons);
+            DataGridMembers = MergeMemberInfo(members, persons);
             
         }
 
         //Make a collection of GameItems with info from both the Item and Game Tables
-        private ObservableCollection<ConsignorInfo> MergeConsignorInfo(ObservableCollection<Consignor> consignors, ObservableCollection<Person> persons)
+        private ObservableCollection<MemberInfo> MergeMemberInfo(ObservableCollection<Member> members, ObservableCollection<Person> persons)
         {
             //Temp Collection Definition
-            ObservableCollection<ConsignorInfo> tempConsignorInfos = new ObservableCollection<ConsignorInfo>();
+            ObservableCollection<MemberInfo> tempMemberInfos = new ObservableCollection<MemberInfo>();
 
             //Clear DataGridGames
-            DataGridConsignors.Clear();
+            DataGridMembers.Clear();
 
             //Make the collection
             IEnumerator<Person> p = persons.GetEnumerator();
             while (p.MoveNext())
             {
-                //Get the consignor that corresponds to the current person
-                Consignor currentConsignor = consignors.FirstOrDefault(c => c.Consignor_Person.Id == p.Current.Id);
-                //Create an instance of a ConsignorInfo with the current consignor and person info
-                var currentConsignorInfo = new ConsignorInfo(currentConsignor, p.Current);
+                //Get the member that corresponds to the current person
+                Member currentMember = members.FirstOrDefault(c => c.Member_Person.Id == p.Current.Id);
+                //Create an instance of a MemberInfo with the current member and person info
+                var currentMemberInfo = new MemberInfo(currentMember, p.Current);
                 //Add the new instance to the collection
-                tempConsignorInfos.Add(currentConsignorInfo);
+                tempMemberInfos.Add(currentMemberInfo);
             }
 
-            return tempConsignorInfos;
+            return tempMemberInfos;
         }
 
         #endregion
     }
+    
 }

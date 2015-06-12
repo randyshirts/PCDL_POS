@@ -16,6 +16,8 @@ using GalaSoft.MvvmLight.Ioc;
 using Inventory.ViewModels.AddItem.ViewModels;
 using Microsoft.Practices.ServiceLocation;
 
+//using Microsoft.Practices.ServiceLocation;
+
 namespace Inventory.ViewModels.MainView.ViewModels
 {
     /// <summary>

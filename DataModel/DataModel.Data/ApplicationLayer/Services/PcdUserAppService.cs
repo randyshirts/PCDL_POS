@@ -218,8 +218,10 @@ namespace DataModel.Data.ApplicationLayer.Services
             userEntity.PasswordHash = new PasswordHasher().HashPassword(userEntity.PasswordHash);
             try
             {
+                
                 var createResult = await UserManager.CreateAsync(userEntity);
 
+                
                 //if (result.Succeeded)
                 //{
                 //    var user = _userRepository.FirstOrDefault(u => u.Email == registerUser.EmailAddress);

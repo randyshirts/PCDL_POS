@@ -9,10 +9,14 @@ namespace DataModel.Data.TransactionalLayer.Mapping
         public MemberMap()
         {
             //Key
-            HasKey(b => b.Id);
+            HasKey(m => m.Id);
 
             //Fields
-            Property(b => b.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            Property(m => m.DateAdded).IsRequired();
+            Property(m => m.StartDate);
+            Property(m => m.RenewDate).IsRequired();
+            Property(m => m.MemberType).IsRequired();
 
             //Table
             ToTable("Members");

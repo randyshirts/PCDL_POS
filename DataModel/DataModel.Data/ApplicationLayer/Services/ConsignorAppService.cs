@@ -27,6 +27,14 @@ namespace DataModel.Data.ApplicationLayer.Services
             };
         }
 
+        public AddConsignorToPersonOutput AddConsignorToPerson(AddConsignorToPersonInput input)
+        {
+            return new AddConsignorToPersonOutput
+            {
+                Result = _consignorRepository.AddConsignorToPerson(input.Person.ConvertToPerson(), input.Consignor.ConvertToConsignor())
+            };
+        }
+
         public void DeleteConsignerById(DeleteConsignerByIdInput input)
         {
             _consignorRepository.DeleteConsignerById(input.Id);

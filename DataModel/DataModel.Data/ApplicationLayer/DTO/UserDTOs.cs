@@ -165,9 +165,9 @@ namespace DataModel.Data.ApplicationLayer.DTO
         [StringLength(30, MinimumLength = 3)]
         public string Password { get; set; }
 
-        [StringLength(30, MinimumLength = 3)]
-        [Compare("Password", ErrorMessage = "Passwords do no match!")]
-        public string PasswordRepeat { get; set; }
+        //[StringLength(30, MinimumLength = 3)]
+        //[Compare("Password", ErrorMessage = "Passwords do no match!")]
+        //public string PasswordRepeat { get; set; }
 
         //public string ProfileImage { get; set; }
     }

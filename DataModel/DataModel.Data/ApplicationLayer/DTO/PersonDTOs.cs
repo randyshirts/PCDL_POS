@@ -64,4 +64,23 @@ namespace DataModel.Data.ApplicationLayer.DTO
         public List<PersonDto> Persons { get; set; } 
     }
 
+    public class QueryPersonsThatAreMembersOutput : IOutputDto
+    {
+        public List<PersonDto> Persons { get; set; }
+    }
+
+    public class GetPersonInput : IInputDto
+    {
+        public int Id { get; set; }
+    }
+
+    public class GetPersonOutput : IOutputDto
+    {
+        public PersonDto PersonDto { get; set; }
+    }
+
+    public class GetAllPersonsOutput : IOutputDto
+    {
+        public List<PersonDto> Persons { get; set; } 
+    }
 }

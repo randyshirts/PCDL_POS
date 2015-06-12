@@ -68,7 +68,20 @@ namespace DataModel.Data.TransactionalLayer.Repositories
             return query.ToList();
         }
 
-        
+        public IEnumerable<Person> QueryPersonsThatAreMembers()
+        {
+            var query = (from p in Context.Persons
+                         where (p.Member != null)
+                         select p);
+            return query.ToList();
+        }
+
+        public IEnumerable<Person> GetAllPersons()
+        {
+            var query = (from p in Context.Persons
+                         select p);
+            return query.ToList();
+        }
         
     }
 }

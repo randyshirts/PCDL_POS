@@ -8,5 +8,8 @@ namespace DataModel.Data.ApplicationLayer.WpfControllers
     {
         bool UpdatePerson(Person updatedPerson);
         IEnumerable<Person> QueryPersonsThatAreConsigners();
+        IEnumerable<Person> QueryPersonsThatAreMembers();
+        Person GetPerson(int id);
+        IEnumerable<Person> GetAllPersons();
     }
 }

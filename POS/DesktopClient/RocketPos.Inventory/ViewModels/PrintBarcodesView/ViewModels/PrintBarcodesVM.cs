@@ -46,10 +46,10 @@ namespace Inventory.ViewModels.PrintBarcodesView.ViewModels
             statusComboList.Insert(0, "All");
             _statusComboValues.InitializeComboBox(statusComboList);
 
-            var controller = new ConsignorController();
-            List<string> consignorNameComboList = new List<string>(controller.GetConsignorNames());
-            consignorNameComboList.Insert(0, "All");
-            _consignorNameComboValues.InitializeComboBox(consignorNameComboList);
+            //var controller = new ConsignorController();
+            //List<string> consignorNameComboList = new List<string>(controller.GetConsignorNames());
+            //consignorNameComboList.Insert(0, "All");
+            //_consignorNameComboValues.InitializeComboBox(consignorNameComboList);
             
         }
 

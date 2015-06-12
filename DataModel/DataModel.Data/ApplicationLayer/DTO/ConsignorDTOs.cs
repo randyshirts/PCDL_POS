@@ -54,6 +54,17 @@ namespace DataModel.Data.ApplicationLayer.DTO
         public ConsignorDto Consignor { get; set; }
     }
 
+    public class AddConsignorToPersonInput : IInputDto
+    {
+        public ConsignorDto Consignor { get; set; }
+        public PersonDto Person { get; set; }
+    }
+
+    public class AddConsignorToPersonOutput : IOutputDto
+    {
+        public bool Result { get; set; }    
+    }
+
     public class DeleteConsignerByIdInput : IInputDto
     {
         public int Id { get; set; }

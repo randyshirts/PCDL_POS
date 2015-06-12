@@ -12,6 +12,7 @@
              xmlns:viewModels3="clr-namespace:Inventory.ViewModels.ConsignorItems.ViewModels"
              xmlns:viewModels4="clr-namespace:Inventory.ViewModels.EditItem.ViewModels"
              xmlns:viewModels5="clr-namespace:Inventory.ViewModels.PrintBarcodesView.ViewModels"
+             xmlns:viewModels6="clr-namespace:Inventory.ViewModels.AddMember.ViewModels"
              xmlns:converters="clr-namespace:RocketPos.Common.Helpers;assembly=RocketPos.Common"
              xmlns:inventory="clr-namespace:Inventory">
 
@@ -40,14 +41,18 @@
             <viewModels2:AddConsignorVm x:Key="AddConsignorVM" />
             <viewModels3:ConsignorItemsVm x:Key="ConsignorItemsVM" />
             <viewModels5:PrintBarcodesVm x:Key="PrintBarcodesVM" />
+            <viewModels6:AddMemberVm x:Key="AddMemberVM" />
             <inventory:SelectedBookItemConverter x:Key="selectedBookItemConverter" />
             <inventory:SelectedGameItemConverter x:Key="selectedGameItemConverter" />
             <inventory:SelectedOtherItemConverter x:Key="selectedOtherItemConverter" />
             <inventory:SelectedTeachingAideItemConverter x:Key="selectedTeachingAideItemConverter" />
             <inventory:SelectedVideoItemConverter x:Key="selectedVideoItemConverter" />
             <inventory:SelectedConsignorInfoConverter x:Key="selectedConsignorConverter" />
+            <inventory:SelectedMemberInfoConverter x:Key="selectedMemberConverter" />
             <inventory:SelectedConsignorItemConverter x:Key="selectedConsignorItemConverter" />
             <converters:SelectedBarcodeItemConverter x:Key="selectedBarcodeItemConverter" />
+            <converters:MemberTypeConverter x:Key="memberTypeConverter" />
+            
             <converters:NullImageConverter x:Key="nullImageConverter"/>
             <converters:IntConverter x:Key="intConverter"/>
             <converters:MoneyConverter x:Key="moneyConverter"/>

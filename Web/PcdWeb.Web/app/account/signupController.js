@@ -4,12 +4,11 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
     $scope.savedSuccessfully = false;
     $scope.message = "";
 
-    $scope.registration = {
-        userName: "",       
+    $scope.registration = {       
         emailaddress: "",
-        phonenumber: "",
+        phone: "",
         password: "",
-        confirmPassword: ""
+        passwordRepeat: ""
     };
 
     $scope.busyDisabled = true;
@@ -36,6 +35,7 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
                      errors.push(response.data.modelState[key][i]);
                  }
              }
+             $scope.busyDisabled = true;
              $scope.message = response.data.message;
          });
     };

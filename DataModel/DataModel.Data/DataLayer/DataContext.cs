@@ -42,6 +42,7 @@ namespace DataModel.Data.DataLayer
         public virtual DbSet<Video> Videos { get; set; }
         public virtual DbSet<Person> Persons { get; set; }
         public virtual DbSet<Consignor> Consignors { get; set; }
+        public virtual DbSet<Member> Members { get; set; }
         public virtual DbSet<MailingAddress> MailingAddresses { get; set; }
         public virtual DbSet<Email> Emails { get; set; }
         public virtual DbSet<User> Users { get; set; }

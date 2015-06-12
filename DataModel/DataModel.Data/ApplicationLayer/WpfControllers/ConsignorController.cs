@@ -16,6 +16,47 @@ namespace DataModel.Data.ApplicationLayer.WpfControllers
             {
                 Consignor = new ConsignorDto(consignor)
             };
+
+            var emailInput = new GetPersonsByEmailInput
+            {
+                EmailAddress = consignor.Consignor_Person.EmailAddresses.FirstOrDefault().EmailAddress
+            };
+
+            var person = new Person();
+
+            using (var repo = new EmailRepository())
+            {
+                var app = new EmailAppService(repo);
+                person = app.GetPersonsByEmail(emailInput).EmailPersons
+                    .Select(p => p.ConvertToPerson()).FirstOrDefault();
+            }
+
+            if (person != null)
+            {
+                //Add member to existing person if name matches
+                if (person.FirstName == consignor.Consignor_Person.FirstName &&
+                    (person.LastName == consignor.Consignor_Person.LastName))
+                {
+                    consignor.Consignor_Person = null;
+
+                    var existingInput = new AddConsignorToPersonInput
+                    {
+                        Consignor = new ConsignorDto(consignor),
+                        Person = new PersonDto(person)
+                    };
+
+                    using (var repo = new ConsignorRepository())
+                    {
+                        var app = new ConsignorAppService(repo);
+                        if (app.AddConsignorToPerson(existingInput).Result)
+                        {
+                            return person.Id;
+                        }
+                    }
+                }
+                throw new Exception("First and Last names do not match email address on record");
+            }
+
             using (var repo = new ConsignorRepository())
             {
                 var app = new ConsignorAppService(repo);

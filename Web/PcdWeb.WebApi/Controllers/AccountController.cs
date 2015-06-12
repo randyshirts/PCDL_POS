@@ -24,6 +24,7 @@ using Newtonsoft.Json.Linq;
 using PcdWeb.Logging;
 using PcdWeb.Models;
 using PcdWeb.Models.AccountModels;
+using PcdWeb.Models.ItemModels;
 
 
 namespace PcdWeb.Controllers
@@ -60,6 +61,7 @@ namespace PcdWeb.Controllers
                 return Ok("Invalid input");
             }
 
+            
             //ApiLog.Instance.Trace("Register account controller valid");
 
             //define output
@@ -83,12 +85,13 @@ namespace PcdWeb.Controllers
             //http://jeremybytes.blogspot.com/2015/01/task-and-await-basic-cancellation.html
             var result = await _userAppService.RegisterUser(input);
             //if (result == null) return BadRequest("Registration Failed - Try Again");
-            
 
             if (result.Result.Succeeded)
             {
-                await _userAppService.SendConfirmation(new SendConfirmationInput() {EmailAddress = input.EmailAddress});
+                await _userAppService.SendConfirmation(new SendConfirmationInput() { EmailAddress = input.EmailAddress });
                 output.message = "success";
+                return Ok(output);
+                
             }
 
             if (result.Result.Errors.Any())
@@ -313,6 +316,16 @@ namespace PcdWeb.Controllers
             }
             
         }
+
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("LoginTimeout")]
+        public IHttpActionResult LoginTimeout(string ReturnUrl)
+        {
+            var output = new AddItemApiOutput() {Message = "Session Timed Out"};
+            return Ok(output);
+        }
+
 
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpPost]

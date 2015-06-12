@@ -53,5 +53,55 @@ namespace DataModel.Data.ApplicationLayer.WpfControllers
                 return null;
             }
         }
+
+        public IEnumerable<Person> QueryPersonsThatAreMembers()
+        {
+            try
+            {
+                using (var repo = new PersonRepository())
+                {
+                    var app = new PersonAppService(repo);
+                    var output = app.QueryPersonsThatAreMembers();
+                    return output.Persons.Select(person => person.ConvertToPerson()).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "QueryPersonsThatAreMembers - Controller");
+                return null;
+            }
+        }
+
+        public Person GetPerson(int id)
+        {
+            var input = new GetPersonInput
+            {
+                Id = id
+            };
+            
+            using (var repo = new PersonRepository())
+            {
+                var app = new PersonAppService(repo);
+                return app.GetPerson(input).PersonDto.ConvertToPerson();
+            }
+        }
+
+        public IEnumerable<Person> GetAllPersons()
+        {
+            try
+            {
+                using (var repo = new PersonRepository())
+                {
+                    var app = new PersonAppService(repo);
+                    var output = app.GetAllPersons();
+                    return output.Persons.Select(person => person.ConvertToPerson()).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "GetAllPersons - Controller");
+                return null;
+            }
+        }
     }
 }

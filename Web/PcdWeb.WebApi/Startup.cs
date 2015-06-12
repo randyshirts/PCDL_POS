@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.Http;
 using AngularJSAuthentication.API;
 using Castle.Windsor;
@@ -102,10 +103,12 @@ namespace PcdWeb
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
             // Configure the sign in cookie
+            
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/api/Account/Login"),
+                ExpireTimeSpan = System.TimeSpan.FromMinutes(1440),
+                LoginPath = new PathString("/api/Account/LoginTimeout"),
                 SystemClock = new Microsoft.Owin.Infrastructure.SystemClock(),
                 Provider = new CookieAuthenticationProvider
                 {
@@ -113,7 +116,8 @@ namespace PcdWeb
                     // This is a security feature which is used when you change a password or add an external login to your account.  
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<PcdUserManager, User>(
                         validateInterval: TimeSpan.FromMinutes(30),
-                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager)),
+
                 }
             });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);

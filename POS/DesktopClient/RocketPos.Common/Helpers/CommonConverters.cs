@@ -178,4 +178,25 @@ namespace RocketPos.Common.Helpers
             return null;
         }
     }
+
+    public class MemberTypeConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null) return null;
+            var temp = value.ToString();
+            int number;
+            Int32.TryParse(temp, out number);
+
+            return EnumsAndLists.MemberTypesInts[number];
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null) return null;
+            var temp = value.ToString();
+
+            return EnumsAndLists.MemberTypes[temp];
+        }
+    }
 }

@@ -104,6 +104,21 @@ namespace Inventory
             }
         }
 
+        public class SelectedMemberInfoConverter : IValueConverter
+        {
+            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                return value;
+            }
+
+            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                if (value is MemberInfo)
+                    return value;
+                return null;
+            }
+        }
+
         public class SelectedConsignorItemConverter : IValueConverter
         {
             public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
