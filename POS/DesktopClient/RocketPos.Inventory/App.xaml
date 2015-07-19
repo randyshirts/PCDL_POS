@@ -13,6 +13,7 @@
              xmlns:viewModels4="clr-namespace:Inventory.ViewModels.EditItem.ViewModels"
              xmlns:viewModels5="clr-namespace:Inventory.ViewModels.PrintBarcodesView.ViewModels"
              xmlns:viewModels6="clr-namespace:Inventory.ViewModels.AddMember.ViewModels"
+			 xmlns:viewModels7="clr-namespace:Inventory.ViewModels.RenewMember.ViewModels"
              xmlns:converters="clr-namespace:RocketPos.Common.Helpers;assembly=RocketPos.Common"
              xmlns:inventory="clr-namespace:Inventory">
 
@@ -42,6 +43,7 @@
             <viewModels3:ConsignorItemsVm x:Key="ConsignorItemsVM" />
             <viewModels5:PrintBarcodesVm x:Key="PrintBarcodesVM" />
             <viewModels6:AddMemberVm x:Key="AddMemberVM" />
+			<viewModels7:RenewMemberVm x:Key="RenewMemberVM" />
             <inventory:SelectedBookItemConverter x:Key="selectedBookItemConverter" />
             <inventory:SelectedGameItemConverter x:Key="selectedGameItemConverter" />
             <inventory:SelectedOtherItemConverter x:Key="selectedOtherItemConverter" />

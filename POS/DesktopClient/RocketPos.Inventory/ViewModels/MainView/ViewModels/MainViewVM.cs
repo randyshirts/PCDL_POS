@@ -5,6 +5,7 @@ using Inventory.ViewModels.AddMember.ViewModels;
 using Inventory.ViewModels.ConsignorItems.ViewModels;
 using Inventory.ViewModels.EditItem.ViewModels;
 using Inventory.ViewModels.PrintBarcodesView.ViewModels;
+using Inventory.ViewModels.RenewMember.ViewModels;
 using RocketPos.Common.Foundation;
 
 namespace Inventory.ViewModels.MainView.ViewModels
@@ -26,6 +27,7 @@ namespace Inventory.ViewModels.MainView.ViewModels
                 (newViewModel.GetType() == (typeof(EditItemVm))) ||
                 (newViewModel.GetType() == (typeof(AddConsignorVm))) ||
                 (newViewModel.GetType() == (typeof(AddMemberVm))) ||
+                (newViewModel.GetType() == (typeof(RenewMemberVm))) ||
                 (newViewModel.GetType() == (typeof(ConsignorItemsVm))))
             {
                 LoadAddNewMainView(newViewModel);
@@ -82,6 +84,12 @@ namespace Inventory.ViewModels.MainView.ViewModels
             }
 
             if (newViewModel.GetType() == (typeof(AddMemberVm)))
+            {
+                TopLeftColSpan = "2";
+                TopLeftRowSpan = "2";
+            }
+
+            if (newViewModel.GetType() == (typeof(RenewMemberVm)))
             {
                 TopLeftColSpan = "2";
                 TopLeftRowSpan = "2";
@@ -237,6 +245,16 @@ namespace Inventory.ViewModels.MainView.ViewModels
             {
                 var myAddMemberVm = new AddMemberVm();
                 return new ActionCommand(p => LoadAddNewMainView(myAddMemberVm));
+            }
+
+        }
+
+        public ActionCommand RenewMemberButtonCommand
+        {
+            get
+            {
+                var myRenewMemberVm = new RenewMemberVm();
+                return new ActionCommand(p => LoadAddNewMainView(myRenewMemberVm));
             }
 
         }
