@@ -41,9 +41,13 @@ namespace DataModel.Data.ApplicationLayer.Services
 
         public GetMemberByNameOutput GetMemberByName(GetMemberByNameInput input)
         {
+            var member = new MemberDto(_memberRepository.GetMemberByName(input.FirstName, input.LastName));
+            var person = new PersonDto(member.Member_Person);
+            member.Member_Person = person.ConvertToPerson();
+            
             return new GetMemberByNameOutput
             {
-                Member = new MemberDto(_memberRepository.GetMemberByName(input.FirstName, input.LastName))
+                Member = member
             };
         }
 
@@ -65,9 +69,13 @@ namespace DataModel.Data.ApplicationLayer.Services
 
         public GetMemberByFullNameOutput GetMemberByFullName(GetMemberByFullNameInput input)
         {
+            var member = new MemberDto(_memberRepository.GetMemberByFullName(input.FullName));
+            var person = new PersonDto(member.Member_Person);
+            member.Member_Person = person.ConvertToPerson();
+            
             return new GetMemberByFullNameOutput
             {
-                Member = new MemberDto(_memberRepository.GetMemberByFullName(input.FullName))
+                Member = member
             };
         }
 

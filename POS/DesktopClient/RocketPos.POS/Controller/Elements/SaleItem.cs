@@ -64,7 +64,7 @@ namespace POS.Controller.Elements
             }
 
             //Set SaleAmount - Amount reported to consignor
-            SaleAmount = UnitPrice - DateDiscount;
+            SaleAmount = UnitPrice - DateDiscount*UnitPrice;
 
             //Get member, volunteer, owner discount
             //TODO: Implement member discounts 

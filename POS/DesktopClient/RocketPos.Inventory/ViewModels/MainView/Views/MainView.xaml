@@ -86,7 +86,9 @@
                 <Button Name="MemberViewButton" Content="Add/Edit Members" HorizontalAlignment="Stretch" Width="Auto"
                     Command="{Binding Path=AddMemberButtonCommand, Mode=OneTime}" >
                 </Button>
-                
+                <Button Name="RenewMemberViewButton" Content="Renew Members" HorizontalAlignment="Stretch" Width="Auto"
+                    Command="{Binding Path=RenewMemberButtonCommand, Mode=OneTime}" >
+                </Button>
                 <Separator/>
                 <Label 
                     Content="Transactions" 

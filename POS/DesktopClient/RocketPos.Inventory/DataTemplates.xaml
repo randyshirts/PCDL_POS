@@ -13,7 +13,9 @@
 					xmlns:vm="clr-namespace:Inventory.ViewModels.PrintBarcodesView.ViewModels"
 					xmlns:views="clr-namespace:Inventory.ViewModels.PrintBarcodesView.Views"
 					xmlns:viewModels11="clr-namespace:Inventory.ViewModels.AddMember.ViewModels"
-					xmlns:views5="clr-namespace:Inventory.ViewModels.AddMember.Views">
+					xmlns:views5="clr-namespace:Inventory.ViewModels.AddMember.Views"
+					xmlns:viewModels111="clr-namespace:Inventory.ViewModels.RenewMember.ViewModels"
+					xmlns:views7="clr-namespace:Inventory.ViewModels.RenewMember.Views">
 	
 <!--	<conv:CommentsConverter x:Key="CommentsConverter" />
 -->
@@ -79,7 +81,11 @@
     <DataTemplate DataType="{x:Type viewModels11:AddMemberVm}">
         <views5:AddMemberView/>
     </DataTemplate>
-    
+
+    <DataTemplate DataType="{x:Type viewModels111:RenewMemberVm}">
+        <views7:RenewMemberView/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type vm2:ConsignorItemsVm}">
         <views3:ConsignorItemsView/>
     </DataTemplate>
