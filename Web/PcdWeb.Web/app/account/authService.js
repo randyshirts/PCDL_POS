@@ -70,7 +70,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
         var deferred = $q.defer();
 
-        $http.post(serviceBase + 'api/account/login', data, {
+        $http.post(serviceBase + 'api/account/login', loginData, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
 

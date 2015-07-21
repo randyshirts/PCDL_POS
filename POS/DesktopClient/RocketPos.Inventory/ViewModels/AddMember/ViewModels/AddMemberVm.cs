@@ -14,6 +14,7 @@ using RocketPos.Inventory.Resources;
 using GalaSoft.MvvmLight.Command;
 using System.Windows.Controls;
 using System.Windows.Input;
+using MemberInfo = RocketPos.Inventory.Resources.MemberInfo;
 
 namespace Inventory.ViewModels.AddMember.ViewModels
 {
