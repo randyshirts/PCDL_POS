@@ -24,7 +24,7 @@ namespace DataModel.Data.DataLayer.Entities
         public virtual ClassPmtTransaction ClassPmtTransaction { get; set; }
         public int? SpaceRentalTransactionId { get; set; }
         public virtual SpaceRentalTransaction SpaceRentalTransaction { get; set; }
-        public int? StoreId { get; set; }
+        public int? StoreCreditTransactionId { get; set; }
         public virtual StoreCreditTransaction StoreCreditTransaction { get; set; }
         #endregion
 

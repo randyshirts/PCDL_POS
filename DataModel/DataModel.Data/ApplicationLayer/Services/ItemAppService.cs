@@ -106,15 +106,24 @@ namespace DataModel.Data.ApplicationLayer.Services
             if (input.ItemType == "Teaching Aide")
                 input.ItemType = "TeachingAide";
 
+
+            var items = _itemRepository.SearchAllItems(input.Barcode,
+                input.Status,
+                input.ItemType,
+                input.ConsignorName,
+                input.ListedDate);
+            
+            if(items != null)                        
             return new SearchAllItemsOutput
             {
-                Items = _itemRepository.SearchAllItems(input.Barcode, 
-                                                        input.Status, 
-                                                        input.ItemType, 
-                                                        input.ConsignorName, 
-                                                        input.ListedDate)
-                                                .Select(i => (new ItemDto(i))).ToList()
+                Items = items.Select(i => (new ItemDto(i))).ToList()
             };
+
+            return new SearchAllItemsOutput
+            {
+                Items = null
+            };
+
         }
 
         public SearchListItemsOutput SearchListItems(SearchListItemsInput input)

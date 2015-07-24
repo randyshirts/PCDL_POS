@@ -22,5 +22,16 @@ namespace RocketPos.Common.Helpers
 
             return names;
         }
+
+        public static string SwitchNameOrder(string fullName)
+        {
+            //Split full name
+            if (String.IsNullOrEmpty(fullName)) return null;
+            var names = fullName.Split(' ');
+            var last = names[0];
+            var first = names[1];
+
+            return first + " " + last;
+        }
     }
 }

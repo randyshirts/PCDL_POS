@@ -10,6 +10,9 @@ namespace DataModel.Data.ApplicationLayer.DTO
 {
     public class ItemDto : EntityDto
     {
+        public ItemDto()
+        {
+        }
 
         public ItemDto(Item item)
         {

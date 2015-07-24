@@ -57,6 +57,9 @@ namespace DataModel.Data.TransactionalLayer.Repositories
             if (itemType == "All") itemType = null;
             if (consignorName == "All") consignorName = null;
 
+            if ((barcode == null) && (status == null) && (itemType == null) && (consignorName == null))
+                return null;
+
             if (!String.IsNullOrEmpty(barcode))
             {
                 query = query.Where(item => item.Barcode == barcode);

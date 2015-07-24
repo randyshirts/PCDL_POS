@@ -27,5 +27,20 @@ namespace DataModel.Data.ApplicationLayer.WpfControllers
                         .ToList();
             }
         }
+
+        public int AddNewStoreCreditTransaction(StoreCreditTransaction transaction)
+        {
+            var input = new AddNewStoreCreditTransactionInput
+            {
+                Payment = new StoreCreditTransactionDto(transaction)
+            };
+
+
+            using (var repo = new StoreCreditTransactionRepository())
+            {
+                var app = new StoreCreditTransactionAppService(repo);
+                return app.AddNewStoreCreditTransaction(input).Id;
+            }
+        }
     }
 }

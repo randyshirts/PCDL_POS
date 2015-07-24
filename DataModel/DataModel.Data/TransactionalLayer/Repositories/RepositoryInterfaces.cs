@@ -137,6 +137,7 @@ namespace DataModel.Data.TransactionalLayer.Repositories
     public interface IStoreCreditTransactionRepository : IRepository<StoreCreditTransaction>
     {
         IEnumerable<StoreCreditTransaction> GetStoreCreditTransactionsByConsignorId(int id);
+        int AddNewStoreCreditTransaction(StoreCreditTransaction transaction);
     }
 
     public interface IStoreCreditPmtRepository : IRepository<StoreCreditPmt>

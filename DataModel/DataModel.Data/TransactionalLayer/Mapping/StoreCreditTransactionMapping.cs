@@ -14,6 +14,7 @@ namespace DataModel.Data.TransactionalLayer.Mapping
             //Fields
             Property(b => b.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             Property(sc => sc.StoreCreditTransactionAmount).IsRequired();
+            Property(sc => sc.TransactionType).IsOptional();
             //Table
             ToTable("StoreCreditTransactions");
 

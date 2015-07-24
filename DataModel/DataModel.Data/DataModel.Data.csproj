@@ -292,6 +292,10 @@
     <Compile Include="TransactionalLayer\MigrationsSql\201506071349282_AddStartDateToMembers.Designer.cs">
       <DependentUpon>201506071349282_AddStartDateToMembers.cs</DependentUpon>
     </Compile>
+    <Compile Include="TransactionalLayer\MigrationsSql\201507242148559_StoreCreditTransactionChanges.cs" />
+    <Compile Include="TransactionalLayer\MigrationsSql\201507242148559_StoreCreditTransactionChanges.Designer.cs">
+      <DependentUpon>201507242148559_StoreCreditTransactionChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="TransactionalLayer\MigrationsSql\Configuration.cs" />
     <Compile Include="TransactionalLayer\Repositories\MemberRepository.cs" />
     <Compile Include="TransactionalLayer\Repositories\EmailRepository.cs" />
@@ -414,6 +418,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TransactionalLayer\MigrationsSql\201506071349282_AddStartDateToMembers.resx">
       <DependentUpon>201506071349282_AddStartDateToMembers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransactionalLayer\MigrationsSql\201507242148559_StoreCreditTransactionChanges.resx">
+      <DependentUpon>201507242148559_StoreCreditTransactionChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

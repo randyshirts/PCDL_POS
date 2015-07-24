@@ -63,11 +63,11 @@
                 DockPanel.Dock="Top"/>
 
             <CheckBox
-	            Content="Consignor Wants Cash Payment"
+	            Content="Consignor Wants Check Payment"
 	            HorizontalAlignment="Left"
 	            Margin="10,10,0,0"
 	            VerticalAlignment="Top"
-                IsChecked="{Binding CashIsSelected}"
+                IsChecked="{Binding CheckIsSelected}"
                 IsEnabled="{Binding CashPayoutEnabled}"
                 DockPanel.Dock="Top"/>
 

@@ -12,12 +12,14 @@ namespace DataModel.Data.ApplicationLayer.DTO
             ConsignorId = trans.ConsignorId;
             CreditTransaction_StoreCredit = trans.CreditTransaction_StoreCredit;
             StoreCreditTransactionAmount = trans.StoreCreditTransactionAmount;
+            TransactionType = trans.TransactionType;
         }
         
         public CreditTransaction CreditTransaction_StoreCredit { get; set; }
         public int ConsignorId { get; set; }
         public Consignor Consignor_StoreCreditTransaction { get; set; }
         public double StoreCreditTransactionAmount { get; set; }
+        public string TransactionType { get; set; }
 
         public StoreCreditTransaction ConvertToStoreCreditTransaction()
         {
@@ -26,7 +28,8 @@ namespace DataModel.Data.ApplicationLayer.DTO
                 Id = Id,
                 ConsignorId = ConsignorId,
                 CreditTransaction_StoreCredit = CreditTransaction_StoreCredit,
-                StoreCreditTransactionAmount = StoreCreditTransactionAmount
+                StoreCreditTransactionAmount = StoreCreditTransactionAmount,
+                TransactionType = TransactionType
             };
         }
     }
@@ -39,5 +42,15 @@ namespace DataModel.Data.ApplicationLayer.DTO
     public class GetStoreCreditTransactionsByConsignorIdInput
     {
         public int ConsignorId { get; set; }
+    }
+
+    public class AddNewStoreCreditTransactionInput : IInputDto
+    {
+        public StoreCreditTransactionDto Payment { get; set; }
+    }
+
+    public class AddNewStoreCreditTransactionOutput : IOutputDto
+    {
+        public int Id { get; set; }
     }
 }
