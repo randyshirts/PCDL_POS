@@ -407,10 +407,10 @@ namespace POS.ViewModels.ItemSale.ViewModel
                 {
                     var dateSpan = DateTimeSpan.CompareDates(gridItem.ListedDate, DateTime.Now);
                     if(gridItem.IsDiscountable || (dateSpan.Months < 3))
-                        thisItemsSoldPrice = (gridItem.UnitPrice - gridItem.DateDiscount)*ConfigSettings.CONS_CREDIT_PAYOUT_PCT;
+                        thisItemsSoldPrice = (gridItem.UnitPrice - (gridItem.DateDiscount * gridItem.UnitPrice)) * ConfigSettings.CONS_CREDIT_PAYOUT_PCT;
                     else
                     {
-                        thisItemsSoldPrice = (gridItem.UnitPrice - gridItem.DateDiscount)*
+                        thisItemsSoldPrice = (gridItem.UnitPrice - (gridItem.DateDiscount*gridItem.UnitPrice))*
                                              ConfigSettings.CONS_CREDIT_PAYOUT_PCT - ConfigSettings.ND_FEE;
                         ndFee = ConfigSettings.ND_FEE;
                     }

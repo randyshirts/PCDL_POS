@@ -75,8 +75,8 @@
             <Grid DockPanel.Dock="Top" Background="GreenYellow" Margin="10"
                   Visibility="{Binding IsVisiblePayoutAmount}">
                 <Label DockPanel.Dock="Top" FontWeight="ExtraBold" FontSize="20">Payout Amount</Label>
-                <TextBlock HorizontalAlignment="Center"        
-		                       TextAlignment="Center"
+                <TextBlock HorizontalAlignment="Right"        
+		                       TextAlignment="Right"
 		                       Text="{Binding PayoutAmountText}"
 		                       VerticalAlignment="Center"
                                IsEnabled="False" 
