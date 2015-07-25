@@ -197,7 +197,9 @@
                         >
                 <Label HorizontalAlignment="Stretch"
                    VerticalAlignment="Stretch"
-                   Content="Enter Barcode:"/>
+                   Content="Enter Barcode:"
+                   FontSize="16"
+                   FontWeight="ExtraBold"/>
 
                 <!--<TextBox Text="{Binding CurrentBarcode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      FlowDirection="LeftToRight"
@@ -229,10 +231,14 @@
                 
             </StackPanel>
             <CheckBox IsEnabled="True" 
-                      Content="Member Discount" 
+                      Content="Member Discount"
+                      FontSize="16"
+                      FontWeight="ExtraBold"
                       IsChecked="{Binding IsMember}"
                       HorizontalAlignment="Center"
-                      VerticalAlignment="Center">
+                      VerticalAlignment="Center"
+                      DockPanel.Dock="Left"
+                      Margin="80,0,0,0">
                 
             </CheckBox>
 

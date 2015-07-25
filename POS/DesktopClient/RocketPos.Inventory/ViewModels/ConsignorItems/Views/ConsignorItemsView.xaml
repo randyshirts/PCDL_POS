@@ -218,6 +218,109 @@
 
                 </DataGrid.Columns>
             </DataGrid>
+
+            <Label Content="Store Credit Payments and Purchases"
+                   FontSize="18" 
+                   HorizontalAlignment="Center"
+                   DockPanel.Dock="Top"/>
+            <DataGrid ItemsSource="{Binding DataGridConsignorPayments, 
+                                            UpdateSourceTrigger=PropertyChanged,
+                                            Mode=TwoWay}"
+                          SelectedItem="{Binding Path=SelectedConsignorItem,Converter={StaticResource selectedConsignorItemConverter}}"
+                          DockPanel.Dock="Bottom" 
+                          AutoGenerateColumns="False"
+                          AlternatingRowBackground="CadetBlue"
+                      Name="ConsignorPaymentsDataGrid">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="CellEditEnding">
+                        <command:EventToCommand PassEventArgsToCommand="True" 
+                                                Command="{Binding CellEditEndingCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <DataGrid.InputBindings>
+                    <KeyBinding Key="Delete" Command="{Binding DeleteSelectedCommand}" />
+                </DataGrid.InputBindings>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Title"
+                            Binding="{Binding Title}" Width="5*"/>
+                    <DataGridTextColumn Header="Barcode"
+                            Binding="{Binding Barcode}" Width="5*" IsReadOnly="True"/>
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource ConsignorItemsVM}, 
+                                                                    Path=StatusComboValues}"
+                                            Header="Status" 
+                                            SelectedValueBinding="{Binding ItemStatus, 
+                                                                            Mode=TwoWay, 
+                                                                            UpdateSourceTrigger=PropertyChanged}"
+                                            SelectedValuePath="ValueString"
+                                            DisplayMemberPath="ValueString"
+                                            Width="4*"/>
+
+                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource ConsignorItemsVM}, 
+                                                                    Path=SubjectComboValues}"
+                                            Header="Subject" 
+                                            SelectedValueBinding="{Binding Subject, 
+                                                                            Mode=TwoWay, 
+                                                                            UpdateSourceTrigger=PropertyChanged}"
+                                            SelectedValuePath="ValueString"
+                                            DisplayMemberPath="ValueString"
+                                            Width="4*"/>
+
+                    <DataGridTextColumn Header="Type"
+                                        Binding="{Binding ItemType}" 
+                                        Width="5*" 
+                                        IsReadOnly="True"
+                                        Foreground="DarkOrange"/>
+
+                    <DataGridTextColumn Header="ISBN/EAN"
+                            Binding="{Binding IsbnEan}" Width="5*" />
+
+                    <DataGridTemplateColumn Header="Date Listed" Width="6*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DateListed, Converter={StaticResource dateTimeConverter}}" 
+                                               VerticalAlignment="Center" 
+                                               HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <DatePicker x:Name="DateListedPicker" SelectedDate="{Binding DateListed}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Date Sold" Width="6*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DateSold, Converter={StaticResource dateTimeConverter}}" 
+                                               VerticalAlignment="Center" 
+                                               HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <DatePicker x:Name="DateSoldPicker" SelectedDate="{Binding DateSold}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridCheckBoxColumn Header="Discount" Binding="{Binding IsDiscountable}"/>
+
+                    <DataGridTextColumn Header="Listed Price"
+                            Binding="{Binding ListedPrice}" Width="4*" />
+
+                    <DataGridTextColumn Header="Sold Price"
+                            Binding="{Binding SoldPrice}" Width="4*" />
+
+                    <DataGridTextColumn Header="Consignor Pmt"
+                            Binding="{Binding ConsignorPortion, 
+                                                Mode=TwoWay, 
+                                                UpdateSourceTrigger=PropertyChanged}" 
+                            IsReadOnly="True"
+                            Width="4*" />
+
+                </DataGrid.Columns>
+                </DataGrid>
         </DockPanel>
     </Grid>
 </UserControl>

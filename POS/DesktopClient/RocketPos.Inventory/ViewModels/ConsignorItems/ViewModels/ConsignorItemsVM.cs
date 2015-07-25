@@ -42,7 +42,7 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
         public ConsignorItemsVm()
         {
             DataGridConsignorItems = new TrulyObservableCollection<ConsignorItem>();
-
+            DataGridConsignorPayments = new TrulyObservableCollection<ConsignorPayment>();
             _subjectComboValues.InitializeComboBox(EnumsAndLists.Subjects);
 
             //Initialize ComboBoxes

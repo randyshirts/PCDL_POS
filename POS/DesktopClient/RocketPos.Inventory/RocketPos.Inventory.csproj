@@ -134,6 +134,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controller\CustomClasses\CreateElementLists.cs" />
+    <Compile Include="Controller\Elements\ConsignorPayment.cs" />
     <Compile Include="Controller\Elements\MemberInfo.cs" />
     <Compile Include="InventoryConverters.cs" />
     <Compile Include="Controller\Interfaces\IItemVisitor.cs" />
