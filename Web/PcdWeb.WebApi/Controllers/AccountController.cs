@@ -129,6 +129,7 @@ namespace PcdWeb.Controllers
             catch (Exception ex)
             {
                 output.message = "The server is down, wait an hour or two and if the problem persists call us";
+                //output.message = ex.Message + ex.InnerException.Message;
             }
 
             
@@ -210,6 +211,7 @@ namespace PcdWeb.Controllers
             catch (Exception ex)
             {
                 output.message = "The server is down, wait an hour or two and if the problem persists call us";
+                //output.message = ex.Message + ex.InnerException.Message;
             }
 
             if (user.User != null)
@@ -260,6 +262,7 @@ namespace PcdWeb.Controllers
             catch (Exception ex)
             {
                 output.Message = "The server is down, wait an hour or two and if the problem persists call us";
+                //output.Message = ex.Message + ex.InnerException.Message;
                 return Ok(output.Message);
             }         
 
@@ -421,6 +424,7 @@ namespace PcdWeb.Controllers
             catch (Exception ex)
             {
                 return Ok("The server is down, wait an hour or two and if the problem persists call us");
+                //return Ok(ex.Message + ex.InnerException.Message);
             }
 
             if (persons.Any() || (user != null))
@@ -490,6 +494,7 @@ namespace PcdWeb.Controllers
             catch (Exception ex)
             {
                 return Ok("The server is down. Please wait an hour or two and contact us if the problem persists");
+                //return Ok(ex.Message + ex.InnerException.Message);
             }
 
             if (person == null)

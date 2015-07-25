@@ -130,9 +130,10 @@ namespace DataModel.Data.ApplicationLayer.Services
             catch (Exception ex)
             {
                 
-                result =
-                    new IdentityResult("The server is down, wait an hour or two and if the problem persists call us");
-                
+                //result =
+                //    new IdentityResult("The server is down, wait an hour or two and if the problem persists call us");
+                result = new IdentityResult(ex.Message + ex.InnerException.Message);
+
             }
 
             if (result != null)
