@@ -53,6 +53,14 @@ namespace Inventory.ViewModels.PrintBarcodesView.ViewModels
             
         }
 
+        public ActionCommand WindowLoaded
+        {
+            get
+            {
+                return new ActionCommand(p => LoadWindow());
+            }
+        }
+
         private void LoadWindow()
         {
             //Load ConsignorNames

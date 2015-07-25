@@ -17,7 +17,6 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
 
             $scope.busyDisabled = true;
             $location.path('/addItemsMain');
-
         },
          function (err) {
              $scope.busyDisabled = true;

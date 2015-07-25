@@ -93,7 +93,10 @@ namespace DataModel.Data.ApplicationLayer.WpfControllers
                 var app = new ItemAppService(repo);
                 var output = app.SearchAllItems(input);
 
-                return output.Items.Select(i => i.ConvertToItem()).ToList();
+                if(output.Items != null)
+                    return output.Items.Select(i => i.ConvertToItem()).ToList();
+
+                return null;
             }
         }
 

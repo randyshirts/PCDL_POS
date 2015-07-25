@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using DataModel.Data.ApplicationLayer.WpfControllers;
 using DataModel.Data.DataLayer.Entities;
@@ -13,6 +14,7 @@ using RocketPos.Inventory.Resources;
 using GalaSoft.MvvmLight.Command;
 using System.Windows.Controls;
 using System.Windows.Input;
+using MemberInfo = RocketPos.Inventory.Resources.MemberInfo;
 
 namespace Inventory.ViewModels.AddMember.ViewModels
 {

@@ -304,14 +304,18 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                     {
                         if (!search.Title.IsNullOrEmpty()) Title = search.Title[selectedIndex];
                         if (!search.Author.IsNullOrEmpty()) Author = search.Author[selectedIndex];
-                        if (!search.Image.IsNullOrEmpty()) BookImage = search.Image[selectedIndex].URL;
+                        if (!search.Image.IsNullOrEmpty())
+                            if (search.Image[selectedIndex] != null) BookImage = search.Image[selectedIndex].URL;
                         if (!search.Binding.IsNullOrEmpty()) Binding = search.Binding[selectedIndex];
                         if (!search.NumberOfPages.IsNullOrEmpty()) NumberOfPages = search.NumberOfPages[selectedIndex];
                         if (!search.PublicationDate.IsNullOrEmpty()) PublicationDate = search.PublicationDate[selectedIndex].ToShortDateString();
                         if (!search.TradeInValue.IsNullOrEmpty()) TradeInValue = search.TradeInValue[selectedIndex];
 
                         //Get Lowest Price Info
-                        BookItem = (BookItem)SearchAmazon.QueryAmazonByIsbn(BookItem, Isbn);
+                        var newBook = SearchAmazon.QueryAmazonByIsbn(BookItem, Isbn);
+                        if (newBook != null)
+                            BookItem = (BookItem)newBook;
+                  
                         if (BookItem != null)
                         {
                             LowestNewPrice = BookItem.LowestNewPrice;

@@ -147,7 +147,7 @@
                 </TextBlock>
             </Button>
         </DockPanel>
-        
+
         <StackPanel
                 Margin="10"
                 Grid.Column="1"
@@ -160,6 +160,20 @@
                     FontSize="24">
             </Label>
 
+            <TextBlock 
+                Padding="10"
+                HorizontalAlignment="Center"
+                FontSize="14"
+                FontWeight="Medium"
+                TextWrapping="Wrap" 
+                >Process transaction using card reader then press 'Done'</TextBlock>
+
+            <TextBlock Padding="10"
+                    HorizontalAlignment="Center"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    TextWrapping="Wrap" 
+                    Text="{Binding CreditDebitInstructions}"></TextBlock>
             <!--<StatusBar DockPanel.Dock="Top"
                        HorizontalAlignment="Center">
 
@@ -176,7 +190,10 @@
                                  Value="67" />
                 </Grid>
             </StatusBar>-->
-            <Button Command="{Binding CancelCreditDebitCommand}" 
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Center">
+                <Button Command="{Binding DoneCreditDebitCommand}" 
                     DockPanel.Dock="Top"
                     Margin="10"
                     Padding="10"
@@ -185,14 +202,32 @@
                     MinHeight="30"
                     MaxHeight="45"
                     HorizontalAlignment="Stretch">
-                <TextBlock
+                    <TextBlock
+                    Text ="Done" 
+                    TextWrapping="Wrap" 
+                    TextAlignment="Center" 
+                    FontSize="18"
+                    FontWeight="Bold">
+                    </TextBlock>
+                </Button>
+                <Button Command="{Binding CancelCreditDebitCommand}" 
+                    DockPanel.Dock="Top"
+                    Margin="10"
+                    Padding="10"
+                    MinWidth="55"
+                    MaxWidth="150"
+                    MinHeight="30"
+                    MaxHeight="45"
+                    HorizontalAlignment="Stretch">
+                    <TextBlock
                     Text ="Cancel" 
                     TextWrapping="Wrap" 
                     TextAlignment="Center" 
                     FontSize="18"
                     FontWeight="Bold">
-                </TextBlock>
-            </Button>
+                    </TextBlock>
+                </Button>
+            </StackPanel>
         </StackPanel>
 
         <StackPanel
@@ -287,7 +322,7 @@
                 Grid.Column="1"
                 Grid.Row ="0"
                 Visibility="{Binding IsCashVisible}">
-            
+
             <Label HorizontalAlignment="Stretch"
                    VerticalAlignment="Stretch"
                    Content="Total Cash Rendered:"
@@ -449,19 +484,19 @@
                     Grid.Column="1"
                     Grid.Row ="0"
                     Visibility="{Binding IsSplitVisible}">
-                
+
             <Label Margin="10,0,10,5"
                    FontSize="32"
                    HorizontalAlignment="Center"
                    Content="Split Transaction"></Label>
-            
+
             <Separator/>
-            
+
             <Label Margin="10,0,10,5"
                    FontSize="32"
                    HorizontalAlignment="Center"
                    Content="Cash"></Label>
-            
+
             <Label HorizontalAlignment="Stretch"
                    VerticalAlignment="Stretch"
                    Content="Total Cash Rendered:"
@@ -484,15 +519,15 @@
                      FontSize="20"
                      helpers:FocusExtension.IsFocused="{Binding IsSplitCashFocused}">
             </TextBox>
-            
+
             <Separator/>
-            
+
             <Label Margin="10,5,10,0"
                    FontSize="20"
                    HorizontalAlignment="Center"
-                   Content ="Store Credit"> 
+                   Content ="Store Credit">
             </Label>
-            
+
             <Label>Name:</Label>
             <ComboBox ItemsSource="{Binding CreditNameComboValues}"
 					      DisplayMemberPath="ValueString"
@@ -503,7 +538,7 @@
                                                 UpdateSourceTrigger=PropertyChanged}"
                           DockPanel.Dock="Top">
             </ComboBox>
-            
+
             <Grid DockPanel.Dock="Top" 
                   Background="Aquamarine" 
                   Margin="10"
@@ -533,7 +568,7 @@
                                MinWidth="100"/>
 
             </Grid>
-            
+
             <Label  Margin="80,0,80,3">Store Credit Charged for this Transaction:</Label>
             <TextBox Text="{Binding StoreCreditCharged, 
                                         Mode=TwoWay, 
@@ -549,7 +584,7 @@
                      MaxHeight="40"
                      FontSize="20">
             </TextBox>
-            
+
             <Separator/>
 
             <Label Margin="60,0,60,0"
@@ -557,7 +592,7 @@
                    HorizontalAlignment="Center"
                    Content ="Credit/Debit">
             </Label>
-            
+
             <Grid DockPanel.Dock="Top" 
                   Background="Aquamarine" 
                   Margin="10"
@@ -586,10 +621,10 @@
                                FontSize="32"
                                MinWidth="100"/>
 
-                
-                
+
+
             </Grid>
-            
+
             <Grid DockPanel.Dock="Top" 
                   Background="Aquamarine" 
                   Margin="80,0,80,0"
@@ -599,14 +634,14 @@
                     <ColumnDefinition Width="70*"/>
                     <ColumnDefinition Width="30*"/>
                 </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" 
+                <Label Grid.Column="0" 
                        FontWeight="ExtraBold" 
                        FontSize="24"
                        Content ="Change Due:"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left">
-            </Label>
-            <TextBlock Grid.Column="1" 
+                </Label>
+                <TextBlock Grid.Column="1" 
                             HorizontalAlignment="Right"        
 		                       TextAlignment="Center"
 		                       Text="{Binding SplitChangeDue, Converter={StaticResource moneyConverter}}"
@@ -616,12 +651,12 @@
                                Foreground="DarkSlateGray"
                                FontSize="32"
                                MinWidth="100"/>
-            </Grid>  
-              
+            </Grid>
+
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Stretch"
                         HorizontalAlignment="Center">
-                
+
                 <Button Command="{Binding SubmitSplitCommand}" 
                     DockPanel.Dock="Top"
                     Margin="10"

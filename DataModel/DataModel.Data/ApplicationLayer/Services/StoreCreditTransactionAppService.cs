@@ -24,5 +24,14 @@ namespace DataModel.Data.ApplicationLayer.Services
                 Transactions = _storeCreditTransRepository.GetStoreCreditTransactionsByConsignorId(input.ConsignorId).Select(i => new StoreCreditTransactionDto(i)).ToList()
             };
         }
+
+        public AddNewStoreCreditTransactionOutput AddNewStoreCreditTransaction(AddNewStoreCreditTransactionInput input)
+        {
+            return new AddNewStoreCreditTransactionOutput
+            {
+                Id = _storeCreditTransRepository.AddNewStoreCreditTransaction(input.Payment.ConvertToStoreCreditTransaction())
+            };
+            
+        }
     }
 }

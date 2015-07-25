@@ -312,7 +312,9 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                         if (!search.Rating.IsNullOrEmpty()) Rating = search.Rating[selectedIndex];
                             
                         //Get the lowest prices from Amazon
-                        VideoItem = (VideoItem)SearchAmazon.QueryAmazonByEan(VideoItem, Ean, "Video");
+                        var newVideo = SearchAmazon.QueryAmazonByEan(VideoItem, Ean, "Video");
+                        if (newVideo != null)
+                            VideoItem = (VideoItem)newVideo;
                         if (VideoItem != null)
                         {
                             LowestNewPrice = VideoItem.LowestNewPrice;

@@ -63,11 +63,11 @@
                 DockPanel.Dock="Top"/>
 
             <CheckBox
-	            Content="Consignor Wants Cash Payment"
+	            Content="Consignor Wants Check Payment"
 	            HorizontalAlignment="Left"
 	            Margin="10,10,0,0"
 	            VerticalAlignment="Top"
-                IsChecked="{Binding CashIsSelected}"
+                IsChecked="{Binding CheckIsSelected}"
                 IsEnabled="{Binding CashPayoutEnabled}"
                 DockPanel.Dock="Top"/>
 
@@ -75,8 +75,8 @@
             <Grid DockPanel.Dock="Top" Background="GreenYellow" Margin="10"
                   Visibility="{Binding IsVisiblePayoutAmount}">
                 <Label DockPanel.Dock="Top" FontWeight="ExtraBold" FontSize="20">Payout Amount</Label>
-                <TextBlock HorizontalAlignment="Center"        
-		                       TextAlignment="Center"
+                <TextBlock HorizontalAlignment="Right"        
+		                       TextAlignment="Right"
 		                       Text="{Binding PayoutAmountText}"
 		                       VerticalAlignment="Center"
                                IsEnabled="False" 

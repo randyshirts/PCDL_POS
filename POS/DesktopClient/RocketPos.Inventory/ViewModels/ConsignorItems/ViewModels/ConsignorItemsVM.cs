@@ -213,7 +213,7 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
                 if (_payoutIsSelected)
                 {
                     CashPayoutEnabled = true;
-                    DataGridConsignorItems = UpdateConsignorPortion(CashIsSelected);
+                    DataGridConsignorItems = UpdateConsignorPortion(CheckIsSelected);
                     IsVisiblePayoutAmount = "Visible";
                 }
                 else
@@ -228,18 +228,18 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
         }
 
 
-        private bool _cashIsSelected;
-        public bool CashIsSelected
+        private bool _checkIsSelected;
+        public bool CheckIsSelected
         {
             get
             {
-                return _cashIsSelected;
+                return _checkIsSelected;
             }
             set
             {
-                _cashIsSelected = value;
+                _checkIsSelected = value;
 
-                DataGridConsignorItems = UpdateConsignorPortion(_cashIsSelected);
+                DataGridConsignorItems = UpdateConsignorPortion(_checkIsSelected);
                 //PayoutAmountText = UpdatePayoutAmount();
 
                 //CollectionChanged;
@@ -258,7 +258,7 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
             {
                 _cashPayoutEnabled = value;
                 if (!_cashPayoutEnabled)
-                    CashIsSelected = false;
+                    CheckIsSelected = false;
                 OnPropertyChanged();
             }
         }
@@ -436,61 +436,73 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
 
 
             //Create list of items to be paid
-            var itemsList = new List<Item>();
-            foreach (var consignorItem in DataGridConsignorItems)
+            //var itemsList = new List<Item>();
+            //foreach (var consignorItem in DataGridConsignorItems)
+            //{
+            //    if (consignorItem.ItemStatus == "Sold")
+            //    {
+            //        var icontroller = new ItemController();
+            //        var item = icontroller.GetItemById(consignorItem.Id);
+            //        itemsList.Add(item);
+            //    }
+            //}
+
+            double payout;
+            Double.TryParse(PayoutAmountText, out payout);
+            if (payout <= 0)
             {
-                if (consignorItem.ItemStatus == "Sold")
-                {
-                    var icontroller = new ItemController();
-                    var item = icontroller.GetItemById(consignorItem.Id);
-                    itemsList.Add(item);
-                }
+                MessageBox.Show("Payout amount must be greater than zero.");
+                return;
             }
 
             var ccontroller = new ConsignorController();
             var consignor = ccontroller.GetConsignorByFullName(ConsignorName);
-            //Create StoreCreditPmt if cash is not checked
-            var storeCredit = new StoreCreditPmt();
+            //Create StoreCreditTransaction if cash is not checked
+            var storeCredit = new StoreCreditTransaction();
 
-            if (!_cashIsSelected)
-            {
-                storeCredit.StoreCreditPmtAmount = double.Parse(PayoutAmountText, NumberStyles.Currency);
+            //if (!_checkIsSelected)
+            //{
+                storeCredit.StoreCreditTransactionAmount = double.Parse(PayoutAmountText, NumberStyles.Currency);
                 //storeCredit.Consignor_StoreCreditPmt = consignor;
                 //storeCredit.Consignor_StoreCreditPmt.Consignor_Person = null;
                 //storeCredit.Consignor_StoreCreditPmt.Items_Consignor = null;
                 storeCredit.ConsignorId = consignor.Id;
-            }
-            else
-            {
-                storeCredit = null;
-            }
+            storeCredit.TransactionType = "Check";
+            //}
+            //else
+            //{
+            //    storeCredit = null;
+            //}
 
-            var consignorPmt = new ConsignorPmt
-            {
-                //Consignor Info
-                //Consignor_ConsignorPmt = consignor,
-                ConsignorId = consignor.Id,
+            //var consignorPmt = new ConsignorPmt
+            //{
+            //    //Consignor Info
+            //    //Consignor_ConsignorPmt = consignor,
+            //    ConsignorId = consignor.Id,
 
 
                 //DebitTransaction Info
-                DebitTransaction_ConsignorPmt = new DebitTransaction
-                {
-                    DebitTotal = double.Parse(PayoutAmountText, NumberStyles.Currency),
-                    DebitTransactionDate = DateTime.Now,
-                    StoreCreditPmt = storeCredit,
-                },
-
-
-
-                //Items info
-                Items_ConsignorPmt = itemsList,
-
+            storeCredit.CreditTransaction_StoreCredit = new CreditTransaction
+            {
+                StoreCreditTransaction = storeCredit,
+                TransactionDate = DateTime.Now,
+                TransactionTotal = double.Parse(PayoutAmountText, NumberStyles.Currency),
+                LocalSalesTaxTotal = 0,
+                StateSalesTaxTotal = 0,
+                CountySalesTaxTotal = 0
             };
+
+
+
+            //    //Items info
+            //    //Items_ConsignorPmt = itemsList,
+
+            //};
 
             try
             {
-                var cpcontroller = new ConsignorPmtController();
-                cpcontroller.AddNewConsignorPmt(consignorPmt);
+                var sctController = new StoreCreditTransactionController();
+                sctController.AddNewStoreCreditTransaction(storeCredit);
 
                 ConsignorName = consignor.Consignor_Person.FirstName + " " + consignor.Consignor_Person.LastName;
                 Status = "All";
@@ -498,10 +510,10 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
             }
             catch (Exception ex)
             {
-                foreach (var item in DataGridConsignorItems.Where(item => item.ItemStatus == "Paid"))
-                {
-                    item.ItemStatus = "Sold";
-                }
+                //foreach (var item in DataGridConsignorItems.Where(item => item.ItemStatus == "Paid"))
+                //{
+                //    item.ItemStatus = "Sold";
+                //}
                 MessageBox.Show("Exception adding Consignor Payment in ProcessConsignorPayment method in ConsignorItems class - " + ex.Message);
             }
 
@@ -714,7 +726,11 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
                 }
             }
 
-            PayoutAmountText = totalPayment.ToString("C2");
+            var lastNameFirst = StringHelpers.SwitchNameOrder(ConsignorName);
+            var controller = new ConsignorController();
+            PayoutAmountText = controller.GetConsignorCreditBalance(lastNameFirst).ToString("C2");
+            
+            //PayoutAmountText = totalPayment.ToString("C2");
 
             return consignorItems;
         }

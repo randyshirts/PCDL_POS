@@ -25,7 +25,7 @@ app.controller('addItemsSharedController', ['authService', 'itemsService', funct
         if (self.itemInfo.discounted === "isDiscounted")
             self.discountMessage = "Price will drop 10% for every month it remains on the shelf - up to 50% after 5 months";
         else
-            self.discountMessage = "The item will be marked 'ND' and there will be an added $1 fee charged upon the sale of the item if it stays on the shelf 3 months or longer";
+            self.discountMessage = "The item will be marked 'ND' and the price will remain the same";
     };
 
     

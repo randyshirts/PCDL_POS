@@ -55,7 +55,8 @@ namespace Inventory.ViewModels.AddItem.ViewModels
             VideoItem = new VideoItem();
             TeachingAideItem = new TeachingAideItem();
 
-            IsBarcodesOpened = false;
+            IsBarcodesOpened = true;
+            
 
             //Disable fields on view
             ItemTypeIsNotNull = false;
@@ -259,6 +260,8 @@ namespace Inventory.ViewModels.AddItem.ViewModels
             var controller = new ConsignorController();
             _consignorNameComboValues.InitializeComboBox(controller.GetConsignorNames());
 
+            OpenBarcodeView();
+            
         }
 
         /// <summary>
@@ -532,7 +535,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
 
         private void OpenBarcodeView()
         {
-            if (IsBarcodesOpened == false)
+            //if (IsBarcodesOpened == false)
             {
                 //Open Barcode DataGrid
                 Messenger.Default.Send(new SwitchView(_myAddItemBarcodesVm), Token);
@@ -570,7 +573,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
 
                             Items.Add(newItem);
                             Barcodes.Add(new BarcodeItem(newItem));
-                            OpenBarcodeView();
+                            //OpenBarcodeView();
                             Messenger.Default.Send(new PropertySetter("DataGridBarcodes", Barcodes), Token);
 
                             BookItem.TradeInValue = 0;
@@ -612,7 +615,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
 
                             Items.Add(newItem);
                             Barcodes.Add(new BarcodeItem(newItem));
-                            OpenBarcodeView();
+                            //OpenBarcodeView();
                             Messenger.Default.Send(new PropertySetter("DataGridBarcodes", Barcodes), Token);
 
                             
@@ -653,7 +656,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
 
                             Items.Add(newItem);
                             Barcodes.Add(new BarcodeItem(newItem));
-                            OpenBarcodeView();
+                            //OpenBarcodeView();
                             Messenger.Default.Send(new PropertySetter("DataGridBarcodes", Barcodes), Token);
 
                             OtherItem.LowestUsedPrice = 0;
@@ -694,7 +697,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
 
                             Items.Add(newItem);
                             Barcodes.Add(new BarcodeItem(newItem));
-                            OpenBarcodeView();
+                            //OpenBarcodeView();
                             Messenger.Default.Send(new PropertySetter("DataGridBarcodes", Barcodes), Token);
 
                             TeachingAideItem.LowestUsedPrice = 0;
@@ -733,7 +736,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
 
                             Items.Add(newItem);
                             Barcodes.Add(new BarcodeItem(newItem));
-                            OpenBarcodeView();
+                            //OpenBarcodeView();
                             Messenger.Default.Send(new PropertySetter("DataGridBarcodes", Barcodes), Token);
 
                             VideoItem.LowestUsedPrice = 0;
