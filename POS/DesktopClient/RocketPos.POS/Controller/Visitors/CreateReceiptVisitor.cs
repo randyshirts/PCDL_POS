@@ -30,6 +30,13 @@ namespace POS.Controller.Visitors
                 sb.AppendLine();
             }
 
+            if (item.MemberDiscount > 0)
+            {
+                sb.Append(string.Format("MEMB DISC {0:P0}", item.MemberDiscount).PadRight(FIRST_COL_PAD + SECOND_COL_PAD));
+                sb.AppendLine(string.Format("{0:0.00} A", -(item.UnitPrice * item.MemberDiscount)).PadLeft(THIRD_COL_PAD));
+                sb.AppendLine();
+            }
+
             if (item.AddlDiscount > 0)
             {
                 sb.Append(string.Format("ADDL DISC {0:P0}", item.AddlDiscount).PadRight(FIRST_COL_PAD + SECOND_COL_PAD));

@@ -47,6 +47,24 @@ namespace RocketPos.Common.Helpers
             }
         }
 
+        public static double MEMBER_CONS_CREDIT_PAYOUT_PCT
+        {
+            get
+            {
+                return Convert.ToDouble(ConfigurationManager.AppSettings
+                        ["MEMBER_CONS_CREDIT_PAYOUT_PCT"]);
+            }
+        }
+
+        public static double MEMBER_PURCHASE_DISCOUNT_PCT
+        {
+            get
+            {
+                return Convert.ToDouble(ConfigurationManager.AppSettings
+                        ["MEMBER_PURCHASE_DISCOUNT_PCT"]);
+            }
+        }
+
         public static bool IS_ACTIVE_FLAG
         {
             get

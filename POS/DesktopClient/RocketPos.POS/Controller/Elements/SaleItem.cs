@@ -27,6 +27,7 @@ namespace POS.Controller.Elements
         public DateTime ListedDate { get; set; }
         public double SaleAmount { get; set; }
         public double DateDiscount { get; set; }
+        public double MemberDiscount { get; set; }
         public double AddlDiscount { get; set; }
         public double DiscountAmount { get; set; }
         public double TaxAmount { get; set; }
@@ -34,7 +35,7 @@ namespace POS.Controller.Elements
         public string Barcode { get; set; }
 
 
-        public SaleItem(string barcode)
+        public SaleItem(string barcode, bool isMember)
         {
             var controller = new ItemController();
             var item = controller.GetItemsByPartOfBarcode(barcode).FirstOrDefault();
@@ -63,11 +64,22 @@ namespace POS.Controller.Elements
                 DateDiscount = 0;
             }
 
-            //Set SaleAmount - Amount reported to consignor
-            SaleAmount = UnitPrice - DateDiscount*UnitPrice;
+            
 
             //Get member, volunteer, owner discount
-            //TODO: Implement member discounts 
+            //Implement member discounts 
+            if (isMember)
+            {
+                MemberDiscount = ConfigSettings.MEMBER_PURCHASE_DISCOUNT_PCT;
+                //Set SaleAmount - Amount reported to consignor
+                SaleAmount = UnitPrice - UnitPrice*(MemberDiscount + DateDiscount);
+            }
+            else
+            {
+                MemberDiscount = 0.0;
+                //Set SaleAmount - Amount reported to consignor
+                SaleAmount = UnitPrice - DateDiscount*UnitPrice;
+            }
 
             AddlDiscount = 0;
 
@@ -82,7 +94,7 @@ namespace POS.Controller.Elements
             var countyTax = Accept(countyTaxVisitor);
 
             //Compute DiscountAmount
-            DiscountAmount = UnitPrice * (DateDiscount + AddlDiscount);
+            DiscountAmount = UnitPrice * (DateDiscount + AddlDiscount + MemberDiscount);
 
             //Compute Taxes and LinePrice
             var noTaxAmount = UnitPrice - DiscountAmount;
@@ -144,16 +156,14 @@ namespace POS.Controller.Elements
                 DateDiscount = dateDiff * .10;  //10% discount for every month it has been listed
             DateDiscount = .50;
 
-            //Get member, volunteer, owner discount
-            //TODO: Implement member discounts 
-
+            
             AddlDiscount = 0;
 
             //Compute tax
             //Tax = ??
 
             //Compute LinePrice
-            LinePrice = UnitPrice * (DateDiscount + AddlDiscount) + Tax;
+            LinePrice = UnitPrice * (DateDiscount + AddlDiscount + MemberDiscount) + Tax;
 
             switch (item.ItemType)
             {

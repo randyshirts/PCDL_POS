@@ -42,6 +42,7 @@ namespace POS.ViewModels.ItemSale.ViewModel
             IsPaymentComplete = false;
             _leftShiftDown = false;
             _scanShiftDown = false;
+            IsMember = false;
 
             Messenger.Default.Register<PropertySetter>(this, PaymentWindowVm.Token, msg => GetPaymentWindowProperty(msg.PropertyName, msg.PropertyValue));
 
@@ -129,6 +130,17 @@ namespace POS.ViewModels.ItemSale.ViewModel
         public bool IsViewFocused { get; set; }
         private bool IsPaymentComplete { get; set; }
         private bool _isBarcodeReading;
+
+        private bool _isMember;
+        public bool IsMember
+        {
+            get { return _isMember; }
+            set
+            {
+                _isMember = value;
+                OnPropertyChanged();
+            }
+        }
 
         private void SetPaymentComplete(bool value)
         {
@@ -255,7 +267,7 @@ namespace POS.ViewModels.ItemSale.ViewModel
                     if (_currentBarcode.Length == 15)
                     {
 
-                        var saleItem = new SaleItem(_currentBarcode);
+                        var saleItem = new SaleItem(_currentBarcode, IsMember);
                         DataGridSaleItems.Add(saleItem);
                         IsEnabledPmt = DataGridSaleItems.FirstOrDefault() != null;
                         TotalAmount = GetTotalAmount();
@@ -400,19 +412,56 @@ namespace POS.ViewModels.ItemSale.ViewModel
                 //Create StoreCreditPmt if cash is not checked
                 var storeCredit = new StoreCreditPmt();
 
+                //Get Member Info
+                var c = new MemberController();
+                var member = c.GetMemberByName(consignor.Consignor_Person.FirstName, consignor.Consignor_Person.LastName);
+
+
                 var ndFee = 0.0;
                 var gridItem = DataGridSaleItems.FirstOrDefault(i => i.Id == item.Id);
                 double thisItemsSoldPrice = 0;
                 if (gridItem != null)
                 {
                     var dateSpan = DateTimeSpan.CompareDates(gridItem.ListedDate, DateTime.Now);
-                    if(gridItem.IsDiscountable || (dateSpan.Months < 3))
-                        thisItemsSoldPrice = (gridItem.UnitPrice - (gridItem.DateDiscount * gridItem.UnitPrice)) * ConfigSettings.CONS_CREDIT_PAYOUT_PCT;
-                    else
+                    if (member == null) //No Member Discount
                     {
-                        thisItemsSoldPrice = (gridItem.UnitPrice - (gridItem.DateDiscount*gridItem.UnitPrice))*
-                                             ConfigSettings.CONS_CREDIT_PAYOUT_PCT - ConfigSettings.ND_FEE;
-                        ndFee = ConfigSettings.ND_FEE;
+                        if (gridItem.IsDiscountable || (dateSpan.Months < 3))
+                            thisItemsSoldPrice = (gridItem.UnitPrice - (gridItem.DiscountAmount))*
+                                                 ConfigSettings.CONS_CREDIT_PAYOUT_PCT;
+                        else
+                        {
+                            thisItemsSoldPrice = (gridItem.UnitPrice - (gridItem.DiscountAmount))*
+                                                 ConfigSettings.CONS_CREDIT_PAYOUT_PCT - ConfigSettings.ND_FEE;
+                            ndFee = ConfigSettings.ND_FEE;
+                        }
+                    }
+                    else if (member != null) 
+                    {
+                        if ((member.StartDate <= DateTime.Now) &&
+                            (member.RenewDate >= DateTime.Now)) //Give Member Discount
+                        {
+                            if (gridItem.IsDiscountable || (dateSpan.Months < 3))
+                                thisItemsSoldPrice = (gridItem.UnitPrice - (gridItem.DiscountAmount)) *
+                                                     ConfigSettings.MEMBER_CONS_CREDIT_PAYOUT_PCT;
+                            else
+                            {
+                                thisItemsSoldPrice = (gridItem.UnitPrice - (gridItem.DiscountAmount)) *
+                                                     ConfigSettings.MEMBER_CONS_CREDIT_PAYOUT_PCT - ConfigSettings.ND_FEE;
+                                ndFee = ConfigSettings.ND_FEE;
+                            }
+                        }
+                        else //No Member Discount
+                        {
+                            if (gridItem.IsDiscountable || (dateSpan.Months < 3))
+                                thisItemsSoldPrice = (gridItem.UnitPrice - (gridItem.DiscountAmount)) *
+                                                     ConfigSettings.CONS_CREDIT_PAYOUT_PCT;
+                            else
+                            {
+                                thisItemsSoldPrice = (gridItem.UnitPrice - (gridItem.DiscountAmount)) *
+                                                     ConfigSettings.CONS_CREDIT_PAYOUT_PCT - ConfigSettings.ND_FEE;
+                                ndFee = ConfigSettings.ND_FEE;
+                            }
+                        }
                     }
                 }
                 else

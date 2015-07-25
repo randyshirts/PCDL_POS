@@ -102,7 +102,10 @@ namespace DataModel.Data.ApplicationLayer.WpfControllers
                 var app = new MemberAppService(repo);
                 var output = app.GetMemberByName(input);
 
-                return output.Member.ConvertToMember();
+                if(output.Member != null)
+                    return output.Member.ConvertToMember();
+
+                return null;
             }
         }
 

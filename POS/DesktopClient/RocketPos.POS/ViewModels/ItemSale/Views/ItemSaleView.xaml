@@ -100,9 +100,6 @@
                     <KeyBinding Key="Delete" Command="{Binding DeleteSelectedCommand}" />
                 </DataGrid.InputBindings>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Qty"
-                            Binding="{Binding Quantity}" Width="3*"/>
-
                     <DataGridTextColumn Header="Item"
                             Binding="{Binding Title}" Width="15*" IsReadOnly="True"/>
 
@@ -137,8 +134,8 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridCheckBoxColumn Header="Discount" Binding="{Binding IsDiscountable}" IsReadOnly="True"/>
-
+                    <DataGridCheckBoxColumn Header="Date" Binding="{Binding IsDiscountable}" IsReadOnly="True"/>
+                    
                     <DataGridTemplateColumn Header="Date Listed" Width="6*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -155,10 +152,13 @@
                     </DataGridTemplateColumn>
 
 
-                    <DataGridTextColumn Header="Date Discount"
+                    <DataGridTextColumn Header="Date %"
                             Binding="{Binding DateDiscount, Converter={StaticResource percentConverter}}" Width="4*" IsReadOnly="True"/>
 
-                    <DataGridTextColumn Header="Addl Discount"
+                    <DataGridTextColumn Header="Memb %"
+                            Binding="{Binding MemberDiscount, Converter={StaticResource percentConverter}}" Width="4*" IsReadOnly="True"/>
+                    
+                    <DataGridTextColumn Header="Addl %"
                             Binding="{Binding AddlDiscount, Converter={StaticResource percentConverter}}" Width="4*" />
                     
                     <DataGridTextColumn Header="Discount Total"
@@ -228,19 +228,13 @@
                 </toolkit:AutoCompleteBox>
                 
             </StackPanel>
-            <Button Command="{Binding AddItemCommand}" 
-                    DockPanel.Dock="Left"
-                    Margin="10" 
-                    MinWidth="55"
-                    MaxWidth="90"
-                    MinHeight="40"
-                    MaxHeight="80"
-                    common:FocusExtension.IsFocused="{Binding IsViewFocused}">
-                    <!--IsEnabled="{Binding IsEnabledAddItem}">-->
-                <TextBlock
-                        Text ="Add Item" TextWrapping="Wrap" TextAlignment="Center">
-                </TextBlock>
-            </Button>
+            <CheckBox IsEnabled="True" 
+                      Content="Member Discount" 
+                      IsChecked="{Binding IsMember}"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center">
+                
+            </CheckBox>
 
             <Grid DockPanel.Dock="Right" 
                   Background="CadetBlue" 

@@ -219,7 +219,7 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
                 else
                 {
                     CashPayoutEnabled = false;
-                    DataGridConsignorItems = ClearConsignorPortion();
+                    //DataGridConsignorItems = ClearConsignorPortion();
                     IsVisiblePayoutAmount = "Hidden";
                 }
 
@@ -699,32 +699,32 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
         {
             var consignorItems = DataGridConsignorItems;
 
-            double totalPayment = 0;
+            //double totalPayment = 0;
 
-            foreach (var ci in consignorItems)
-            {
-                double currentPmt;
-                if ((ci.SoldPrice != null) && (ci.ItemStatus == "Sold"))
-                {
-                    if (cash)
-                    {
-                        currentPmt = (double.Parse(ci.SoldPrice, NumberStyles.Currency) * ConfigSettings.CONS_CASH_PAYOUT_PCT);
-                    }
-                    else
-                    {
-                        currentPmt = (double.Parse(ci.SoldPrice, NumberStyles.Currency) * ConfigSettings.CONS_CREDIT_PAYOUT_PCT);
-                    }
+            //foreach (var ci in consignorItems)
+            //{
+            //    double currentPmt;
+            //    if ((ci.SoldPrice != null) && (ci.ItemStatus == "Sold"))
+            //    {
+            //        if (cash)
+            //        {
+            //            currentPmt = (double.Parse(ci.SoldPrice, NumberStyles.Currency) * ConfigSettings.CONS_CASH_PAYOUT_PCT);
+            //        }
+            //        else
+            //        {
+            //            currentPmt = (double.Parse(ci.SoldPrice, NumberStyles.Currency) * ConfigSettings.CONS_CREDIT_PAYOUT_PCT);
+            //        }
 
-                    ci.ConsignorPortion = currentPmt.ToString("C2");
-                    totalPayment += currentPmt;
-                }
-                else if ((ci.SoldPrice == null) && (ci.ItemStatus == "Sold"))
-                {
-                    currentPmt = 0;
-                    ci.ConsignorPortion = currentPmt.ToString("C2");
-                    totalPayment += currentPmt;
-                }
-            }
+            //        ci.ConsignorPortion = currentPmt.ToString("C2");
+            //        totalPayment += currentPmt;
+            //    }
+            //    else if ((ci.SoldPrice == null) && (ci.ItemStatus == "Sold"))
+            //    {
+            //        currentPmt = 0;
+            //        ci.ConsignorPortion = currentPmt.ToString("C2");
+            //        totalPayment += currentPmt;
+            //    }
+            //}
 
             var lastNameFirst = StringHelpers.SwitchNameOrder(ConsignorName);
             var controller = new ConsignorController();

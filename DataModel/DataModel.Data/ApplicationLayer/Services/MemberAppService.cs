@@ -42,6 +42,13 @@ namespace DataModel.Data.ApplicationLayer.Services
         public GetMemberByNameOutput GetMemberByName(GetMemberByNameInput input)
         {
             var member = new MemberDto(_memberRepository.GetMemberByName(input.FirstName, input.LastName));
+
+            if (member.Member_Person == null)
+                return new GetMemberByNameOutput
+                {
+                    Member = null
+                };
+
             var person = new PersonDto(member.Member_Person);
             member.Member_Person = person.ConvertToPerson();
             
