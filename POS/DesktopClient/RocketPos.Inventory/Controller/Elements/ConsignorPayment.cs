@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using DataModel.Data.ApplicationLayer.WpfControllers;
+using DataModel.Data.DataLayer.Entities;
+using Inventory.Controller.Interfaces;
+using RocketPos.Common.Foundation;
+using RocketPos.Common.Helpers;
 
 namespace Inventory.Controller.Elements
 {
-    class ConsignorPayment
+    class ConsignorPayment : ObservableObjects
     {
         public ConsignorPayment()
         { }
