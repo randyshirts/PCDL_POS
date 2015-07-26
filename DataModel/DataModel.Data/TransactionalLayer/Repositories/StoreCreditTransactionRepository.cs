@@ -42,7 +42,7 @@ namespace DataModel.Data.TransactionalLayer.Repositories
                                  where c.ConsignorId == id
                                  select c);
 
-            return storeCreditTrans;
+            return storeCreditTrans.ToList();
         }
 
 

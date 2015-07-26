@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using DataModel.Data.DataLayer.Entities;
+using Inventory.Controller.Elements;
 using Inventory.Controller.Elements.ItemElements;
 using RocketPos.Common.Foundation;
 
@@ -29,6 +30,28 @@ namespace Inventory.Controller.CustomClasses
             }
 
             return tempConsignorItems;
+        }
+
+        
+        //Make a collection of BarcodeItems with info from a collection of Items 
+        public static TrulyObservableCollection<ConsignorPayment> CreateConsignorPaymentsList(IEnumerable<StoreCreditTransaction> transactions)
+        {
+            //Temp Collection Definition
+            var tempConsignorPayments = new TrulyObservableCollection<ConsignorPayment>();
+
+            if (transactions == null) return tempConsignorPayments;
+
+            //Make the collection
+            var i = transactions.GetEnumerator();
+            while (i.MoveNext())
+            {
+                //Create an instance of a ConsignorPayment with the current transaction
+                var currentConsignorPayment = new ConsignorPayment(i.Current);
+                //Add the new instance to the collection
+                tempConsignorPayments.Add(currentConsignorPayment);
+            }
+
+            return tempConsignorPayments;
         }
 
         //Make a collection of BarcodeItems with info from a collection of Items 

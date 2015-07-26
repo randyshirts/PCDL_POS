@@ -17,6 +17,7 @@ using DataModel.Data.DataLayer.Entities;
 using DataModel.Data.TransactionalLayer.Repositories;
 using GalaSoft.MvvmLight.Command;
 using Inventory.Controller.CustomClasses;
+using Inventory.Controller.Elements;
 using Inventory.Controller.Elements.ItemElements;
 using Inventory.Controller.Visitors.ItemVisitors;
 using RocketPos.Common.Foundation;
@@ -141,6 +142,7 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
             {
                 _consignorName = value;
                 SearchConsignor();
+                SearchConsignorTransactions();
                 OnPropertyChanged();
             }
         }
@@ -317,19 +319,27 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
         /// </summary>
         public void SearchConsignor()
         {
-
-            //if (Status != null)
-            //    SearchConsignorItems(ConsignorName, Status);
-            //else
-            //    SearchConsignorItems(ConsignorName);
-
             //Populate DataGridConsignorItems
-            var controller = new ItemRepository();
-            var items = controller.SearchAllItems(null, Status, ItemType, ConsignorName, null);
-            DataGridConsignorItems = CreateElementLists.CreateConsignorItemsList(items);
 
+            using (var controller = new ItemRepository())
+            {
+                var items = controller.SearchAllItems(null, Status, ItemType, ConsignorName, null);
+                DataGridConsignorItems = CreateElementLists.CreateConsignorItemsList(items);
+            }
         }
 
+        public void SearchConsignorTransactions()
+        {
+            if (ConsignorName == null) return;
+            
+            //Populate DataGridConsignorPayments
+            var consignorController = new ConsignorController();
+            var consignor = consignorController.GetConsignorByFullName(ConsignorName);
+
+            var controller = new StoreCreditTransactionController();
+            var transactions = controller.GetStoreCreditTransactionsByConsignorId(consignor.Id);
+            DataGridConsignorPayments = CreateElementLists.CreateConsignorPaymentsList(transactions);
+        }
 
         /// <summary>
         /// Gets the command that allows a consignor's items to be paid.
@@ -447,8 +457,8 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
             //    }
             //}
 
-            double payout;
-            Double.TryParse(PayoutAmountText, out payout);
+            
+            var payout = double.Parse(PayoutAmountText, NumberStyles.Currency);
             if (payout <= 0)
             {
                 MessageBox.Show("Payout amount must be greater than zero.");
@@ -507,6 +517,8 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
                 ConsignorName = consignor.Consignor_Person.FirstName + " " + consignor.Consignor_Person.LastName;
                 Status = "All";
 
+                //DataGridConsignorPayments.Add(new ConsignorPayment(storeCredit));
+
             }
             catch (Exception ex)
             {
@@ -530,7 +542,7 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
 
         #endregion
 
-        #region DataGrid Stuff
+        #region ConsignorItems DataGrid Stuff
         /// <summary>
         /// Gets the collection of ConsignorItem entities.
         /// </summary>
@@ -556,11 +568,11 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
             set
             {
                 _selectedConsignorItem = value;
-                OnSelected();
+                OnItemSelected();
             }
         }
 
-        private static void OnSelected()
+        private static void OnItemSelected()
         {
             //if (SelectedConsignor != null)
             //    Messenger.Default.Send(new PropertySetter("GameImage", SelectedGameItem.GameImage), Token);
@@ -735,7 +747,7 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
             return consignorItems;
         }
 
-        public TrulyObservableCollection<ConsignorItem> ClearConsignorPortion()
+        public TrulyObservableCollection<ConsignorItem> ClearConsignorItemPortion()
         {
             var consignorItems = DataGridConsignorItems;
 
@@ -747,6 +759,52 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
             PayoutAmountText = "$0";
 
             return consignorItems;
+        }
+
+#endregion
+
+#region ConsignorPayments Datagrid Stuff
+
+        /// <summary>
+        /// Gets the collection of ConsignorPayment entities.
+        /// </summary>
+        private TrulyObservableCollection<ConsignorPayment> _dataGridConsignorPayments;
+        public TrulyObservableCollection<ConsignorPayment> DataGridConsignorPayments
+        {
+            get { return _dataGridConsignorPayments; }
+
+            set
+            {
+                _dataGridConsignorPayments = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public TrulyObservableCollection<ConsignorPayment> UpdateConsignorPaymentPortion(bool cash)
+        {
+            var consignorPayments = DataGridConsignorPayments;
+
+            var lastNameFirst = StringHelpers.SwitchNameOrder(ConsignorName);
+            var controller = new ConsignorController();
+            PayoutAmountText = controller.GetConsignorCreditBalance(lastNameFirst).ToString("C2");
+
+            return consignorPayments;
+        }
+
+
+
+        public TrulyObservableCollection<ConsignorPayment> ClearConsignorPaymentPortion()
+        {
+            var consignorPayments = DataGridConsignorPayments;
+
+            foreach (var ci in consignorPayments)
+            {
+                ci.ConsignorPortion = null;
+            }
+
+            PayoutAmountText = "$0";
+
+            return consignorPayments;
         }
         #endregion
     }

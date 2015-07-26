@@ -173,13 +173,20 @@ namespace DataModel.Data.TransactionalLayer.Repositories
             var consignor = GetConsignorByName(firstName, lastName);
 
             //Sum StoreCreditPmts which are store credit then subtract the sum of StoreCreditTransactions
-            var scps = new StoreCreditPmtRepository();
-            var pmts = scps.GetStoreCreditPmtsByConsignorId(consignor.Id); 
-            if(pmts == null) return 0;
+            var pmts = new List<StoreCreditPmt>();
+            using (var scps = new StoreCreditPmtRepository())
+            {
+                pmts = scps.GetStoreCreditPmtsByConsignorId(consignor.Id).ToList();
+            }
 
-            var scts = new StoreCreditTransactionRepository();
-            var purchases = scts.GetStoreCreditTransactionsByConsignorId(consignor.Id);
-            if (purchases == null) return pmts.Sum(f => f.StoreCreditPmtAmount);
+            if (!pmts.Any()) return 0;
+
+            var purchases = new List<StoreCreditTransaction>();
+            using (var scts = new StoreCreditTransactionRepository())
+            {
+                purchases = scts.GetStoreCreditTransactionsByConsignorId(consignor.Id).ToList();
+            }
+            if (!purchases.Any()) return pmts.Sum(f => f.StoreCreditPmtAmount);
 
             return pmts.Sum(f => f.StoreCreditPmtAmount) -
                         purchases.Sum(f => f.StoreCreditTransactionAmount);
