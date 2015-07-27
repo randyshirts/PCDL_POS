@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
+using System.Web.Mvc;
 using Abp.UI;
 using Castle.Core.Internal;
 using Common.Barcodes;
@@ -21,11 +22,11 @@ using Spire.Pdf;
 
 namespace PcdWeb.Controllers
 {
-    [RoutePrefix("api/Items")]
+    [System.Web.Http.RoutePrefix("api/Items")]
     public class ItemsController : ApiController
     {
-        [Authorize]
-        [Route("")]
+        [System.Web.Http.Authorize]
+        [System.Web.Http.Route("")]
         public IHttpActionResult Get()
         {
             //ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
@@ -38,71 +39,44 @@ namespace PcdWeb.Controllers
             return Ok("nothing here");
         }
 
-        [Authorize]
-        [Route("PrintNewBarcodes")]
-        public HttpResponseMessage PrintNewBarcodes(IEnumerable<PrintBarcodesModel> model)
+
+        [System.Web.Http.Authorize]
+        [System.Web.Http.Route("PrintNewBarcodes")]
+        public HttpResponse PrintNewBarcodes(IEnumerable<PrintBarcodesModel> model)
         {
             var printBarcodesModel = model.FirstOrDefault();
             if (printBarcodesModel != null)
             {
                 var pdfBarcodes = printBarcodesModel.ConvertToPdfBarcodeModelList(model);
                 var doc = PrintBarcodes.PrintBarcodesItems(pdfBarcodes.ToList());
-                //doc = PrintBarcodes.SavePdfDocument(doc);
-
+                
                 var ms = new MemoryStream();
 
-                //var response = Request.CreateResponse(HttpStatusCode.OK);
-                //var context = HttpContext.Current;
+                string fileName = "ConsignorBarcodes.pdf";
 
                 doc.SaveToStream(ms);
+                var response = HttpContext.Current.Response;
+
+                //save stream as file
+                byte[] buf = new byte[ms.Length];  //declare arraysize
+                ms.Read(buf, 0, buf.Length);
+                response.AddHeader("Accept-Header", ms.Length.ToString());
+                response.ContentType = "application/octet-stream";
+                response.AddHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+                response.AddHeader("Content-Length", ms.Length.ToString());
+                response.BinaryWrite(ms.ToArray());
+                response.End();
                 
-
-                //doc.SaveToHttpResponse("Barcodes.pdf", context.Response, HttpReadType.Save);
-                doc.Close();
-                var response = new HttpResponseMessage(HttpStatusCode.OK);
-                response.Content = new ByteArrayContent(ms.ToArray());
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
-                ms.Close();
-                return response; 
-
-
-                //var response = new HttpResponseMessage(HttpStatusCode.OK)
-                //{
-                //    Content = new StreamContent(ms)
-                //};
-                //result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                //{
-                //    FileName = "Barcodes.pdf"
-                //};
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
                 return response;
-
-                ////Send to browser
-                //string filePath = doc.
-                //    Server.MapPath("javascript1-sample.pdf");
                 
-                //WebClient User = new WebClient();
-                //var fileBuffer = ms.GetBuffer();
-                //if (FileBuffer != null)
-                //response.Content = new StreamContent(fileBuffer);
-
-                //response.ContentType = "application/pdf";
-                //response.AddHeader("content-length", fileBuffer.Length.ToString());
-                //response.BinaryWrite(fileBuffer);
-                
-
-                
-                //return context.Response;
-                //return Ok(context.Response.);
             }
-
-            return new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
+            return null;
+            //return new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
             //return Ok("There was a problem");
         }
 
-
-        [Authorize]
-        [Route("AddItem")]
+        [System.Web.Http.Authorize]
+        [System.Web.Http.Route("AddItem")]
         public IHttpActionResult AddItem(AddItemModel model)
         {
             var output = new AddItemApiOutput();

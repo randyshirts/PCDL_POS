@@ -137,8 +137,14 @@ namespace POS.ViewModels.ItemSale.ViewModel
             get { return _isMember; }
             set
             {
-                _isMember = value;
-                OnPropertyChanged();
+                if (value != _isMember)
+                {
+                    _isMember = value;
+                    OnPropertyChanged();
+
+                    CalculateMemberDiscount();
+                    TotalAmount = GetTotalAmount();
+                }
             }
         }
 
@@ -651,6 +657,26 @@ namespace POS.ViewModels.ItemSale.ViewModel
                 }
             }
         }
+
+        public void CalculateMemberDiscount()
+        {
+            //DataGridSaleItems.Clear();
+            var tempGrid = new TrulyObservableCollection<SaleItem>();
+            
+            foreach (var bi in DataGridSaleItems)
+            {
+                //Get member, volunteer, owner discount
+                bi.ComputeMemberDiscount(IsMember);
+
+                //Compute taxes and linePrice
+                bi.ComputeTaxesAndLinePrice();
+
+                tempGrid.Add(bi);
+            }
+
+            DataGridSaleItems = tempGrid;
+        }
+
         #endregion
         
     }

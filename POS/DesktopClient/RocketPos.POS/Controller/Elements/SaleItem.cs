@@ -62,50 +62,16 @@ namespace POS.Controller.Elements
             else
             {
                 DateDiscount = 0;
-            }
-
-            
+            }           
 
             //Get member, volunteer, owner discount
-            //Implement member discounts 
-            if (isMember)
-            {
-                MemberDiscount = ConfigSettings.MEMBER_PURCHASE_DISCOUNT_PCT;
-                //Set SaleAmount - Amount reported to consignor
-                SaleAmount = UnitPrice - UnitPrice*(MemberDiscount + DateDiscount);
-            }
-            else
-            {
-                MemberDiscount = 0.0;
-                //Set SaleAmount - Amount reported to consignor
-                SaleAmount = UnitPrice - DateDiscount*UnitPrice;
-            }
+            ComputeMemberDiscount(isMember);
 
             AddlDiscount = 0;
 
-            //Compute tax
-            var stateTaxVisitor = new StateTaxVisitor();
-            var stateTax = Accept(stateTaxVisitor);
-
-            var cityTaxVisitor = new CityTaxVisitor();
-            var cityTax = Accept(cityTaxVisitor);
-
-            var countyTaxVisitor = new CountyTaxVisitor();
-            var countyTax = Accept(countyTaxVisitor);
-
-            //Compute DiscountAmount
-            DiscountAmount = UnitPrice * (DateDiscount + AddlDiscount + MemberDiscount);
-
-            //Compute Taxes and LinePrice
-            var noTaxAmount = UnitPrice - DiscountAmount;
-
-            CityTaxAmount = Math.Ceiling(cityTax * noTaxAmount * 100) / 100;        //Round up for taxes
-            StateTaxAmount = Math.Ceiling(stateTax * noTaxAmount * 100) / 100;
-            CountyTaxAmount = Math.Ceiling(countyTax * noTaxAmount * 100) / 100;
-            Tax = cityTax + stateTax + countyTax;
-            TaxAmount = CityTaxAmount + StateTaxAmount + CountyTaxAmount;
-
-            LinePrice = Math.Ceiling((noTaxAmount + TaxAmount) * 100) / 100;    //Round up for total price
+            //Compute taxes and linePrice
+            ComputeTaxesAndLinePrice();
+            
 
             switch (item.ItemType)
             {
@@ -207,7 +173,48 @@ namespace POS.Controller.Elements
 
         }
 
+        public void ComputeMemberDiscount(bool isMember)
+        {
+            //Implement member discounts 
+            if (isMember)
+            {
+                MemberDiscount = ConfigSettings.MEMBER_PURCHASE_DISCOUNT_PCT;
+                //Set SaleAmount - Amount reported to consignor
+                SaleAmount = UnitPrice - UnitPrice * (MemberDiscount + DateDiscount);
+            }
+            else
+            {
+                MemberDiscount = 0.0;
+                //Set SaleAmount - Amount reported to consignor
+                SaleAmount = UnitPrice - DateDiscount * UnitPrice;
+            }
+        }
 
+        public void ComputeTaxesAndLinePrice()
+        {
+            var stateTaxVisitor = new StateTaxVisitor();
+            var stateTax = Accept(stateTaxVisitor);
+
+            var cityTaxVisitor = new CityTaxVisitor();
+            var cityTax = Accept(cityTaxVisitor);
+
+            var countyTaxVisitor = new CountyTaxVisitor();
+            var countyTax = Accept(countyTaxVisitor);
+
+            //Compute DiscountAmount
+            DiscountAmount = UnitPrice * (DateDiscount + AddlDiscount + MemberDiscount);
+
+            //Compute Taxes and LinePrice
+            var noTaxAmount = UnitPrice - DiscountAmount;
+
+            CityTaxAmount = cityTax * noTaxAmount;        //Round up for taxes
+            StateTaxAmount = stateTax * noTaxAmount;
+            CountyTaxAmount = countyTax * noTaxAmount;
+            Tax = cityTax + stateTax + countyTax;
+            TaxAmount = Math.Ceiling((CityTaxAmount + StateTaxAmount + CountyTaxAmount) * 100) / 100;
+
+            LinePrice = Math.Ceiling((noTaxAmount + TaxAmount) * 100) / 100;    //Round up for total price
+        }
 
         public double Accept(ITaxVisitor itemVisitor)
         {
