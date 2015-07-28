@@ -52,21 +52,29 @@ namespace PcdWeb.Controllers
                 
                 var ms = new MemoryStream();
 
-                string fileName = "ConsignorBarcodes.pdf";
+                string fileName = "barcodes.pdf";
 
                 doc.SaveToStream(ms);
                 var response = HttpContext.Current.Response;
+                
 
-                //save stream as file
+                //save stream as file by using spire method
+                //doc.SaveToHttpResponse(fileName, response, HttpReadType.Save);
+
+                //save stream as file by using BinaryWrite
                 byte[] buf = new byte[ms.Length];  //declare arraysize
                 ms.Read(buf, 0, buf.Length);
                 response.AddHeader("Accept-Header", ms.Length.ToString());
                 response.ContentType = "application/octet-stream";
-                response.AddHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+                response.AddHeader("Content-Disposition", "attachment; filename=" + fileName);
                 response.AddHeader("Content-Length", ms.Length.ToString());
+                response.AddHeader("x-filename", fileName);
                 response.BinaryWrite(ms.ToArray());
                 response.End();
-                
+
+                ms.Flush();
+                ms.Close();
+
                 return response;
                 
             }

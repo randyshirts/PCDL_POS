@@ -12,10 +12,10 @@ app.controller('addItemGridController', ['itemsService', function (itemsService)
         self.saveBusy = false;
         itemsService.printBarcodes(self.itemsCollection).then(function (results) {
 
-            self.saveBusy = true;
-            var file = new Blob([results.data], { type: 'application/pdf' });
-            var fileURL = URL.createObjectURL(file);
-            window.open(fileURL);
+            if (results.success === true)
+                self.saveBusy = true;
+            else
+                self.message = "Error retrieving PDF. Please contact the store to get your barcodes emailed to you.";
 
         }, function (error) {
             //alert(error.data.message);
