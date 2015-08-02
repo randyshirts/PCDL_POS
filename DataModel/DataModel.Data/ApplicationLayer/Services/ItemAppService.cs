@@ -1,5 +1,7 @@
 ﻿
+using System;
 using System.Linq;
+using Common.Helpers;
 using DataModel.Data.ApplicationLayer.DTO;
 using DataModel.Data.TransactionalLayer.Repositories;
 
@@ -126,6 +128,30 @@ namespace DataModel.Data.ApplicationLayer.Services
 
         }
 
+        public SearchItemsDateRangeOutput SearchItemsDateRange(SearchItemsDateRangeInput input)
+        {
+
+            var items = _itemRepository.SearchItemsDateRange(
+                input.FromDate, 
+                input.EndDate, 
+                input.ConsignorName, 
+                input.Status
+                );
+            
+            if(items != null)
+                return new SearchItemsDateRangeOutput
+            {
+                Items = items.Select(i => (new ItemDto(i))).ToList()
+            };
+
+            return new SearchItemsDateRangeOutput
+            {
+                Items = null
+            };
+
+        }
+        
+
         public SearchListItemsOutput SearchListItems(SearchListItemsInput input)
         {
             return new SearchListItemsOutput
@@ -162,6 +188,62 @@ namespace DataModel.Data.ApplicationLayer.Services
             {
                 Item = new ItemDto(_itemRepository.Get(input.Id))
             };
+        }
+
+        public GetItemTitleOutput GetItemTitle(GetItemTitleInput input)
+        {
+            string title;
+
+            if (input.Item.ItemType == "Book")
+            {
+                title = input.Item.Book.Title;
+            }
+
+            else if (input.Item.ItemType == "Game")
+            {
+                title = input.Item.Game.Title;
+            }
+
+            else if (input.Item.ItemType == "Other")
+            {
+                title = input.Item.Other.Title;
+            }
+
+            else if (input.Item.ItemType == "TeachingAide")
+            {
+                title = input.Item.TeachingAide.Title;
+            }
+
+            else if (input.Item.ItemType == "Video")
+            {
+                title = input.Item.Video.Title;
+            }
+
+            else
+            {
+                title = null;
+            }
+
+            return new GetItemTitleOutput
+            {
+                Title = title
+            };
+        }
+
+        public GetCurrentPriceOutput GetCurrentPrice(GetCurrentPriceInput input)
+        {
+            var price = input.Item.ListedPrice;
+            var dateSpan = DateTimeSpan.CompareDates(input.Item.ListedDate, DateTime.Now);
+            if ((input.Item.IsDiscountable) && (dateSpan.Months > 0))
+            {
+                price = dateSpan.Months < 6 ? input.Item.ListedPrice * dateSpan.Months * .10 : input.Item.ListedPrice * .50;
+            }
+
+            return new GetCurrentPriceOutput
+            {
+                Price = price
+            };
+
         }
     }
 }

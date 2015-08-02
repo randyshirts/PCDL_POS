@@ -18,6 +18,7 @@ using DataModel.Data.DataLayer.Entities;
 using DataModel.Data.DataLayer.Repositories;
 using DataModel.Data.TransactionalLayer.Repositories;
 using PcdWeb.Models.ItemModels;
+using RocketPos.Common.Helpers;
 using Spire.Pdf;
 
 namespace PcdWeb.Controllers
@@ -25,6 +26,7 @@ namespace PcdWeb.Controllers
     [System.Web.Http.RoutePrefix("api/Items")]
     public class ItemsController : ApiController
     {
+
         [System.Web.Http.Authorize]
         [System.Web.Http.Route("")]
         public IHttpActionResult Get()
@@ -198,6 +200,139 @@ namespace PcdWeb.Controllers
             return Ok("Addition of book to database failed!");
         }
 
+        [System.Web.Http.Authorize]
+        [System.Web.Http.Route("SearchItems")]
+        public IHttpActionResult SearchItems(SearchItemsModel model)
+        {
+            var output = new SearchItemsApiOutput();
+
+            if (!ModelState.IsValid)
+            {
+                output.Message = "Invalid input";
+                return Ok(output);
+            }
+
+            //Find Consignor by username
+            Consignor consignor;
+            using (var repo = new ConsignorRepository())
+            {
+                var app = new ConsignorAppService(repo);
+                consignor = app.GetConsignorByEmail(new GetConsignorByEmailInput() { Email = model.EmailAddress }).Consignor.ConvertToConsignor();
+            }
+
+            var input = new SearchItemsDateRangeInput
+            {
+                FromDate = model.BeginDate,
+                EndDate = model.EndDate,
+                ConsignorName = consignor.Consignor_Person.FirstName + " " + consignor.Consignor_Person.LastName,
+                Status = model.ItemStatus ?? "All"
+            };
+
+            var dtoItems = new List<ItemDto>();
+            using (var repo = new ItemRepository())
+            {
+                var app = new ItemAppService(repo);
+                dtoItems = app.SearchItemsDateRange(input).Items;
+            }
+            
+
+            if (dtoItems != null)
+            {
+                var items = dtoItems.Select(i => i.ConvertToItem()).ToList();
+                output.Message = "Success";
+
+                using (var repo = new ItemRepository())
+                {
+                    var app = new ItemAppService(repo);
+                    
+                    var outputItems = items.Select(item => new SearchItem
+                    {
+                        DateAdded = item.ListedDate.ToShortDateString(),
+                        Discount = item.IsDiscountable,
+                        OriginalPrice = item.ListedPrice,
+                        SoldPrice = item.SalePrice ?? 0,
+                        Status = item.Status,
+                        CurrentPrice = app.GetCurrentPrice(new GetCurrentPriceInput{Item = item}).Price,
+                        PaymentAmount = item.ConsignorPmt != null ? item.ConsignorPmt.DebitTransaction_ConsignorPmt.DebitTotal : 0,
+                        Title = app.GetItemTitle(new GetItemTitleInput {Item = item}).Title,
+                        Barcode = item.Barcode,
+                        Subject = item.Subject
+                    }).ToList();
+
+                    output.Items = outputItems;
+                }
+            }
+            
+            return Ok(output);
+        }
+
+        
+        [System.Web.Http.Authorize]
+        [System.Web.Http.Route("SearchTransactions")]
+        public IHttpActionResult SearchTransactions(SearchTransactionsModel model)
+        {
+            var output = new SearchTransactionsApiOutput();
+            var balance = 0.0;
+
+            if (!ModelState.IsValid)
+            {
+                output.Message = "Invalid input";
+                return Ok(output);
+            }
+
+            //Find Consignor by username
+            Consignor consignor;
+            using (var repo = new ConsignorRepository())
+            {
+                var app = new ConsignorAppService(repo);
+                consignor = app.GetConsignorByEmail(new GetConsignorByEmailInput() { Email = model.EmailAddress }).Consignor.ConvertToConsignor();
+
+                if (consignor != null)
+                {
+                    var balanceInput = new GetConsignorCreditBalanceInput
+                    {
+                        FullName = consignor.Consignor_Person.LastName + " " +
+                                   consignor.Consignor_Person.FirstName
+                    };
+                    output.Balance =
+                        app.GetConsignorCreditBalance(balanceInput).Balance;
+                }
+                else
+                {
+                    output.Message = "Could not find consignor in the database";
+                    return Ok(output);
+                }
+            }
+
+            var input = new GetStoreCreditTransactionsByConsignorIdInput
+            {
+                ConsignorId = consignor.Id
+            };
+
+            var dtoItems = new List<StoreCreditTransactionDto>();
+            using (var repo = new StoreCreditTransactionRepository())
+            {
+                var app = new StoreCreditTransactionAppService(repo);
+                dtoItems = app.GetStoreCreditTransactionsByConsignorId(input).Transactions.ToList();
+            }
+
+            if (dtoItems != null)
+            {
+                var transactions = dtoItems.Select(i => i.ConvertToStoreCreditTransaction()).ToList();
+                output.Message = "Success";
+
+                var outputTransactions = transactions.Select(transaction => new Transaction
+                {
+                    TransactionDate = transaction.CreditTransaction_StoreCredit.TransactionDate.ToShortDateString(),
+                    TransactionType = transaction.TransactionType,
+                    Amount = transaction.StoreCreditTransactionAmount
+                }).ToList();
+
+                output.Transactions = outputTransactions;
+            }
+            
+            return Ok(output);
+        }
 
 
         #region Helpers

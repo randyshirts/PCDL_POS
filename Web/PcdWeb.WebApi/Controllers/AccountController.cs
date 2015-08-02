@@ -40,6 +40,7 @@ namespace PcdWeb.Controllers
 
         //private AuthRepository _repo = null;
         private readonly IPcdUserAppService _userAppService;
+
         public AccountController()
         {
             _userAppService = new PcdUserAppService();
@@ -163,7 +164,7 @@ namespace PcdWeb.Controllers
             var result = _userAppService.ConfirmEmail(input);
 
             var response = Request.CreateResponse(HttpStatusCode.Moved);
-            response.Headers.Location = new Uri("http://www.playcreatediscover.com/#/emailConfirmed");
+            response.Headers.Location = new Uri("http://test.playcreatediscover.com/#/emailConfirmed");
             return response;
 
         }
@@ -359,7 +360,7 @@ namespace PcdWeb.Controllers
 
             //Navigate to reset password page
             var response = Request.CreateResponse(HttpStatusCode.Moved);
-            response.Headers.Location = new Uri("http://www.playcreatediscover.com/#/resetPassword");
+            response.Headers.Location = new Uri("http://test.playcreatediscover.com/#/resetPassword");
             return resetCode == null ? Request.CreateResponse(HttpStatusCode.BadRequest) : response;
         }
        

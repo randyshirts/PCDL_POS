@@ -105,6 +105,65 @@ namespace DataModel.Data.TransactionalLayer.Repositories
                 .ToList();
         }
 
+        //Perform a search of items between a certain date range
+        public IEnumerable<Item> SearchItemsDateRange(DateTime? fromDate, DateTime? toDate, string consignorName, string status)
+        {
+            var query = GetAll();
+
+            if (status == "All") status = null;
+            if (consignorName == "All") consignorName = null;
+
+            if (!String.IsNullOrEmpty(status))
+            {
+                query = query.Where(item => item.Status == status);
+            }
+
+            if (!String.IsNullOrEmpty(consignorName))
+            {
+                var names = consignorName.Split(' ');
+                var firstName = names[0];
+                var lastName = names[1];
+                query = query.Where(item => item.Consignor.Consignor_Person.FirstName == firstName); 
+                query = query.Where(item => item.Consignor.Consignor_Person.LastName == lastName);
+            }
+
+            //if (fromDate.HasValue)
+            //{
+            //    query = query.Where(item => item.ListedDate.Year >= fromDate.Value.Year)
+            //                    .Where(item => item.ListedDate.Month >= fromDate.Value.Month)
+            //                    .Where(item => item.ListedDate.Day >= fromDate.Value.Day);
+            //}
+
+            //if (toDate.HasValue)
+            //{
+            //    query = query.Where(item => item.ListedDate.Year <= toDate.Value.Year)
+            //                    .Where(item => item.ListedDate.Month <= toDate.Value.Month)
+            //                    .Where(item => item.ListedDate.Day <= toDate.Value.Day);
+            //}
+            if (fromDate.HasValue)
+            {
+                query = query.Where(item => item.ListedDate >= fromDate.Value);
+            }
+
+            if (toDate.HasValue)
+            {
+                query = query.Where(item => item.ListedDate <= toDate.Value);
+            }
+
+
+            return query
+                .OrderByDescending(item => item.Id)
+                .Include(item => item.Consignor)
+                .Include(item => item.ConsignorPmt)
+                .Include(item => item.ItemSaleTransaction)
+                .Include(item => item.Book)
+                .Include(item => item.Game)
+                .Include(item => item.Other)
+                .Include(item => item.Video)
+                .Include(item => item.TeachingAide)
+                .ToList();
+        }
+
         //Perform search of items contained in existing list - All searches may be performed or one 
         public IEnumerable<Item> SearchListItems(IEnumerable<Item> list, string barcode, string status, string itemType, string consignorName, DateTime? listedDate)
         {

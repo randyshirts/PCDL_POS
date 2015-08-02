@@ -1,0 +1,51 @@
+﻿<div ng-controller="viewItemsSharedController as shared">
+    <form class="form-viewItems" role="form" name="sharedViewForm" novalidate>
+        <h2 class="form-login-heading">View Your Items</h2>
+        <br/>
+        <br/>
+        <h4 class="form-login-heading">Item Status</h4>
+        <select class="form-control" placeholder="Item Status" data-ng-model="shared.searchItemInfo.itemStatus"
+                name="status" tooltip="Shelved, Sold, etc...">
+            <option value="All">All</option>
+            <option value="Not yet arrived in store">Not yet arrived in store</option>
+            <option value="Arrived but not shelved">Arrived but not shelved</option>
+            <option value="Shelved">Shelved</option>
+            <option value="Sold">Sold</option>
+        </select>
+        <br/>
+        <h4 class="form-login-heading">Search From:</h4>
+        <div class="row">       
+            <p class="input-group">
+                <input type="date" class="form-control" datepicker-popup ng-model="shared.searchItemInfo.beginDate" is-open="shared.beginOpened" min-date="shared.minDate" max-date="shared.searchItemInfo.endDate"
+                       datepicker-options="shared.dateOptions" date-disabled="disabled(date, mode)" ng-required="false" close-text="Close" name="beginDate" tooltip="Date the item was entered into the system" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="shared.beginOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+        </div>     
+        <br/>
+        <h4 class="form-login-heading">Search To:</h4>
+        <div class="row">
+            <p class="input-group">
+                <input type="date" class="form-control" datepicker-popup ng-model="shared.searchItemInfo.endDate" is-open="shared.endOpened" min-date="shared.searchItemInfo.beginDate" max-date="shared.maxDate"
+                       datepicker-options="shared.dateOptions" date-disabled="disabled(date, mode)" ng-required="false" close-text="Close" name="endDate" tooltip="Date the item was entered into the system" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="shared.endOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+        </div>
+        <br />
+        <br />
+        <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="shared.searchItems()"
+                ng-disabled="(sharedViewForm.status.$invalid) ||
+                        (sharedViewForm.beginDate.$invalid) ||
+                        (sharedViewForm.endDate.$invalid)">
+            <span ng-hide="shared.searchBusy"><i class="fa fa-refresh fa-spin"></i> Please wait...</span>
+            <span ng-show="shared.searchBusy">Search Items</span>
+        </button>
+        <div data-ng-hide="shared.message == ''" data-ng-class="(shared.savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+            {{shared.message}}
+        </div>
+
+</form>
+</div>

@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
+using Common.Helpers;
 using DataModel.Data.ApplicationLayer.WpfControllers;
 using DataModel.Data.DataLayer.Entities;
 using GalaSoft.MvvmLight.Command;

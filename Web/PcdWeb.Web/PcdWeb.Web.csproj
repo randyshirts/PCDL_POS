@@ -200,7 +200,10 @@
     <Content Include="app\directives\compareDirective.js" />
     <Content Include="app\directives\csselectDirective.js" />
     <Content Include="app\directives\currencyDirective.js" />
+    <Content Include="app\directives\datePickerLocalDirective.js" />
     <Content Include="app\directives\onlyDigitsDirective.js" />
+    <Content Include="app\filters\sumTransactionsFilter.js" />
+    <Content Include="app\filters\sumItemsFilter.js" />
     <Content Include="app\filters\trueFalse.js" />
     <Content Include="app\main\homeController.js" />
     <Content Include="app\main\indexController.js" />
@@ -216,6 +219,16 @@
     <Content Include="app\account\existinguser.html" />
     <Content Include="app\main\home.html" />
     <Content Include="app\account\login.html" />
+    <Content Include="app\viewItems\viewItemsInfo.html" />
+    <Content Include="app\viewItems\viewItemsInfoController.js" />
+    <Content Include="app\viewItems\viewTransactions\viewTransactionsGrid.html" />
+    <Content Include="app\viewItems\viewTransactions\viewTransactionsGridController.js" />
+    <Content Include="app\viewItems\viewItemsGridController.js" />
+    <Content Include="app\viewItems\viewItemsSharedController.js" />
+    <Content Include="app\viewItems\viewItemsGrid.html" />
+    <Content Include="app\viewItems\viewItemsSharedForm.html" />
+    <Content Include="app\viewItems\viewItemsMain.html" />
+    <Content Include="app\viewItems\viewItemsMainController.js" />
     <Content Include="app\views\orders.html" />
     <Content Include="app\account\refresh.html" />
     <Content Include="app\account\signup.html" />
@@ -231,6 +244,7 @@
     <Content Include="Content\css\loading-bar.css" />
     <Content Include="Content\css\loading-bar.min.css" />
     <Content Include="Content\css\site.css" />
+    <Content Include="Content\css\smart-table.css" />
     <Content Include="Content\css\social-buttons.css" />
     <Content Include="Content\durandal.css" />
     <Content Include="Content\fancybox\blank.gif" />
@@ -366,6 +380,8 @@
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\ui-bootstrap-0.13.0.min.js" />
+    <Content Include="Scripts\ui-bootstrap-tpls-0.13.1.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

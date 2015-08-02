@@ -184,7 +184,11 @@
     <Compile Include="Helper.cs" />
     <Compile Include="Logging\ApiLog.cs" />
     <Compile Include="Models\AccountModels\ChangeEmailModel.cs" />
+    <Compile Include="Models\ItemModels\SearchTransactionsApiOutput.cs" />
+    <Compile Include="Models\ItemModels\SearchItemsApiOutput.cs" />
     <Compile Include="Models\ItemModels\AddItemApiOutput.cs" />
+    <Compile Include="Models\ItemModels\SearchTransactionsModel.cs" />
+    <Compile Include="Models\ItemModels\SearchItemsModel.cs" />
     <Compile Include="Models\ItemModels\AddItemModel.cs" />
     <Compile Include="Models\AccountModels\RegisterModels.cs" />
     <Compile Include="Models\Enums.cs" />
@@ -221,6 +225,10 @@
     <ProjectReference Include="..\..\DataModel\DataModel.Data\DataModel.Data.csproj">
       <Project>{308C26DC-2F9E-47E9-8A60-9D3FE132D67F}</Project>
       <Name>DataModel.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\POS\DesktopClient\RocketPos.Common\RocketPos.Common.csproj">
+      <Project>{732B3834-F3A3-498F-B4DF-C42229FCAA71}</Project>
+      <Name>RocketPos.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\PcdWeb.Core\PcdWeb.Core.csproj">
       <Project>{17298EA0-AF73-4F30-B6F1-2066100D7D74}</Project>

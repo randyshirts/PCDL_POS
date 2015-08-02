@@ -1,5 +1,5 @@
 ﻿
-var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ng-currency', 'smart-table', 'ngCookies']);
+var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ng-currency', 'smart-table', 'ngCookies', 'ui.bootstrap']);
 
 app.config(function ($routeProvider) {
 
@@ -77,15 +77,19 @@ app.config(function ($routeProvider) {
         controller: "addItemsMainController",
         templateUrl: "/app/addItems/addItemsMain.html"
     });
+    $routeProvider.when("/viewItemsMain", {
+        controller: "viewItemsMainController",
+        templateUrl: "/app/viewItems/viewItemsMain.html"
+    });
 
     $routeProvider.otherwise({ redirectTo: "/home" });
 
 });
 
-var serviceBase = 'http://localhost:61754/';
+//var serviceBase = 'http://localhost:61754/';
 //var serviceBase = 'http://playcreatediscover.com/';
 //var serviceBase = 'http://www.playcreatediscover.com/';
-//var serviceBase = 'http://test.playcreatediscover.com/';
+var serviceBase = 'http://test.playcreatediscover.com/';
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     clientId: 'ngAuthApp'

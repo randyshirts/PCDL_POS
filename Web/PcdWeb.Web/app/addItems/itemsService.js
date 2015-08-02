@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.factory('itemsService', ['$http', 'ngAuthSettings', 'authService', '$location', function ($http, ngAuthSettings, auth, $location) {
+app.factory('itemsService', ['$http', 'ngAuthSettings', 'authService', '$location', '$filter', function ($http, ngAuthSettings, auth, $location, $filter) {
 
     var serviceBase = ngAuthSettings.apiServiceBaseUri;
 
@@ -20,8 +20,26 @@ app.factory('itemsService', ['$http', 'ngAuthSettings', 'authService', '$locatio
         }); 
     };
 
+    var _searchItems = function (searchItemInfo) {
+
+        return $http.post(serviceBase + 'api/items/searchItems', searchItemInfo).then(function (results) {
+            return results;
+        });
+    };
+
+    var _searchTransactions = function(searchTransactionInfo) {
+        return $http.post(serviceBase + 'api/items/searchTransactions', searchTransactionInfo).then(function (results) {
+            return results;
+        });
+    };
+
     //For sharing data with other addItem controllers
     var itemList = [];
+    var viewItemList = [];
+    var viewTransactionsList = [];
+    var itemsSearching = true;
+    var transactionsSearching = true;
+    var balance = { val: 0.0 };
 
     var _addItemsList = function (newObj) {
         itemList.push(newObj);
@@ -30,6 +48,51 @@ app.factory('itemsService', ['$http', 'ngAuthSettings', 'authService', '$locatio
     var _getItemsList = function () {
         return itemList;
     }
+
+    var _setViewItemsList = function (newList) {
+        viewItemList.length = 0;
+        for (var i = 0; i < newList.length; i++)
+            viewItemList.push(newList[i]);
+    }
+
+    var _getViewItemsList = function () {
+        return viewItemList;
+    }
+
+    var _setViewTransactionsList = function (newList) {
+        viewTransactionsList.length = 0;
+        for (var i = 0; i < newList.length; i++)
+            viewTransactionsList.push(newList[i]);
+    }
+
+    var _getViewTransactionsList = function () {
+        return viewTransactionsList;
+    }
+
+    var _getItemsSearching = function() {
+        return itemsSearching;
+    }
+
+    var _setItemsSearching = function (newVal) {
+        itemsSearching = newVal;
+    }
+
+    var _getTransactionsSearching = function () {
+        return transactionsSearching;
+    }
+
+    var _setTransactionsSearching = function (newVal) {
+        transactionsSearching = newVal;
+    }
+
+    var _getBalance = function() {
+        return balance;
+    };
+
+    var _setBalance = function (newVal) {
+        balance.val = newVal;
+    };
+
 
     var _downloadFile = function(data, status, headers){
 
@@ -140,10 +203,22 @@ app.factory('itemsService', ['$http', 'ngAuthSettings', 'authService', '$locatio
     //Define factory
     itemsServiceFactory.getItems = _getItems;
     itemsServiceFactory.addItem = _addItem;
+    itemsServiceFactory.searchItems = _searchItems;
+    itemsServiceFactory.searchTransactions = _searchTransactions;
     itemsServiceFactory.addItemsList = _addItemsList;
     itemsServiceFactory.getItemsList = _getItemsList;
+    itemsServiceFactory.setViewItemsList = _setViewItemsList;
+    itemsServiceFactory.getViewItemsList = _getViewItemsList;
+    itemsServiceFactory.setViewTransactionsList = _setViewTransactionsList;
+    itemsServiceFactory.getViewTransactionsList = _getViewTransactionsList;
     itemsServiceFactory.printBarcodes = _printBarcodes;
     itemsServiceFactory.downloadFile = _downloadFile;
+    itemsServiceFactory.getItemsSearching = _getItemsSearching;
+    itemsServiceFactory.setItemsSearching = _setItemsSearching;
+    itemsServiceFactory.getTransactionsSearching = _getTransactionsSearching;
+    itemsServiceFactory.setTransactionsSearching = _setTransactionsSearching;
+    itemsServiceFactory.getBalance = _getBalance;
+    itemsServiceFactory.setBalance = _setBalance;
 
     return itemsServiceFactory;
 
