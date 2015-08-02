@@ -30,7 +30,7 @@
     </table>
 </div>
 
-<div ng-controller="viewTransactionsGridController as grid" ng-show="!grid.viewTransactionsCollection.length && !grid.isSearching">
+<div ng-controller="viewTransactionsGridController as grid" ng-show="!grid.viewTransactionsCollection.length && !grid.isSearching.val">
     <br/>
     <br/>
     <br/>
@@ -38,7 +38,7 @@
     <h1 align="center">No consignor payments found</h1>
 </div>
 
-<div ng-controller="viewTransactionsGridController as grid" ng-show="!grid.viewTransactionsCollection.length && grid.isSearching">
+<div ng-controller="viewTransactionsGridController as grid" ng-show="!grid.viewTransactionsCollection.length && grid.isSearching.val">
     <br />
     <br />
     <br />

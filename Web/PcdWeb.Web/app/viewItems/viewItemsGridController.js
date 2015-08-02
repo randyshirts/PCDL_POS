@@ -15,12 +15,9 @@ app.controller('viewItemsGridController', ['itemsService', function (itemsServic
     self.printBarcodes = function() {
         
         self.printBusy = false;
-        itemsService.printBarcodes(self.viewItemsCollection).then(function (results) {
+        itemsService.printBarcodes(self.viewItemsCollection).then(function () {
 
-            if (results.success === true)
-                self.printBusy = true;
-            else
-                self.message = "Error retrieving PDF. Please contact the store to get your barcodes emailed to you.";
+            self.printBusy = true;
 
         }, function (error) {
             //alert(error.data.message);

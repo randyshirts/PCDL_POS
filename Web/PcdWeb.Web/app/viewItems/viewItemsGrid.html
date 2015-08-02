@@ -67,7 +67,7 @@
     <br/>
 </div>
 
-<div ng-controller="viewItemsGridController as grid" ng-show="!grid.viewItemsCollection.length  && !grid.isSearching">
+<div ng-controller="viewItemsGridController as grid" ng-show="!grid.viewItemsCollection.length  && !grid.isSearching.val">
     <br />
     <br />
     <br />
@@ -75,7 +75,7 @@
     <h1 align="center">No items found</h1>
 </div>
 
-<div ng-controller="viewItemsGridController as grid" ng-show="!grid.viewItemsCollection.length && grid.isSearching">
+<div ng-controller="viewItemsGridController as grid" ng-show="!grid.viewItemsCollection.length && grid.isSearching.val">
     <br />
     <br />
     <br />

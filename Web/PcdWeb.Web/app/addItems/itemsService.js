@@ -37,8 +37,8 @@ app.factory('itemsService', ['$http', 'ngAuthSettings', 'authService', '$locatio
     var itemList = [];
     var viewItemList = [];
     var viewTransactionsList = [];
-    var itemsSearching = true;
-    var transactionsSearching = true;
+    var itemsSearching = { val: true };
+    var transactionsSearching = { val: true };
     var balance = { val: 0.0 };
 
     var _addItemsList = function (newObj) {
@@ -74,7 +74,7 @@ app.factory('itemsService', ['$http', 'ngAuthSettings', 'authService', '$locatio
     }
 
     var _setItemsSearching = function (newVal) {
-        itemsSearching = newVal;
+        itemsSearching.val = newVal;
     }
 
     var _getTransactionsSearching = function () {
@@ -82,7 +82,7 @@ app.factory('itemsService', ['$http', 'ngAuthSettings', 'authService', '$locatio
     }
 
     var _setTransactionsSearching = function (newVal) {
-        transactionsSearching = newVal;
+        transactionsSearching.val = newVal;
     }
 
     var _getBalance = function() {
@@ -195,8 +195,6 @@ app.factory('itemsService', ['$http', 'ngAuthSettings', 'authService', '$locatio
 
         return $http.post(serviceBase + 'api/items/printNewBarcodes', itemsCollection, { responseType: 'arraybuffer' }).then(function (data, status, headers) {
             _downloadFile(data.data, data.status, data.headers);
-
-            return results;
         });
     };
 

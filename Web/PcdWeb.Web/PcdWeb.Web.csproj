@@ -200,10 +200,7 @@
     <Content Include="app\directives\compareDirective.js" />
     <Content Include="app\directives\csselectDirective.js" />
     <Content Include="app\directives\currencyDirective.js" />
-    <Content Include="app\directives\datePickerLocalDirective.js" />
     <Content Include="app\directives\onlyDigitsDirective.js" />
-    <Content Include="app\filters\sumTransactionsFilter.js" />
-    <Content Include="app\filters\sumItemsFilter.js" />
     <Content Include="app\filters\trueFalse.js" />
     <Content Include="app\main\homeController.js" />
     <Content Include="app\main\indexController.js" />
