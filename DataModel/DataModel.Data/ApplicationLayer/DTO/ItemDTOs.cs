@@ -180,6 +180,7 @@ namespace DataModel.Data.ApplicationLayer.DTO
         public string ItemType { get; set; }
         public string ConsignorName { get; set; }
         public DateTime? ListedDate { get; set; }
+        public string Title { get; set; }
     }
 
     public class SearchItemsDateRangeInput : IInputDto

@@ -323,7 +323,7 @@ namespace Inventory.ViewModels.ConsignorItems.ViewModels
 
             using (var controller = new ItemRepository())
             {
-                var items = controller.SearchAllItems(null, Status, ItemType, ConsignorName, null);
+                var items = controller.SearchAllItems(null, Status, ItemType, ConsignorName, null, null);
                 DataGridConsignorItems = CreateElementLists.CreateConsignorItemsList(items);
             }
         }

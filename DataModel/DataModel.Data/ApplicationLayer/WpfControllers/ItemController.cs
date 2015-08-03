@@ -78,7 +78,7 @@ namespace DataModel.Data.ApplicationLayer.WpfControllers
             }
         }
 
-        public IEnumerable<Item> SearchAllItems(string barcode, string status, string itemType, string consignorName, DateTime? listedDate)
+        public IEnumerable<Item> SearchAllItems(string barcode, string status, string itemType, string consignorName, DateTime? listedDate, string title)
         {
             var input = new SearchAllItemsInput
             {
@@ -86,7 +86,8 @@ namespace DataModel.Data.ApplicationLayer.WpfControllers
                 Status = status,
                 ItemType = itemType,
                 ConsignorName = consignorName,
-                ListedDate = listedDate
+                ListedDate = listedDate,
+                Title = title
             };
             using (var repo = new ItemRepository())
             {

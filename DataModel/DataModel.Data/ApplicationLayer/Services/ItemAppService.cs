@@ -113,7 +113,8 @@ namespace DataModel.Data.ApplicationLayer.Services
                 input.Status,
                 input.ItemType,
                 input.ConsignorName,
-                input.ListedDate);
+                input.ListedDate,
+                input.Title);
             
             if(items != null)                        
             return new SearchAllItemsOutput

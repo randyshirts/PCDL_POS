@@ -580,10 +580,10 @@ namespace POS.ViewModels.ItemSale.ViewModel
                 var barcodes = new List<BarcodeItem>();
                 var controller = new ItemController();
                 //var results = controller.GetAllItems();
-                var results = controller.SearchAllItems(null, "Shelved", null, null, null).ToList();
-                results.AddRange((controller.SearchAllItems(null, "Lost", null, null, null)));
-                results.AddRange((controller.SearchAllItems(null, "Arrived but not shelved", null, null, null)));
-                results.AddRange((controller.SearchAllItems(null, "Not yet arrived in store", null, null, null)));
+                var results = controller.SearchAllItems(null, "Shelved", null, null, null, null).ToList();
+                results.AddRange((controller.SearchAllItems(null, "Lost", null, null, null, null)));
+                results.AddRange((controller.SearchAllItems(null, "Arrived but not shelved", null, null, null, null)));
+                results.AddRange((controller.SearchAllItems(null, "Not yet arrived in store", null, null, null, null)));
 
                 barcodes.AddRange(results.Select(item => new BarcodeItem(item)));
 

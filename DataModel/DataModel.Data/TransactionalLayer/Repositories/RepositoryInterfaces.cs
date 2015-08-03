@@ -68,7 +68,7 @@ namespace DataModel.Data.TransactionalLayer.Repositories
         void DeleteItemById(int id);
 
         IEnumerable<Item> SearchAllItems(string barcode, string status, string itemType, string consignorName,
-            DateTime? listedDate);
+            DateTime? listedDate, string title);
 
         IEnumerable<Item> SearchItemsDateRange(DateTime? fromDate, DateTime? toDate, string consignorName, string status);
 
