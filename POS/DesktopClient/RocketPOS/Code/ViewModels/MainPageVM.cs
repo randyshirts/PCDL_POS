@@ -9,10 +9,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Inventory;
 using POS;
 //using MvvmFoundation.Wpf;
-using RocketPos.Inventory;
 using RocketPos.POS;
 using RocketPos.Common.Foundation;
 
