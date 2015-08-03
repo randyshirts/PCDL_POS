@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Common.Helpers;
 using DataModel.Data.ApplicationLayer.WpfControllers;
 using DataModel.Data.DataLayer.Entities;
 using POS.Controller.Interfaces;

@@ -15,7 +15,7 @@ namespace DataModel.Data.ApplicationLayer.WpfControllers
 
         DataLayer.Entities.Item GetItemById(int id);
         IEnumerable<Item> SearchAllItems(string barcode, string status, string itemType, string consignorName,
-            DateTime? listedDate);
+            DateTime? listedDate, string title);
 
         IEnumerable<Item> SearchListItems(IEnumerable<Item> list, string barcode, string status, string itemType,
             string consignorName, DateTime? listedDate);

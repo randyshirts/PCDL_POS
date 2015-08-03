@@ -13,10 +13,10 @@ namespace DataModel.Data.TransactionalLayer.Repositories
     {
         public int AddNewItemSaleTransaction(ItemSaleTransaction transaction)
         {
-            if (transaction.Items_ItemSaleTransaction.ElementAt(0).ItemSaleTransaction != null)
-            {
-                throw new ArgumentNullException("transaction", "ItemSaleTransaction member Transaction must be null when adding item or SQL will throw exception saying violated relationship property");
-            }
+            //if (transaction.Items_ItemSaleTransaction.ElementAt(0).ItemSaleTransaction != null)
+            //{
+            //    throw new ArgumentNullException("transaction", "ItemSaleTransaction member Transaction must be null when adding item or SQL will throw exception saying violated relationship property");
+            //}
 
             //Validation if a record already exists for this Transaction
             //var oldTransaction = GetItemSaleTransactionById(transaction.Id);
@@ -60,7 +60,9 @@ namespace DataModel.Data.TransactionalLayer.Repositories
                 var items = new ItemRepository();
                 foreach (var item in transaction.Items_ItemSaleTransaction)
                 {
-                    Context.Items.Find(item.Id).Status = "Sold";
+                    //Don't mark as sold if it is a dollar item
+                    if ((item.Id != 915) && (item.Id != 916) && (item.Id != 79))
+                        Context.Items.Find(item.Id).Status = "Sold";
                 }
                
             }

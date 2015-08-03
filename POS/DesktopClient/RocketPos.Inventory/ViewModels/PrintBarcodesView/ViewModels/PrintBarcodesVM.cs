@@ -86,7 +86,7 @@ namespace Inventory.ViewModels.PrintBarcodesView.ViewModels
                 var controller = new ItemController();
 
                 DataGridBarcodes = CreateBarcodeItemsList(
-                                        controller.SearchAllItems(_barcode, Status, _itemType, ConsignorName, ListedDate));
+                                        controller.SearchAllItems(_barcode, Status, _itemType, ConsignorName, ListedDate, null));
 
                 OnPropertyChanged();
             }
@@ -130,7 +130,7 @@ namespace Inventory.ViewModels.PrintBarcodesView.ViewModels
 
                 var controller = new ItemController();
                 DataGridBarcodes = CreateBarcodeItemsList(
-                                         controller.SearchAllItems(_barcode, Status, _itemType, ConsignorName, ListedDate));
+                                         controller.SearchAllItems(_barcode, Status, _itemType, ConsignorName, ListedDate, null));
                 
             }
         }
@@ -156,7 +156,7 @@ namespace Inventory.ViewModels.PrintBarcodesView.ViewModels
                 }
                 var controller = new ItemController();
                 DataGridBarcodes = CreateBarcodeItemsList(
-                                        controller.SearchAllItems(_barcode, Status, _itemType, ConsignorName, ListedDate));
+                                        controller.SearchAllItems(_barcode, Status, _itemType, ConsignorName, ListedDate, null));
                 
             }
         }
@@ -173,7 +173,7 @@ namespace Inventory.ViewModels.PrintBarcodesView.ViewModels
                 _status = value;
                 var controller = new ItemController();
                 DataGridBarcodes = CreateBarcodeItemsList(
-                                        controller.SearchAllItems(_barcode, Status, _itemType, ConsignorName, ListedDate));
+                                        controller.SearchAllItems(_barcode, Status, _itemType, ConsignorName, ListedDate, null));
 
             }
         }

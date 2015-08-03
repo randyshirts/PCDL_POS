@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html data-ng-app="AngularAuthApp">
+<html data-ng-app="PlayCreateDiscoverApp">
 <head>
 
     <meta name="keywords" content="homeschool,home school,Huntsville,AL,books,classes,kids,camps,games,supplies" />
@@ -10,7 +10,10 @@
     <link href="content/css/site.css" rel="stylesheet" />
     <link href="content/css/loading-bar.css" rel="stylesheet" />
     <link href="content/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="content/css/social-buttons.css" rel="stylesheet" />
+    <link href="content/css/social-buttons.css" rel="stylesheet"/>
+    <link href="content/css/smart-table.css" rel="stylesheet"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
 <body>
@@ -27,6 +30,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li data-ng-hide="!authentication.isAuth"><a href="#/manageAccount">Welcome {{authentication.userName}}</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/addItemsMain">Add Items</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/viewItemsMain">View Items</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a href="#/login">Login</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a href="#/signupChoice">Sign Up</a></li>
@@ -65,6 +69,10 @@
     <script src="scripts/loading-bar.min.js"></script>
     <script src="scripts/ng-currency.js"></script>
     <script src="scripts/smart-table.js"></script>
+    <script src="scripts/ui-bootstrap-tpls-0.13.1.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    
 
 <!-- Load app main script -->
     <script src="app/app.js?v=2"></script>
@@ -95,12 +103,20 @@
     <script src="app/addItems/addItemsMainController.js?v=2"></script>
     <script src="app/addItems/addItemsSharedController.js?v=2"></script>
     <script src="app/addItems/addItemGridController.js?v=2"></script>
-    <!-- Load custom filters -->
+    <script src="app/viewItems/viewItemsMainController.js?v=2"></script>
+    <script src="app/viewItems/viewItemsSharedController.js?v=2"></script>
+    <script src="app/viewItems/viewItemsGridController.js?v=2"></script>
+    <script src="app/viewItems/viewItemsInfoController.js?v=2"></script>
+    <script src="app/viewItems/viewTransactions/viewTransactionsGridController.js?v=2"></script>
+
+<!-- Load custom filters -->
     <script src="app/filters/trueFalse.js?v=2"></script>
+    
     <!-- Load custom directives -->
     <script src="app/directives/compareDirective.js?v=2"></script>
     <script src="app/directives/onlyDigitsDirective.js?v=2"></script>
     <script src="app/directives/csselectDirective.js?v=2"></script>
+    
     <!--<script src="app/directives/currencyDirective.js?v=2"></script>-->
 </body>
 </html>

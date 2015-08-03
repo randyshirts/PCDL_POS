@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
+using Common.Helpers;
 using DataModel.Data.ApplicationLayer.WpfControllers;
 using DataModel.Data.DataLayer.Entities;
 using GalaSoft.MvvmLight.Command;
@@ -579,10 +580,10 @@ namespace POS.ViewModels.ItemSale.ViewModel
                 var barcodes = new List<BarcodeItem>();
                 var controller = new ItemController();
                 //var results = controller.GetAllItems();
-                var results = controller.SearchAllItems(null, "Shelved", null, null, null).ToList();
-                results.AddRange((controller.SearchAllItems(null, "Lost", null, null, null)));
-                results.AddRange((controller.SearchAllItems(null, "Arrived but not shelved", null, null, null)));
-                results.AddRange((controller.SearchAllItems(null, "Not yet arrived in store", null, null, null)));
+                var results = controller.SearchAllItems(null, "Shelved", null, null, null, null).ToList();
+                results.AddRange((controller.SearchAllItems(null, "Lost", null, null, null, null)));
+                results.AddRange((controller.SearchAllItems(null, "Arrived but not shelved", null, null, null, null)));
+                results.AddRange((controller.SearchAllItems(null, "Not yet arrived in store", null, null, null, null)));
 
                 barcodes.AddRange(results.Select(item => new BarcodeItem(item)));
 
@@ -648,7 +649,14 @@ namespace POS.ViewModels.ItemSale.ViewModel
                 {
                     if (_selectedBarcodeItem.BarcodeItemBc.Length != 15) return;
                     CurrentBarcode = _selectedBarcodeItem.BarcodeItemBc;
-                    _selectedBarcodeItem.BarcodeItemBc = String.Empty;
+                    if ((_selectedBarcodeItem.Id != 915) && (_selectedBarcodeItem.Id != 916) && (_selectedBarcodeItem.Id != 79)) //Keep dollar items
+                    {
+                        _selectedBarcodeItem.BarcodeItemBc = String.Empty;
+                    }
+                    else
+                    {
+                        _selectedBarcodeItem = null;
+                    }
 
                 }
                 else

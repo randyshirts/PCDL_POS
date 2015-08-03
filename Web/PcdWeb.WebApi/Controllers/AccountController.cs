@@ -40,6 +40,7 @@ namespace PcdWeb.Controllers
 
         //private AuthRepository _repo = null;
         private readonly IPcdUserAppService _userAppService;
+
         public AccountController()
         {
             _userAppService = new PcdUserAppService();

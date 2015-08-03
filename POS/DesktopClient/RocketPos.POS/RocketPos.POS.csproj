@@ -212,6 +212,10 @@
     <Folder Include="ViewModels\OnlinePurchase\View\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Common.csproj">
+      <Project>{D30D964B-3A26-445D-80F2-D94BD4C60F3D}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\DataModel\DataModel.Data\DataModel.Data.csproj">
       <Project>{308c26dc-2f9e-47e9-8a60-9d3fe132d67f}</Project>
       <Name>DataModel.Data</Name>

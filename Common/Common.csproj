@@ -59,6 +59,7 @@
     <Compile Include="Barcodes\PrintBarcodes.cs" />
     <Compile Include="Dependency\ISingletonDependency.cs" />
     <Compile Include="Dependency\ITransientDependency.cs" />
+    <Compile Include="Helpers\DateTimeSpan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,84 @@
+﻿<div ng-controller="viewItemsGridController as grid" ng-show="grid.viewItemsCollection.length">
+    <h2 class="text-center">Your Items</h2>
+    <table st-table="grid.displayed" st-safe-src="grid.viewItemsCollection" class="table table-striped" fixed-header>
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th st-sort="title">Title</th>
+                <th st-sort="status">Status</th>
+                <th>Discount</th>
+                <th st-sort="dateAdded">Date Added</th>
+                <th>Original Price</th>
+                <th>Current Price</th>
+                <th>Sold Price</th>
+                <th>You Get</th>
+            </tr>
+            <tr>
+                <th>
+                    <input st-search="title" placeholder="Search by Title" class="input-sm form-control" type="search" />
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in grid.displayed">
+                <td> <input type="checkbox" ng-model="row.print" ng-init="row.print=false"></td>
+                <td>{{row.title}}</td>
+                <td>{{row.status}}</td>
+                <td>{{row.discount | true_false}}</td>
+                <td>{{row.dateAdded | date}}</td>
+                <td>{{row.originalPrice | currency}}</td>
+                <td>{{row.currentPrice | currency}}</td>
+                <td>{{row.soldPrice | currency}}</td>
+                <td>{{row.paymentAmount | currency}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="1" class="text-left">
+                <button class="btn btn-sm btn-info btn-block" type="submit" data-ng-click="grid.selectAll()">
+                    <span ng-hide="grid.selectBusy"><i class="fa fa-refresh fa-spin"></i> Please wait...</span>
+                    <span ng-show="grid.selectBusy">Select All</span>
+                </button>
+            </td>
+            <td colspan="7"></td>
+            <td colspan="2">
+                <div class="text-right">
+                    <button class="btn btn-md btn-info btn-block" type="submit" data-ng-click="grid.printBarcodes()">
+                        <span ng-hide="grid.printBusy"><i class="fa fa-refresh fa-spin"></i> Please wait...</span>
+                        <span ng-show="grid.printBusy">Print Barcodes</span>
+                    </button>
+                </div>
+            </td>
+            <!--<td colspan="5" class="text-center">
+                <div st-pagination="" st-items-by-page="15" st-displayed-pages="5"></div>
+            </td>-->
+        </tr>
+        </tfoot>
+    </table>
+    <br/>
+    <div class="row">
+        
+        <div class="col-md-8">
+            <!--<div data-ng-hide="grid.message == ''" data-ng-class="(grid.savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+                {{grid.message}}
+            </div>-->
+        </div>
+    </div>
+    <br/>
+</div>
+
+<div ng-controller="viewItemsGridController as grid" ng-show="!grid.viewItemsCollection.length  && !grid.isSearching.val">
+    <br />
+    <br />
+    <br />
+    <br />
+    <h1 align="center">No items found</h1>
+</div>
+
+<div ng-controller="viewItemsGridController as grid" ng-show="!grid.viewItemsCollection.length && grid.isSearching.val">
+    <br />
+    <br />
+    <br />
+    <br />
+    <h1 align="center">Searching for your items. Please wait.</h1>
+</div>

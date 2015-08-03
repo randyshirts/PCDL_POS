@@ -45,6 +45,7 @@ namespace DataModel.Data.ApplicationLayer.DTO
             ItemSaleTransaction = item.ItemSaleTransaction;
             ConsignorPmtId = item.ConsignorPmtId;
             ConsignorPmt = item.ConsignorPmt;
+            if(ConsignorPmt != null) ConsignorPmt.DebitTransaction_ConsignorPmt = ConsignorPmt.DebitTransaction_ConsignorPmt;
         }
 
         [Required]
@@ -111,7 +112,7 @@ namespace DataModel.Data.ApplicationLayer.DTO
                 ItemSaleTransactionId = ItemSaleTransactionId,
                 ItemSaleTransaction = ItemSaleTransaction,
                 ConsignorPmtId = ConsignorPmtId,
-                ConsignorPmt = ConsignorPmt
+                ConsignorPmt = ConsignorPmt,
             };
         }
     }
@@ -179,6 +180,20 @@ namespace DataModel.Data.ApplicationLayer.DTO
         public string ItemType { get; set; }
         public string ConsignorName { get; set; }
         public DateTime? ListedDate { get; set; }
+        public string Title { get; set; }
+    }
+
+    public class SearchItemsDateRangeInput : IInputDto
+    {
+        public DateTime? FromDate { get; set; } 
+        public DateTime? EndDate { get; set; }  
+        public string ConsignorName { get; set; }
+        public string Status { get; set; }    
+    }
+
+    public class SearchItemsDateRangeOutput : IOutputDto
+    {
+        public List<ItemDto> Items { get; set; } 
     }
 
     public class SearchListItemsOutput : IOutputDto
@@ -235,5 +250,25 @@ namespace DataModel.Data.ApplicationLayer.DTO
     public class GetAllItemsOutput : IOutputDto
     {
         public IEnumerable<ItemDto> Items { get; set; } 
+    }
+
+    public class GetItemTitleOutput : IOutputDto
+    {
+        public string Title { get; set; }
+    }
+
+    public class GetItemTitleInput : IInputDto
+    {
+        public Item Item { get; set; }
+    }
+
+    public class GetCurrentPriceOutput : IOutputDto
+    {
+        public double Price { get; set; }
+    }
+
+    public class GetCurrentPriceInput : IInputDto
+    {
+        public Item Item { get; set; }
     }
 }
