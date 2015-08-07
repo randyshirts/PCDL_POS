@@ -554,7 +554,7 @@ namespace DataModel.Data.ApplicationLayer.Services
                     <p>&nbsp;</p>                   
                 </body>
                 </html>");
-            //<p><a href=""http://www.playcreatediscover.com"">http://www.playcreatediscover.com</a></p>
+            //<p><a href=""http://www.playcreatediscover.com"">http://localhost:61754</a></p>
 
             mailBuilder.Replace("{TEXT_HTML_TITLE}", "Password reset for Play Create Discover");
             mailBuilder.Replace("{TEXT_WELCOME}", "Reset your password on Play Create Discover!");

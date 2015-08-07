@@ -29,10 +29,10 @@ namespace DataModel.Data.TransactionalLayer.Repositories
             //        throw new ArgumentException("AddItemSaleTransaction - Can't add more than one item to a Transaction at the same time, or Transaction.Items is null");
             //}
             //Transaction doesn't exist so add it
-            
-            Validation.PriceRequire(transaction.CreditTransaction_ItemSale.StateSalesTaxTotal);
-            Validation.PriceRequire(transaction.CreditTransaction_ItemSale.LocalSalesTaxTotal);
-            Validation.PriceRequire(transaction.CreditTransaction_ItemSale.CountySalesTaxTotal);
+
+            Validation.TaxRequire(transaction.CreditTransaction_ItemSale.StateSalesTaxTotal);
+            Validation.TaxRequire(transaction.CreditTransaction_ItemSale.LocalSalesTaxTotal);
+            Validation.TaxRequire(transaction.CreditTransaction_ItemSale.CountySalesTaxTotal);
             Validation.PriceRequire(transaction.CreditTransaction_ItemSale.TransactionTotal);
             Validation.DateRequire(transaction.CreditTransaction_ItemSale.TransactionDate);
 
