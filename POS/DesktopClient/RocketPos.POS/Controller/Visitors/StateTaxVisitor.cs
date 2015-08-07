@@ -1,4 +1,5 @@
-﻿using POS.Controller.Elements;
+﻿using System;
+using POS.Controller.Elements;
 using POS.Controller.Interfaces;
 
 namespace POS.Controller.Visitors
@@ -10,6 +11,9 @@ namespace POS.Controller.Visitors
             //http://madisoncountyal.gov/about/org/CoDepts/SalesTax.shtml
             
             //State
+            if (((DateTime.Now >= DateTime.Parse("08/07/2015")) && (DateTime.Now < DateTime.Parse("08/09/2015")) && (saleItem.SaleAmount <= 30)))
+                return 0;
+
             return .04;
 
         }

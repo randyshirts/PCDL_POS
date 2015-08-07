@@ -37,6 +37,16 @@ namespace DataModel.Data.TransactionalLayer.Repositories
 
         }
 
+        public static void TaxRequire(double value)
+        {
+            if (value < 0)
+                throw new NullReferenceException("Tax member must be zero or greater");
+
+            if (Double.IsNaN(value))
+                throw new ArgumentException("Tax member must be a number");
+
+        }
+
         //public static void BoolRequire(bool value)
         //{
         //    if (value == null)

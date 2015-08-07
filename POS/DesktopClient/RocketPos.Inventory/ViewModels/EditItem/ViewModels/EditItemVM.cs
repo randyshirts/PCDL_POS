@@ -230,7 +230,7 @@ namespace Inventory.ViewModels.EditItem.ViewModels
                             //Get search results
                             var controller = new ItemController();
                             
-                            var items = controller.SearchAllItems(Barcode, Status, _itemType, ConsignorName, null, Title);
+                            var items = controller.SearchAllItems(Barcode, Status, _itemType, ConsignorName, null, SearchTitle);
                             var dataGridBooks = CreateElementLists.CreateBookItemsList(items);
                             //Update Datagrid
                             Messenger.Default.Send(new PropertySetter("DataGridBooks", dataGridBooks), Token);
@@ -245,7 +245,7 @@ namespace Inventory.ViewModels.EditItem.ViewModels
                             
                             //Get search results
                             var controller = new ItemController();
-                            var items = controller.SearchAllItems(Barcode, Status, _itemType, ConsignorName, null, Title);
+                            var items = controller.SearchAllItems(Barcode, Status, _itemType, ConsignorName, null, SearchTitle);
                             var dataGridGames = CreateElementLists.CreateGameItemsList(items);
 
                             //Update Datagrid
@@ -261,7 +261,7 @@ namespace Inventory.ViewModels.EditItem.ViewModels
 
                             //Get search results
                             var controller = new ItemController();
-                            var items = controller.SearchAllItems(Barcode, Status, _itemType, ConsignorName, null, Title);
+                            var items = controller.SearchAllItems(Barcode, Status, _itemType, ConsignorName, null, SearchTitle);
                             var dataGridVideos = CreateElementLists.CreateVideoItemsList(items);
                             
                             //Update Datagrid
@@ -277,7 +277,7 @@ namespace Inventory.ViewModels.EditItem.ViewModels
 
                             //Get search results
                             var controller = new ItemController();
-                            var items = controller.SearchAllItems(Barcode, Status, _itemType, ConsignorName, null, Title);
+                            var items = controller.SearchAllItems(Barcode, Status, _itemType, ConsignorName, null, SearchTitle);
                             var dataGridTeachingAides = CreateElementLists.CreateTeachingAideItemsList(items);
 
                             //Update Datagrid
@@ -294,7 +294,7 @@ namespace Inventory.ViewModels.EditItem.ViewModels
 
                             //Get search results
                             var controller = new ItemController();
-                            var items = controller.SearchAllItems(Barcode, Status, _itemType, ConsignorName, null, Title);
+                            var items = controller.SearchAllItems(Barcode, Status, _itemType, ConsignorName, null, SearchTitle);
                             var dataGridOthers = CreateElementLists.CreateOtherItemsList(items);
 
                             //Update Datagrid
@@ -387,7 +387,18 @@ namespace Inventory.ViewModels.EditItem.ViewModels
             set
             {
                 _title = value;
-                if(_title.Length > 3)
+                SearchTitle = _title.Length > 3 ? _title : null;
+            }
+        }
+
+        private string _searchTitle;
+        public string SearchTitle
+        {
+            get { return _searchTitle; }
+            set
+            {
+                _searchTitle = value;
+                if (_searchTitle.Length > 3)
                     ItemType = _itemType; //Update datagrid
 
             }
