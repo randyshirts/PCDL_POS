@@ -44,12 +44,12 @@ namespace PcdWeb.Controllers
 
         [System.Web.Http.Authorize]
         [System.Web.Http.Route("PrintNewBarcodes")]
-        public HttpResponse PrintNewBarcodes(IEnumerable<PrintBarcodesModel> model)
+        public HttpResponse PrintNewBarcodes(IEnumerable<PrintBarcodesModel> barcodes)
         {
-            var printBarcodesModel = model.FirstOrDefault();
+            var printBarcodesModel = barcodes.FirstOrDefault();
             if (printBarcodesModel != null)
             {
-                var pdfBarcodes = printBarcodesModel.ConvertToPdfBarcodeModelList(model);
+                var pdfBarcodes = printBarcodesModel.ConvertToPdfBarcodeModelList(barcodes);
                 var doc = PrintBarcodes.PrintBarcodesItems(pdfBarcodes.ToList());
                 
                 var ms = new MemoryStream();
