@@ -55,8 +55,8 @@ namespace Inventory.ViewModels.AddEditConsignor.ViewModels
             //Register for messages
             //Messenger.Default.Register<PropertySetter>(this, AddGameVM.Token, msg => SetGameProperty(msg.PropertyName, (string)msg.PropertyValue));         
 
-            //Fill grid with all games on record
-            //InitializeDataGrid();
+            //Fill grid with all consignors on record
+            InitializeDataGrid();
         }
 
 
