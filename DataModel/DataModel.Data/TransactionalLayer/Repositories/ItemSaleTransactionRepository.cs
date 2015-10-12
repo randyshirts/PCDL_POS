@@ -61,7 +61,7 @@ namespace DataModel.Data.TransactionalLayer.Repositories
                 foreach (var item in transaction.Items_ItemSaleTransaction)
                 {
                     //Don't mark as sold if it is a dollar item
-                    if ((item.Id != 915) && (item.Id != 916) && (item.Id != 79))
+                    if ((item.Id != 915) && (item.Id != 916) && (item.Id != 79) && (item.Id != 1260))
                         Context.Items.Find(item.Id).Status = "Sold";
                 }
                
