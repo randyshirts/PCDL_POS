@@ -649,7 +649,7 @@ namespace POS.ViewModels.ItemSale.ViewModel
                 {
                     if (_selectedBarcodeItem.BarcodeItemBc.Length != 15) return;
                     CurrentBarcode = _selectedBarcodeItem.BarcodeItemBc;
-                    if ((_selectedBarcodeItem.Id != 915) && (_selectedBarcodeItem.Id != 916) && (_selectedBarcodeItem.Id != 79)) //Keep dollar items
+                    if ((_selectedBarcodeItem.Id != 915) && (_selectedBarcodeItem.Id != 916) && (_selectedBarcodeItem.Id != 79) && (_selectedBarcodeItem.Id != 1260)) //Keep dollar items
                     {
                         _selectedBarcodeItem.BarcodeItemBc = String.Empty;
                     }

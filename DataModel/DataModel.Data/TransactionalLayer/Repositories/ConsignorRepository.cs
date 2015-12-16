@@ -156,6 +156,7 @@ namespace DataModel.Data.TransactionalLayer.Repositories
             var names = fullName.Split(' ');
             var firstName = names[0];
             var lastName = names[1];
+
             var consignor = GetConsignorByName(firstName, lastName);
 
             return consignor;

@@ -14,7 +14,125 @@
 
     <Grid HorizontalAlignment="Stretch"
           VerticalAlignment="Stretch">
+        <Grid.Resources>
+            <Style x:Key="ButtonFocusVisual">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Border>
+                                <Rectangle SnapsToDevicePixels="true" Margin="4" Stroke="Black" StrokeDashArray="1 2" StrokeThickness="1"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
+            <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
+                <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                <Setter Property="BorderThickness" Value="3"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="0,0,1,1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            
+                            <Border CornerRadius="20" BorderThickness="5" RenderTransformOrigin="0.5,0.5" x:Name="border" BorderBrush="#FFFFFFFF">
+                                <Border.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                        <SkewTransform AngleX="0" AngleY="0"/>
+                                        <RotateTransform Angle="0"/>
+                                        <TranslateTransform X="0" Y="0"/>
+                                    </TransformGroup>
+                                </Border.RenderTransform>
+                                <Border Background="{TemplateBinding Background}" CornerRadius="20" x:Name="border1">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="0.5*"/>
+                                            <RowDefinition Height="0.5*"/>
+                                        </Grid.RowDefinitions>
+                                        <Border Grid.Row="0" CornerRadius="10">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#00FFFFFF" Offset="0"/>
+                                                    <GradientStop Color="#7EFFFFFF" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                        <Border Grid.Row="1" Opacity="0" x:Name="Shine" Width="Auto" Height="Auto" CornerRadius="0,0,5,5" Margin="1,0,-1,0" Background="{TemplateBinding BorderBrush}"/>
+                                        <ContentPresenter VerticalAlignment="Center"  Grid.RowSpan="2" HorizontalAlignment="Center" x:Name="contentPresenter"/>
+                                    </Grid>
+                                </Border>
+                            </Border>
+                            
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style BasedOn="{StaticResource RoundedButton}" x:Key="PayWinButton" TargetType="{x:Type Button}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Button Padding="8" Height="40" Style="{DynamicResource RoundedButton}" x:Name="bluebutton">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                            <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                                            <GradientStop Color="#FFEBEBEB" Offset="0.644"/>
+                                            <GradientStop Color="#FF579C99" Offset="0.318"/>
+                                            <GradientStop Color="#FF658584" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <ContentPresenter RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsFocused" Value="True"/>
+                                <Trigger Property="IsDefaulted" Value="True"/>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="bluebutton" Property="Border.Background" Value="DarkCyan" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True"/>
+                                <Trigger Property="IsEnabled" Value="False"/>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style BasedOn="{StaticResource RoundedButton}" x:Key="CancelButton" TargetType="{x:Type Button}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Button Padding="8" Height="40" Style="{DynamicResource RoundedButton}" x:Name="redbutton">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                            <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                                            <GradientStop Color="#FFEBEBEB" Offset="0.824"/>
+                                            <GradientStop Color="#FF914870" Offset="0.339"/>
+                                            <GradientStop Color="#FF658584" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <ContentPresenter RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsFocused" Value="True"/>
+                                <Trigger Property="IsDefaulted" Value="True"/>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="redbutton" Property="Border.Background" Value="IndianRed" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True"/>
+                                <Trigger Property="IsEnabled" Value="False"/>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40*" />
@@ -71,17 +189,25 @@
                    HorizontalAlignment="Center"
                    DockPanel.Dock="Top"
                    Padding="10"/>
-
-            <Button Command="{Binding CashCommand}" 
-                    DockPanel.Dock="Top"
+            <Button x:Name="cashButton" 
+                    Command="{Binding CashCommand}" 
+                    DockPanel.Dock="Top" 
                     Margin="20" 
-                    Padding="8"
-                    VerticalAlignment="Stretch"
-                    >
+                    Style="{DynamicResource PayWinButton}" 
+                    VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5" BorderBrush="#FFC53939" BorderThickness="10" >
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-0.21"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
                 <TextBlock
                     Text ="Cash" 
                     TextWrapping="Wrap" 
                     TextAlignment="Center"
+                    VerticalAlignment="Center"
                     FontSize="24">
                 </TextBlock>
             </Button>
@@ -89,11 +215,13 @@
                     DockPanel.Dock="Top"
                     Margin="20" 
                     Padding="8"
-                    VerticalAlignment="Stretch">
+                    Style="{DynamicResource PayWinButton}" 
+                    VerticalAlignment="Stretch" >
                 <TextBlock
                     Text ="Credit" 
                     TextWrapping="Wrap" 
                     TextAlignment="Center"
+                    VerticalAlignment="Center"
                     FontSize="24">
                 </TextBlock>
             </Button>
@@ -101,11 +229,13 @@
                     DockPanel.Dock="Top"
                     Margin="20"
                     Padding="8"
-                    VerticalAlignment="Stretch">
+                    Style="{DynamicResource PayWinButton}" 
+                    VerticalAlignment="Stretch" >
                 <TextBlock
                     Text ="Debit" 
                     TextWrapping="Wrap" 
                     TextAlignment="Center"
+                    VerticalAlignment="Center"
                     FontSize="24">
                 </TextBlock>
             </Button>
@@ -113,11 +243,13 @@
                     DockPanel.Dock="Top"
                     Margin="20"
                     Padding="8"
-                    VerticalAlignment="Stretch">
+                    Style="{DynamicResource PayWinButton}" 
+                    VerticalAlignment="Stretch" >
                 <TextBlock
                     Text ="Store Credit" 
                     TextWrapping="Wrap" 
                     TextAlignment="Center"
+                    VerticalAlignment="Center"
                     FontSize="24">
                 </TextBlock>
             </Button>
@@ -125,11 +257,13 @@
                     DockPanel.Dock="Top"
                     Margin="20"
                     Padding="8"
-                    VerticalAlignment="Stretch">
+                    Style="{DynamicResource PayWinButton}" 
+                    VerticalAlignment="Stretch" >
                 <TextBlock
-                    Text ="Split Payment" 
+                    Text ="Split Transaction" 
                     TextWrapping="Wrap" 
                     TextAlignment="Center"
+                    VerticalAlignment="Center"
                     FontSize="24">
                 </TextBlock>
             </Button>
@@ -138,13 +272,16 @@
                     Margin="20"
                     Padding="8"
                     VerticalAlignment="Stretch"
+                    Style="{DynamicResource CancelButton}"
                     CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                 <TextBlock
-                    Text ="Cancel Payment" 
+                    Text ="Cancel"
                     TextWrapping="Wrap" 
                     TextAlignment="Center"
+                    VerticalAlignment="Center"
                     FontSize="24">
                 </TextBlock>
+
             </Button>
         </DockPanel>
 
@@ -197,13 +334,15 @@
                     DockPanel.Dock="Top"
                     Margin="10"
                     Padding="10"
-                    MinWidth="55"
+                    MinWidth="100"
                     MaxWidth="150"
                     MinHeight="30"
                     MaxHeight="45"
-                    HorizontalAlignment="Stretch">
+                    HorizontalAlignment="Stretch"
+                    Style="{DynamicResource PayWinButton}">
                     <TextBlock
                     Text ="Done" 
+                    VerticalAlignment="Center"
                     TextWrapping="Wrap" 
                     TextAlignment="Center" 
                     FontSize="18"
@@ -214,13 +353,15 @@
                     DockPanel.Dock="Top"
                     Margin="10"
                     Padding="10"
-                    MinWidth="55"
+                    MinWidth="100"
                     MaxWidth="150"
                     MinHeight="30"
                     MaxHeight="45"
-                    HorizontalAlignment="Stretch">
+                    HorizontalAlignment="Stretch"
+                    Style="{DynamicResource CancelButton}">
                     <TextBlock
                     Text ="Cancel" 
+                    VerticalAlignment="Center"
                     TextWrapping="Wrap" 
                     TextAlignment="Center" 
                     FontSize="18"
@@ -284,34 +425,38 @@
                     DockPanel.Dock="Top"
                     Margin="10"
                     Padding="10"
-                    MinWidth="55"
-                    MaxWidth="150"
+                    MinWidth="100"
+                    MaxWidth="300"
                     MinHeight="30"
                     MaxHeight="45"
-                    HorizontalAlignment="Stretch">
+                    HorizontalAlignment="Stretch"
+                    Style="{DynamicResource PayWinButton}">
                     <TextBlock
                     Text ="Submit" 
                     TextWrapping="Wrap" 
                     TextAlignment="Center" 
                     FontSize="18"
-                    FontWeight="Bold">
+                    FontWeight="Bold"
+                    VerticalAlignment="Center">
                     </TextBlock>
                 </Button>
 
                 <Button Command="{Binding CancelStoreCreditCommand}" 
                     Margin="10"
                     Padding="10"
-                    MinWidth="55"
-                    MaxWidth="150"
+                    MinWidth="100"
+                    MaxWidth="300"
                     MinHeight="30"
                     MaxHeight="45"
-                    HorizontalAlignment="Stretch">
+                    HorizontalAlignment="Stretch"
+                    Style="{DynamicResource CancelButton}">
                     <TextBlock
                     Text ="Cancel" 
                     TextWrapping="Wrap" 
                     TextAlignment="Center" 
                     FontSize="18"
-                    FontWeight="Bold">
+                    FontWeight="Bold"
+                    VerticalAlignment="Center">
                     </TextBlock>
                 </Button>
             </StackPanel>
@@ -360,7 +505,7 @@
                      VerticalAlignment="Stretch"
                      TextAlignment="Center"
                      MinWidth="120"
-                     MaxWidth="180"
+                     MaxWidth="200"
                      MinHeight="25"
                      MaxHeight="40"
                      FontSize="20">
@@ -373,13 +518,15 @@
                     DockPanel.Dock="Top"
                     Margin="10"
                     Padding="10"
-                    MinWidth="55"
-                    MaxWidth="150"
+                    MinWidth="100"
+                    MaxWidth="200"
                     MinHeight="30"
                     MaxHeight="45"
-                    HorizontalAlignment="Stretch">
+                    HorizontalAlignment="Stretch"
+                    Style="{DynamicResource PayWinButton}">
                     <TextBlock
                     Text ="Submit" 
+                    VerticalAlignment="Center"
                     TextWrapping="Wrap" 
                     TextAlignment="Center" 
                     FontSize="18"
@@ -390,13 +537,15 @@
                 <Button Command="{Binding CancelCashCommand}" 
                     Margin="10"
                     Padding="10"
-                    MinWidth="55"
-                    MaxWidth="150"
+                    MinWidth="100"
+                    MaxWidth="200"
                     MinHeight="30"
                     MaxHeight="45"
-                    HorizontalAlignment="Stretch">
+                    HorizontalAlignment="Stretch"
+                    Style="{DynamicResource CancelButton}">
                     <TextBlock
-                    Text ="Cancel" 
+                    Text ="Cancel"
+                    VerticalAlignment="Center"
                     TextWrapping="Wrap" 
                     TextAlignment="Center" 
                     FontSize="18"
@@ -425,13 +574,15 @@
                                            
                     Margin="10"
                     Padding="10"
-                    
+                    MinWidth="100"
                     MinHeight="30"
                     MaxHeight="45"
                     HorizontalAlignment="Center"
+                    Style="{DynamicResource PayWinButton}"
                     CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                     <TextBlock
                     Text ="Done" 
+                    VerticalAlignment="Center"
                     TextWrapping="Wrap" 
                     TextAlignment="Center" 
                     FontSize="18"
@@ -443,14 +594,15 @@
                     DockPanel.Dock="Top"
                     Margin="10"
                     Padding="10"
-                    
-                    
+                    MinWidth="150"
+                    Style="{DynamicResource PayWinButton}"
                     MinHeight="30"
                     MaxHeight="45"
                     HorizontalAlignment="Center">
 
                     <TextBlock
-                    Text ="Print Receipt" 
+                    Text ="Print Receipt"
+                    VerticalAlignment="Center"
                     TextWrapping="Wrap" 
                     TextAlignment="Center" 
                     FontSize="18"
@@ -661,14 +813,16 @@
                     DockPanel.Dock="Top"
                     Margin="10"
                     Padding="10"
-                    MinWidth="55"
+                    MinWidth="100"
                     MaxWidth="150"
                     MinHeight="30"
                     MaxHeight="45"
-                    HorizontalAlignment="Stretch">
+                    HorizontalAlignment="Stretch"
+                    Style="{DynamicResource PayWinButton}">
                     <TextBlock
                     Text ="Submit" 
                     TextWrapping="Wrap" 
+                    VerticalAlignment="Center"
                     TextAlignment="Center" 
                     FontSize="18"
                     FontWeight="Bold">
@@ -678,13 +832,15 @@
                 <Button Command="{Binding CancelSplitCommand}" 
                     Margin="10"
                     Padding="10"
-                    MinWidth="55"
+                    MinWidth="100"
                     MaxWidth="150"
                     MinHeight="30"
                     MaxHeight="45"
-                    HorizontalAlignment="Stretch">
+                    HorizontalAlignment="Stretch"
+                    Style="{DynamicResource CancelButton}">
                     <TextBlock
                     Text ="Cancel" 
+                    VerticalAlignment="Center"
                     TextWrapping="Wrap" 
                     TextAlignment="Center" 
                     FontSize="18"
