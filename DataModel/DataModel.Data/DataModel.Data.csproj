@@ -62,7 +62,7 @@
       <HintPath>..\..\Dependencies\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="AutoMapper">
-      <HintPath>..\..\Web\PcdWeb.Web\Bin\AutoMapper.dll</HintPath>
+      <HintPath>..\..\Dependencies\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core">
       <HintPath>..\..\Dependencies\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
@@ -116,8 +116,8 @@
     <Reference Include="MySql.Data.Entity.EF6">
       <HintPath>..\..\Dependencies\MySql.Data.Entity.6.9.5\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\Dependencies\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Dependencies\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Nito.AsyncEx">
       <HintPath>..\..\Dependencies\Nito.AsyncEx.3.0.0\lib\net45\Nito.AsyncEx.dll</HintPath>

@@ -41,19 +41,16 @@
       <HintPath>..\..\..\Dependencies\AmazonAWS\Amazon.PAAPI.WCF.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
-      <HintPath>..\..\..\..\Dependencies\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\Dependencies\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Dependencies\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\..\Dependencies\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
-      <HintPath>..\..\..\..\Dependencies\MySql.Data.6.9.5\lib\net45\MySql.Data.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\Dependencies\MySql.Data.6.9.5\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data.Entity.EF6">
-      <HintPath>..\..\..\..\Dependencies\MySql.Data.Entity.6.9.5\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+      <HintPath>..\..\..\Dependencies\MySql.Data.Entity.6.9.5\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />

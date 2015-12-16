@@ -30,17 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\Dependencies\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\Dependencies\Microsoft.AspNet.Identity.Core.2.2.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
-      <HintPath>..\DataModel\Build\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Owin">
-      <HintPath>..\DataModel\Build\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <HintPath>..\Dependencies\Microsoft.AspNet.Identity.Owin.2.2.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin">
-      <HintPath>..\DataModel\Build\Microsoft.Owin.dll</HintPath>
+      <HintPath>..\Dependencies\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
