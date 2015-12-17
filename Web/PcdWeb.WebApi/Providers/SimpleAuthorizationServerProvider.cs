@@ -2,14 +2,9 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AngularJSAuthentication.API;
 using DataModel.Data.ApplicationLayer.Services;
-using DataModel.Data.DataLayer.Entities;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
-using PcdWeb.Controllers;
-using PcdWeb.Models;
 
 namespace PcdWeb.Providers
 {

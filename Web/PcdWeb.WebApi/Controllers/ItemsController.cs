@@ -3,13 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
-using System.Web.Mvc;
-using Abp.UI;
 using Castle.Core.Internal;
 using Common.Barcodes;
 using DataModel.Data.ApplicationLayer.DTO;
@@ -18,8 +13,6 @@ using DataModel.Data.DataLayer.Entities;
 using DataModel.Data.DataLayer.Repositories;
 using DataModel.Data.TransactionalLayer.Repositories;
 using PcdWeb.Models.ItemModels;
-using RocketPos.Common.Helpers;
-using Spire.Pdf;
 
 namespace PcdWeb.Controllers
 {
