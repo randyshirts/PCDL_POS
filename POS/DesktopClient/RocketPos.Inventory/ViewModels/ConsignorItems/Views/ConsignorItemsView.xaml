@@ -11,249 +11,235 @@
         xmlns:itemElements="clr-namespace:Inventory.Controller.Elements.ItemElements"
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding WindowLoaded}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30*" />
-            <ColumnDefinition Width="70*" />
-        </Grid.ColumnDefinitions>
-        <DockPanel Margin="5" 
-                   VerticalAlignment="Stretch" 
-                   HorizontalAlignment="Stretch"
-                   Grid.Column="0">
-            <Label Content="Consignor Items" 
-                    HorizontalAlignment="Center"
-                    FontSize="20"
-                    FontWeight="ExtraBold"
-                    DockPanel.Dock="Top"/>
+  <i:Interaction.Triggers>
+    <i:EventTrigger EventName="Loaded">
+      <i:InvokeCommandAction Command="{Binding WindowLoaded}"/>
+    </i:EventTrigger>
+  </i:Interaction.Triggers>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="30*" />
+      <ColumnDefinition Width="70*" />
+    </Grid.ColumnDefinitions>
+    <DockPanel Margin="5"
+               VerticalAlignment="Stretch"
+               HorizontalAlignment="Stretch"
+               Grid.Column="0">
+      <Label Content="Consignor Items"
+              HorizontalAlignment="Center"
+              FontSize="20"
+              FontWeight="ExtraBold"
+              DockPanel.Dock="Top"/>
 
-            <Label DockPanel.Dock="Top">Consignor Name</Label>
-            <ComboBox ItemsSource="{Binding ConsignorNameComboValues}"
-					      DisplayMemberPath="ValueString"
-                          SelectedValuePath="ValueString"
-                          SelectedValue="{Binding ConsignorName,  
+      <Label DockPanel.Dock="Top">Consignor Name</Label>
+      <ComboBox ItemsSource="{Binding ConsignorNameComboValues}"
+          DisplayMemberPath="ValueString"
+                    SelectedValuePath="ValueString"
+                    SelectedValue="{Binding ConsignorName,  
                                                 Mode=OneWayToSource,
                                                 ValidatesOnDataErrors=True,
                                                 UpdateSourceTrigger=PropertyChanged}"
-                          DockPanel.Dock="Top">
-            </ComboBox>
+                    DockPanel.Dock="Top">
+      </ComboBox>
 
-            <Label DockPanel.Dock="Top">Status of Items</Label>
-            <ComboBox ItemsSource="{Binding StatusComboValues}"
-					      DisplayMemberPath="ValueString"
-                          SelectedValuePath="ValueString"
-                          SelectedValue="{Binding Status,  
+      <Label DockPanel.Dock="Top">Status of Items</Label>
+      <ComboBox ItemsSource="{Binding StatusComboValues}"
+          DisplayMemberPath="ValueString"
+                    SelectedValuePath="ValueString"
+                    SelectedValue="{Binding Status,  
                                                 Mode=OneWayToSource,
                                                 ValidatesOnDataErrors=True,
                                                 UpdateSourceTrigger=PropertyChanged}"
-                          DockPanel.Dock="Top">
-            </ComboBox>
+                    DockPanel.Dock="Top">
+      </ComboBox>
 
-            <CheckBox
-	            Content="Pay Consignor"
-	            HorizontalAlignment="Left"
-	            Margin="10,10,0,0"
-	            VerticalAlignment="Top"
-                IsChecked="{Binding PayoutIsSelected}"
-                IsEnabled="{Binding PayoutEnabled}"
-                DockPanel.Dock="Top"/>
+      <CheckBox
+        Content="Pay Consignor"
+        HorizontalAlignment="Left"
+        Margin="10,10,0,0"
+        VerticalAlignment="Top"
+          IsChecked="{Binding PayoutIsSelected}"
+          IsEnabled="{Binding PayoutEnabled}"
+          DockPanel.Dock="Top"/>
 
-            <CheckBox
-	            Content="Consignor Wants Check Payment"
-	            HorizontalAlignment="Left"
-	            Margin="10,10,0,0"
-	            VerticalAlignment="Top"
-                IsChecked="{Binding CheckIsSelected}"
-                IsEnabled="{Binding CashPayoutEnabled}"
-                DockPanel.Dock="Top"/>
+      <CheckBox
+        Content="Consignor Wants Check Payment"
+        HorizontalAlignment="Left"
+        Margin="10,10,0,0"
+        VerticalAlignment="Top"
+          IsChecked="{Binding CheckIsSelected}"
+          IsEnabled="{Binding CashPayoutEnabled}"
+          DockPanel.Dock="Top"/>
 
 
-            <Grid DockPanel.Dock="Top" Background="GreenYellow" Margin="10"
-                  Visibility="{Binding IsVisiblePayoutAmount}">
-                <Label DockPanel.Dock="Top" FontWeight="ExtraBold" FontSize="20">Payout Amount</Label>
-                <TextBlock HorizontalAlignment="Right"        
-		                       TextAlignment="Right"
-		                       Text="{Binding PayoutAmountText}"
-		                       VerticalAlignment="Center"
-                               IsEnabled="False" 
-                               FontWeight="SemiBold"
-                               FontSize="16"
+      <Grid DockPanel.Dock="Top" Background="GreenYellow" Margin="10"
+            Visibility="{Binding IsVisiblePayoutAmount}">
+        <Label DockPanel.Dock="Top" FontWeight="ExtraBold" FontSize="20">Payout Amount</Label>
+        <TextBlock HorizontalAlignment="Right"
+                   TextAlignment="Right"
+                   Text="{Binding PayoutAmountText}"
+                   VerticalAlignment="Center"
+                       IsEnabled="False"
+                       FontWeight="SemiBold"
+                       FontSize="16"
                                />
-            </Grid>
+      </Grid>
 
-            <Button Command="{Binding ProcessPaymentCommand}" 
-                    DockPanel.Dock="Top"
-                    Margin="10" 
-                    Content="Pay Consignor"
-                    Visibility="{Binding IsVisiblePayoutAmount}">
-            </Button>
-            
-            <ListBox ItemsSource="{Binding Items}" DockPanel.Dock="Top">
-                <ListBox.Resources>
-                    <DataTemplate DataType="{x:Type itemElements:ConsignorItem}">
-                        <TextBlock>
-                        <Run FontWeight="Bold">Successfully Processed Payment! </Run>
-                        <Run FontWeight="Bold">Name:</Run>
-                        <Run Text="{Binding FirstName}"/>
-                        <Run Text="{Binding LastName}"/>
-                        <Run FontWeight="Bold">Email:</Run>
-                        <Run Text="{Binding EmailAddress}"/>
-                        <Run FontWeight="Bold">Address:</Run>
-                        <Run Text="{Binding TotalAmount}"/>
-                        <Run FontWeight="Bold">Phone #:</Run>
-                        <Run Text="{Binding NumberOfItems}"/>
-                        </TextBlock>
-                    </DataTemplate>
-                </ListBox.Resources>
-            </ListBox>     
-            
-        </DockPanel>
-        <DockPanel Margin="20"  
-                   VerticalAlignment="Stretch" 
-                   HorizontalAlignment="Stretch" 
-                   Grid.Column="1">
-            <Label Content="Items"
-                   FontSize="18" 
-                   HorizontalAlignment="Center"
-                   DockPanel.Dock="Top"/>
-            <DataGrid ItemsSource="{Binding DataGridConsignorItems, 
+      <Button Command="{Binding ProcessPaymentCommand}"
+              DockPanel.Dock="Top"
+              Margin="10"
+              Content="Pay Consignor"
+              Visibility="{Binding IsVisiblePayoutAmount}">
+      </Button>
+
+    </DockPanel>
+    <DockPanel Margin="20"
+               VerticalAlignment="Stretch"
+               HorizontalAlignment="Stretch"
+               Grid.Column="1">
+      <ScrollViewer>
+        <StackPanel>
+          <Label Content="Items"
+                 FontSize="18"
+                 HorizontalAlignment="Center"
+                 DockPanel.Dock="Top"/>
+          <DataGrid ItemsSource="{Binding DataGridConsignorItems, 
                                             UpdateSourceTrigger=PropertyChanged,
                                             Mode=TwoWay}"
-                          SelectedItem="{Binding Path=SelectedConsignorItem,Converter={StaticResource selectedConsignorItemConverter}}"
-                          DockPanel.Dock="Top" 
-                          AutoGenerateColumns="False"
-                          AlternatingRowBackground="CadetBlue"
-                      Name="ConsignorItemDataGrid">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="CellEditEnding">
-                        <command:EventToCommand PassEventArgsToCommand="True" 
-                                                Command="{Binding CellEditEndingCommand}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <DataGrid.InputBindings>
-                    <KeyBinding Key="Delete" Command="{Binding DeleteSelectedCommand}" />
-                </DataGrid.InputBindings>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Title"
-                            Binding="{Binding Title}" Width="5*"/>
-                    <DataGridTextColumn Header="Barcode"
-                            Binding="{Binding Barcode}" Width="5*" IsReadOnly="True"/>
-                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource ConsignorItemsVM}, 
+                        SelectedItem="{Binding Path=SelectedConsignorItem,Converter={StaticResource selectedConsignorItemConverter}}"
+                        DockPanel.Dock="Top"
+                        AutoGenerateColumns="False"
+                        AlternatingRowBackground="CadetBlue"
+                    Name="ConsignorItemDataGrid">
+            <i:Interaction.Triggers>
+              <i:EventTrigger EventName="CellEditEnding">
+                <command:EventToCommand PassEventArgsToCommand="True"
+                                        Command="{Binding CellEditEndingCommand}"/>
+              </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <DataGrid.InputBindings>
+              <KeyBinding Key="Delete" Command="{Binding DeleteSelectedCommand}" />
+            </DataGrid.InputBindings>
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="Title"
+                      Binding="{Binding Title}" Width="5*"/>
+              <DataGridTextColumn Header="Barcode"
+                      Binding="{Binding Barcode}" Width="5*" IsReadOnly="True"/>
+              <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource ConsignorItemsVM}, 
                                                                     Path=StatusComboValues}"
-                                            Header="Status" 
-                                            SelectedValueBinding="{Binding ItemStatus, 
+                                      Header="Status"
+                                      SelectedValueBinding="{Binding ItemStatus, 
                                                                             Mode=TwoWay, 
                                                                             UpdateSourceTrigger=PropertyChanged}"
-                                            SelectedValuePath="ValueString"
-                                            DisplayMemberPath="ValueString"
-                                            Width="4*"/>
+                                      SelectedValuePath="ValueString"
+                                      DisplayMemberPath="ValueString"
+                                      Width="4*"/>
 
-                    <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource ConsignorItemsVM}, 
+              <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource ConsignorItemsVM}, 
                                                                     Path=SubjectComboValues}"
-                                            Header="Subject" 
-                                            SelectedValueBinding="{Binding Subject, 
+                                      Header="Subject"
+                                      SelectedValueBinding="{Binding Subject, 
                                                                             Mode=TwoWay, 
                                                                             UpdateSourceTrigger=PropertyChanged}"
-                                            SelectedValuePath="ValueString"
-                                            DisplayMemberPath="ValueString"
-                                            Width="4*"/>
+                                      SelectedValuePath="ValueString"
+                                      DisplayMemberPath="ValueString"
+                                      Width="4*"/>
 
-                    <DataGridTextColumn Header="Type"
-                                        Binding="{Binding ItemType}" 
-                                        Width="5*" 
-                                        IsReadOnly="True"
-                                        Foreground="DarkOrange"/>                        
-                
-                    <DataGridTextColumn Header="ISBN/EAN"
-                            Binding="{Binding IsbnEan}" Width="5*" />
+              <DataGridTextColumn Header="Type"
+                                  Binding="{Binding ItemType}"
+                                  Width="5*"
+                                  IsReadOnly="True"
+                                  Foreground="DarkOrange"/>
 
-                    <DataGridTemplateColumn Header="Date Listed" Width="6*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding DateListed, Converter={StaticResource dateTimeConverter}}" 
-                                               VerticalAlignment="Center" 
-                                               HorizontalAlignment="Center"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <DatePicker x:Name="DateListedPicker" SelectedDate="{Binding DateListed}" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
+              <DataGridTextColumn Header="ISBN/EAN"
+                      Binding="{Binding IsbnEan}" Width="5*" />
 
-                    <DataGridTemplateColumn Header="Date Sold" Width="6*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding DateSold, Converter={StaticResource dateTimeConverter}}" 
-                                               VerticalAlignment="Center" 
-                                               HorizontalAlignment="Center"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <DatePicker x:Name="DateSoldPicker" SelectedDate="{Binding DateSold}" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
+              <DataGridTemplateColumn Header="Date Listed" Width="6*">
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding DateListed, Converter={StaticResource dateTimeConverter}}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+                <DataGridTemplateColumn.CellEditingTemplate>
+                  <DataTemplate>
+                    <DatePicker x:Name="DateListedPicker" SelectedDate="{Binding DateListed}" />
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellEditingTemplate>
+              </DataGridTemplateColumn>
 
-                    <DataGridCheckBoxColumn Header="Discount" Binding="{Binding IsDiscountable}"/>
-                    
-                    <DataGridTextColumn Header="Listed Price"
-                            Binding="{Binding ListedPrice}" Width="4*" />
+              <DataGridTemplateColumn Header="Date Sold" Width="6*">
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding DateSold, Converter={StaticResource dateTimeConverter}}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+                <DataGridTemplateColumn.CellEditingTemplate>
+                  <DataTemplate>
+                    <DatePicker x:Name="DateSoldPicker" SelectedDate="{Binding DateSold}" />
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellEditingTemplate>
+              </DataGridTemplateColumn>
 
-                    <DataGridTextColumn Header="Sold Price"
-                            Binding="{Binding SoldPrice}" Width="4*" />
+              <DataGridCheckBoxColumn Header="Discount" Binding="{Binding IsDiscountable}"/>
 
-                    <DataGridTextColumn Header="Consignor Pmt"
-                            Binding="{Binding ConsignorPortion, 
+              <DataGridTextColumn Header="Listed Price"
+                      Binding="{Binding ListedPrice}" Width="4*" />
+
+              <DataGridTextColumn Header="Sold Price"
+                      Binding="{Binding SoldPrice}" Width="4*" />
+
+              <DataGridTextColumn Header="Consignor Pmt"
+                      Binding="{Binding ConsignorPortion, 
                                                 Mode=TwoWay, 
-                                                UpdateSourceTrigger=PropertyChanged}" 
-                            IsReadOnly="True"
-                            Width="4*" />
+                                                UpdateSourceTrigger=PropertyChanged}"
+                      IsReadOnly="True"
+                      Width="4*" />
 
-                </DataGrid.Columns>
-            </DataGrid>
+            </DataGrid.Columns>
+          </DataGrid>
 
-            
-            <Label Content="Store Credit Payments and Purchases"
-                   FontSize="18" 
-                   HorizontalAlignment="Center"
-                   DockPanel.Dock="Top"/>
-            <DataGrid ItemsSource="{Binding DataGridConsignorPayments, 
+
+          <Label Content="Store Credit Payments and Purchases"
+                 FontSize="18"
+                 HorizontalAlignment="Center"
+                 DockPanel.Dock="Top"/>
+          <DataGrid ItemsSource="{Binding DataGridConsignorPayments, 
                                             UpdateSourceTrigger=PropertyChanged,
                                             Mode=TwoWay}"
-                          DockPanel.Dock="Bottom" 
-                          AutoGenerateColumns="False"
-                          AlternatingRowBackground="CadetBlue"
-                      Name="ConsignorPaymentsDataGrid">
-                <DataGrid.Columns>
-                    
-                    <DataGridTextColumn Header="ConsignorId"
-                            Binding="{Binding ConsignorId}" Width="2*" IsReadOnly="True"/>
-                    
-                    <DataGridTemplateColumn Header="Date" Width="6*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding TransactionDate, Converter={StaticResource dateTimeConverter}}" 
-                                               VerticalAlignment="Center" 
-                                               HorizontalAlignment="Center"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    
-                    <DataGridTextColumn Header="Type"
-                            Binding="{Binding TransactionType}" Width="6*" IsReadOnly="True"/>
-                    
-                    <DataGridTextColumn Header="Amount"
-                            Binding="{Binding TransactionAmount}" Width="4*" />
+                        DockPanel.Dock="Bottom"
+                        AutoGenerateColumns="False"
+                        AlternatingRowBackground="CadetBlue"
+                    Name="ConsignorPaymentsDataGrid">
+            <DataGrid.Columns>
 
-                </DataGrid.Columns>
-                </DataGrid>
-        </DockPanel>
-    </Grid>
+              <DataGridTextColumn Header="ConsignorId"
+                      Binding="{Binding ConsignorId}" Width="2*" IsReadOnly="True"/>
+
+              <DataGridTemplateColumn Header="Date" Width="6*">
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding TransactionDate, Converter={StaticResource dateTimeConverter}}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+
+              <DataGridTextColumn Header="Type"
+                      Binding="{Binding TransactionType}" Width="6*" IsReadOnly="True"/>
+
+              <DataGridTextColumn Header="Amount"
+                      Binding="{Binding TransactionAmount}" Width="4*" />
+
+            </DataGrid.Columns>
+          </DataGrid>
+        </StackPanel>
+      </ScrollViewer>
+
+    </DockPanel>
+  </Grid>
 </UserControl>

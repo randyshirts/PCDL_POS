@@ -16,12 +16,14 @@
     <Grid>
 
         <DockPanel Margin="20"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
-            <Label Content="Barcode Items"
+            <ScrollViewer>
+                <StackPanel>
+                    <Label Content="Barcode Items"
                    FontSize="18" 
                    HorizontalAlignment="Center"
                    DockPanel.Dock="Top"/>
-            <Button Command="{Binding PrintBarcodesCommand}" DockPanel.Dock="Top">Print Barcodes</Button>
-            <DataGrid ItemsSource="{Binding DataGridBarcodes, 
+                    <Button Command="{Binding PrintBarcodesCommand}" DockPanel.Dock="Top">Print Barcodes</Button>
+                    <DataGrid ItemsSource="{Binding DataGridBarcodes, 
                                                 UpdateSourceTrigger=PropertyChanged,
                                                 Mode=TwoWay}"
                           SelectedItem="{Binding Path=SelectedBarcodeItem,Converter={StaticResource selectedBarcodeItemConverter}}"
@@ -31,44 +33,46 @@
                           ScrollViewer.CanContentScroll="True" 
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
                           ScrollViewer.HorizontalScrollBarVisibility="Auto">
-                
-                <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Header="Print" Binding="{Binding IsPrintBarcode}" />
-                    <DataGridTextColumn Header="Barcode"
+
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Header="Print" Binding="{Binding IsPrintBarcode}" />
+                            <DataGridTextColumn Header="Barcode"
                         Binding="{Binding BarcodeItemBc}" Width="7*" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Title"
+                            <DataGridTextColumn Header="Title"
                             Binding="{Binding Title}" Width="18*" 
                             IsReadOnly="True"/>
-                    <DataGridTemplateColumn Header="Date Listed" Width="6*"
+                            <DataGridTemplateColumn Header="Date Listed" Width="6*"
                             IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding DateListed, Converter={StaticResource dateTimeConverter}}" 
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding DateListed, Converter={StaticResource dateTimeConverter}}" 
                                                VerticalAlignment="Center" 
                                                HorizontalAlignment="Center"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <DatePicker x:Name="ListedDatePicker" SelectedDate="{Binding DateListed}" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <DatePicker x:Name="ListedDatePicker" SelectedDate="{Binding DateListed}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
 
-                    <DataGridTextColumn Header="Price Listed"
+                            <DataGridTextColumn Header="Price Listed"
                             Binding="{Binding PriceListed, Converter={StaticResource moneyConverter}}" Width="5*" 
-                            IsReadOnly="True">                    
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
+                            IsReadOnly="True">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
 
-                    <DataGridCheckBoxColumn Header="Discount" Binding="{Binding IsDiscountable}" IsReadOnly="True"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Command="{Binding ClearBarcodesCommand}" DockPanel.Dock="Bottom">Clear Barcode Info</Button>
+                            <DataGridCheckBoxColumn Header="Discount" Binding="{Binding IsDiscountable}" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Command="{Binding ClearBarcodesCommand}" DockPanel.Dock="Bottom">Clear Barcode Info</Button>
+                </StackPanel>
+            </ScrollViewer>
         </DockPanel>
 
     </Grid>
