@@ -181,6 +181,12 @@
                     <KeyBinding Key="Delete" Command="{Binding DeleteSelectedCommand}" />
                 </DataGrid.InputBindings>
                 <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID"
+                            Binding="{Binding Id}" 
+                            Width="2*"
+                            IsReadOnly="True">
+                        
+                    </DataGridTextColumn>
                     <DataGridTextColumn Header="First Name"
                             Binding="{Binding FirstName}" Width="5*">
 
