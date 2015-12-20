@@ -272,19 +272,35 @@ namespace Inventory.ViewModels.AddMember.ViewModels
         [Required]
         public string DateAdded { get; set; }
 
+        private string m_firstName;
         /// <summary>
         /// Gets or sets the first name.
         /// </summary>
         [Required]
         [StringLength(20)]
-        public string FirstName { get; set; }
+        public string FirstName
+        {
+            get { return m_firstName; }
+            set
+            {
+                m_firstName = StringHelpers.SanitizeName(value);
+            }
+        }
 
+        private string m_lastName;
         /// <summary>
         /// Gets or sets the last name.
         /// </summary>
         [Required]
         [StringLength(20)]
-        public string LastName { get; set; }
+        public string LastName
+        {
+            get { return m_lastName; }
+            set
+            {
+                m_lastName = StringHelpers.SanitizeName(value);
+            }
+        }
 
         /// <summary>
         /// Gets or sets the EmailAddress value.
@@ -453,6 +469,8 @@ namespace Inventory.ViewModels.AddMember.ViewModels
                     return "First Name is Required";
                 else if (FirstName.Length > 20)
                     return "Name must be 20 characters or less in length";
+
+                if (FirstName.Contains(" ")) { FirstName.Replace(" ", String.Empty); }
             }
 
             if (propertyName == "LastName")
@@ -461,6 +479,8 @@ namespace Inventory.ViewModels.AddMember.ViewModels
                     return "Last Name is Required";
                 else if (LastName.Length > 20)
                     return "Name must be 20 characters or less in length";
+
+                if (LastName.Contains(" ")) { LastName.Replace(" ", String.Empty); }
             }
 
             if (propertyName == "EmailAddress")
@@ -722,6 +742,8 @@ namespace Inventory.ViewModels.AddMember.ViewModels
                     case "ZipCode":
                         {
                             var person = memberInfo.ConvertMemberInfoToPerson((MemberInfo)(e.Row.Item));
+                            person.FirstName = StringHelpers.SanitizeName(person.FirstName);
+                            person.LastName = StringHelpers.SanitizeName(person.LastName);
                             var controller = new PersonController();
                             controller.UpdatePerson(person);
                             break;

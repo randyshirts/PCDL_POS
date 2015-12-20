@@ -33,5 +33,19 @@ namespace RocketPos.Common.Helpers
 
             return first + " " + last;
         }
+
+        public static List<string> SanitizeNames(string first, string last)
+        {
+            var list = new List<string>();
+            list.Add(first.Replace(" ", String.Empty));
+            list.Add(last.Replace(" ", String.Empty));
+
+            return list;
+        }
+
+        public static string SanitizeName(string name)
+        {
+            return name.Replace(" ", String.Empty);
+        }
     }
 }

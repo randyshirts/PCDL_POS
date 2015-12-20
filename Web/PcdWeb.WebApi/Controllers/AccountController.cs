@@ -62,7 +62,8 @@ namespace PcdWeb.Controllers
                 return Ok("Invalid input");
             }
 
-            
+            if (input.FirstName.Contains(" ")) { input.FirstName.Replace(" ", String.Empty); }
+            if (input.LastName.Contains(" ")) { input.LastName.Replace(" ", String.Empty); }
             //ApiLog.Instance.Trace("Register account controller valid");
 
             //define output
@@ -484,6 +485,9 @@ namespace PcdWeb.Controllers
             {
                 return Ok("Invalid input");
             }
+
+            if (input.FirstName.Contains(" ")) { input.FirstName.Replace(" ", String.Empty); }
+            if (input.LastName.Contains(" ")) { input.LastName.Replace(" ", String.Empty); }
 
             Person person;
             try
