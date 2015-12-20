@@ -199,6 +199,8 @@ namespace POS.ViewModels.ItemSale.ViewModel
 
         public void CancelPayment()
         {
+            var result = MessageBox.Show("Are you sure you want to clear all items?", "Clear Items", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes) { ClearAllSaleItems(); }
         }
 
         public ActionCommand DeleteSelectedCommand
@@ -211,11 +213,11 @@ namespace POS.ViewModels.ItemSale.ViewModel
 
         public void DeleteSelected()
         {
-            //Get selected item
-            var saleItem = SelectedSaleItem;
-
             //Copy datagrid to temp
             var tempItems = DataGridSaleItems;
+
+            //Get selected item
+            var saleItem = SelectedSaleItem;
 
             //Get the index of the current item
             var gridIndex = tempItems.IndexOf(saleItem);
@@ -242,6 +244,28 @@ namespace POS.ViewModels.ItemSale.ViewModel
             SelectedSaleItem = DataGridSaleItems.ElementAtOrDefault(gridIndex);
 
             TotalAmount = GetTotalAmount();
+        }
+
+        public void ClearAllSaleItems()
+        {
+            //Copy datagrid to temp
+            var tempItems = DataGridSaleItems;
+
+            foreach(var item in tempItems)
+            {
+                //Insert back into querycollection
+                var list = QueryCollection.ToList();
+                list.Add(new BarcodeItem(item.ConvertSaleItemToItem()));
+                QueryCollection = list;
+            }
+
+            //Clear datagrid
+            DataGridSaleItems.Clear();
+
+            //Enable or disable Payment button
+            IsEnabledPmt = DataGridSaleItems.FirstOrDefault() != null;
+
+            TotalAmount = 0;
         }
 
         public RelayCommand<DataGridCellEditEndingEventArgs> CellEditEndingCommand
