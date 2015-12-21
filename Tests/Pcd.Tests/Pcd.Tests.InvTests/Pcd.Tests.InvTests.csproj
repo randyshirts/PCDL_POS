@@ -83,10 +83,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\POS\DesktopClient\RocketPos.Common\RocketPos.Common.csproj">
-      <Project>{732b3834-f3a3-498f-b4df-c42229fcaa71}</Project>
-      <Name>RocketPos.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\POS\DesktopClient\RocketPos.Inventory\RocketPos.Inventory.csproj">
       <Project>{93c957cb-d9bf-4af9-98f0-ca4fc91c2da3}</Project>
       <Name>RocketPos.Inventory</Name>

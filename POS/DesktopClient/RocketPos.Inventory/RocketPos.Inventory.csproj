@@ -83,6 +83,10 @@
       <HintPath>..\..\..\Dependencies\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework" />
+    <Reference Include="RocketPos.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Build\RocketPos.Common.dll</HintPath>
+    </Reference>
     <Reference Include="Spire.License">
       <HintPath>..\..\..\Dependencies\FreeSpire.PDF.3.2\lib\net40\Spire.License.dll</HintPath>
     </Reference>
@@ -398,12 +402,6 @@
     <None Include="Service References\AmazonAWS\Inventory.AmazonAWS.SimilarityLookupResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RocketPos.Common\RocketPos.Common.csproj">
-      <Project>{732b3834-f3a3-498f-b4df-c42229fcaa71}</Project>
-      <Name>RocketPos.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\AmazonAWS\configuration91.svcinfo" />
