@@ -89,12 +89,6 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\DataModel\DataModel.Data\DataModel.Data.csproj">
-      <Project>{308C26DC-2F9E-47E9-8A60-9D3FE132D67F}</Project>
-      <Name>DataModel.Data</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

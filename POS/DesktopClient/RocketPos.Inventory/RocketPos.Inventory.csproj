@@ -49,6 +49,14 @@
     <Reference Include="Castle.Core">
       <HintPath>..\..\..\Dependencies\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DataModel\Build\Common.dll</HintPath>
+    </Reference>
+    <Reference Include="DataModel.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DataModel\Build\DataModel.Data.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Dependencies\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
@@ -392,14 +400,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\Common.csproj">
-      <Project>{D30D964B-3A26-445D-80F2-D94BD4C60F3D}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\DataModel\DataModel.Data\DataModel.Data.csproj">
-      <Project>{308c26dc-2f9e-47e9-8a60-9d3fe132d67f}</Project>
-      <Name>DataModel.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RocketPos.Common\RocketPos.Common.csproj">
       <Project>{732b3834-f3a3-498f-b4df-c42229fcaa71}</Project>
       <Name>RocketPos.Common</Name>
