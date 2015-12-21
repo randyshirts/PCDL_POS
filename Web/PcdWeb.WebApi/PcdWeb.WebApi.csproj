@@ -55,6 +55,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependencies\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="Common">
+      <HintPath>..\..\DataModel\Build\Common.dll</HintPath>
+    </Reference>
+    <Reference Include="DataModel.Data">
+      <HintPath>..\..\DataModel\Build\DataModel.Data.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\..\Dependencies\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -218,18 +224,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Common.csproj">
-      <Project>{D30D964B-3A26-445D-80F2-D94BD4C60F3D}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DataModel\DataModel.Data\DataModel.Data.csproj">
-      <Project>{308C26DC-2F9E-47E9-8A60-9D3FE132D67F}</Project>
-      <Name>DataModel.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\POS\DesktopClient\RocketPos.Common\RocketPos.Common.csproj">
-      <Project>{732B3834-F3A3-498F-B4DF-C42229FCAA71}</Project>
-      <Name>RocketPos.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PcdWeb.Core\PcdWeb.Core.csproj">
       <Project>{17298EA0-AF73-4F30-B6F1-2066100D7D74}</Project>
       <Name>PcdWeb.Core</Name>

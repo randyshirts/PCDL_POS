@@ -407,10 +407,6 @@
     <Folder Include="app\services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DataModel\DataModel.Data\DataModel.Data.csproj">
-      <Project>{308C26DC-2F9E-47E9-8A60-9D3FE132D67F}</Project>
-      <Name>DataModel.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PcdWeb.Core\PcdWeb.Core.csproj">
       <Project>{17298ea0-af73-4f30-b6f1-2066100d7d74}</Project>
       <Name>PcdWeb.Core</Name>
