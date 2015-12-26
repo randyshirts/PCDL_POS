@@ -15,6 +15,7 @@ using DataModel.Data.TransactionalLayer.Repositories;
 using GalaSoft.MvvmLight.Messaging;
 using Inventory.Controller.CustomClasses;
 using Inventory.Controller.Elements;
+using Inventory.ViewModels.MainView.ViewModels;
 using RocketPos.Common.Foundation;
 using RocketPos.Common.Helpers;
 
@@ -39,6 +40,8 @@ namespace Inventory.ViewModels.EditItem.ViewModels
         private readonly ComboBoxListValues _statusComboValues = new ComboBoxListValues();
         private readonly ComboBoxListValues _consignorNameComboValues = new ComboBoxListValues();
 
+        private ViewModelLocator Locator { get; set; }
+
         public EditItemVm()
         {
             //Disable fields on view
@@ -62,6 +65,9 @@ namespace Inventory.ViewModels.EditItem.ViewModels
            
             //Initialize AutoCompleteBox Available Items
             _queryCollection = InitializeBarcodeItems(); 
+
+            //Initialize Locator to switch views
+            Locator = new ViewModelLocator();
             
             //Register for messages
             Messenger.Default.Register<PropertySetter>(this, BookDataGridVm.Token, msg => SetBookProperty(msg.PropertyName, (string)msg.PropertyValue));
@@ -240,7 +246,7 @@ namespace Inventory.ViewModels.EditItem.ViewModels
                     case "Game":
                         {
                             //Send message to display GameDataGrid 
-                            var myGameDataGridVm = new GameDataGridVm();
+                            var myGameDataGridVm = Locator.GameDataGridView;
                             Messenger.Default.Send(new SwitchView(myGameDataGridVm), Token);
                             
                             //Get search results
@@ -256,7 +262,7 @@ namespace Inventory.ViewModels.EditItem.ViewModels
                     case "Video":
                         {
                             //Send message to display VideoDataGrid 
-                            var myVideoDataGridVm = new VideoDataGridVm();
+                            var myVideoDataGridVm = Locator.VideoDataGridView;
                             Messenger.Default.Send(new SwitchView(myVideoDataGridVm), Token);
 
                             //Get search results
@@ -272,7 +278,7 @@ namespace Inventory.ViewModels.EditItem.ViewModels
                     case "Teaching Aide":
                         {
                             //Send message to display TeachingAideDataGrid
-                            var myTeachingAideDataGridVm = new TeachingAideDataGridVm();
+                            var myTeachingAideDataGridVm = Locator.TeachingAideDataGridView;
                             Messenger.Default.Send(new SwitchView(myTeachingAideDataGridVm), Token);
 
                             //Get search results
@@ -289,7 +295,7 @@ namespace Inventory.ViewModels.EditItem.ViewModels
                     case "Other":
                         {
                             //Send message to display OtherDataGrid
-                            var myOtherDataGridVm = new OtherDataGridVm();
+                            var myOtherDataGridVm = Locator.OtherDataGridView;
                             Messenger.Default.Send(new SwitchView(myOtherDataGridVm), Token);
 
                             //Get search results

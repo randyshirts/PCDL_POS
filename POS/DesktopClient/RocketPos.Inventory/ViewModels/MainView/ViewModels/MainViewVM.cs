@@ -16,11 +16,14 @@ namespace Inventory.ViewModels.MainView.ViewModels
 		{
             InitializeChildViews();
 
+            Locator = new ViewModelLocator();
+
             //Register for messages
             Messenger.Default.Register<SwitchView>(this, AddItemVm.Token, msg => ViewSelector(msg.ViewModel));
             Messenger.Default.Register<SwitchView>(this, EditItemVm.Token, msg => ViewSelector(msg.ViewModel));
 		}
 
+	    private ViewModelLocator Locator;
 	    private ViewModel m_addItemVm;
         private ViewModel m_editItemVm;
         private ViewModel m_ConsignorItemsVm;
@@ -227,7 +230,7 @@ namespace Inventory.ViewModels.MainView.ViewModels
         {
             get
             {
-                var myAddItemVm = new AddItemVm();
+                var myAddItemVm = Locator.AddItemView;
                 return new ActionCommand(p => LoadAddNewMainView(myAddItemVm));
             }
 
@@ -237,7 +240,7 @@ namespace Inventory.ViewModels.MainView.ViewModels
         {
             get
             {
-                var myEditItemVm = new EditItemVm();
+                var myEditItemVm = Locator.EditItemView;
                 return new ActionCommand(p => LoadAddNewMainView(myEditItemVm));
             }
 
@@ -247,7 +250,7 @@ namespace Inventory.ViewModels.MainView.ViewModels
         {
             get
             {
-                var myAddConsignorVm = new AddConsignorVm();
+                var myAddConsignorVm = Locator.AddConsignorView;
                 return new ActionCommand(p => LoadAddNewMainView(myAddConsignorVm));
             }
 
@@ -257,7 +260,7 @@ namespace Inventory.ViewModels.MainView.ViewModels
         {
             get
             {
-                var myAddMemberVm = new AddMemberVm();
+                var myAddMemberVm = Locator.AddMemberView;
                 return new ActionCommand(p => LoadAddNewMainView(myAddMemberVm));
             }
 
@@ -267,7 +270,7 @@ namespace Inventory.ViewModels.MainView.ViewModels
         {
             get
             {
-                var myRenewMemberVm = new RenewMemberVm();
+                var myRenewMemberVm = Locator.RenewMemberView;
                 return new ActionCommand(p => LoadAddNewMainView(myRenewMemberVm));
             }
 
@@ -277,7 +280,7 @@ namespace Inventory.ViewModels.MainView.ViewModels
         {
             get
             {
-                var myConsignorItemsVm = new ConsignorItemsVm();
+                var myConsignorItemsVm = Locator.ConsignorItemsView;
                 return new ActionCommand(p => LoadAddNewMainView(myConsignorItemsVm));
             }
 
@@ -287,7 +290,7 @@ namespace Inventory.ViewModels.MainView.ViewModels
         {
             get
             {
-                var myPrintBarcodesVm = new PrintBarcodesVm();
+                var myPrintBarcodesVm = Locator.PrintBarcodesView;
                 return new ActionCommand(p => LoadAddNewMainView(myPrintBarcodesVm));
             }
 

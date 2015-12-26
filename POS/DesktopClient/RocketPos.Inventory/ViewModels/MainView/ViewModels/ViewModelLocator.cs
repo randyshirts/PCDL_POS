@@ -53,7 +53,22 @@ namespace Inventory.ViewModels.MainView.ViewModels
             SimpleIoc.Default.Register<MainViewVm>();
             SimpleIoc.Default.Register<AddItemVm>();
             SimpleIoc.Default.Register<AddBookVm>();
-        
+            SimpleIoc.Default.Register<AddGameVm>();
+            SimpleIoc.Default.Register<AddOtherVm>();
+            SimpleIoc.Default.Register<AddTeachingAideVm>();
+            SimpleIoc.Default.Register<AddVideoVm>();
+            SimpleIoc.Default.Register<EditItemVm>();
+            SimpleIoc.Default.Register<BookDataGridVm>();
+            SimpleIoc.Default.Register<GameDataGridVm>();
+            SimpleIoc.Default.Register<OtherDataGridVm>();
+            SimpleIoc.Default.Register<TeachingAideDataGridVm>();
+            SimpleIoc.Default.Register<VideoDataGridVm>();
+            SimpleIoc.Default.Register<AddConsignorVm>();
+            SimpleIoc.Default.Register<AddMemberVm>();
+            SimpleIoc.Default.Register<ConsignorItemsVm>();
+            SimpleIoc.Default.Register<RenewMemberVm>();
+            SimpleIoc.Default.Register<PrintBarcodesVm>();
+            SimpleIoc.Default.Register<AddItemBarcodesVm>();
         }
 
         public MainViewVm MainView
@@ -167,6 +182,47 @@ namespace Inventory.ViewModels.MainView.ViewModels
                 return ServiceLocator.Current.GetInstance<AddItemBarcodesVm>();
             }
         }
+
+        public BookDataGridVm BookDataGridView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<BookDataGridVm>();
+            }
+        }
+
+        public GameDataGridVm GameDataGridView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<GameDataGridVm>();
+            }
+        }
+
+        public OtherDataGridVm OtherDataGridView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<OtherDataGridVm>();
+            }
+        }
+
+        public TeachingAideDataGridVm TeachingAideDataGridView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<TeachingAideDataGridVm>();
+            }
+        }
+
+        public VideoDataGridVm VideoDataGridView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<VideoDataGridVm>();
+            }
+        }
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
