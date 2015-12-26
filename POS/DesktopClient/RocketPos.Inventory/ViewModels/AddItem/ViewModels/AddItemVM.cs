@@ -18,6 +18,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Inventory.Controller.Elements;
 using Inventory.Controller.Elements.ItemElements;
 using Inventory.Controller.Visitors.ItemVisitors;
+using Inventory.ViewModels.MainView.ViewModels;
 using RocketPos.Common.Foundation;
 using RocketPos.Common.Helpers;
 
@@ -34,7 +35,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
 
         //private EnumsAndLists myEnumsLists = new EnumsAndLists();   //Various lists and enums used by the application
 
-        readonly ViewModel _myAddItemBarcodesVm = new AddItemBarcodesVm();
+        readonly ViewModel _myAddItemBarcodesVm;
 
         //List for sources of ComboBoxes
         private readonly ComboBoxListValues _itemTypeComboValues = new ComboBoxListValues();
@@ -78,7 +79,10 @@ namespace Inventory.ViewModels.AddItem.ViewModels
             var consignor = new ConsignorController();
 
             _consignorNameComboValues.InitializeComboBox(consignor.GetConsignorNames());
-            
+
+            //Initialize locator for switching views
+            Locator = new ViewModelLocator();
+            _myAddItemBarcodesVm = Locator.AddItemBarcodesView;
 
             //Register for messages
             Messenger.Default.Register<PropertySetter>(this, AddGameVm.Token, msg => SetGameProperty(msg.PropertyName, (string)msg.PropertyValue));
@@ -90,7 +94,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
 
         }
 
-
+        private ViewModelLocator Locator { get; set; }
 
         /// <summary>
         /// Sets a property of myAddGame view model.
@@ -331,7 +335,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                     case "Book":
                         {
                             //Send message to display AddBookView 
-                            var myAddBookVm = new AddBookVm();
+                            var myAddBookVm = Locator.AddBookView;
                             Messenger.Default.Send(new SwitchView(myAddBookVm), Token);
                             break;
                         }
@@ -340,7 +344,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                             Subject = "Games";
 
                             //Send message to display AddBookView 
-                            var myAddGameVm = new AddGameVm();
+                            var myAddGameVm = Locator.AddGameView;
                             Messenger.Default.Send(new SwitchView(myAddGameVm), Token);
                             break;
                         }
@@ -349,7 +353,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                             Subject = "Videos";
 
                             //Send message to display AddVideoView 
-                            var myAddVideoVm = new AddVideoVm();
+                            var myAddVideoVm = Locator.AddVideoView;
                             Messenger.Default.Send(new SwitchView(myAddVideoVm), Token);
                             break;
                         }
@@ -358,7 +362,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                             Subject = "Teaching Aides";
 
                             //Send message to display AddTeachingAideView 
-                            var myAddTeachingAideVm = new AddTeachingAideVm();
+                            var myAddTeachingAideVm = Locator.AddTeachingAideView;
                             Messenger.Default.Send(new SwitchView(myAddTeachingAideVm), Token);
                             break;
                         }
@@ -367,7 +371,7 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                             Subject = "Other";
 
                             //Send message to display AddOtherView
-                            var myAddOtherVm = new AddOtherVm();
+                            var myAddOtherVm = Locator.AddOtherView;
                             Messenger.Default.Send(new SwitchView(myAddOtherVm), Token);
                             break;
                         }

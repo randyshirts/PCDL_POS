@@ -15,7 +15,7 @@ using RocketPos.Inventory.Resources;
 
 namespace Inventory.ViewModels.RenewMember.ViewModels
 {
-    class RenewMemberVm : ViewModel
+    public class RenewMemberVm : ViewModel
     {
         public static readonly Guid Token = Guid.NewGuid();         //So others know messages came from this instance
 

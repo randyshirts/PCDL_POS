@@ -224,7 +224,7 @@ namespace Inventory.ViewModels.EditItem.ViewModels
                     case "Book":
                         {
                             //Send message to display BookDataGrid 
-                            var myBookDataGridVm = new BookDataGridVm();
+                            var myBookDataGridVm = Locator.BookDataGridView;
                             Messenger.Default.Send(new SwitchView(myBookDataGridVm), Token);
 
                             //Get search results

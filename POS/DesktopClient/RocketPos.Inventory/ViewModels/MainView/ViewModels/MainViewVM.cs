@@ -21,6 +21,20 @@ namespace Inventory.ViewModels.MainView.ViewModels
             Messenger.Default.Register<SwitchView>(this, EditItemVm.Token, msg => ViewSelector(msg.ViewModel));
 		}
 
+	    private ViewModel m_addItemVm;
+        private ViewModel m_editItemVm;
+        private ViewModel m_ConsignorItemsVm;
+        private ViewModel m_addConsignorVm;
+        private ViewModel m_printBarcodesVm;
+        private ViewModel m_renewMemberVm;
+        private ViewModel m_addBookVm;
+        private ViewModel m_addGameVm;
+        private ViewModel m_addOtherVm;
+        private ViewModel m_addTeachingAideVm;
+        private ViewModel m_addVideoVm;
+	    private ViewModel m_addItemBarcodesVm;
+
+
         private void ViewSelector(ViewModel newViewModel)
         {
             if ((newViewModel.GetType() == (typeof(AddItemVm))) ||

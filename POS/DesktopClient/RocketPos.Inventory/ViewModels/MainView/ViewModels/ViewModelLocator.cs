@@ -13,7 +13,13 @@
 */
 
 using GalaSoft.MvvmLight.Ioc;
+using Inventory.ViewModels.AddEditConsignor.ViewModels;
 using Inventory.ViewModels.AddItem.ViewModels;
+using Inventory.ViewModels.AddMember.ViewModels;
+using Inventory.ViewModels.ConsignorItems.ViewModels;
+using Inventory.ViewModels.EditItem.ViewModels;
+using Inventory.ViewModels.PrintBarcodesView.ViewModels;
+using Inventory.ViewModels.RenewMember.ViewModels;
 using Microsoft.Practices.ServiceLocation;
 
 //using Microsoft.Practices.ServiceLocation;
@@ -73,7 +79,94 @@ namespace Inventory.ViewModels.MainView.ViewModels
                 return ServiceLocator.Current.GetInstance<AddItemVm>();
             }
         }
-        
+
+        public AddConsignorVm AddConsignorView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddConsignorVm>();
+            }
+        }
+
+        public AddMemberVm AddMemberView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddMemberVm>();
+            }
+        }
+
+        public ConsignorItemsVm ConsignorItemsView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ConsignorItemsVm>();
+            }
+        }
+
+        public EditItemVm EditItemView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<EditItemVm>();
+            }
+        }
+
+        public PrintBarcodesVm PrintBarcodesView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PrintBarcodesVm>();
+            }
+        }
+
+        public RenewMemberVm RenewMemberView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<RenewMemberVm>();
+            }
+        }
+
+        public AddGameVm AddGameView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddGameVm>();
+            }
+        }
+
+        public AddOtherVm AddOtherView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddOtherVm>();
+            }
+        }
+
+        public AddTeachingAideVm AddTeachingAideView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddTeachingAideVm>();
+            }
+        }
+
+        public AddVideoVm AddVideoView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddVideoVm>();
+            }
+        }
+
+        public AddItemBarcodesVm AddItemBarcodesView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddItemBarcodesVm>();
+            }
+        }
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
