@@ -34,8 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Abp.Web">
-      <HintPath>..\..\..\Dependencies\Abp.Web.0.5.2.0\lib\net451\Abp.Web.dll</HintPath>
+    <Reference Include="Abp, Version=0.5.2.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Dependencies\Abp.0.5.2.0\lib\net451\Abp.dll</HintPath>
     </Reference>
     <Reference Include="Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
