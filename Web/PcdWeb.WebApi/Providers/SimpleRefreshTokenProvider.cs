@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AngularJSAuthentication.API;
 using DataModel.Data.ApplicationLayer.Services;
 using Microsoft.Owin.Security.Infrastructure;
 

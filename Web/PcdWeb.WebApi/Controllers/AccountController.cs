@@ -48,6 +48,7 @@ namespace PcdWeb.Controllers
 
         // POST api/Account/Register
         [System.Web.Http.AllowAnonymous]
+        [ValidateAntiForgeryToken]
         [System.Web.Http.Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterUserInput input)
         {
@@ -115,6 +116,7 @@ namespace PcdWeb.Controllers
 
         // POST api/Account/Register
         [System.Web.Http.AllowAnonymous]
+        [ValidateAntiForgeryToken]
         [System.Web.Http.Route("UpdateRegistration")]
         public async Task<IHttpActionResult> UpdateRegistration(UpdateRegisterUserInput input)
         {
@@ -152,6 +154,7 @@ namespace PcdWeb.Controllers
 
         //[System.Web.Http.AllowAnonymous]
         [System.Web.Http.AcceptVerbs("GET", "POST")]
+        [ValidateAntiForgeryToken]
         [System.Web.Http.Route("ConfirmEmail")]
         public HttpResponseMessage ConfirmEmail(string userId, string confirmationCode)
         {
@@ -165,12 +168,13 @@ namespace PcdWeb.Controllers
             var result = _userAppService.ConfirmEmail(input);
 
             var response = Request.CreateResponse(HttpStatusCode.Moved);
-            response.Headers.Location = new Uri("http://www.playcreatediscover.com/#/emailConfirmed");
+            response.Headers.Location = new Uri("http://test.playcreatediscover.com/#/emailConfirmed");
             return response;
 
         }
 
         [System.Web.Http.AcceptVerbs("GET", "POST")]
+        [ValidateAntiForgeryToken]
         [System.Web.Http.Route("SendConfirmation")]
         public bool SendConfirmation(SendConfirmationInput input)
         {
@@ -188,6 +192,7 @@ namespace PcdWeb.Controllers
 
         // POST api/Account/getUsers
         [System.Web.Http.AcceptVerbs("GET", "POST")]
+        [ValidateAntiForgeryToken]
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("GetUsers")]
         public IHttpActionResult GetUsers(GetPersonsByEmailInput input)
@@ -239,6 +244,7 @@ namespace PcdWeb.Controllers
         // POST api/Account/getUserInfo
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [System.Web.Http.Route("GetUserInfo")]
+        [ValidateAntiForgeryToken]
         public IHttpActionResult GetUserInfo(GetPersonsByEmailInput input)
         {
             if (!ModelState.IsValid)
@@ -280,6 +286,7 @@ namespace PcdWeb.Controllers
 
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpPost]
+        [ValidateAntiForgeryToken]
         [System.Web.Http.Route("Login")]
         public virtual async Task<IHttpActionResult> Login(LoginModel loginModel)
         {
@@ -351,6 +358,7 @@ namespace PcdWeb.Controllers
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [System.Web.Http.Route("ResetPassword")]
+        [ValidateAntiForgeryToken]
         public HttpResponseMessage ResetPassword(string userId, string resetCode)
         {
             //Check code and if successful set reset code to resetConfirmed        
@@ -361,7 +369,7 @@ namespace PcdWeb.Controllers
 
             //Navigate to reset password page
             var response = Request.CreateResponse(HttpStatusCode.Moved);
-            response.Headers.Location = new Uri("http://www.playcreatediscover.com/#/resetPassword");
+            response.Headers.Location = new Uri("http://test.playcreatediscover.com/#/resetPassword");
             return resetCode == null ? Request.CreateResponse(HttpStatusCode.BadRequest) : response;
         }
        
@@ -394,6 +402,7 @@ namespace PcdWeb.Controllers
         // GET: /Account/ChangePassword
         [System.Web.Http.Authorize]
         [System.Web.Http.AcceptVerbs("GET", "POST")]
+        [ValidateAntiForgeryToken]
         [System.Web.Http.Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordInput input)
         {   
@@ -409,8 +418,10 @@ namespace PcdWeb.Controllers
         }
 
         // GET: /Account/ChangeEmail
+        [System.Web.Http.Authorize]
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [System.Web.Http.Route("ChangeEmail")]
+        [ValidateAntiForgeryToken]
         public IHttpActionResult ChangeEmail(ChangeEmailModel input)
         {
             //Check if new email already has a person or user associated with it
@@ -478,6 +489,7 @@ namespace PcdWeb.Controllers
 
         [System.Web.Http.Authorize]
         [System.Web.Http.AcceptVerbs("GET", "POST")]
+        [ValidateAntiForgeryToken]
         [System.Web.Http.Route("UpdatePerson")]
         public IHttpActionResult UpdatePerson(UserInfoOutput input)
         {

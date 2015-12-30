@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Web;
 
-namespace AngularJSAuthentication.API
+namespace PcdWeb
 {
     public class Helper
     {
@@ -18,5 +15,6 @@ namespace AngularJSAuthentication.API
 
             return Convert.ToBase64String(byteHash);
         }
+
     }
 }

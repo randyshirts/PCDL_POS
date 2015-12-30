@@ -34,11 +34,7 @@
   <ItemGroup>
     <Reference Include="Abp, Version=0.5.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependencies\Abp.0.5.2.0\lib\net451\Abp.dll</HintPath>
-    </Reference>
-    <Reference Include="Abp.Web, Version=0.5.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependencies\Abp.Web.0.5.2.0\lib\net451\Abp.Web.dll</HintPath>
+      <HintPath>..\..\Dependencies\Abp.0.5.2.1\lib\net451\Abp.dll</HintPath>
     </Reference>
     <Reference Include="Abp.Web.Api">
       <HintPath>..\..\Dependencies\Abp.Web.Api.0.5.2.0\lib\net451\Abp.Web.Api.dll</HintPath>
@@ -203,6 +199,7 @@
     <Compile Include="Models\AccountModels\UserInfoOutput.cs" />
     <Compile Include="Models\AccountModels\UserModel.cs" />
     <Compile Include="Models\ItemModels\PrintBarcodesModel.cs" />
+    <Compile Include="Models\ModelBase.cs" />
     <Compile Include="PcdWebWebApiModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\FacebookAuthProvider.cs" />
