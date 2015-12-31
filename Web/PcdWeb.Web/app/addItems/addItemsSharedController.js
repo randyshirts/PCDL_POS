@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('addItemsSharedController', ['authService', 'itemsService', function (authService, itemsService) {
+app.controller('addItemsSharedController', ['authService', 'itemsService', '$timeout', '$location', function (authService, itemsService, $timeout, $location) {
 
     var self = this;
     self.currentUser = authService.authentication.userName;
@@ -21,14 +21,14 @@ app.controller('addItemsSharedController', ['authService', 'itemsService', funct
         videoFormat: ""
     }
 
-    self.changeDiscount = function() {
+    self.changeDiscount = function () {
         if (self.itemInfo.discounted === "isDiscounted")
             self.discountMessage = "Price will drop 10% for every month it remains on the shelf - up to 50% after 5 months";
         else
             self.discountMessage = "The item will be marked 'ND' and the price will remain the same";
     };
 
-    
+
     self.changedCondition = function () {
         if (self.itemInfo.condition === "New")
             self.conditionMessage = "Just like it sounds. A brand-new, unused, unopened item in its original packaging, with all original packaging materials included. Original protective wrapping, if any, is intact.";
@@ -45,7 +45,7 @@ app.controller('addItemsSharedController', ['authService', 'itemsService', funct
         }
     };
 
-    self.addItem = function(itemInfo) {
+    self.addItem = function (itemInfo) {
 
         self.saveBusy = false;
         itemsService.addItem(self.itemInfo).then(function (results) {
@@ -75,7 +75,8 @@ app.controller('addItemsSharedController', ['authService', 'itemsService', funct
             } else {
                 self.message = results.data.message;
                 if (results.data.message === "Session Timed Out") {
-                    authService.logoff();
+                    self.message = "Session Timed Out";
+                    authService.logOut();
                     startTimer();
                 }
                 self.savedSuccessfully = false;
@@ -90,7 +91,7 @@ app.controller('addItemsSharedController', ['authService', 'itemsService', funct
         var timer = $timeout(function () {
             $timeout.cancel(timer);
             $location.path('/login');
-        }, 3000);
+        }, 2000);
     }
 
 }]);

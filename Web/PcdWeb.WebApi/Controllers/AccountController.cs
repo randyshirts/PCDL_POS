@@ -70,7 +70,7 @@ namespace PcdWeb.Controllers
             //define output
             var output = new RegisterApiOutputModel();
 
-            
+
             ////var recaptchaHelper = this.GetRecaptchaVerificationHelper(this.ToString(), recaptchaPrivateKey);
             //var recaptchaHelper = this.GetRecaptchaVerificationHelper();
             //if (String.IsNullOrEmpty(recaptchaHelper.Response))
@@ -94,12 +94,12 @@ namespace PcdWeb.Controllers
                 await _userAppService.SendConfirmation(new SendConfirmationInput() { EmailAddress = input.EmailAddress });
                 output.message = "success";
                 return Ok(output);
-                
+
             }
 
             if (result.Result.Errors.Any())
             {
-                
+
                 var alreadyRegisteredError =
                     result.Result.Errors.FirstOrDefault(e => e.StartsWith("You registered with"));
                 if (alreadyRegisteredError != null)
@@ -120,7 +120,7 @@ namespace PcdWeb.Controllers
         [System.Web.Http.Route("UpdateRegistration")]
         public async Task<IHttpActionResult> UpdateRegistration(UpdateRegisterUserInput input)
         {
-            
+
             //define output
             var output = new RegisterApiOutputModel();
 
@@ -128,7 +128,7 @@ namespace PcdWeb.Controllers
             var persons = new List<Person>();
             try
             {
-                persons = GetPersonsFromEmail(new GetPersonsByEmailInput() {EmailAddress = input.EmailAddress});
+                persons = GetPersonsFromEmail(new GetPersonsByEmailInput() { EmailAddress = input.EmailAddress });
             }
             catch (Exception ex)
             {
@@ -136,7 +136,7 @@ namespace PcdWeb.Controllers
                 //output.message = ex.Message + ex.InnerException.Message;
             }
 
-            
+
             input.Person = new PersonDto(persons.FirstOrDefault(p => (p.FirstName == input.FirstName) &&
                                                         (p.LastName == input.LastName)));
 
@@ -213,7 +213,7 @@ namespace PcdWeb.Controllers
             var user = new GetUserByUsernameOutput();
             try
             {
-                user = _userAppService.GetUserByUsername(new GetUserByUsernameInput() {Email = input.EmailAddress});
+                user = _userAppService.GetUserByUsername(new GetUserByUsernameInput() { Email = input.EmailAddress });
             }
             catch (Exception ex)
             {
@@ -222,9 +222,9 @@ namespace PcdWeb.Controllers
             }
 
             if (user.User != null)
-                output.message = "Email already registered";                      
+                output.message = "Email already registered";
 
-            if(output.message != null)
+            if (output.message != null)
                 return Ok(output);
 
             //Find persons if no users exist with current email
@@ -245,6 +245,7 @@ namespace PcdWeb.Controllers
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [System.Web.Http.Route("GetUserInfo")]
         [ValidateAntiForgeryToken]
+        [System.Web.Http.Authorize]
         public IHttpActionResult GetUserInfo(GetPersonsByEmailInput input)
         {
             if (!ModelState.IsValid)
@@ -272,7 +273,7 @@ namespace PcdWeb.Controllers
                 output.Message = "The server is down, wait an hour or two and if the problem persists call us";
                 //output.Message = ex.Message + ex.InnerException.Message;
                 return Ok(output.Message);
-            }         
+            }
 
             if (person != null)
             {
@@ -317,16 +318,16 @@ namespace PcdWeb.Controllers
                 case SignInStatus.LockedOut:
                     return BadRequest("lockout");
                 case SignInStatus.RequiresVerification:
-                {
-                    await _userAppService.SendConfirmation(new SendConfirmationInput() { EmailAddress = loginModel.UserName });
-                    return BadRequest("Email not confirmed. We sent a new code to your email address");
-                }
+                    {
+                        await _userAppService.SendConfirmation(new SendConfirmationInput() { EmailAddress = loginModel.UserName });
+                        return BadRequest("Email not confirmed. We sent a new code to your email address");
+                    }
                 case SignInStatus.Failure:
                     return BadRequest("Invalid email address or password");
                 default:
                     return BadRequest("Invalid login attempt");
             }
-            
+
         }
 
         [System.Web.Http.AllowAnonymous]
@@ -334,7 +335,7 @@ namespace PcdWeb.Controllers
         [System.Web.Http.Route("LoginTimeout")]
         public IHttpActionResult LoginTimeout(string ReturnUrl)
         {
-            var output = new AddItemApiOutput() {Message = "Session Timed Out"};
+            var output = new AddItemApiOutput() { Message = "Session Timed Out" };
             return Ok(output);
         }
 
@@ -346,12 +347,12 @@ namespace PcdWeb.Controllers
         public virtual async Task<IHttpActionResult> RecoverPassword(SendPasswordResetLinkInput input)
         {
             var result = await _userAppService.SendPasswordResetLink(input);
-            if(!result.Result)
+            if (!result.Result)
                 return Ok("success");
             else
                 return
                     BadRequest("Could not send new password to the specified email. Please contact Play Create Discover");
-            
+
         }
 
         // GET: /Account/ResetPassword
@@ -363,7 +364,7 @@ namespace PcdWeb.Controllers
         {
             //Check code and if successful set reset code to resetConfirmed        
             var result =
-                _userAppService.VerifyResetCode(new VerifyResetCodeInput() {UserId = userId, ResetCode = resetCode});
+                _userAppService.VerifyResetCode(new VerifyResetCodeInput() { UserId = userId, ResetCode = resetCode });
 
             if (!result.Result) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
@@ -372,7 +373,7 @@ namespace PcdWeb.Controllers
             response.Headers.Location = new Uri("http://test.playcreatediscover.com/#/resetPassword");
             return resetCode == null ? Request.CreateResponse(HttpStatusCode.BadRequest) : response;
         }
-       
+
         // POST: /Account/ResetPassword
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpPost]
@@ -391,7 +392,7 @@ namespace PcdWeb.Controllers
                     Password = input.Password,
                     Email = input.EmailAddress
                 });
-            
+
             if (result.Result)
             {
                 return Ok("success");
@@ -405,7 +406,7 @@ namespace PcdWeb.Controllers
         [ValidateAntiForgeryToken]
         [System.Web.Http.Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordInput input)
-        {   
+        {
             try
             {
                 await _userAppService.ChangePassword(input);
@@ -431,7 +432,7 @@ namespace PcdWeb.Controllers
             try
             {
                 persons = GetPersonsFromEmail(new GetPersonsByEmailInput() { EmailAddress = input.NewEmail });
-                var userDto = _userAppService.GetUserByUsername(new GetUserByUsernameInput() {Email = input.NewEmail}).User;
+                var userDto = _userAppService.GetUserByUsername(new GetUserByUsernameInput() { Email = input.NewEmail }).User;
                 user = userDto != null ? userDto.ConvertToUser() : null;
             }
             catch (Exception ex)
@@ -454,7 +455,7 @@ namespace PcdWeb.Controllers
             using (var repo = new PersonRepository())
             {
                 var app = new PersonAppService(repo);
-                
+
                 //Change email address and update person
                 person.EmailAddresses.FirstOrDefault().EmailAddress = input.NewEmail;
                 try
@@ -505,7 +506,7 @@ namespace PcdWeb.Controllers
             try
             {
                 //Find persons person with current email
-                List<Person> persons = GetPersonsFromEmail(new GetPersonsByEmailInput() {EmailAddress = input.EmailAddress});
+                List<Person> persons = GetPersonsFromEmail(new GetPersonsByEmailInput() { EmailAddress = input.EmailAddress });
                 person = persons.FirstOrDefault();
             }
             catch (Exception ex)
@@ -538,7 +539,7 @@ namespace PcdWeb.Controllers
             using (var repo = new PersonRepository())
             {
                 var app = new PersonAppService(repo);
-                
+
                 //update person
                 person.EmailAddresses.FirstOrDefault().EmailAddress = input.EmailAddress;
                 if (person.MailingAddresses.FirstOrDefault() != null)
@@ -569,7 +570,7 @@ namespace PcdWeb.Controllers
 
                 try
                 {
-                    app.UpdatePerson(new UpdatePersonInput() {PersonDto = new PersonDto(person)});
+                    app.UpdatePerson(new UpdatePersonInput() { PersonDto = new PersonDto(person) });
                     result = true;
                 }
                 catch (Exception ex)
@@ -761,7 +762,7 @@ namespace PcdWeb.Controllers
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {
             List<string> errors = new List<string>();
-            
+
             if (result == null)
             {
                 return InternalServerError();

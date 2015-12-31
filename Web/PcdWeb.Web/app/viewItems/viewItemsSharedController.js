@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('viewItemsSharedController', ['authService', 'itemsService', function (authService, itemsService) {
+app.controller('viewItemsSharedController', ['authService', 'itemsService', '$location', '$timeout', function (authService, itemsService, $location, $timeout) {
 
     var self = this;
     self.currentUser = authService.authentication.userName;
@@ -48,13 +48,13 @@ app.controller('viewItemsSharedController', ['authService', 'itemsService', func
         self.endOpened = true;
     };
 
-    self.searchItems = function() {
+    self.searchItems = function () {
         //Start busy signal
         self.searchBusy = false;
         itemsService.setItemsSearching = true;
 
         //execute search
-        itemsService.searchItems(self.searchItemInfo).then(function(results) {
+        itemsService.searchItems(self.searchItemInfo).then(function (results) {
             //Turn off busy signal
             self.searchBusy = true;
 
@@ -63,20 +63,25 @@ app.controller('viewItemsSharedController', ['authService', 'itemsService', func
             itemsService.setItemsSearching = false;
 
         }, function (error) {
-            self.searchBusy = true;
+            self.searchBusy = false;
+            if (error === "Authorization has been denied for this request.") {
+                self.message = "Session Timed Out";
+                authService.logOut();
+                self.startTimer();
+            }
             //alert(error.data.message);
         });
-            
+
     };
 
-    self.changeDiscount = function() {
+    self.changeDiscount = function () {
         if (self.itemInfo.discounted === "isDiscounted")
             self.discountMessage = "Price will drop 10% for every month it remains on the shelf - up to 50% after 5 months";
         else
             self.discountMessage = "The item will be marked 'ND' and the price will remain the same";
     };
 
-    
+
     self.changedCondition = function () {
         if (self.itemInfo.condition === "New")
             self.conditionMessage = "Just like it sounds. A brand-new, unused, unopened item in its original packaging, with all original packaging materials included. Original protective wrapping, if any, is intact.";
@@ -93,60 +98,26 @@ app.controller('viewItemsSharedController', ['authService', 'itemsService', func
         }
     };
 
-    self.addItem = function(itemInfo) {
-
-        self.saveBusy = false;
-
-        itemsService.addItem(self.itemInfo).then(function (results) {
-
-            self.saveBusy = true;
-            if (results.data.message === "success") {
-                self.savedSuccessfully = true;
-                self.message = "Item successfully added";
-                var barcodeItem =
-                    {
-                        subject: self.itemInfo.subject,
-                        price: self.itemInfo.price,
-                        title: self.itemInfo.title,
-                        discounted: self.itemInfo.discounted === "isDiscounted",
-                        barcode: results.data.barcode,
-                        dateAdded: results.data.dateAdded
-                    };
-                itemsService.addItemsList(barcodeItem);
-                //Reset values
-                self.itemInfo.itemType = "";
-                self.itemInfo.subject = "";
-                self.itemInfo.title = "";
-                self.itemInfo.videoFormat = "";
-                self.itemInfo.isbn = "";
-                self.itemInfo.price = "";
-                self.itemInfo.discounted = "isDiscounted";
-            } else {
-                self.message = results.data.message;
-                if (results.data.message === "Session Timed Out") {
-                    authService.logoff();
-                    startTimer();
-                }
-                self.savedSuccessfully = false;
-            }
-
-        }, function (error) {
-            //alert(error.data.message);
-        });
-    };
 
     var startTimer = function () {
         var timer = $timeout(function () {
             $timeout.cancel(timer);
             $location.path('/login');
-        }, 3000);
+        }, 2000);
     }
 
+
     var init = function () {
-        itemsService.searchItems(self.searchItemInfo).then(function(results) {
+        itemsService.searchItems(self.searchItemInfo).then(function (results) {
+            self.searchBusy = false;
+            if (results.data.message === "Session Timed Out") {
+                self.message = "Session Timed Out";
+                authService.logOut();
+                startTimer();
+            }
             itemsService.setViewItemsList(results.data.items);
             itemsService.setItemsSearching(false);
-            
+
         });
         itemsService.searchTransactions(self.searchTransactionInfo).then(function (results) {
             itemsService.setViewTransactionsList(results.data.transactions);
