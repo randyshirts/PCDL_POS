@@ -346,13 +346,19 @@ namespace PcdWeb.Controllers
         [ValidateAntiForgeryToken]
         public virtual async Task<IHttpActionResult> RecoverPassword(SendPasswordResetLinkInput input)
         {
-            var result = await _userAppService.SendPasswordResetLink(input);
-            if (!result.Result)
-                return Ok("success");
-            else
-                return
-                    BadRequest("Could not send new password to the specified email. Please contact Play Create Discover");
-
+            try
+            {
+                var result = await _userAppService.SendPasswordResetLink(input);
+                if (!result.Result)
+                    return Ok("success");
+                else
+                    return
+                        Ok("Could not send new password to the specified email. Please contact Play Create Discover");
+            }
+            catch (Exception ex)
+            {
+                return Ok(ex.Message);
+            }
         }
 
         // GET: /Account/ResetPassword
