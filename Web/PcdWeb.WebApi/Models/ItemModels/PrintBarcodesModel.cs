@@ -13,7 +13,7 @@ namespace PcdWeb.Models.ItemModels
         public string Barcode { get; set; }
         public string Title { get; set; }
         public bool Print { get; set; }
-        public double OriginalPrice { get; set; }
+        public double Price { get; set; }
         public string Subject { get; set; }
         public bool Discounted { get; set; }
         public string DateAdded { get; set; }
@@ -27,7 +27,7 @@ namespace PcdWeb.Models.ItemModels
                 DateListed = DateTime.Parse(model.DateAdded),
                 IsDiscountable = model.Discounted,
                 IsPrintBarcode = model.Print,
-                PriceListed = model.OriginalPrice,
+                PriceListed = model.Price,
                 Subject = model.Subject,
                 Title = model.Title
             }).ToList();
