@@ -4,12 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using Abp.Modules.Core.Mvc.Models;
 using Abp.UI;
 using DataModel.Data.ApplicationLayer.DTO;
@@ -21,8 +19,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Linq;
-using PcdWeb.Logging;
-using PcdWeb.Models;
 using PcdWeb.Models.AccountModels;
 using PcdWeb.Models.ItemModels;
 
@@ -63,8 +59,8 @@ namespace PcdWeb.Controllers
                 return Ok("Invalid input");
             }
 
-            if (input.FirstName.Contains(" ")) { input.FirstName.Replace(" ", String.Empty); }
-            if (input.LastName.Contains(" ")) { input.LastName.Replace(" ", String.Empty); }
+            if (input.FirstName.Contains(" ")) { input.FirstName = input.FirstName.Replace(" ", String.Empty); }
+            if (input.LastName.Contains(" ")) { input.LastName = input.LastName.Replace(" ", String.Empty); }
             //ApiLog.Instance.Trace("Register account controller valid");
 
             //define output
@@ -84,8 +80,6 @@ namespace PcdWeb.Controllers
             //    throw new UserFriendlyException("Incorrect captcha answer.");
             //} 
 
-            //Todo: var cts = new CancellationTokenSource(); //send cancellation token to RegisterUser instead of "await Task.FromResult(0);" use cancel token 
-            //http://jeremybytes.blogspot.com/2015/01/task-and-await-basic-cancellation.html
             var result = await _userAppService.RegisterUser(input);
             //if (result == null) return BadRequest("Registration Failed - Try Again");
 
@@ -333,7 +327,7 @@ namespace PcdWeb.Controllers
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("LoginTimeout")]
-        public IHttpActionResult LoginTimeout(string ReturnUrl)
+        public IHttpActionResult LoginTimeout(string returnUrl)
         {
             var output = new AddItemApiOutput() { Message = "Session Timed Out" };
             return Ok(output);
@@ -366,11 +360,11 @@ namespace PcdWeb.Controllers
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [System.Web.Http.Route("ResetPassword")]
         [ValidateAntiForgeryToken]
-        public HttpResponseMessage ResetPassword(string userId, string resetCode)
+        public async Task<HttpResponseMessage> ResetPassword(string userId, string resetCode)
         {
             //Check code and if successful set reset code to resetConfirmed        
             var result =
-                _userAppService.VerifyResetCode(new VerifyResetCodeInput() { UserId = userId, ResetCode = resetCode });
+                await _userAppService.VerifyResetCode(new VerifyResetCodeInput() { UserId = userId, ResetCode = resetCode });
 
             if (!result.Result) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
@@ -505,8 +499,8 @@ namespace PcdWeb.Controllers
                 return Ok("Invalid input");
             }
 
-            if (input.FirstName.Contains(" ")) { input.FirstName.Replace(" ", String.Empty); }
-            if (input.LastName.Contains(" ")) { input.LastName.Replace(" ", String.Empty); }
+            if (input.FirstName.Contains(" ")) { input.FirstName = input.FirstName.Replace(" ", String.Empty); }
+            if (input.LastName.Contains(" ")) { input.LastName = input.LastName.Replace(" ", String.Empty); }
 
             Person person;
             try
@@ -581,14 +575,12 @@ namespace PcdWeb.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return Ok(ex.Message);
+                    return Ok("Error updating record");
+                    //return Ok(ex.Message);       ////For Debug
                 }
             }
 
-            if (result)
                 return Ok("success");
-
-            return Ok("Error updating record");
 
         }
 
@@ -765,101 +757,101 @@ namespace PcdWeb.Controllers
 
         #region Helpers
 
-        private IHttpActionResult GetErrorResult(IdentityResult result)
-        {
-            List<string> errors = new List<string>();
+        //private IHttpActionResult GetErrorResult(IdentityResult result)
+        //{
+        //    List<string> errors = new List<string>();
 
-            if (result == null)
-            {
-                return InternalServerError();
-            }
+        //    if (result == null)
+        //    {
+        //        return InternalServerError();
+        //    }
 
-            //if (!result.Succeeded)
-            //{
-            //    if (result.Errors != null)
-            //    {
-            //        int count = 0;
-            //        foreach (string error in result.Errors)
-            //        {
-            //            ModelState.AddModelError(count.ToString(), error);
-            //            errors.Add(error);
-            //            count++;
-            //        }
-            //    }
+        //    //if (!result.Succeeded)
+        //    //{
+        //    //    if (result.Errors != null)
+        //    //    {
+        //    //        int count = 0;
+        //    //        foreach (string error in result.Errors)
+        //    //        {
+        //    //            ModelState.AddModelError(count.ToString(), error);
+        //    //            errors.Add(error);
+        //    //            count++;
+        //    //        }
+        //    //    }
 
-            //    if (ModelState.IsValid)
-            //    {
-            //        // No ModelState errors are available to send, so just return an empty BadRequest.
-            //        return BadRequest();
-            //    }
+        //    //    if (ModelState.IsValid)
+        //    //    {
+        //    //        // No ModelState errors are available to send, so just return an empty BadRequest.
+        //    //        return BadRequest();
+        //    //    }
 
 
-            //    return BadRequest(ModelState);
-            //}
+        //    //    return BadRequest(ModelState);
+        //    //}
 
-            if (result.Errors != null)
-            {
-                return BadRequest(result.Errors.FirstOrDefault());
-            }
-            return null;
-        }
+        //    if (result.Errors != null)
+        //    {
+        //        return BadRequest(result.Errors.FirstOrDefault());
+        //    }
+        //    return null;
+        //}
 
-        private string ValidateClientAndRedirectUri(HttpRequestMessage request, ref string redirectUriOutput)
-        {
+        //private string ValidateClientAndRedirectUri(HttpRequestMessage request, ref string redirectUriOutput)
+        //{
 
-            Uri redirectUri;
+        //    Uri redirectUri;
 
-            var redirectUriString = GetQueryString(Request, "redirect_uri");
+        //    var redirectUriString = GetQueryString(Request, "redirect_uri");
 
-            if (string.IsNullOrWhiteSpace(redirectUriString))
-            {
-                return "redirect_uri is required";
-            }
+        //    if (string.IsNullOrWhiteSpace(redirectUriString))
+        //    {
+        //        return "redirect_uri is required";
+        //    }
 
-            bool validUri = Uri.TryCreate(redirectUriString, UriKind.Absolute, out redirectUri);
+        //    bool validUri = Uri.TryCreate(redirectUriString, UriKind.Absolute, out redirectUri);
 
-            if (!validUri)
-            {
-                return "redirect_uri is invalid";
-            }
+        //    if (!validUri)
+        //    {
+        //        return "redirect_uri is invalid";
+        //    }
 
-            var clientId = GetQueryString(Request, "client_id");
+        //    var clientId = GetQueryString(Request, "client_id");
 
-            if (string.IsNullOrWhiteSpace(clientId))
-            {
-                return "client_Id is required";
-            }
+        //    if (string.IsNullOrWhiteSpace(clientId))
+        //    {
+        //        return "client_Id is required";
+        //    }
 
-            var client = _userAppService.GetUser(new GetUserInput() { UserId = clientId }).User.ConvertToUser();
+        //    var client = _userAppService.GetUser(new GetUserInput() { UserId = clientId }).User.ConvertToUser();
 
-            if (client == null)
-            {
-                return string.Format("Client_id '{0}' is not registered in the system.", clientId);
-            }
+        //    if (client == null)
+        //    {
+        //        return string.Format("Client_id '{0}' is not registered in the system.", clientId);
+        //    }
 
-            //if (!string.Equals(client.AllowedOrigin, redirectUri.GetLeftPart(UriPartial.Authority), StringComparison.OrdinalIgnoreCase))
-            //{
-            //    return string.Format("The given URL is not allowed by Client_id '{0}' configuration.", clientId);
-            //}
+        //    //if (!string.Equals(client.AllowedOrigin, redirectUri.GetLeftPart(UriPartial.Authority), StringComparison.OrdinalIgnoreCase))
+        //    //{
+        //    //    return string.Format("The given URL is not allowed by Client_id '{0}' configuration.", clientId);
+        //    //}
 
-            redirectUriOutput = redirectUri.AbsoluteUri;
+        //    redirectUriOutput = redirectUri.AbsoluteUri;
 
-            return string.Empty;
+        //    return string.Empty;
 
-        }
+        //}
 
-        private string GetQueryString(HttpRequestMessage request, string key)
-        {
-            var queryStrings = request.GetQueryNameValuePairs();
+        //private string GetQueryString(HttpRequestMessage request, string key)
+        //{
+        //    var queryStrings = request.GetQueryNameValuePairs();
 
-            if (queryStrings == null) return null;
+        //    if (queryStrings == null) return null;
 
-            var match = queryStrings.FirstOrDefault(keyValue => string.Compare(keyValue.Key, key, true) == 0);
+        //    var match = queryStrings.FirstOrDefault(keyValue => string.Compare(keyValue.Key, key, true) == 0);
 
-            if (string.IsNullOrEmpty(match.Value)) return null;
+        //    if (string.IsNullOrEmpty(match.Value)) return null;
 
-            return match.Value;
-        }
+        //    return match.Value;
+        //}
 
         private List<Person> GetPersonsFromEmail(GetPersonsByEmailInput input)
         {
@@ -871,134 +863,134 @@ namespace PcdWeb.Controllers
             }
         }
 
-        private async Task<ParsedExternalAccessToken> VerifyExternalAccessToken(string provider, string accessToken)
-        {
-            ParsedExternalAccessToken parsedToken = null;
+        //private async Task<ParsedExternalAccessToken> VerifyExternalAccessToken(string provider, string accessToken)
+        //{
+        //    ParsedExternalAccessToken parsedToken = null;
 
-            var verifyTokenEndPoint = "";
+        //    var verifyTokenEndPoint = "";
 
-            if (provider == "Facebook")
-            {
-                //You can get it from here: https://developers.facebook.com/tools/accesstoken/
-                //More about debug_tokn here: http://stackoverflow.com/questions/16641083/how-does-one-get-the-app-access-token-for-debug-token-inspection-on-facebook
-                var appToken = "xxxxxx";
-                verifyTokenEndPoint = string.Format("https://graph.facebook.com/debug_token?input_token={0}&access_token={1}", accessToken, appToken);
-            }
-            else if (provider == "Google")
-            {
-                verifyTokenEndPoint = string.Format("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token={0}", accessToken);
-            }
-            else
-            {
-                return null;
-            }
+        //    if (provider == "Facebook")
+        //    {
+        //        //You can get it from here: https://developers.facebook.com/tools/accesstoken/
+        //        //More about debug_tokn here: http://stackoverflow.com/questions/16641083/how-does-one-get-the-app-access-token-for-debug-token-inspection-on-facebook
+        //        var appToken = "xxxxxx";
+        //        verifyTokenEndPoint = string.Format("https://graph.facebook.com/debug_token?input_token={0}&access_token={1}", accessToken, appToken);
+        //    }
+        //    else if (provider == "Google")
+        //    {
+        //        verifyTokenEndPoint = string.Format("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token={0}", accessToken);
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
 
-            var client = new HttpClient();
-            var uri = new Uri(verifyTokenEndPoint);
-            var response = await client.GetAsync(uri);
+        //    var client = new HttpClient();
+        //    var uri = new Uri(verifyTokenEndPoint);
+        //    var response = await client.GetAsync(uri);
 
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var content = await response.Content.ReadAsStringAsync();
 
-                dynamic jObj = (JObject)Newtonsoft.Json.JsonConvert.DeserializeObject(content);
+        //        dynamic jObj = (JObject)Newtonsoft.Json.JsonConvert.DeserializeObject(content);
 
-                parsedToken = new ParsedExternalAccessToken();
+        //        parsedToken = new ParsedExternalAccessToken();
 
-                //if (provider == "Facebook")
-                //{
-                //    parsedToken.user_id = jObj["data"]["user_id"];
-                //    parsedToken.app_id = jObj["data"]["app_id"];
+        //        //if (provider == "Facebook")
+        //        //{
+        //        //    parsedToken.user_id = jObj["data"]["user_id"];
+        //        //    parsedToken.app_id = jObj["data"]["app_id"];
 
-                //    if (!string.Equals(Startup.facebookAuthOptions.AppId, parsedToken.app_id, StringComparison.OrdinalIgnoreCase))
-                //    {
-                //        return null;
-                //    }
-                //}
-                //else if (provider == "Google")
-                //{
-                //    parsedToken.user_id = jObj["user_id"];
-                //    parsedToken.app_id = jObj["audience"];
+        //        //    if (!string.Equals(Startup.facebookAuthOptions.AppId, parsedToken.app_id, StringComparison.OrdinalIgnoreCase))
+        //        //    {
+        //        //        return null;
+        //        //    }
+        //        //}
+        //        //else if (provider == "Google")
+        //        //{
+        //        //    parsedToken.user_id = jObj["user_id"];
+        //        //    parsedToken.app_id = jObj["audience"];
 
-                //    if (!string.Equals(Startup.googleAuthOptions.ClientId, parsedToken.app_id, StringComparison.OrdinalIgnoreCase))
-                //    {
-                //        return null;
-                //    }
+        //        //    if (!string.Equals(Startup.googleAuthOptions.ClientId, parsedToken.app_id, StringComparison.OrdinalIgnoreCase))
+        //        //    {
+        //        //        return null;
+        //        //    }
 
-                //}
+        //        //}
 
-            }
+        //    }
 
-            return parsedToken;
-        }
+        //    return parsedToken;
+        //}
 
-        private JObject GenerateLocalAccessTokenResponse(string userName)
-        {
+        //private JObject GenerateLocalAccessTokenResponse(string userName)
+        //{
 
-            var tokenExpiration = TimeSpan.FromDays(1);
+        //    var tokenExpiration = TimeSpan.FromDays(1);
 
-            ClaimsIdentity identity = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
+        //    ClaimsIdentity identity = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
 
-            identity.AddClaim(new Claim(ClaimTypes.Name, userName));
-            identity.AddClaim(new Claim("role", "user"));
+        //    identity.AddClaim(new Claim(ClaimTypes.Name, userName));
+        //    identity.AddClaim(new Claim("role", "user"));
 
-            var props = new AuthenticationProperties()
-            {
-                IssuedUtc = DateTime.UtcNow,
-                ExpiresUtc = DateTime.UtcNow.Add(tokenExpiration),
-            };
+        //    var props = new AuthenticationProperties()
+        //    {
+        //        IssuedUtc = DateTime.UtcNow,
+        //        ExpiresUtc = DateTime.UtcNow.Add(tokenExpiration),
+        //    };
 
-            var ticket = new AuthenticationTicket(identity, props);
+        //    var ticket = new AuthenticationTicket(identity, props);
 
-            var accessToken = ApiStartup.OAuthBearerOptions.AccessTokenFormat.Protect(ticket);
+        //    var accessToken = ApiStartup.OAuthBearerOptions.AccessTokenFormat.Protect(ticket);
 
-            JObject tokenResponse = new JObject(
-                                        new JProperty("userName", userName),
-                                        new JProperty("access_token", accessToken),
-                                        new JProperty("token_type", "bearer"),
-                                        new JProperty("expires_in", tokenExpiration.TotalSeconds.ToString()),
-                                        new JProperty(".issued", ticket.Properties.IssuedUtc.ToString()),
-                                        new JProperty(".expires", ticket.Properties.ExpiresUtc.ToString())
-        );
+        //    JObject tokenResponse = new JObject(
+        //                                new JProperty("userName", userName),
+        //                                new JProperty("access_token", accessToken),
+        //                                new JProperty("token_type", "bearer"),
+        //                                new JProperty("expires_in", tokenExpiration.TotalSeconds.ToString()),
+        //                                new JProperty(".issued", ticket.Properties.IssuedUtc.ToString()),
+        //                                new JProperty(".expires", ticket.Properties.ExpiresUtc.ToString())
+        //);
 
-            return tokenResponse;
-        }
+        //    return tokenResponse;
+        //}
 
-        private class ExternalLoginData
-        {
-            public string LoginProvider { get; set; }
-            public string ProviderKey { get; set; }
-            public string UserName { get; set; }
-            public string ExternalAccessToken { get; set; }
+        //private class ExternalLoginData
+        //{
+        //    public string LoginProvider { get; set; }
+        //    public string ProviderKey { get; set; }
+        //    public string UserName { get; set; }
+        //    public string ExternalAccessToken { get; set; }
 
-            public static ExternalLoginData FromIdentity(ClaimsIdentity identity)
-            {
-                if (identity == null)
-                {
-                    return null;
-                }
+        //    public static ExternalLoginData FromIdentity(ClaimsIdentity identity)
+        //    {
+        //        if (identity == null)
+        //        {
+        //            return null;
+        //        }
 
-                Claim providerKeyClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
+        //        Claim providerKeyClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
 
-                if (providerKeyClaim == null || String.IsNullOrEmpty(providerKeyClaim.Issuer) || String.IsNullOrEmpty(providerKeyClaim.Value))
-                {
-                    return null;
-                }
+        //        if (providerKeyClaim == null || String.IsNullOrEmpty(providerKeyClaim.Issuer) || String.IsNullOrEmpty(providerKeyClaim.Value))
+        //        {
+        //            return null;
+        //        }
 
-                if (providerKeyClaim.Issuer == ClaimsIdentity.DefaultIssuer)
-                {
-                    return null;
-                }
+        //        if (providerKeyClaim.Issuer == ClaimsIdentity.DefaultIssuer)
+        //        {
+        //            return null;
+        //        }
 
-                return new ExternalLoginData
-                {
-                    LoginProvider = providerKeyClaim.Issuer,
-                    ProviderKey = providerKeyClaim.Value,
-                    UserName = identity.FindFirstValue(ClaimTypes.Name),
-                    ExternalAccessToken = identity.FindFirstValue("ExternalAccessToken"),
-                };
-            }
-        }
+        //        return new ExternalLoginData
+        //        {
+        //            LoginProvider = providerKeyClaim.Issuer,
+        //            ProviderKey = providerKeyClaim.Value,
+        //            UserName = identity.FindFirstValue(ClaimTypes.Name),
+        //            ExternalAccessToken = identity.FindFirstValue("ExternalAccessToken"),
+        //        };
+        //    }
+        //}
 
         #endregion
     }
