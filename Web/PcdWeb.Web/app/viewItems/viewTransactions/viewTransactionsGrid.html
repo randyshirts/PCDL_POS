@@ -1,40 +1,44 @@
 ﻿<div ng-controller="viewTransactionsGridController as grid" ng-show="grid.viewTransactionsCollection.length">
     <h2 class="text-center">Checks Received and Store Credit Purchases</h2>
-    <table st-table="grid.displayed" st-safe-src="grid.viewTransactionsCollection" class="table table-striped" fixed-header>
-        <thead>
-            <tr>
-               <th>Date Added</th>
-               <th>Type</th>
-               <th>Amount</th>
-            </tr>
-            <!--<tr>
-                <th>
-                    <input st-search="'Title'" placeholder="Search by Title" class="input-sm form-control" type="search" />
-                </th>
-            </tr>-->
-        </thead>
-        <tbody>
-            <tr ng-repeat="row in grid.displayed">
-                <td>{{row.transactionDate | date}}</td>
-                <td>{{row.transactionType}}</td>
-                <td>{{row.amount | currency}}</td>
-            </tr>
-        </tbody>
-        <!--<tfoot>
-            <tr>
-                <td colspan="5" class="text-center">
-                    <div st-pagination="" st-items-by-page="15" st-displayed-pages="5"></div>
-                </td>
-            </tr>
-        </tfoot>-->
-    </table>
+    <div class="container-outer" height="400">
+        <div class="container-inner">
+            <table st-table="grid.displayed" st-safe-src="grid.viewTransactionsCollection" class="table table-striped" fixed-header>
+                <thead>
+                    <tr>
+                        <th>Date Added</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                    </tr>
+                    <!--<tr>
+                        <th>
+                            <input st-search="'Title'" placeholder="Search by Title" class="input-sm form-control" type="search"/>
+                        </th>
+                    </tr>-->
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in grid.displayed">
+                        <td>{{row.transactionDate | date}}</td>
+                        <td>{{row.transactionType}}</td>
+                        <td>{{row.amount | currency}}</td>
+                    </tr>
+                </tbody>
+                <!--<tfoot>
+                <tr>
+                    <td colspan="5" class="text-center">
+                        <div st-pagination="" st-items-by-page="15" st-displayed-pages="5"></div>
+                    </td>
+                </tr>
+                </tfoot>-->
+            </table>
+        </div>
+    </div>
 </div>
 
 <div ng-controller="viewTransactionsGridController as grid" ng-show="!grid.viewTransactionsCollection.length && !grid.isSearching.val">
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+    <br />
+    <br />
+    <br />
+    <br />
     <h1 align="center">No consignor payments found</h1>
 </div>
 
