@@ -62,4 +62,9 @@ body {
 
     .container-inner { width: 1000px; }
 
+    img {
+        width: 100%;
+        height: 100%;
+}
+
 
