@@ -58,3 +58,8 @@ body {
         border-top-right-radius: 0;
     }
 
+    .container-outer { overflow: scroll; height: 600px; }
+
+    .container-inner { width: 1000px; }
+
+

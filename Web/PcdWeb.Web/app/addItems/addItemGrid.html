@@ -1,29 +1,33 @@
 ﻿<div ng-controller="addItemGridController as grid" ng-show="grid.itemsCollection.length">
     <h2 class="form-login-heading">Recently Added Items</h2>
-    <table st-table="itemsCollection" class="table table-striped">
-        <thead>
-        <tr>
-            <th>Print</th>
-            <th>Title</th>
-            <th>Barcode</th>
-            <th>Type</th>
-            <th>Date Added</th>
-            <th>Price</th>
-            <th>Discount</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="row in grid.itemsCollection">
-            <td> <input type="checkbox" ng-model="row.print" ng-init="row.print=true"></td>
-            <td>{{row.title}}</td>
-            <td>{{row.barcode}}</td>
-            <td>{{row.subject}}</td>
-            <td>{{row.dateAdded | date}}</td>
-            <td>{{row.price | currency}}</td>
-            <td>{{row.discounted | true_false}}</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="container-outer">
+        <div class="container-inner">
+            <table st-table="itemsCollection" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Print</th>
+                        <th>Title</th>
+                        <th>Barcode</th>
+                        <th>Type</th>
+                        <th>Date Added</th>
+                        <th>Price</th>
+                        <th>Discount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in grid.itemsCollection">
+                        <td> <input type="checkbox" ng-model="row.print" ng-init="row.print=true"></td>
+                        <td>{{row.title}}</td>
+                        <td>{{row.barcode}}</td>
+                        <td>{{row.subject}}</td>
+                        <td>{{row.dateAdded | date}}</td>
+                        <td>{{row.price | currency}}</td>
+                        <td>{{row.discounted | true_false}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
     <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="grid.printBarcodes()">
         <span ng-hide="grid.saveBusy"><i class="fa fa-refresh fa-spin"></i> Please wait...</span>
         <span ng-show="grid.saveBusy">Print Barcodes</span>
@@ -32,24 +36,31 @@
         {{grid.message}}
     </div>-->
     <div>
-        <br/>
-        <br/>
+        <br />
+        <br />
         <h2>Notes on Printing Barcodes</h2>
-        <p>You must have a <a target="_blank" href="http://get.adobe.com/reader/">PDF reader</a> installed.
+        <p>
+            You must have a <a target="_blank" href="http://get.adobe.com/reader/">PDF reader</a> installed.
         </p>
-        <p>Pop-ups must be enabled in your browser to view and print barcodes</p>
-        <p>Once the pdf appears in your pdf viewer - print the document, or save the pdf to print later.</p>
-        <p>Barcodes may be printed on regular paper.</p>
-        <p>If you close this tab and logout this page will no longer show your added items.
-            To print barcodes which were added but are not displayed please contact
-            playcreatedisver@gmail.com or come to the center at 1200 Jordan Ln. St. 8, Huntsville, AL </p>
+        <p>The barcodes will be delivered in a PDF document called "barcodes.pdf"</p>
+        <p>Once the pdf is saved on your computer or device, open and print the barcodes.</p>
+        <p>Barcodes may be printed on regular printer paper.</p>
+        <p>
+            If you close this tab and logout this page will no longer show your added items.
+            To print barcodes which were added but are not displayed go to the 'View Items' tab,
+            select the items to print, and press 'Print Barcodes. If you continue to experience problems
+            please contact playcreatedisver@gmail.com or come to the center
+            at 1200 Jordan Ln. St. 8, Huntsville, AL
+        </p>
     </div>
 
     <div>
         <h2>Barcode Placement</h2>
         <p>Please leave part of the barcode un-taped. We need to be able to scan the barcode.</p>
-        <p>If possible place the 'Title', 'Date', and 'Subject' on the back of the binding to make it easier for customers to see
-            your item. </p>
+        <p>
+            If possible place the 'Title', 'Date', and 'Subject' on the back of the binding to make it easier for customers to see
+            your item.
+        </p>
         <img src="../../Images/print/20150416_075516_small.png" style="width: 300px; height: 200px" />
         <img src="../../Images/print/3-DSCF4303_small.png" style="width: 300px; height: 200px" />
         <p>If it is not possible to place it on the binding. Then place the barcode on the front cover in the top left-hand corner.</p>
