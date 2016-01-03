@@ -108,8 +108,12 @@ app.controller('viewItemsSharedController', ['authService', 'itemsService', '$lo
 
 
     var init = function () {
+
+        itemsService.setItemsSearching = true;
+        self.searchBusy = true;
+
         itemsService.searchItems(self.searchItemInfo).then(function (results) {
-            self.searchBusy = false;
+            itemsService.setItemsSearching = false;
             if (results.data.message === "Session Timed Out") {
                 self.message = "Session Timed Out";
                 authService.logOut();
