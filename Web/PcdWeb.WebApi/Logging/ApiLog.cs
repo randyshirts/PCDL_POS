@@ -1,4 +1,5 @@
-﻿using NLog;
+﻿using Castle.MicroKernel.Registration;
+using NLog;
 using NLog.Config;
 using NLog.Targets;
 

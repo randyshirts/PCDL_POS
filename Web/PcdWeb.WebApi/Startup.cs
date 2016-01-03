@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.Http;
+using Castle.Windsor;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
