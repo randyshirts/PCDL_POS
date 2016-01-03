@@ -10,6 +10,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PcdWeb.WebApi", "Web\PcdWeb.WebApi\PcdWeb.WebApi.csproj", "{5EB52D3D-09FD-463A-B02A-8D9856BD3724}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PcdWeb.Web", "Web\PcdWeb.Web\PcdWeb.Web.csproj", "{E3DBB7F7-406D-4AE6-AD0A-59BF69DF536F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5EB52D3D-09FD-463A-B02A-8D9856BD3724} = {5EB52D3D-09FD-463A-B02A-8D9856BD3724}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
