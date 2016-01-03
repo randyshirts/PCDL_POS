@@ -101,9 +101,9 @@ namespace DataModel.Data.ApplicationLayer.Services
             return new GetUserOutput() { User = new UserDto(user) };
         }
 
-        public UpdateUserOutput UpdateUser(UpdateUserInput input)
+        public async Task<UpdateUserOutput> UpdateUser(UpdateUserInput input)
         {
-            var original = UserManager.FindByNameAsync(input.CurrentEmail).Result;
+            var original = await UserManager.FindByNameAsync(input.CurrentEmail);
 
             //Only update phonenumber and email for now
             original.PhoneNumber = input.PhoneNumber;
@@ -113,7 +113,7 @@ namespace DataModel.Data.ApplicationLayer.Services
                 original.Email = input.NewEmail;
                 original.UserName = input.NewEmail;
             }
-            var result = UserManager.Update(original);
+            var result = await UserManager.UpdateAsync(original);
 
             return new UpdateUserOutput() {Result = result.Succeeded};
         }
@@ -311,17 +311,17 @@ namespace DataModel.Data.ApplicationLayer.Services
             return new ConfirmEmailOutput(){Result = false};
         }
 
-        public VerifyResetCodeOutput VerifyResetCode(VerifyResetCodeInput input)
+        public async Task<VerifyResetCodeOutput> VerifyResetCode(VerifyResetCodeInput input)
         {
-            var user = UserManager.FindByIdAsync(input.UserId);
-            if (user.Result != null)
+            var user = await UserManager.FindByIdAsync(input.UserId);
+            if (user != null)
             {
 
                 var resetCode = HttpUtility.UrlDecode(input.ResetCode);
-                if (user.Result.PasswordResetCode == resetCode)
+                if (user.PasswordResetCode == resetCode)
                 {
-                    user.Result.PasswordResetCode = "resetConfirmed";
-                    var updateResult = _userRepository.UpdateResetCode(user.Result);
+                    user.PasswordResetCode = "resetConfirmed";
+                    var updateResult = _userRepository.UpdateResetCode(user);
                     return new VerifyResetCodeOutput() {Result = updateResult};
                 }
                 return new VerifyResetCodeOutput() { Result = false };

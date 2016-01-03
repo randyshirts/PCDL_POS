@@ -33,9 +33,9 @@ namespace DataModel.Data.ApplicationLayer.Services
 
         Task<LoginWithFormOutput> LoginWithForm(LoginWithFormInput input);
 
-        UpdateUserOutput UpdateUser(UpdateUserInput input);
+        Task<UpdateUserOutput> UpdateUser(UpdateUserInput input);
 
-        VerifyResetCodeOutput VerifyResetCode(VerifyResetCodeInput input);
+        Task<VerifyResetCodeOutput> VerifyResetCode(VerifyResetCodeInput input);
 
         Task<ChangeForgotPasswordOutput> ChangeForgotPassword(ChangeForgotPasswordInput input);
     }

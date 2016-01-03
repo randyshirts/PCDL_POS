@@ -498,7 +498,7 @@ namespace PcdWeb.Controllers
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [ValidateAntiForgeryToken]
         [System.Web.Http.Route("UpdatePerson")]
-        public IHttpActionResult UpdatePerson(UserInfoOutput input)
+        public async Task<IHttpActionResult> UpdatePerson(UserInfoOutput input)
         {
             if (!ModelState.IsValid)
             {
@@ -535,7 +535,7 @@ namespace PcdWeb.Controllers
                 PhoneNumber = input.CellPhoneNumber ?? input.HomePhoneNumber ?? input.AltPhoneNumber
             };
             //Update user info
-            var userResult = _userAppService.UpdateUser(updateInput);
+            var userResult = await _userAppService.UpdateUser(updateInput);
 
             if (!userResult.Result)
                 return Ok("Error updating user");
