@@ -8,18 +8,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PcdWeb.Core", "Web\PcdWeb.Core\PcdWeb.Core.csproj", "{17298EA0-AF73-4F30-B6F1-2066100D7D74}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PcdWeb.WebApi", "Web\PcdWeb.WebApi\PcdWeb.WebApi.csproj", "{5EB52D3D-09FD-463A-B02A-8D9856BD3724}"
-	ProjectSection(ProjectDependencies) = postProject
-		{308C26DC-2F9E-47E9-8A60-9D3FE132D67F} = {308C26DC-2F9E-47E9-8A60-9D3FE132D67F}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PcdWeb.Web", "Web\PcdWeb.Web\PcdWeb.Web.csproj", "{E3DBB7F7-406D-4AE6-AD0A-59BF69DF536F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5EB52D3D-09FD-463A-B02A-8D9856BD3724} = {5EB52D3D-09FD-463A-B02A-8D9856BD3724}
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel.Data", "DataModel\DataModel.Data\DataModel.Data.csproj", "{308C26DC-2F9E-47E9-8A60-9D3FE132D67F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{D30D964B-3A26-445D-80F2-D94BD4C60F3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,26 +53,6 @@ Global
 		{E3DBB7F7-406D-4AE6-AD0A-59BF69DF536F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E3DBB7F7-406D-4AE6-AD0A-59BF69DF536F}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
 		{E3DBB7F7-406D-4AE6-AD0A-59BF69DF536F}.SingleImage|Any CPU.Build.0 = Release|Any CPU
-		{308C26DC-2F9E-47E9-8A60-9D3FE132D67F}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
-		{308C26DC-2F9E-47E9-8A60-9D3FE132D67F}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
-		{308C26DC-2F9E-47E9-8A60-9D3FE132D67F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{308C26DC-2F9E-47E9-8A60-9D3FE132D67F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{308C26DC-2F9E-47E9-8A60-9D3FE132D67F}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
-		{308C26DC-2F9E-47E9-8A60-9D3FE132D67F}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
-		{308C26DC-2F9E-47E9-8A60-9D3FE132D67F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{308C26DC-2F9E-47E9-8A60-9D3FE132D67F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{308C26DC-2F9E-47E9-8A60-9D3FE132D67F}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
-		{308C26DC-2F9E-47E9-8A60-9D3FE132D67F}.SingleImage|Any CPU.Build.0 = Release|Any CPU
-		{D30D964B-3A26-445D-80F2-D94BD4C60F3D}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
-		{D30D964B-3A26-445D-80F2-D94BD4C60F3D}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
-		{D30D964B-3A26-445D-80F2-D94BD4C60F3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D30D964B-3A26-445D-80F2-D94BD4C60F3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D30D964B-3A26-445D-80F2-D94BD4C60F3D}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
-		{D30D964B-3A26-445D-80F2-D94BD4C60F3D}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
-		{D30D964B-3A26-445D-80F2-D94BD4C60F3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D30D964B-3A26-445D-80F2-D94BD4C60F3D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D30D964B-3A26-445D-80F2-D94BD4C60F3D}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
-		{D30D964B-3A26-445D-80F2-D94BD4C60F3D}.SingleImage|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
