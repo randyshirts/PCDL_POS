@@ -156,7 +156,7 @@ namespace PcdWeb.Controllers
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [ValidateAntiForgeryToken]
         [System.Web.Http.Route("ConfirmEmail")]
-        public HttpResponseMessage ConfirmEmail(string userId, string confirmationCode)
+        public async Task<HttpResponseMessage> ConfirmEmail(string userId, string confirmationCode)
         {
             var input = new ConfirmEmailInput { ConfirmationCode = confirmationCode, UserId = userId };
 
@@ -165,7 +165,7 @@ namespace PcdWeb.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            var result = _userAppService.ConfirmEmail(input);
+            var result = await _userAppService.ConfirmEmail(input);
 
             var response = Request.CreateResponse(HttpStatusCode.Moved);
             response.Headers.Location = new Uri("http://www.playcreatediscover.com/#/emailConfirmed");
