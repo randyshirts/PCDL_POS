@@ -91,7 +91,7 @@
       <HintPath>..\..\..\Dependencies\FreeSpire.PDF.3.2\lib\net40\Spire.License.dll</HintPath>
     </Reference>
     <Reference Include="Spire.Pdf">
-      <HintPath>..\..\..\Dependencies\FreeSpire.PDF.3.2\lib\net40\Spire.Pdf.dll</HintPath>
+      <HintPath>..\..\..\Dependencies\FreeSpire.PDF.3.2\lib\net40-client\Spire.Pdf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
