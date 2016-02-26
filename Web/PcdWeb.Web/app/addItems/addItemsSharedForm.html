@@ -81,7 +81,7 @@
             <span ng-show="sharedAddForm.isbn.$error.maxlength">Title may not be longer than 150 characters</span>
         </span>
 
-        <input type="text" class="form-control" placeholder="Listing Price" name="price" data-ng-model="shared.itemInfo.price"
+        <input type="text" class="form-control" placeholder="Listing Price" name="price" data-ng-model="shared.itemInfo.originalPrice"
                ng-currency min="2" required> <!--ng-currency does blur automatically-->
         <span style="color: red" ng-show="sharedAddForm.price.$dirty && sharedAddForm.price.$invalid">
             <span ng-show="sharedAddForm.price.$error.required">Price is required</span>
