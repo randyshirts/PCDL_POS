@@ -15,7 +15,7 @@ app.controller('addItemsSharedController', ['authService', 'itemsService', '$tim
         isbn: "",
         title: "",
         emailaddress: self.currentUser,
-        originalPrice: "",
+        price: "",
         discounted: "isDiscounted",
         subject: "",
         videoFormat: ""
