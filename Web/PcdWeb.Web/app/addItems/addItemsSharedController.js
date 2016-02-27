@@ -57,7 +57,7 @@ app.controller('addItemsSharedController', ['authService', 'itemsService', '$tim
                 var barcodeItem =
                     {
                         subject: self.itemInfo.subject,
-                        price: self.itemInfo.price,
+                        originalPrice: self.itemInfo.price,
                         title: self.itemInfo.title,
                         discounted: self.itemInfo.discounted === "isDiscounted",
                         barcode: results.data.barcode,
