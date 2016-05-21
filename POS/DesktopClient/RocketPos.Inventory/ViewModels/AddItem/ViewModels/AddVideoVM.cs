@@ -57,6 +57,10 @@ namespace Inventory.ViewModels.AddItem.ViewModels
             {
                 VideoImage = propertyValue;
             }
+            if (propertyName == "VideoFormat")
+            {
+                VideoFormat = propertyValue;
+            }
         }
 
         /// <summary>

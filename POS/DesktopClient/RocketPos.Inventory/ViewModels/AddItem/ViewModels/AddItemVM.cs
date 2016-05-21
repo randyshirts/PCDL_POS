@@ -746,9 +746,11 @@ namespace Inventory.ViewModels.AddItem.ViewModels
                             VideoItem.LowestUsedPrice = 0;
                             VideoItem.LowestNewPrice = 0;
                             VideoItem.VideoImage = null;
+                            VideoItem.VideoFormat = null;
                             Messenger.Default.Send(new PropertySetterString("VideoLowestUsedPrice", VideoItem.LowestUsedPrice.ToString(CultureInfo.InvariantCulture)), Token);
                             Messenger.Default.Send(new PropertySetterString("VideoLowestNewPrice", VideoItem.LowestNewPrice.ToString(CultureInfo.InvariantCulture)), Token);
                             Messenger.Default.Send(new PropertySetterString("VideoImage", VideoItem.VideoImage), Token);
+                            Messenger.Default.Send(new PropertySetterString("VideoFormat", VideoItem.VideoFormat), Token);
                             break;
                         }
                         catch (Exception ex)
