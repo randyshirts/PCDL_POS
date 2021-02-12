@@ -24,6 +24,7 @@ bld/
 *.Web.config
 Web.config
 web.config
+App.config
 *.ppk
 GithubPBK
 
