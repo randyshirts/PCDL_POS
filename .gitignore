@@ -22,6 +22,7 @@ bld/
 # Config Files
 *.App.config
 *.Web.config
+App.config
 web.config
 Web.config
 *.ppk
