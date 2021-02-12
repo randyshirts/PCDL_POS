@@ -23,6 +23,9 @@ bld/
 *.App.config
 *.Web.config
 web.config
+Web.config
+*.ppk
+GithubPBK
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
