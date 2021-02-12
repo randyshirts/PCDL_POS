@@ -22,7 +22,9 @@ bld/
 # Config Files
 *.App.config
 *.Web.config
-
+web.config
+*.ppk
+GithubPBK
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
